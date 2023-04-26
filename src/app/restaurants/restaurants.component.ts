@@ -1,7 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { APIService, Restaurant } from '../API.service';
-import { ZenObservable } from 'zen-observable-ts';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {APIService, Restaurant} from '../API.service';
+import {ZenObservable} from 'zen-observable-ts';
+import {Storage} from "aws-amplify";
+import {Progress} from "../model/progress";
 
 @Component({
   selector: 'app-restaurants',
@@ -14,6 +16,10 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
   /* declare restaurants variable */
   public restaurants: Array<Restaurant> = [];
 
+  public fileName?: string;
+  public files?: File[];
+  public progressBars: Progress[];
+
   private subscription: ZenObservable.Subscription | null = null;
 
   constructor(private api: APIService, private fb: FormBuilder) {
@@ -22,6 +28,7 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
       description: ['', Validators.required],
       city: ['', Validators.required]
     });
+    this.progressBars = [];
   }
 
   async ngOnInit() {
@@ -57,4 +64,42 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
         console.log('error creating restaurant...', e);
       });
   }
+
+  public onFileSelected(e: any) {
+    console.log("Storing " + e?.target?.files.length);
+    this.files = e?.target?.files;
+    this.onUpload();
+  }
+
+  public onUpload() {
+    try {
+      if (this.files) {
+        for (let i = 0; i < this.files.length; i++) {
+          console.log("Uploading " + this.files[i].name);
+          const progressBar = new Progress();
+          progressBar.fileName = this.files[i].name;
+          this.progressBars?.push(progressBar);
+          Storage.put(this.files[i].name, this.files[i], {
+            level: "public",
+            progressCallback(progress) {
+              progressBar.loaded = progress.loaded;
+              progressBar.total = progress.total;
+              console.log(` Uploaded: ${progress.loaded}/${progress.total}`);
+            }
+          });
+        }
+      }
+    } catch (error) {
+      console.log("Error uploading file: ", error);
+    }
+
+  }
+
+  public calcPercentage(progress: Progress) {
+    if (progress.loaded && progress.total) {
+      return Math.round((progress.loaded / progress.total) * 100);
+    }
+    return 0;
+  }
+
 }

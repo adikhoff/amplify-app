@@ -25,3 +25,19 @@
   <div>{{ restaurant?.name }}</div>
   <div>{{ restaurant?.description }}</div>
 </div>
+<input type="file" class="file-input"
+       (change)="onFileSelected($event)" #fileUpload style="display: none" multiple accept="image/*">
+
+<div class="file-upload">
+
+  {{this.files || "No file uploaded yet."}}
+
+  <button class="upload-btn"
+          (click)="fileUpload.click()">
+    attach_file
+  </button>
+</div>
+
+<ul *ngFor="let progressBar of progressBars">
+  <li>{{progressBar.fileName}}: {{calcPercentage(progressBar)}}%</li>
+</ul>
