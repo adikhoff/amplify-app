@@ -183,10 +183,24 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
   }
 
   public onDelete(photo: Photo) {
-    const dfi: DeletePhotoInput = {
-      id: photo.id
+    const confirmed = confirm("Weet je zeker dat je de foto wil verwijderen?");
+    if (confirmed) {
+      this.api.ListLikes({photoId: {eq: photo.id}}).then((likes) => {
+        for (let i = 0; i < likes.items.length; i++) {
+          const item = likes.items[i];
+          if (item?.id) {
+            const dli: DeleteLikeInput = {
+              id: item.id
+            }
+            this.api.DeleteLike(dli);
+          }
+        }
+        const dfi: DeletePhotoInput = {
+          id: photo.id
+        }
+        this.api.DeletePhoto(dfi);
+      });
     }
-    this.api.DeletePhoto(dfi);
   }
 
   public isLikedByCurrent(photoUrl: PhotoUrl): boolean {
