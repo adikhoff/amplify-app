@@ -20,4 +20,5 @@
 <div *ngFor="let photoUrl of this.photos">
   <img src="{{photoUrl.url}}" width="100%"/>
   {{photoUrl.photo.user}}
+  <button *ngIf="photoUrl.photo.user === this.userName" (click)="this.onDelete(photoUrl.photo)">Verwijder</button>
 </div>

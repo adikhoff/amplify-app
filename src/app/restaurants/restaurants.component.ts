@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {APIService, CreatePhotoInput, Photo, Restaurant} from '../API.service';
+import {APIService, CreatePhotoInput, DeletePhotoInput, Photo, Restaurant} from '../API.service';
 import {ZenObservable} from 'zen-observable-ts';
 import {Auth, Storage} from "aws-amplify";
 import {Progress} from "../model/progress";
@@ -23,7 +23,8 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
   public userName?: string;
 
   private restaurantSubscription: ZenObservable.Subscription | null = null;
-  private photoSubscription: ZenObservable.Subscription | null = null;
+  private photoCreateSubscription: ZenObservable.Subscription | null = null;
+  private photoDeleteSubscription: ZenObservable.Subscription | null = null;
 
   constructor(private api: APIService, private fb: FormBuilder) {
     this.createForm = this.fb.group({
@@ -62,8 +63,10 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.photoSubscription = this.api.OnCreatePhotoListener().subscribe(
+    this.photoCreateSubscription = this.api.OnCreatePhotoListener().subscribe(
       (event: any) => {
+        console.log("Subscription event");
+        console.log(event);
         const newPhoto = event.value.data.onCreatePhoto;
         this.getPhotoUrl(newPhoto).then((url) => {
           const pu: PhotoUrl = {
@@ -74,17 +77,27 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
         })
       }
     );
+
+    this.photoDeleteSubscription = this.api.OnDeletePhotoListener().subscribe(
+      (event: any) => {
+        console.log("Subscription DELETE event");
+        console.log(event);
+        const removedPhoto = event.value.data.onDeletePhoto;
+        this.photos = this.photos.filter((ph) => ph.photo.id !== removedPhoto.id);
+      }
+    );
+
   }
 
   ngOnDestroy() {
     if (this.restaurantSubscription) {
       this.restaurantSubscription.unsubscribe();
     }
-    if (this.photoSubscription) {
-      this.photoSubscription.unsubscribe();
+    if (this.photoCreateSubscription) {
+      this.photoCreateSubscription.unsubscribe();
     }
     this.restaurantSubscription = null;
-    this.photoSubscription = null;
+    this.photoCreateSubscription = null;
   }
 
   public onCreate(restaurant: Restaurant) {
@@ -140,11 +153,14 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
 
   }
 
-  // public fetchImages() {
-  //   Storage.list('', { level: 'public' })
-  //     .then(({ results }) => console.log(results))
-  //     .catch((err) => console.log(err));
-  // }
+  public onDelete(photo: Photo) {
+    console.log("onDelete");
+    console.log(photo);
+    const dfi: DeletePhotoInput = {
+      id: photo.id
+    }
+    this.api.DeletePhoto(dfi);
+  }
 
   public calcPercentage(progress: Progress) {
     if (progress.loaded && progress.total) {
