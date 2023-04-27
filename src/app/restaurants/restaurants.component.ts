@@ -56,7 +56,7 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
       for (let i = 0; i < photos.length; i++) {
         const photo = photos[i];
         this.getPhotoUrl(photo).then((url) => {
-          this.api.ListLikes({ photoId: { eq: photo.id } }).then((likes) => {
+          this.api.ListLikes({photoId: {eq: photo.id}}).then((likes) => {
             let pu: PhotoUrl = {
               photo: photo as Photo,
               url: url,
@@ -80,7 +80,7 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
       (event: any) => {
         const newPhoto = event.value.data.onCreatePhoto;
         this.getPhotoUrl(newPhoto).then((url) => {
-          this.api.ListLikes({ photoId: { eq: newPhoto.id } }).then((likes) => {
+          this.api.ListLikes({photoId: {eq: newPhoto.id}}).then((likes) => {
             const pu: PhotoUrl = {
               photo: newPhoto,
               url: url,
@@ -198,17 +198,22 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
 
   public onLike(photo: Photo) {
     if (this.userName) {
-      const cli: CreateLikeInput = {
-        user: this.userName,
-        photoId: photo.id
-      }
-      this.api.CreateLike(cli);
+      const userName = this.userName;
+      this.api.ListLikes({user: {eq: userName}, photoId: {eq: photo.id}}).then((like) => {
+        if (like.items.length === 0) {
+          const cli: CreateLikeInput = {
+            user: userName,
+            photoId: photo.id
+          }
+          this.api.CreateLike(cli);
+        }
+      });
     }
   }
 
   public onUnLike(photo: Photo) {
     if (this.userName) {
-      this.api.ListLikes({ user: { eq: this.userName }, photoId: { eq: photo.id } }).then((like) => {
+      this.api.ListLikes({user: {eq: this.userName}, photoId: {eq: photo.id}}).then((like) => {
         if (like.items[0]) {
           const dli: DeleteLikeInput = {
             id: like.items[0].id
@@ -225,7 +230,6 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
     }
     return 0;
   }
-
 }
 
 type PhotoUrl = {
