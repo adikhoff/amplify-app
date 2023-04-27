@@ -20,5 +20,8 @@
 <div *ngFor="let photoUrl of this.photos">
   <img src="{{photoUrl.url}}" width="100%"/>
   {{photoUrl.photo.user}}
+  <button *ngIf="!this.isLikedByCurrent(photoUrl)" (click)="onLike(photoUrl.photo)">Vind ik leuk</button>
+  <button *ngIf="this.isLikedByCurrent(photoUrl)" (click)="onUnLike(photoUrl.photo)">Niet meer leuk vinden</button>
+  {{photoUrl.likes.length}} keer leuk gevonden
   <button *ngIf="photoUrl.photo.user === this.userName" (click)="this.onDelete(photoUrl.photo)">Verwijder</button>
 </div>

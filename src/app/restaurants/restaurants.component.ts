@@ -1,6 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {APIService, CreatePhotoInput, DeletePhotoInput, Photo, Restaurant} from '../API.service';
+import {
+  APIService,
+  CreateLikeInput,
+  CreatePhotoInput,
+  DeleteLikeInput,
+  DeletePhotoInput,
+  Photo,
+  Restaurant
+} from '../API.service';
 import {ZenObservable} from 'zen-observable-ts';
 import {Auth, Storage} from "aws-amplify";
 import {Progress} from "../model/progress";
@@ -25,6 +33,8 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
   private restaurantSubscription: ZenObservable.Subscription | null = null;
   private photoCreateSubscription: ZenObservable.Subscription | null = null;
   private photoDeleteSubscription: ZenObservable.Subscription | null = null;
+  private likeCreateSubscription: ZenObservable.Subscription | null = null;
+  private likeDeleteSubscription: ZenObservable.Subscription | null = null;
 
   constructor(private api: APIService, private fb: FormBuilder) {
     this.createForm = this.fb.group({
@@ -46,11 +56,14 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
       for (let i = 0; i < photos.length; i++) {
         const photo = photos[i];
         this.getPhotoUrl(photo).then((url) => {
-          let pu: PhotoUrl = {
-            photo: photo as Photo,
-            url: url
-          }
-          this.photos.push(pu);
+          this.api.ListLikes({ photoId: { eq: photo.id } }).then((likes) => {
+            let pu: PhotoUrl = {
+              photo: photo as Photo,
+              url: url,
+              likes: likes.items.map((item) => item?.user)
+            }
+            this.photos.push(pu);
+          })
         });
       }
     })
@@ -65,28 +78,44 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
 
     this.photoCreateSubscription = this.api.OnCreatePhotoListener().subscribe(
       (event: any) => {
-        console.log("Subscription event");
-        console.log(event);
         const newPhoto = event.value.data.onCreatePhoto;
         this.getPhotoUrl(newPhoto).then((url) => {
-          const pu: PhotoUrl = {
-            photo: newPhoto,
-            url: url
-          }
-          this.photos = [pu, ...this.photos];
-        })
+          this.api.ListLikes({ photoId: { eq: newPhoto.id } }).then((likes) => {
+            const pu: PhotoUrl = {
+              photo: newPhoto,
+              url: url,
+              likes: likes.items.map((item) => item?.user)
+            }
+            this.photos = [pu, ...this.photos];
+          });
+        });
       }
     );
 
     this.photoDeleteSubscription = this.api.OnDeletePhotoListener().subscribe(
       (event: any) => {
-        console.log("Subscription DELETE event");
-        console.log(event);
         const removedPhoto = event.value.data.onDeletePhoto;
         this.photos = this.photos.filter((ph) => ph.photo.id !== removedPhoto.id);
       }
     );
 
+    this.likeCreateSubscription = this.api.OnCreateLikeListener().subscribe(
+      (event: any) => {
+        const newLike = event.value.data.onCreateLike;
+        const photoUrl: PhotoUrl = this.photos.filter((ph) => ph.photo.id === newLike.photoId)[0];
+        photoUrl.likes.push(newLike.user);
+      }
+    )
+
+    this.likeDeleteSubscription = this.api.OnDeleteLikeListener().subscribe(
+      (event: any) => {
+        console.log("Delete event");
+        console.log(event);
+        const removedLike = event.value.data.onDeleteLike;
+        const photoUrl: PhotoUrl = this.photos.filter((ph) => ph.photo.id === removedLike.photoId)[0];
+        photoUrl.likes = photoUrl.likes.filter((pu) => pu !== removedLike.user);
+      }
+    )
   }
 
   ngOnDestroy() {
@@ -154,12 +183,40 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
   }
 
   public onDelete(photo: Photo) {
-    console.log("onDelete");
-    console.log(photo);
     const dfi: DeletePhotoInput = {
       id: photo.id
     }
     this.api.DeletePhoto(dfi);
+  }
+
+  public isLikedByCurrent(photoUrl: PhotoUrl): boolean {
+    if (this.userName) {
+      return photoUrl.likes.filter((un) => un === this.userName).length != 0
+    }
+    return false;
+  }
+
+  public onLike(photo: Photo) {
+    if (this.userName) {
+      const cli: CreateLikeInput = {
+        user: this.userName,
+        photoId: photo.id
+      }
+      this.api.CreateLike(cli);
+    }
+  }
+
+  public onUnLike(photo: Photo) {
+    if (this.userName) {
+      this.api.ListLikes({ user: { eq: this.userName }, photoId: { eq: photo.id } }).then((like) => {
+        if (like.items[0]) {
+          const dli: DeleteLikeInput = {
+            id: like.items[0].id
+          }
+          this.api.DeleteLike(dli);
+        }
+      })
+    }
   }
 
   public calcPercentage(progress: Progress) {
@@ -174,4 +231,5 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
 type PhotoUrl = {
   photo: Photo
   url: string
+  likes: (string | undefined)[]
 }

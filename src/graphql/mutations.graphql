@@ -81,13 +81,7 @@ mutation CreateLike(
   createLike(input: $input, condition: $condition) {
     id
     user
-    photo {
-      id
-      user
-      image
-      createdAt
-      updatedAt
-    }
+    photoId
     createdAt
     updatedAt
   }
@@ -99,13 +93,7 @@ mutation UpdateLike(
   updateLike(input: $input, condition: $condition) {
     id
     user
-    photo {
-      id
-      user
-      image
-      createdAt
-      updatedAt
-    }
+    photoId
     createdAt
     updatedAt
   }
@@ -117,13 +105,7 @@ mutation DeleteLike(
   deleteLike(input: $input, condition: $condition) {
     id
     user
-    photo {
-      id
-      user
-      image
-      createdAt
-      updatedAt
-    }
+    photoId
     createdAt
     updatedAt
   }

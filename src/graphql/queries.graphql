@@ -55,13 +55,7 @@ query GetLike($id: ID!) {
   getLike(id: $id) {
     id
     user
-    photo {
-      id
-      user
-      image
-      createdAt
-      updatedAt
-    }
+    photoId
     createdAt
     updatedAt
   }
@@ -75,13 +69,7 @@ query ListLikes(
     items {
       id
       user
-      photo {
-        id
-        user
-        image
-        createdAt
-        updatedAt
-      }
+      photoId
       createdAt
       updatedAt
     }

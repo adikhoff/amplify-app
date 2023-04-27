@@ -133,10 +133,12 @@ export type DeletePhotoInput = {
 export type CreateLikeInput = {
   id?: string | null;
   user: string;
+  photoId: string;
 };
 
 export type ModelLikeConditionInput = {
   user?: ModelStringInput | null;
+  photoId?: ModelStringInput | null;
   and?: Array<ModelLikeConditionInput | null> | null;
   or?: Array<ModelLikeConditionInput | null> | null;
   not?: ModelLikeConditionInput | null;
@@ -146,7 +148,7 @@ export type Like = {
   __typename: "Like";
   id: string;
   user: string;
-  photo: Photo;
+  photoId: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -154,6 +156,7 @@ export type Like = {
 export type UpdateLikeInput = {
   id: string;
   user?: string | null;
+  photoId?: string | null;
 };
 
 export type DeleteLikeInput = {
@@ -210,6 +213,7 @@ export type ModelPhotoConnection = {
 export type ModelLikeFilterInput = {
   id?: ModelIDInput | null;
   user?: ModelStringInput | null;
+  photoId?: ModelStringInput | null;
   and?: Array<ModelLikeFilterInput | null> | null;
   or?: Array<ModelLikeFilterInput | null> | null;
   not?: ModelLikeFilterInput | null;
@@ -271,6 +275,7 @@ export type ModelSubscriptionPhotoFilterInput = {
 export type ModelSubscriptionLikeFilterInput = {
   id?: ModelSubscriptionIDInput | null;
   user?: ModelSubscriptionStringInput | null;
+  photoId?: ModelSubscriptionStringInput | null;
   and?: Array<ModelSubscriptionLikeFilterInput | null> | null;
   or?: Array<ModelSubscriptionLikeFilterInput | null> | null;
 };
@@ -336,14 +341,7 @@ export type CreateLikeMutation = {
   __typename: "Like";
   id: string;
   user: string;
-  photo: {
-    __typename: "Photo";
-    id: string;
-    user: string;
-    image: string;
-    createdAt: string;
-    updatedAt: string;
-  };
+  photoId: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -352,14 +350,7 @@ export type UpdateLikeMutation = {
   __typename: "Like";
   id: string;
   user: string;
-  photo: {
-    __typename: "Photo";
-    id: string;
-    user: string;
-    image: string;
-    createdAt: string;
-    updatedAt: string;
-  };
+  photoId: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -368,14 +359,7 @@ export type DeleteLikeMutation = {
   __typename: "Like";
   id: string;
   user: string;
-  photo: {
-    __typename: "Photo";
-    id: string;
-    user: string;
-    image: string;
-    createdAt: string;
-    updatedAt: string;
-  };
+  photoId: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -430,14 +414,7 @@ export type GetLikeQuery = {
   __typename: "Like";
   id: string;
   user: string;
-  photo: {
-    __typename: "Photo";
-    id: string;
-    user: string;
-    image: string;
-    createdAt: string;
-    updatedAt: string;
-  };
+  photoId: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -448,14 +425,7 @@ export type ListLikesQuery = {
     __typename: "Like";
     id: string;
     user: string;
-    photo: {
-      __typename: "Photo";
-      id: string;
-      user: string;
-      image: string;
-      createdAt: string;
-      updatedAt: string;
-    };
+    photoId: string;
     createdAt: string;
     updatedAt: string;
   } | null>;
@@ -523,14 +493,7 @@ export type OnCreateLikeSubscription = {
   __typename: "Like";
   id: string;
   user: string;
-  photo: {
-    __typename: "Photo";
-    id: string;
-    user: string;
-    image: string;
-    createdAt: string;
-    updatedAt: string;
-  };
+  photoId: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -539,14 +502,7 @@ export type OnUpdateLikeSubscription = {
   __typename: "Like";
   id: string;
   user: string;
-  photo: {
-    __typename: "Photo";
-    id: string;
-    user: string;
-    image: string;
-    createdAt: string;
-    updatedAt: string;
-  };
+  photoId: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -555,14 +511,7 @@ export type OnDeleteLikeSubscription = {
   __typename: "Like";
   id: string;
   user: string;
-  photo: {
-    __typename: "Photo";
-    id: string;
-    user: string;
-    image: string;
-    createdAt: string;
-    updatedAt: string;
-  };
+  photoId: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -733,14 +682,7 @@ export class APIService {
           __typename
           id
           user
-          photo {
-            __typename
-            id
-            user
-            image
-            createdAt
-            updatedAt
-          }
+          photoId
           createdAt
           updatedAt
         }
@@ -765,14 +707,7 @@ export class APIService {
           __typename
           id
           user
-          photo {
-            __typename
-            id
-            user
-            image
-            createdAt
-            updatedAt
-          }
+          photoId
           createdAt
           updatedAt
         }
@@ -797,14 +732,7 @@ export class APIService {
           __typename
           id
           user
-          photo {
-            __typename
-            id
-            user
-            image
-            createdAt
-            updatedAt
-          }
+          photoId
           createdAt
           updatedAt
         }
@@ -934,14 +862,7 @@ export class APIService {
           __typename
           id
           user
-          photo {
-            __typename
-            id
-            user
-            image
-            createdAt
-            updatedAt
-          }
+          photoId
           createdAt
           updatedAt
         }
@@ -966,14 +887,7 @@ export class APIService {
             __typename
             id
             user
-            photo {
-              __typename
-              id
-              user
-              image
-              createdAt
-              updatedAt
-            }
+            photoId
             createdAt
             updatedAt
           }
@@ -1164,14 +1078,7 @@ export class APIService {
           __typename
           id
           user
-          photo {
-            __typename
-            id
-            user
-            image
-            createdAt
-            updatedAt
-          }
+          photoId
           createdAt
           updatedAt
         }
@@ -1197,14 +1104,7 @@ export class APIService {
           __typename
           id
           user
-          photo {
-            __typename
-            id
-            user
-            image
-            createdAt
-            updatedAt
-          }
+          photoId
           createdAt
           updatedAt
         }
@@ -1230,14 +1130,7 @@ export class APIService {
           __typename
           id
           user
-          photo {
-            __typename
-            id
-            user
-            image
-            createdAt
-            updatedAt
-          }
+          photoId
           createdAt
           updatedAt
         }

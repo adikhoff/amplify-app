@@ -66,13 +66,7 @@ subscription OnCreateLike($filter: ModelSubscriptionLikeFilterInput) {
   onCreateLike(filter: $filter) {
     id
     user
-    photo {
-      id
-      user
-      image
-      createdAt
-      updatedAt
-    }
+    photoId
     createdAt
     updatedAt
   }
@@ -81,13 +75,7 @@ subscription OnUpdateLike($filter: ModelSubscriptionLikeFilterInput) {
   onUpdateLike(filter: $filter) {
     id
     user
-    photo {
-      id
-      user
-      image
-      createdAt
-      updatedAt
-    }
+    photoId
     createdAt
     updatedAt
   }
@@ -96,13 +84,7 @@ subscription OnDeleteLike($filter: ModelSubscriptionLikeFilterInput) {
   onDeleteLike(filter: $filter) {
     id
     user
-    photo {
-      id
-      user
-      image
-      createdAt
-      updatedAt
-    }
+    photoId
     createdAt
     updatedAt
   }
