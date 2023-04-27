@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {APIService, CreatePhotoInput, Photo, Restaurant} from '../API.service';
 import {ZenObservable} from 'zen-observable-ts';
-import {Storage, Auth} from "aws-amplify";
+import {Auth, Storage} from "aws-amplify";
 import {Progress} from "../model/progress";
 
 @Component({
@@ -49,7 +49,6 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
             photo: photo as Photo,
             url: url
           }
-          console.log(pu);
           this.photos.push(pu);
         });
       }
@@ -65,13 +64,12 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
 
     this.photoSubscription = this.api.OnCreatePhotoListener().subscribe(
       (event: any) => {
-        const newPhoto = event.value.data.onCreatePost;
+        const newPhoto = event.value.data.onCreatePhoto;
         this.getPhotoUrl(newPhoto).then((url) => {
           const pu: PhotoUrl = {
             photo: newPhoto,
             url: url
           }
-          console.log(pu);
           this.photos = [pu, ...this.photos];
         })
       }
@@ -93,7 +91,6 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
     this.api
       .CreateRestaurant(restaurant)
       .then((event) => {
-        console.log('item created!');
         this.createForm.reset();
       })
       .catch((e) => {
@@ -102,16 +99,12 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
   }
 
   public onFileSelected(e: any) {
-    console.log("Storing " + e?.target?.files.length);
     this.files = e?.target?.files;
     this.onUpload();
   }
 
   public async getPhotoUrl(photo: Photo): Promise<string> {
-    console.log("Fetching for " + photo.image);
-    const url = Storage.get(photo.image, { download: false });
-    console.log(url);
-    return url;
+    return Storage.get(photo.image, {download: false});
   }
 
   public onUpload() {
@@ -119,7 +112,6 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
       if (this.files && this.userName) {
         for (let i = 0; i < this.files.length; i++) {
           const fileName = this.userName + "-" + this.files[i].name;
-          console.log("Uploading " + fileName);
           const progressBar = new Progress();
           progressBar.fileName = fileName;
           this.progressBars?.push(progressBar);
