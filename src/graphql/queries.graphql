@@ -26,3 +26,65 @@ query ListRestaurants(
     nextToken
   }
 }
+query GetPhoto($id: ID!) {
+  getPhoto(id: $id) {
+    id
+    user
+    image
+    createdAt
+    updatedAt
+  }
+}
+query ListPhotos(
+  $filter: ModelPhotoFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listPhotos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      user
+      image
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetLike($id: ID!) {
+  getLike(id: $id) {
+    id
+    user
+    photo {
+      id
+      user
+      image
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListLikes(
+  $filter: ModelLikeFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listLikes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      user
+      photo {
+        id
+        user
+        image
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}

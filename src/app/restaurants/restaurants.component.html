@@ -1,43 +1,21 @@
-<div class="form-body">
-  <form
-    autocomplete="off"
-    [formGroup]="createForm"
-    (ngSubmit)="onCreate(createForm.value)"
-  >
-    <div>
-      <label>Name: </label>
-      <input type="text" formControlName="name" autocomplete="off" />
-    </div>
-    <div>
-      <label>Description: </label>
-      <input type="text" formControlName="description" autocomplete="off" />
-    </div>
-    <div>
-      <label>City: </label>
-      <input type="text" formControlName="city" autocomplete="off" />
-    </div>
-    <button type="submit">Submit</button>
-  </form>
-</div>
+Hello, {{this.userName}}
 
-<div *ngFor="let restaurant of restaurants">
-  <div>{{ restaurant?.city }}</div>
-  <div>{{ restaurant?.name }}</div>
-  <div>{{ restaurant?.description }}</div>
-</div>
 <input type="file" class="file-input"
        (change)="onFileSelected($event)" #fileUpload style="display: none" multiple accept="image/*">
 
 <div class="file-upload">
 
-  {{this.files || "No file uploaded yet."}}
-
-  <button class="upload-btn"
-          (click)="fileUpload.click()">
-    attach_file
+  <button class="upload-btn" (click)="fileUpload.click()">
+    Foto's uploaden
   </button>
 </div>
 
 <ul *ngFor="let progressBar of progressBars">
-  <li>{{progressBar.fileName}}: {{calcPercentage(progressBar)}}%</li>
+  <li><label for="file">{{progressBar.fileName}}:</label>
+    <progress id="file" value="{{calcPercentage(progressBar)}}" max="100"> {{calcPercentage(progressBar)}}% </progress></li>
 </ul>
+
+<div *ngFor="let photoUrl of this.photos">
+  <img src="{{photoUrl.url}}" width="100%"/>
+  {{photoUrl.photo.user}}
+</div>

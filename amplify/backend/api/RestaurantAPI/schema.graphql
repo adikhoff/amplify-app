@@ -4,3 +4,15 @@ type Restaurant @model @auth(rules: [{ allow: public }]) {
   description: String!
   city: String!
 }
+
+type Photo @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  user: String!
+  image: String!
+}
+
+type Like @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  user: String!
+  photo: Photo!
+}

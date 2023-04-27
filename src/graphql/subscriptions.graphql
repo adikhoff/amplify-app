@@ -35,3 +35,75 @@ subscription OnDeleteRestaurant(
     updatedAt
   }
 }
+subscription OnCreatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
+  onCreatePhoto(filter: $filter) {
+    id
+    user
+    image
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
+  onUpdatePhoto(filter: $filter) {
+    id
+    user
+    image
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeletePhoto($filter: ModelSubscriptionPhotoFilterInput) {
+  onDeletePhoto(filter: $filter) {
+    id
+    user
+    image
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateLike($filter: ModelSubscriptionLikeFilterInput) {
+  onCreateLike(filter: $filter) {
+    id
+    user
+    photo {
+      id
+      user
+      image
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateLike($filter: ModelSubscriptionLikeFilterInput) {
+  onUpdateLike(filter: $filter) {
+    id
+    user
+    photo {
+      id
+      user
+      image
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteLike($filter: ModelSubscriptionLikeFilterInput) {
+  onDeleteLike(filter: $filter) {
+    id
+    user
+    photo {
+      id
+      user
+      image
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}

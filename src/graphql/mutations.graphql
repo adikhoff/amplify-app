@@ -38,3 +38,93 @@ mutation DeleteRestaurant(
     updatedAt
   }
 }
+mutation CreatePhoto(
+  $input: CreatePhotoInput!
+  $condition: ModelPhotoConditionInput
+) {
+  createPhoto(input: $input, condition: $condition) {
+    id
+    user
+    image
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdatePhoto(
+  $input: UpdatePhotoInput!
+  $condition: ModelPhotoConditionInput
+) {
+  updatePhoto(input: $input, condition: $condition) {
+    id
+    user
+    image
+    createdAt
+    updatedAt
+  }
+}
+mutation DeletePhoto(
+  $input: DeletePhotoInput!
+  $condition: ModelPhotoConditionInput
+) {
+  deletePhoto(input: $input, condition: $condition) {
+    id
+    user
+    image
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateLike(
+  $input: CreateLikeInput!
+  $condition: ModelLikeConditionInput
+) {
+  createLike(input: $input, condition: $condition) {
+    id
+    user
+    photo {
+      id
+      user
+      image
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateLike(
+  $input: UpdateLikeInput!
+  $condition: ModelLikeConditionInput
+) {
+  updateLike(input: $input, condition: $condition) {
+    id
+    user
+    photo {
+      id
+      user
+      image
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteLike(
+  $input: DeleteLikeInput!
+  $condition: ModelLikeConditionInput
+) {
+  deleteLike(input: $input, condition: $condition) {
+    id
+    user
+    photo {
+      id
+      user
+      image
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}

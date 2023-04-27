@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {APIService, Restaurant} from '../API.service';
+import {APIService, CreatePhotoInput, Photo, Restaurant} from '../API.service';
 import {ZenObservable} from 'zen-observable-ts';
-import {Storage} from "aws-amplify";
+import {Storage, Auth} from "aws-amplify";
 import {Progress} from "../model/progress";
 
 @Component({
@@ -15,12 +15,15 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
 
   /* declare restaurants variable */
   public restaurants: Array<Restaurant> = [];
+  public photos: Array<PhotoUrl> = [];
 
   public fileName?: string;
   public files?: File[];
-  public progressBars: Progress[];
+  public progressBars: Array<Progress> = [];
+  public userName?: string;
 
-  private subscription: ZenObservable.Subscription | null = null;
+  private restaurantSubscription: ZenObservable.Subscription | null = null;
+  private photoSubscription: ZenObservable.Subscription | null = null;
 
   constructor(private api: APIService, private fb: FormBuilder) {
     this.createForm = this.fb.group({
@@ -28,7 +31,7 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
       description: ['', Validators.required],
       city: ['', Validators.required]
     });
-    this.progressBars = [];
+    Auth.currentSession().then((ses) => this.userName = ses.getAccessToken().payload["username"]);
   }
 
   async ngOnInit() {
@@ -37,20 +40,53 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
       this.restaurants = event.items as Restaurant[];
     });
 
+    this.api.ListPhotos().then((event) => {
+      const photos = event.items as Photo[];
+      for (let i = 0; i < photos.length; i++) {
+        const photo = photos[i];
+        this.getPhotoUrl(photo).then((url) => {
+          let pu: PhotoUrl = {
+            photo: photo as Photo,
+            url: url
+          }
+          console.log(pu);
+          this.photos.push(pu);
+        });
+      }
+    })
+
     /* subscribe to new restaurants being created */
-    this.subscription = this.api.OnCreateRestaurantListener().subscribe(
+    this.restaurantSubscription = this.api.OnCreateRestaurantListener().subscribe(
       (event: any) => {
         const newRestaurant = event.value.data.onCreateRestaurant;
         this.restaurants = [newRestaurant, ...this.restaurants];
       }
     );
+
+    this.photoSubscription = this.api.OnCreatePhotoListener().subscribe(
+      (event: any) => {
+        const newPhoto = event.value.data.onCreatePost;
+        this.getPhotoUrl(newPhoto).then((url) => {
+          const pu: PhotoUrl = {
+            photo: newPhoto,
+            url: url
+          }
+          console.log(pu);
+          this.photos = [pu, ...this.photos];
+        })
+      }
+    );
   }
 
   ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
+    if (this.restaurantSubscription) {
+      this.restaurantSubscription.unsubscribe();
     }
-    this.subscription = null;
+    if (this.photoSubscription) {
+      this.photoSubscription.unsubscribe();
+    }
+    this.restaurantSubscription = null;
+    this.photoSubscription = null;
   }
 
   public onCreate(restaurant: Restaurant) {
@@ -71,22 +107,39 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
     this.onUpload();
   }
 
+  public async getPhotoUrl(photo: Photo): Promise<string> {
+    console.log("Fetching for " + photo.image);
+    const url = Storage.get(photo.image, { download: false });
+    console.log(url);
+    return url;
+  }
+
   public onUpload() {
     try {
-      if (this.files) {
+      if (this.files && this.userName) {
         for (let i = 0; i < this.files.length; i++) {
-          console.log("Uploading " + this.files[i].name);
+          const fileName = this.userName + "-" + this.files[i].name;
+          console.log("Uploading " + fileName);
           const progressBar = new Progress();
-          progressBar.fileName = this.files[i].name;
+          progressBar.fileName = fileName;
           this.progressBars?.push(progressBar);
-          Storage.put(this.files[i].name, this.files[i], {
+          Storage.put(fileName, this.files[i], {
             level: "public",
             progressCallback(progress) {
               progressBar.loaded = progress.loaded;
               progressBar.total = progress.total;
               console.log(` Uploaded: ${progress.loaded}/${progress.total}`);
             }
-          });
+          }).then(() => {
+            this.progressBars = this.progressBars.filter((el) => el.loaded !== el.total);
+
+            let post: CreatePhotoInput = {
+              user: `${this.userName}`,
+              image: fileName
+            };
+
+            this.api.CreatePhoto(post);
+          })
         }
       }
     } catch (error) {
@@ -95,6 +148,12 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
 
   }
 
+  // public fetchImages() {
+  //   Storage.list('', { level: 'public' })
+  //     .then(({ results }) => console.log(results))
+  //     .catch((err) => console.log(err));
+  // }
+
   public calcPercentage(progress: Progress) {
     if (progress.loaded && progress.total) {
       return Math.round((progress.loaded / progress.total) * 100);
@@ -102,4 +161,9 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
     return 0;
   }
 
+}
+
+type PhotoUrl = {
+  photo: Photo
+  url: string
 }
