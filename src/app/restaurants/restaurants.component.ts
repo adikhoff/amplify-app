@@ -199,6 +199,7 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
           id: photo.id
         }
         this.api.DeletePhoto(dfi);
+        Storage.remove(photo.image);
       });
     }
   }
