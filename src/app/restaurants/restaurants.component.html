@@ -2,6 +2,8 @@
 
 <p>Ingelogd als {{this.userName}}</p>
 
+<button (click)="this.fetchPhotos()">Refresh</button>
+
 <input type="file" class="file-input"
        (change)="onFileSelected($event)" #fileUpload style="display: none" multiple accept="image/*">
 

@@ -6,8 +6,7 @@ import {
   CreatePhotoInput,
   DeleteLikeInput,
   DeletePhotoInput,
-  Photo,
-  Restaurant
+  Photo
 } from '../API.service';
 import {ZenObservable} from 'zen-observable-ts';
 import {Auth, Storage} from "aws-amplify";
@@ -21,8 +20,6 @@ import {Progress} from "../model/progress";
 export class RestaurantsComponent implements OnInit, OnDestroy {
   public createForm: FormGroup;
 
-  /* declare restaurants variable */
-  public restaurants: Array<Restaurant> = [];
   public photos: Array<PhotoUrl> = [];
 
   public fileName?: string;
@@ -30,7 +27,6 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
   public progressBars: Array<Progress> = [];
   public userName?: string;
 
-  private restaurantSubscription: ZenObservable.Subscription | null = null;
   private photoCreateSubscription: ZenObservable.Subscription | null = null;
   private photoDeleteSubscription: ZenObservable.Subscription | null = null;
   private likeCreateSubscription: ZenObservable.Subscription | null = null;
@@ -46,35 +42,7 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
-    /* fetch restaurants when app loads */
-    this.api.ListRestaurants().then((event) => {
-      this.restaurants = event.items as Restaurant[];
-    });
-
-    this.api.ListPhotos().then((event) => {
-      const photos = event.items as Photo[];
-      for (let i = 0; i < photos.length; i++) {
-        const photo = photos[i];
-        this.getPhotoUrl(photo).then((url) => {
-          this.api.ListLikes({photoId: {eq: photo.id}}).then((likes) => {
-            let pu: PhotoUrl = {
-              photo: photo as Photo,
-              url: url,
-              likes: likes.items.map((item) => item?.user)
-            }
-            this.photos.push(pu);
-          })
-        });
-      }
-    })
-
-    /* subscribe to new restaurants being created */
-    this.restaurantSubscription = this.api.OnCreateRestaurantListener().subscribe(
-      (event: any) => {
-        const newRestaurant = event.value.data.onCreateRestaurant;
-        this.restaurants = [newRestaurant, ...this.restaurants];
-      }
-    );
+    this.fetchPhotos();
 
     this.photoCreateSubscription = this.api.OnCreatePhotoListener().subscribe(
       (event: any) => {
@@ -118,26 +86,31 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
     )
   }
 
+  public fetchPhotos() {
+    this.photos = [];
+    this.api.ListPhotos().then((event) => {
+      const photos = event.items as Photo[];
+      for (let i = 0; i < photos.length; i++) {
+        const photo = photos[i];
+        this.getPhotoUrl(photo).then((url) => {
+          this.api.ListLikes({photoId: {eq: photo.id}}).then((likes) => {
+            let pu: PhotoUrl = {
+              photo: photo as Photo,
+              url: url,
+              likes: likes.items.map((item) => item?.user)
+            }
+            this.photos.push(pu);
+          })
+        });
+      }
+    })
+  }
+
   ngOnDestroy() {
-    if (this.restaurantSubscription) {
-      this.restaurantSubscription.unsubscribe();
-    }
     if (this.photoCreateSubscription) {
       this.photoCreateSubscription.unsubscribe();
     }
-    this.restaurantSubscription = null;
     this.photoCreateSubscription = null;
-  }
-
-  public onCreate(restaurant: Restaurant) {
-    this.api
-      .CreateRestaurant(restaurant)
-      .then((event) => {
-        this.createForm.reset();
-      })
-      .catch((e) => {
-        console.log('error creating restaurant...', e);
-      });
   }
 
   public onFileSelected(e: any) {
