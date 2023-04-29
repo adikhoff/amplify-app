@@ -87,9 +87,9 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
   }
 
   public fetchPhotos() {
-    this.photos = [];
     this.api.ListPhotos().then((event) => {
       const photos = event.items as Photo[];
+      this.photos = [];
       for (let i = 0; i < photos.length; i++) {
         const photo = photos[i];
         this.getPhotoUrl(photo).then((url) => {
