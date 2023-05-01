@@ -10,6 +10,17 @@ h1 {
   color: coral;
 }
 
+.upload-btn {
+  width: 700px;
+  background-color: rgb(249, 24, 128);
+  color: white;
+  border: 0;
+  display: block;
+  margin: 5px auto;
+  height: 50px;
+  font-weight: bolder;
+}
+
 .grid-container {
   columns: 5 200px;
   column-gap: 1.5rem;
@@ -118,7 +129,7 @@ h1 {
 }
 
 /* Caption of Modal Image (Image Text) - Same Width as the Image */
-#caption {
+.caption {
   margin: auto;
   display: block;
   width: 80%;
