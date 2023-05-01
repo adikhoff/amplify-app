@@ -1,6 +1,6 @@
 <h1>Welkom!</h1>
 
-<p>Ingelogd als {{this.user}}</p>
+<p>Ingelogd als {{this.userName}}</p>
 
 <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload style="display: none" multiple accept="image/*">
 
@@ -35,12 +35,12 @@
     </svg>
     <span class="red">{{photoUrl.likes.length}}</span>
     {{photoUrl.photo.user}}
-    <a *ngIf="photoUrl.photo.user === this.user || this.user === 'admin'" class="delete"
+    <a *ngIf="photoUrl.photo.user === this.userName || this.userName === 'admin'" class="delete"
        (click)="this.onDelete(photoUrl.photo)">x</a>
   </div>
 </div>
 
-<div *ngIf="modalPhoto" id="myModal" class="modal">
+<div id="myModal" class="modal">
   <span class="close" (click)="stopModal()">&times;</span>
   <img class="modal-content" id="img01" src="{{modalPhoto.url}}" (click)="stopModal()">
   <div class="caption">

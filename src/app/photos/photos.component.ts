@@ -19,7 +19,7 @@ import {IdService} from "../util/idservice";
   styleUrls: ['./photos.component.css']
 })
 export class PhotosComponent implements OnInit, OnDestroy {
-  @Input() user: any;
+  @Input() userName: any;
   public createForm: FormGroup;
 
   public photos: Array<PhotoUrl> = [];
@@ -27,7 +27,7 @@ export class PhotosComponent implements OnInit, OnDestroy {
   public fileName?: string;
   public files?: File[];
   public progressBars: Array<Progress> = [];
-//  public userName?: string;
+  public modalPhoto: PhotoUrl;
 
   private photoCreateSubscription: ZenObservable.Subscription | null = null;
   private photoDeleteSubscription: ZenObservable.Subscription | null = null;
@@ -40,11 +40,21 @@ export class PhotosComponent implements OnInit, OnDestroy {
       description: ['', Validators.required],
       city: ['', Validators.required]
     });
-    //Auth.currentSession().then((ses) => this.user = ses.getAccessToken().payload["username"]);
+    this.modalPhoto = {
+      photo: {
+        id: "id",
+        user: "user",
+        image: "image",
+        createdAt: "01-01-1970",
+        updatedAt: "01-01-1970",
+        __typename: "Photo"
+      },
+      url: "dummy",
+      likes: []
+    };
   }
 
   async ngOnInit() {
-    console.log(this.user);
     this.fetchPhotos();
     this.photoCreateSubscription = this.api.OnCreatePhotoListener().subscribe(
       (event: any) => {
@@ -128,7 +138,7 @@ export class PhotosComponent implements OnInit, OnDestroy {
       if (this.files) {
         for (let i = 0; i < this.files.length; i++) {
           const fileExt = this.files[i].name.substring(this.files[i].name.lastIndexOf("."));
-          const fileName = this.user + "-" + this.idService.generate() + fileExt;
+          const fileName = this.userName + "-" + this.idService.generate() + fileExt;
           const progressBar = new Progress();
           progressBar.fileName = fileName;
           this.progressBars?.push(progressBar);
@@ -142,7 +152,7 @@ export class PhotosComponent implements OnInit, OnDestroy {
             this.progressBars = this.progressBars.filter((el) => el.loaded !== el.total);
 
             let cpi: CreatePhotoInput = {
-              user: `${this.user}`,
+              user: `${this.userName}`,
               image: fileName
             };
 
@@ -155,14 +165,19 @@ export class PhotosComponent implements OnInit, OnDestroy {
     }
   }
 
-  public modalPhoto?: PhotoUrl = undefined;
-
   public onModal(photoUrl: PhotoUrl) {
-    this.modalPhoto = photoUrl;
+    const modal = document.getElementById("myModal");
+    if (modal) {
+      modal.style.display = "block";
+      this.modalPhoto = photoUrl;
+    }
   }
 
   public stopModal() {
-    this.modalPhoto = undefined;
+    const modal = document.getElementById("myModal");
+    if (modal) {
+      modal.style.display = "none";
+    }
   }
 
   public onDelete(photo: Photo) {
@@ -194,7 +209,7 @@ export class PhotosComponent implements OnInit, OnDestroy {
     if (photoUrl.photo === this.likeClicked) {
       return true;
     }
-    return photoUrl.likes.filter((un) => un === this.user).length != 0
+    return photoUrl.likes.filter((un) => un === this.userName).length != 0
     return false;
   }
 
@@ -202,7 +217,7 @@ export class PhotosComponent implements OnInit, OnDestroy {
 
   public onLike(photo: Photo) {
     this.likeClicked = photo;
-    const userName = this.user;
+    const userName = this.userName;
     this.api.ListLikes({user: {eq: userName}, photoId: {eq: photo.id}}).then((like) => {
       if (like.items.length === 0) {
         const cli: CreateLikeInput = {
@@ -216,7 +231,7 @@ export class PhotosComponent implements OnInit, OnDestroy {
 
   public onUnLike(photo: Photo) {
     this.likeClicked = undefined;
-    this.api.ListLikes({user: {eq: this.user}, photoId: {eq: photo.id}}).then((like) => {
+    this.api.ListLikes({user: {eq: this.userName}, photoId: {eq: photo.id}}).then((like) => {
       if (like.items[0]) {
         const dli: DeleteLikeInput = {
           id: like.items[0].id
