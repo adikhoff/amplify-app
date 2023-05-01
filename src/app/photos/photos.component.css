@@ -7,18 +7,19 @@ body {
 }
 
 h1 {
-  color: coral;
+  color: rgb(249, 24, 128);
 }
 
 .upload-btn {
   width: 90%;
   background-color: rgb(249, 24, 128);
   color: white;
-  border: 0;
+  border: solid rgb(249, 24, 128);
   display: block;
   margin: 5px auto;
   height: 50px;
   font-weight: bolder;
+  border-radius: 5px;
 }
 
 .grid-container {
@@ -44,7 +45,7 @@ h1 {
 }
 
 .grid-container div:hover {
-  border-color: coral;
+  border-color: rgb(249, 24, 128);
 }
 
 .grid-container div img {

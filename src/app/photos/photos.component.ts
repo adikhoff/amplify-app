@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {
   APIService,
@@ -19,6 +19,7 @@ import {IdService} from "../util/idservice";
   styleUrls: ['./photos.component.css']
 })
 export class PhotosComponent implements OnInit, OnDestroy {
+  @Input() user: any;
   public createForm: FormGroup;
 
   public photos: Array<PhotoUrl> = [];
@@ -26,7 +27,7 @@ export class PhotosComponent implements OnInit, OnDestroy {
   public fileName?: string;
   public files?: File[];
   public progressBars: Array<Progress> = [];
-  public userName?: string;
+//  public userName?: string;
 
   private photoCreateSubscription: ZenObservable.Subscription | null = null;
   private photoDeleteSubscription: ZenObservable.Subscription | null = null;
@@ -39,12 +40,12 @@ export class PhotosComponent implements OnInit, OnDestroy {
       description: ['', Validators.required],
       city: ['', Validators.required]
     });
-    Auth.currentSession().then((ses) => this.userName = ses.getAccessToken().payload["username"]);
+    //Auth.currentSession().then((ses) => this.user = ses.getAccessToken().payload["username"]);
   }
 
   async ngOnInit() {
+    console.log(this.user);
     this.fetchPhotos();
-
     this.photoCreateSubscription = this.api.OnCreatePhotoListener().subscribe(
       (event: any) => {
         const newPhoto = event.value.data.onCreatePhoto;
@@ -124,10 +125,10 @@ export class PhotosComponent implements OnInit, OnDestroy {
 
   public onUpload() {
     try {
-      if (this.files && this.userName) {
+      if (this.files) {
         for (let i = 0; i < this.files.length; i++) {
           const fileExt = this.files[i].name.substring(this.files[i].name.lastIndexOf("."));
-          const fileName = this.userName + "-" + this.idService.generate() + fileExt;
+          const fileName = this.user + "-" + this.idService.generate() + fileExt;
           const progressBar = new Progress();
           progressBar.fileName = fileName;
           this.progressBars?.push(progressBar);
@@ -141,7 +142,7 @@ export class PhotosComponent implements OnInit, OnDestroy {
             this.progressBars = this.progressBars.filter((el) => el.loaded !== el.total);
 
             let cpi: CreatePhotoInput = {
-              user: `${this.userName}`,
+              user: `${this.user}`,
               image: fileName
             };
 
@@ -174,56 +175,55 @@ export class PhotosComponent implements OnInit, OnDestroy {
             const dli: DeleteLikeInput = {
               id: item.id
             }
-            this.api.DeleteLike(dli).then(() => {});
+            this.api.DeleteLike(dli).then(() => {
+            });
           }
         }
         const dfi: DeletePhotoInput = {
           id: photo.id
         }
-        this.api.DeletePhoto(dfi).then(() => {});
-        Storage.remove(photo.image).then(() => {});
+        this.api.DeletePhoto(dfi).then(() => {
+        });
+        Storage.remove(photo.image).then(() => {
+        });
       });
     }
   }
 
   public isLikedByCurrent(photoUrl: PhotoUrl): boolean {
-    if (this.userName) {
-      if (photoUrl.photo === this.likeClicked) { return true; }
-      return photoUrl.likes.filter((un) => un === this.userName).length != 0
+    if (photoUrl.photo === this.likeClicked) {
+      return true;
     }
+    return photoUrl.likes.filter((un) => un === this.user).length != 0
     return false;
   }
 
   private likeClicked?: Photo = undefined;
 
   public onLike(photo: Photo) {
-    if (this.userName) {
-      this.likeClicked = photo;
-      const userName = this.userName;
-      this.api.ListLikes({user: {eq: userName}, photoId: {eq: photo.id}}).then((like) => {
-        if (like.items.length === 0) {
-          const cli: CreateLikeInput = {
-            user: userName,
-            photoId: photo.id
-          }
-          this.api.CreateLike(cli);
+    this.likeClicked = photo;
+    const userName = this.user;
+    this.api.ListLikes({user: {eq: userName}, photoId: {eq: photo.id}}).then((like) => {
+      if (like.items.length === 0) {
+        const cli: CreateLikeInput = {
+          user: userName,
+          photoId: photo.id
         }
-      });
-    }
+        this.api.CreateLike(cli);
+      }
+    });
   }
 
   public onUnLike(photo: Photo) {
-    if (this.userName) {
-      this.likeClicked = undefined;
-      this.api.ListLikes({user: {eq: this.userName}, photoId: {eq: photo.id}}).then((like) => {
-        if (like.items[0]) {
-          const dli: DeleteLikeInput = {
-            id: like.items[0].id
-          }
-          this.api.DeleteLike(dli);
+    this.likeClicked = undefined;
+    this.api.ListLikes({user: {eq: this.user}, photoId: {eq: photo.id}}).then((like) => {
+      if (like.items[0]) {
+        const dli: DeleteLikeInput = {
+          id: like.items[0].id
         }
-      })
-    }
+        this.api.DeleteLike(dli);
+      }
+    })
   }
 
   public calcPercentage(progress: Progress) {
