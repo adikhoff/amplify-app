@@ -1,0 +1,109 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: sans-serif;
+}
+
+h1 {
+  color: coral;
+}
+
+.grid-container {
+  columns: 5 200px;
+  column-gap: 1.5rem;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.grid-container div {
+  width: 150px;
+  margin: 0 1.5rem 1.5rem 0;
+  display: inline-block;
+  width: 100%;
+  border: solid 2px black;
+  padding: 5px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  transition: all 0.25s ease-in-out;
+}
+
+.grid-container div:hover img {
+  filter: grayscale(0);
+}
+
+.grid-container div:hover {
+  border-color: coral;
+}
+
+.grid-container div img {
+  width: 100%;
+  filter: grayscale(100%);
+  border-radius: 5px;
+  transition: all 0.25s ease-in-out;
+}
+
+.grid-container div p {
+  margin: 5px 0;
+  padding: 0;
+  text-align: center;
+  font-style: italic;
+}
+
+.heart {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  pointer-events: auto;
+  cursor: pointer;
+  font: 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  word-wrap: break-word;
+  line-height: 20px;
+  font-family: "TwitterChirp", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  white-space: nowrap;
+  color: rgb(113, 118, 123);
+  -webkit-box-direction: normal;
+  display: inline-block;
+  fill: currentcolor;
+  height: 1.25em;
+  max-width: 100%;
+  position: relative;
+  vertical-align: text-bottom;
+  user-select: none;
+  width: 1.25em;
+}
+
+.heart-selected {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  pointer-events: auto;
+  cursor: pointer;
+  font: 14px -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  word-wrap: break-word;
+  line-height: 20px;
+  font-family: "TwitterChirp",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  white-space: nowrap;
+  color: rgb(249, 24, 128);
+  -webkit-box-direction: normal;
+  display: inline-block;
+  fill: currentcolor;
+  height: 1.25em;
+  max-width: 100%;
+  position: relative;
+  vertical-align: text-bottom;
+  user-select: none;
+  width: 1.25em;
+}
+
+.red {
+  color: rgb(249, 24, 128);
+}
+
+.delete {
+  float: right;
+  cursor: pointer;
+}

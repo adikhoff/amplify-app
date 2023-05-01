@@ -89,7 +89,7 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
   public fetchPhotos() {
     this.api.ListPhotos().then((event) => {
       const photos = event.items as Photo[];
-      this.photos = [];
+      const newPhotos: PhotoUrl[] = [];
       for (let i = 0; i < photos.length; i++) {
         const photo = photos[i];
         this.getPhotoUrl(photo).then((url) => {
@@ -99,10 +99,11 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
               url: url,
               likes: likes.items.map((item) => item?.user)
             }
-            this.photos.push(pu);
+            newPhotos.push(pu);
           })
         });
       }
+      this.photos = newPhotos;
     })
   }
 
