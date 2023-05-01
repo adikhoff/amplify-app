@@ -13,11 +13,11 @@ import {Auth, Storage} from "aws-amplify";
 import {Progress} from "../model/progress";
 
 @Component({
-  selector: 'app-restaurants',
-  templateUrl: './restaurants.component.html',
-  styleUrls: ['./restaurants.component.css']
+  selector: 'app-photos',
+  templateUrl: './photos.component.html',
+  styleUrls: ['./photos.component.css']
 })
-export class RestaurantsComponent implements OnInit, OnDestroy {
+export class PhotosComponent implements OnInit, OnDestroy {
   public createForm: FormGroup;
 
   public photos: Array<PhotoUrl> = [];
@@ -180,13 +180,17 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
 
   public isLikedByCurrent(photoUrl: PhotoUrl): boolean {
     if (this.userName) {
+      if (photoUrl.photo === this.likeClicked) { return true; }
       return photoUrl.likes.filter((un) => un === this.userName).length != 0
     }
     return false;
   }
 
+  private likeClicked?: Photo = undefined;
+
   public onLike(photo: Photo) {
     if (this.userName) {
+      this.likeClicked = photo;
       const userName = this.userName;
       this.api.ListLikes({user: {eq: userName}, photoId: {eq: photo.id}}).then((like) => {
         if (like.items.length === 0) {
@@ -202,6 +206,7 @@ export class RestaurantsComponent implements OnInit, OnDestroy {
 
   public onUnLike(photo: Photo) {
     if (this.userName) {
+      this.likeClicked = undefined;
       this.api.ListLikes({user: {eq: this.userName}, photoId: {eq: photo.id}}).then((like) => {
         if (like.items[0]) {
           const dli: DeleteLikeInput = {
