@@ -40,7 +40,7 @@
   </div>
 </div>
 
-<div id="myModal" class="modal">
+<div id="myModal" class="modal" *ngIf="modalPhoto">
   <span class="close" (click)="stopModal()">&times;</span>
   <img class="modal-content" id="img01" src="{{modalPhoto.url}}" (click)="stopModal()">
   <div class="caption">

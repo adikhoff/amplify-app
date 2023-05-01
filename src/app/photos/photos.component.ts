@@ -27,7 +27,7 @@ export class PhotosComponent implements OnInit, OnDestroy {
   public fileName?: string;
   public files?: File[];
   public progressBars: Array<Progress> = [];
-  public modalPhoto: PhotoUrl;
+  public modalPhoto?: PhotoUrl;
 
   private photoCreateSubscription: ZenObservable.Subscription | null = null;
   private photoDeleteSubscription: ZenObservable.Subscription | null = null;
@@ -40,18 +40,6 @@ export class PhotosComponent implements OnInit, OnDestroy {
       description: ['', Validators.required],
       city: ['', Validators.required]
     });
-    this.modalPhoto = {
-      photo: {
-        id: "id",
-        user: "user",
-        image: "image",
-        createdAt: "01-01-1970",
-        updatedAt: "01-01-1970",
-        __typename: "Photo"
-      },
-      url: "dummy",
-      likes: []
-    };
   }
 
   async ngOnInit() {
@@ -166,18 +154,11 @@ export class PhotosComponent implements OnInit, OnDestroy {
   }
 
   public onModal(photoUrl: PhotoUrl) {
-    const modal = document.getElementById("myModal");
-    if (modal) {
-      modal.style.display = "block";
-      this.modalPhoto = photoUrl;
-    }
+    this.modalPhoto = photoUrl;
   }
 
   public stopModal() {
-    const modal = document.getElementById("myModal");
-    if (modal) {
-      modal.style.display = "none";
-    }
+    this.modalPhoto = undefined;
   }
 
   public onDelete(photo: Photo) {
