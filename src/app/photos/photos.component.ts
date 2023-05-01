@@ -11,6 +11,7 @@ import {
 import {ZenObservable} from 'zen-observable-ts';
 import {Auth, Storage} from "aws-amplify";
 import {Progress} from "../model/progress";
+import {IdService} from "../util/idservice";
 
 @Component({
   selector: 'app-photos',
@@ -32,7 +33,7 @@ export class PhotosComponent implements OnInit, OnDestroy {
   private likeCreateSubscription: ZenObservable.Subscription | null = null;
   private likeDeleteSubscription: ZenObservable.Subscription | null = null;
 
-  constructor(private api: APIService, private fb: FormBuilder) {
+  constructor(private api: APIService, private fb: FormBuilder, private idService: IdService) {
     this.createForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
@@ -77,8 +78,6 @@ export class PhotosComponent implements OnInit, OnDestroy {
 
     this.likeDeleteSubscription = this.api.OnDeleteLikeListener().subscribe(
       (event: any) => {
-        console.log("Delete event");
-        console.log(event);
         const removedLike = event.value.data.onDeleteLike;
         const photoUrl: PhotoUrl = this.photos.filter((ph) => ph.photo.id === removedLike.photoId)[0];
         photoUrl.likes = photoUrl.likes.filter((pu) => pu !== removedLike.user);
@@ -127,7 +126,8 @@ export class PhotosComponent implements OnInit, OnDestroy {
     try {
       if (this.files && this.userName) {
         for (let i = 0; i < this.files.length; i++) {
-          const fileName = this.userName + "-" + this.files[i].name;
+          const fileExt = this.files[i].name.substring(this.files[i].name.lastIndexOf("."));
+          const fileName = this.userName + "-" + this.idService.generate() + fileExt;
           const progressBar = new Progress();
           progressBar.fileName = fileName;
           this.progressBars?.push(progressBar);
@@ -136,7 +136,6 @@ export class PhotosComponent implements OnInit, OnDestroy {
             progressCallback(progress) {
               progressBar.loaded = progress.loaded;
               progressBar.total = progress.total;
-              console.log(` Uploaded: ${progress.loaded}/${progress.total}`);
             }
           }).then(() => {
             this.progressBars = this.progressBars.filter((el) => el.loaded !== el.total);
@@ -153,7 +152,16 @@ export class PhotosComponent implements OnInit, OnDestroy {
     } catch (error) {
       console.log("Error uploading file: ", error);
     }
+  }
 
+  public modalPhoto?: PhotoUrl = undefined;
+
+  public onModal(photoUrl: PhotoUrl) {
+    this.modalPhoto = photoUrl;
+  }
+
+  public stopModal() {
+    this.modalPhoto = undefined;
   }
 
   public onDelete(photo: Photo) {
@@ -166,14 +174,14 @@ export class PhotosComponent implements OnInit, OnDestroy {
             const dli: DeleteLikeInput = {
               id: item.id
             }
-            this.api.DeleteLike(dli);
+            this.api.DeleteLike(dli).then(() => {});
           }
         }
         const dfi: DeletePhotoInput = {
           id: photo.id
         }
-        this.api.DeletePhoto(dfi);
-        Storage.remove(photo.image);
+        this.api.DeletePhoto(dfi).then(() => {});
+        Storage.remove(photo.image).then(() => {});
       });
     }
   }
