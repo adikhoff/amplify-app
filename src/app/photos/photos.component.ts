@@ -141,12 +141,12 @@ export class PhotosComponent implements OnInit, OnDestroy {
           }).then(() => {
             this.progressBars = this.progressBars.filter((el) => el.loaded !== el.total);
 
-            let post: CreatePhotoInput = {
+            let cpi: CreatePhotoInput = {
               user: `${this.userName}`,
               image: fileName
             };
 
-            this.api.CreatePhoto(post);
+            this.api.CreatePhoto(cpi);
           })
         }
       }
