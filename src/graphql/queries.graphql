@@ -31,6 +31,9 @@ query GetPhoto($id: ID!) {
     id
     user
     image
+    filename
+    height
+    width
     createdAt
     updatedAt
   }
@@ -45,6 +48,9 @@ query ListPhotos(
       id
       user
       image
+      filename
+      height
+      width
       createdAt
       updatedAt
     }

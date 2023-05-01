@@ -100,22 +100,43 @@ export type DeleteRestaurantInput = {
 export type CreatePhotoInput = {
   id?: string | null;
   user: string;
-  image: string;
+  image?: string | null;
+  filename: string;
+  height: number;
+  width: number;
 };
 
 export type ModelPhotoConditionInput = {
   user?: ModelStringInput | null;
   image?: ModelStringInput | null;
+  filename?: ModelStringInput | null;
+  height?: ModelIntInput | null;
+  width?: ModelIntInput | null;
   and?: Array<ModelPhotoConditionInput | null> | null;
   or?: Array<ModelPhotoConditionInput | null> | null;
   not?: ModelPhotoConditionInput | null;
+};
+
+export type ModelIntInput = {
+  ne?: number | null;
+  eq?: number | null;
+  le?: number | null;
+  lt?: number | null;
+  ge?: number | null;
+  gt?: number | null;
+  between?: Array<number | null> | null;
+  attributeExists?: boolean | null;
+  attributeType?: ModelAttributeTypes | null;
 };
 
 export type Photo = {
   __typename: "Photo";
   id: string;
   user: string;
-  image: string;
+  image?: string | null;
+  filename: string;
+  height: number;
+  width: number;
   createdAt: string;
   updatedAt: string;
 };
@@ -124,6 +145,9 @@ export type UpdatePhotoInput = {
   id: string;
   user?: string | null;
   image?: string | null;
+  filename?: string | null;
+  height?: number | null;
+  width?: number | null;
 };
 
 export type DeletePhotoInput = {
@@ -199,6 +223,9 @@ export type ModelPhotoFilterInput = {
   id?: ModelIDInput | null;
   user?: ModelStringInput | null;
   image?: ModelStringInput | null;
+  filename?: ModelStringInput | null;
+  height?: ModelIntInput | null;
+  width?: ModelIntInput | null;
   and?: Array<ModelPhotoFilterInput | null> | null;
   or?: Array<ModelPhotoFilterInput | null> | null;
   not?: ModelPhotoFilterInput | null;
@@ -268,8 +295,23 @@ export type ModelSubscriptionPhotoFilterInput = {
   id?: ModelSubscriptionIDInput | null;
   user?: ModelSubscriptionStringInput | null;
   image?: ModelSubscriptionStringInput | null;
+  filename?: ModelSubscriptionStringInput | null;
+  height?: ModelSubscriptionIntInput | null;
+  width?: ModelSubscriptionIntInput | null;
   and?: Array<ModelSubscriptionPhotoFilterInput | null> | null;
   or?: Array<ModelSubscriptionPhotoFilterInput | null> | null;
+};
+
+export type ModelSubscriptionIntInput = {
+  ne?: number | null;
+  eq?: number | null;
+  le?: number | null;
+  lt?: number | null;
+  ge?: number | null;
+  gt?: number | null;
+  between?: Array<number | null> | null;
+  in?: Array<number | null> | null;
+  notIn?: Array<number | null> | null;
 };
 
 export type ModelSubscriptionLikeFilterInput = {
@@ -314,7 +356,10 @@ export type CreatePhotoMutation = {
   __typename: "Photo";
   id: string;
   user: string;
-  image: string;
+  image?: string | null;
+  filename: string;
+  height: number;
+  width: number;
   createdAt: string;
   updatedAt: string;
 };
@@ -323,7 +368,10 @@ export type UpdatePhotoMutation = {
   __typename: "Photo";
   id: string;
   user: string;
-  image: string;
+  image?: string | null;
+  filename: string;
+  height: number;
+  width: number;
   createdAt: string;
   updatedAt: string;
 };
@@ -332,7 +380,10 @@ export type DeletePhotoMutation = {
   __typename: "Photo";
   id: string;
   user: string;
-  image: string;
+  image?: string | null;
+  filename: string;
+  height: number;
+  width: number;
   createdAt: string;
   updatedAt: string;
 };
@@ -392,7 +443,10 @@ export type GetPhotoQuery = {
   __typename: "Photo";
   id: string;
   user: string;
-  image: string;
+  image?: string | null;
+  filename: string;
+  height: number;
+  width: number;
   createdAt: string;
   updatedAt: string;
 };
@@ -403,7 +457,10 @@ export type ListPhotosQuery = {
     __typename: "Photo";
     id: string;
     user: string;
-    image: string;
+    image?: string | null;
+    filename: string;
+    height: number;
+    width: number;
     createdAt: string;
     updatedAt: string;
   } | null>;
@@ -466,7 +523,10 @@ export type OnCreatePhotoSubscription = {
   __typename: "Photo";
   id: string;
   user: string;
-  image: string;
+  image?: string | null;
+  filename: string;
+  height: number;
+  width: number;
   createdAt: string;
   updatedAt: string;
 };
@@ -475,7 +535,10 @@ export type OnUpdatePhotoSubscription = {
   __typename: "Photo";
   id: string;
   user: string;
-  image: string;
+  image?: string | null;
+  filename: string;
+  height: number;
+  width: number;
   createdAt: string;
   updatedAt: string;
 };
@@ -484,7 +547,10 @@ export type OnDeletePhotoSubscription = {
   __typename: "Photo";
   id: string;
   user: string;
-  image: string;
+  image?: string | null;
+  filename: string;
+  height: number;
+  width: number;
   createdAt: string;
   updatedAt: string;
 };
@@ -608,6 +674,9 @@ export class APIService {
           id
           user
           image
+          filename
+          height
+          width
           createdAt
           updatedAt
         }
@@ -633,6 +702,9 @@ export class APIService {
           id
           user
           image
+          filename
+          height
+          width
           createdAt
           updatedAt
         }
@@ -658,6 +730,9 @@ export class APIService {
           id
           user
           image
+          filename
+          height
+          width
           createdAt
           updatedAt
         }
@@ -810,6 +885,9 @@ export class APIService {
           id
           user
           image
+          filename
+          height
+          width
           createdAt
           updatedAt
         }
@@ -835,6 +913,9 @@ export class APIService {
             id
             user
             image
+            filename
+            height
+            width
             createdAt
             updatedAt
           }
@@ -1001,6 +1082,9 @@ export class APIService {
           id
           user
           image
+          filename
+          height
+          width
           createdAt
           updatedAt
         }
@@ -1027,6 +1111,9 @@ export class APIService {
           id
           user
           image
+          filename
+          height
+          width
           createdAt
           updatedAt
         }
@@ -1053,6 +1140,9 @@ export class APIService {
           id
           user
           image
+          filename
+          height
+          width
           createdAt
           updatedAt
         }

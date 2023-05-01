@@ -40,6 +40,9 @@ subscription OnCreatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
     id
     user
     image
+    filename
+    height
+    width
     createdAt
     updatedAt
   }
@@ -49,6 +52,9 @@ subscription OnUpdatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
     id
     user
     image
+    filename
+    height
+    width
     createdAt
     updatedAt
   }
@@ -58,6 +64,9 @@ subscription OnDeletePhoto($filter: ModelSubscriptionPhotoFilterInput) {
     id
     user
     image
+    filename
+    height
+    width
     createdAt
     updatedAt
   }

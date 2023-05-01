@@ -6,10 +6,11 @@ import {
   CreatePhotoInput,
   DeleteLikeInput,
   DeletePhotoInput,
-  Photo
+  Photo,
+  UpdatePhotoInput
 } from '../API.service';
 import {ZenObservable} from 'zen-observable-ts';
-import {Auth, Storage} from "aws-amplify";
+import {Storage} from "aws-amplify";
 import {Progress} from "../model/progress";
 import {IdService} from "../util/idservice";
 
@@ -118,34 +119,55 @@ export class PhotosComponent implements OnInit, OnDestroy {
   }
 
   public async getPhotoUrl(photo: Photo): Promise<string> {
-    return Storage.get(photo.image, {download: false});
+    if (photo.filename) {
+      return Storage.get(photo.filename, {download: false});
+    }
+    if (photo.image) {
+      return Storage.get(photo.image, {download: false});
+    }
+    return Storage.get("dummy", {download: false});
   }
 
   public onUpload() {
     try {
       if (this.files) {
         for (let i = 0; i < this.files.length; i++) {
-          const fileExt = this.files[i].name.substring(this.files[i].name.lastIndexOf("."));
-          const fileName = this.userName + "-" + this.idService.generate() + fileExt;
-          const progressBar = new Progress();
-          progressBar.fileName = fileName;
-          this.progressBars?.push(progressBar);
-          Storage.put(fileName, this.files[i], {
-            level: "public",
-            progressCallback(progress) {
-              progressBar.loaded = progress.loaded;
-              progressBar.total = progress.total;
-            }
-          }).then(() => {
-            this.progressBars = this.progressBars.filter((el) => el.loaded !== el.total);
+          const file = this.files[i];
+          if (file) {
+            const fileExt = file.name.substring(file.name.lastIndexOf("."));
+            const fileName = this.userName + "-" + this.idService.generate() + fileExt;
+            const progressBar = new Progress();
+            progressBar.fileName = fileName;
+            this.progressBars?.push(progressBar);
+            Storage.put(fileName, this.files[i], {
+              level: "public",
+              progressCallback(progress) {
+                progressBar.loaded = progress.loaded;
+                progressBar.total = progress.total;
+              }
+            }).then(() => {
+              this.progressBars = this.progressBars.filter((el) => el.loaded !== el.total);
+              const reader = new FileReader();
+              reader.readAsDataURL(file);
+              reader.onload = (e) => {
+                const image = new Image();
+                if (e.target?.result) {
+                  image.src = e.target.result as string;
+                }
+                image.onload = () => {
+                  let cpi: CreatePhotoInput = {
+                    user: `${this.userName}`,
+                    filename: fileName,
+                    width: image.width,
+                    height: image.height
+                  };
+                  this.api.CreatePhoto(cpi).then(() => {
+                  });
+                };
+              };
 
-            let cpi: CreatePhotoInput = {
-              user: `${this.userName}`,
-              image: fileName
-            };
-
-            this.api.CreatePhoto(cpi);
-          })
+            })
+          }
         }
       }
     } catch (error) {
@@ -180,8 +202,10 @@ export class PhotosComponent implements OnInit, OnDestroy {
         }
         this.api.DeletePhoto(dfi).then(() => {
         });
-        Storage.remove(photo.image).then(() => {
-        });
+        if (photo.filename) {
+          Storage.remove(photo.filename).then(() => {
+          });
+        }
       });
     }
   }
