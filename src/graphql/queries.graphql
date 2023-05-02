@@ -1,31 +1,4 @@
 # this is an auto generated file. This will be overwritten
-query GetRestaurant($id: ID!) {
-  getRestaurant(id: $id) {
-    id
-    name
-    description
-    city
-    createdAt
-    updatedAt
-  }
-}
-query ListRestaurants(
-  $filter: ModelRestaurantFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listRestaurants(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      name
-      description
-      city
-      createdAt
-      updatedAt
-    }
-    nextToken
-  }
-}
 query GetPhoto($id: ID!) {
   getPhoto(id: $id) {
     id
@@ -34,6 +7,17 @@ query GetPhoto($id: ID!) {
     filename
     height
     width
+    likes {
+      items {
+        id
+        user
+        photoId
+        createdAt
+        updatedAt
+        photoLikesId
+      }
+      nextToken
+    }
     createdAt
     updatedAt
   }
@@ -51,6 +35,9 @@ query ListPhotos(
       filename
       height
       width
+      likes {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -62,8 +49,22 @@ query GetLike($id: ID!) {
     id
     user
     photoId
+    photo {
+      id
+      user
+      image
+      filename
+      height
+      width
+      likes {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
+    photoLikesId
   }
 }
 query ListLikes(
@@ -76,8 +77,19 @@ query ListLikes(
       id
       user
       photoId
+      photo {
+        id
+        user
+        image
+        filename
+        height
+        width
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
+      photoLikesId
     }
     nextToken
   }

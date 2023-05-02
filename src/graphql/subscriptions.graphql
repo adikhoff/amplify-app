@@ -1,40 +1,4 @@
 # this is an auto generated file. This will be overwritten
-subscription OnCreateRestaurant(
-  $filter: ModelSubscriptionRestaurantFilterInput
-) {
-  onCreateRestaurant(filter: $filter) {
-    id
-    name
-    description
-    city
-    createdAt
-    updatedAt
-  }
-}
-subscription OnUpdateRestaurant(
-  $filter: ModelSubscriptionRestaurantFilterInput
-) {
-  onUpdateRestaurant(filter: $filter) {
-    id
-    name
-    description
-    city
-    createdAt
-    updatedAt
-  }
-}
-subscription OnDeleteRestaurant(
-  $filter: ModelSubscriptionRestaurantFilterInput
-) {
-  onDeleteRestaurant(filter: $filter) {
-    id
-    name
-    description
-    city
-    createdAt
-    updatedAt
-  }
-}
 subscription OnCreatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
   onCreatePhoto(filter: $filter) {
     id
@@ -43,6 +7,17 @@ subscription OnCreatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
     filename
     height
     width
+    likes {
+      items {
+        id
+        user
+        photoId
+        createdAt
+        updatedAt
+        photoLikesId
+      }
+      nextToken
+    }
     createdAt
     updatedAt
   }
@@ -55,6 +30,17 @@ subscription OnUpdatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
     filename
     height
     width
+    likes {
+      items {
+        id
+        user
+        photoId
+        createdAt
+        updatedAt
+        photoLikesId
+      }
+      nextToken
+    }
     createdAt
     updatedAt
   }
@@ -67,6 +53,17 @@ subscription OnDeletePhoto($filter: ModelSubscriptionPhotoFilterInput) {
     filename
     height
     width
+    likes {
+      items {
+        id
+        user
+        photoId
+        createdAt
+        updatedAt
+        photoLikesId
+      }
+      nextToken
+    }
     createdAt
     updatedAt
   }
@@ -76,8 +73,22 @@ subscription OnCreateLike($filter: ModelSubscriptionLikeFilterInput) {
     id
     user
     photoId
+    photo {
+      id
+      user
+      image
+      filename
+      height
+      width
+      likes {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
+    photoLikesId
   }
 }
 subscription OnUpdateLike($filter: ModelSubscriptionLikeFilterInput) {
@@ -85,8 +96,22 @@ subscription OnUpdateLike($filter: ModelSubscriptionLikeFilterInput) {
     id
     user
     photoId
+    photo {
+      id
+      user
+      image
+      filename
+      height
+      width
+      likes {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
+    photoLikesId
   }
 }
 subscription OnDeleteLike($filter: ModelSubscriptionLikeFilterInput) {
@@ -94,7 +119,21 @@ subscription OnDeleteLike($filter: ModelSubscriptionLikeFilterInput) {
     id
     user
     photoId
+    photo {
+      id
+      user
+      image
+      filename
+      height
+      width
+      likes {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
+    photoLikesId
   }
 }

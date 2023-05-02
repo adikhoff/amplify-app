@@ -10,9 +10,6 @@ export interface SubscriptionResponse<T> {
 }
 
 export type __SubscriptionContainer = {
-  onCreateRestaurant: OnCreateRestaurantSubscription;
-  onUpdateRestaurant: OnUpdateRestaurantSubscription;
-  onDeleteRestaurant: OnDeleteRestaurantSubscription;
   onCreatePhoto: OnCreatePhotoSubscription;
   onUpdatePhoto: OnUpdatePhotoSubscription;
   onDeletePhoto: OnDeletePhotoSubscription;
@@ -21,20 +18,24 @@ export type __SubscriptionContainer = {
   onDeleteLike: OnDeleteLikeSubscription;
 };
 
-export type CreateRestaurantInput = {
+export type CreatePhotoInput = {
   id?: string | null;
-  name: string;
-  description: string;
-  city: string;
+  user: string;
+  image?: string | null;
+  filename?: string | null;
+  height?: number | null;
+  width?: number | null;
 };
 
-export type ModelRestaurantConditionInput = {
-  name?: ModelStringInput | null;
-  description?: ModelStringInput | null;
-  city?: ModelStringInput | null;
-  and?: Array<ModelRestaurantConditionInput | null> | null;
-  or?: Array<ModelRestaurantConditionInput | null> | null;
-  not?: ModelRestaurantConditionInput | null;
+export type ModelPhotoConditionInput = {
+  user?: ModelStringInput | null;
+  image?: ModelStringInput | null;
+  filename?: ModelStringInput | null;
+  height?: ModelIntInput | null;
+  width?: ModelIntInput | null;
+  and?: Array<ModelPhotoConditionInput | null> | null;
+  or?: Array<ModelPhotoConditionInput | null> | null;
+  not?: ModelPhotoConditionInput | null;
 };
 
 export type ModelStringInput = {
@@ -76,47 +77,6 @@ export type ModelSizeInput = {
   between?: Array<number | null> | null;
 };
 
-export type Restaurant = {
-  __typename: "Restaurant";
-  id: string;
-  name: string;
-  description: string;
-  city: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type UpdateRestaurantInput = {
-  id: string;
-  name?: string | null;
-  description?: string | null;
-  city?: string | null;
-};
-
-export type DeleteRestaurantInput = {
-  id: string;
-};
-
-export type CreatePhotoInput = {
-  id?: string | null;
-  user: string;
-  image?: string | null;
-  filename?: string | null;
-  height?: number | null;
-  width?: number | null;
-};
-
-export type ModelPhotoConditionInput = {
-  user?: ModelStringInput | null;
-  image?: ModelStringInput | null;
-  filename?: ModelStringInput | null;
-  height?: ModelIntInput | null;
-  width?: ModelIntInput | null;
-  and?: Array<ModelPhotoConditionInput | null> | null;
-  or?: Array<ModelPhotoConditionInput | null> | null;
-  not?: ModelPhotoConditionInput | null;
-};
-
 export type ModelIntInput = {
   ne?: number | null;
   eq?: number | null;
@@ -137,8 +97,26 @@ export type Photo = {
   filename?: string | null;
   height?: number | null;
   width?: number | null;
+  likes?: ModelLikeConnection | null;
   createdAt: string;
   updatedAt: string;
+};
+
+export type ModelLikeConnection = {
+  __typename: "ModelLikeConnection";
+  items: Array<Like | null>;
+  nextToken?: string | null;
+};
+
+export type Like = {
+  __typename: "Like";
+  id: string;
+  user: string;
+  photoId: string;
+  photo?: Photo | null;
+  createdAt: string;
+  updatedAt: string;
+  photoLikesId: string;
 };
 
 export type UpdatePhotoInput = {
@@ -158,6 +136,7 @@ export type CreateLikeInput = {
   id?: string | null;
   user: string;
   photoId: string;
+  photoLikesId: string;
 };
 
 export type ModelLikeConditionInput = {
@@ -166,35 +145,7 @@ export type ModelLikeConditionInput = {
   and?: Array<ModelLikeConditionInput | null> | null;
   or?: Array<ModelLikeConditionInput | null> | null;
   not?: ModelLikeConditionInput | null;
-};
-
-export type Like = {
-  __typename: "Like";
-  id: string;
-  user: string;
-  photoId: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type UpdateLikeInput = {
-  id: string;
-  user?: string | null;
-  photoId?: string | null;
-};
-
-export type DeleteLikeInput = {
-  id: string;
-};
-
-export type ModelRestaurantFilterInput = {
-  id?: ModelIDInput | null;
-  name?: ModelStringInput | null;
-  description?: ModelStringInput | null;
-  city?: ModelStringInput | null;
-  and?: Array<ModelRestaurantFilterInput | null> | null;
-  or?: Array<ModelRestaurantFilterInput | null> | null;
-  not?: ModelRestaurantFilterInput | null;
+  photoLikesId?: ModelIDInput | null;
 };
 
 export type ModelIDInput = {
@@ -213,10 +164,15 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null;
 };
 
-export type ModelRestaurantConnection = {
-  __typename: "ModelRestaurantConnection";
-  items: Array<Restaurant | null>;
-  nextToken?: string | null;
+export type UpdateLikeInput = {
+  id: string;
+  user?: string | null;
+  photoId?: string | null;
+  photoLikesId?: string | null;
+};
+
+export type DeleteLikeInput = {
+  id: string;
 };
 
 export type ModelPhotoFilterInput = {
@@ -244,21 +200,18 @@ export type ModelLikeFilterInput = {
   and?: Array<ModelLikeFilterInput | null> | null;
   or?: Array<ModelLikeFilterInput | null> | null;
   not?: ModelLikeFilterInput | null;
+  photoLikesId?: ModelIDInput | null;
 };
 
-export type ModelLikeConnection = {
-  __typename: "ModelLikeConnection";
-  items: Array<Like | null>;
-  nextToken?: string | null;
-};
-
-export type ModelSubscriptionRestaurantFilterInput = {
+export type ModelSubscriptionPhotoFilterInput = {
   id?: ModelSubscriptionIDInput | null;
-  name?: ModelSubscriptionStringInput | null;
-  description?: ModelSubscriptionStringInput | null;
-  city?: ModelSubscriptionStringInput | null;
-  and?: Array<ModelSubscriptionRestaurantFilterInput | null> | null;
-  or?: Array<ModelSubscriptionRestaurantFilterInput | null> | null;
+  user?: ModelSubscriptionStringInput | null;
+  image?: ModelSubscriptionStringInput | null;
+  filename?: ModelSubscriptionStringInput | null;
+  height?: ModelSubscriptionIntInput | null;
+  width?: ModelSubscriptionIntInput | null;
+  and?: Array<ModelSubscriptionPhotoFilterInput | null> | null;
+  or?: Array<ModelSubscriptionPhotoFilterInput | null> | null;
 };
 
 export type ModelSubscriptionIDInput = {
@@ -291,17 +244,6 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array<string | null> | null;
 };
 
-export type ModelSubscriptionPhotoFilterInput = {
-  id?: ModelSubscriptionIDInput | null;
-  user?: ModelSubscriptionStringInput | null;
-  image?: ModelSubscriptionStringInput | null;
-  filename?: ModelSubscriptionStringInput | null;
-  height?: ModelSubscriptionIntInput | null;
-  width?: ModelSubscriptionIntInput | null;
-  and?: Array<ModelSubscriptionPhotoFilterInput | null> | null;
-  or?: Array<ModelSubscriptionPhotoFilterInput | null> | null;
-};
-
 export type ModelSubscriptionIntInput = {
   ne?: number | null;
   eq?: number | null;
@@ -322,36 +264,6 @@ export type ModelSubscriptionLikeFilterInput = {
   or?: Array<ModelSubscriptionLikeFilterInput | null> | null;
 };
 
-export type CreateRestaurantMutation = {
-  __typename: "Restaurant";
-  id: string;
-  name: string;
-  description: string;
-  city: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type UpdateRestaurantMutation = {
-  __typename: "Restaurant";
-  id: string;
-  name: string;
-  description: string;
-  city: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type DeleteRestaurantMutation = {
-  __typename: "Restaurant";
-  id: string;
-  name: string;
-  description: string;
-  city: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
 export type CreatePhotoMutation = {
   __typename: "Photo";
   id: string;
@@ -360,6 +272,19 @@ export type CreatePhotoMutation = {
   filename?: string | null;
   height?: number | null;
   width?: number | null;
+  likes?: {
+    __typename: "ModelLikeConnection";
+    items: Array<{
+      __typename: "Like";
+      id: string;
+      user: string;
+      photoId: string;
+      createdAt: string;
+      updatedAt: string;
+      photoLikesId: string;
+    } | null>;
+    nextToken?: string | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -372,6 +297,19 @@ export type UpdatePhotoMutation = {
   filename?: string | null;
   height?: number | null;
   width?: number | null;
+  likes?: {
+    __typename: "ModelLikeConnection";
+    items: Array<{
+      __typename: "Like";
+      id: string;
+      user: string;
+      photoId: string;
+      createdAt: string;
+      updatedAt: string;
+      photoLikesId: string;
+    } | null>;
+    nextToken?: string | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -384,6 +322,19 @@ export type DeletePhotoMutation = {
   filename?: string | null;
   height?: number | null;
   width?: number | null;
+  likes?: {
+    __typename: "ModelLikeConnection";
+    items: Array<{
+      __typename: "Like";
+      id: string;
+      user: string;
+      photoId: string;
+      createdAt: string;
+      updatedAt: string;
+      photoLikesId: string;
+    } | null>;
+    nextToken?: string | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -393,8 +344,24 @@ export type CreateLikeMutation = {
   id: string;
   user: string;
   photoId: string;
+  photo?: {
+    __typename: "Photo";
+    id: string;
+    user: string;
+    image?: string | null;
+    filename?: string | null;
+    height?: number | null;
+    width?: number | null;
+    likes?: {
+      __typename: "ModelLikeConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   createdAt: string;
   updatedAt: string;
+  photoLikesId: string;
 };
 
 export type UpdateLikeMutation = {
@@ -402,8 +369,24 @@ export type UpdateLikeMutation = {
   id: string;
   user: string;
   photoId: string;
+  photo?: {
+    __typename: "Photo";
+    id: string;
+    user: string;
+    image?: string | null;
+    filename?: string | null;
+    height?: number | null;
+    width?: number | null;
+    likes?: {
+      __typename: "ModelLikeConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   createdAt: string;
   updatedAt: string;
+  photoLikesId: string;
 };
 
 export type DeleteLikeMutation = {
@@ -411,32 +394,24 @@ export type DeleteLikeMutation = {
   id: string;
   user: string;
   photoId: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type GetRestaurantQuery = {
-  __typename: "Restaurant";
-  id: string;
-  name: string;
-  description: string;
-  city: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type ListRestaurantsQuery = {
-  __typename: "ModelRestaurantConnection";
-  items: Array<{
-    __typename: "Restaurant";
+  photo?: {
+    __typename: "Photo";
     id: string;
-    name: string;
-    description: string;
-    city: string;
+    user: string;
+    image?: string | null;
+    filename?: string | null;
+    height?: number | null;
+    width?: number | null;
+    likes?: {
+      __typename: "ModelLikeConnection";
+      nextToken?: string | null;
+    } | null;
     createdAt: string;
     updatedAt: string;
-  } | null>;
-  nextToken?: string | null;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+  photoLikesId: string;
 };
 
 export type GetPhotoQuery = {
@@ -447,6 +422,19 @@ export type GetPhotoQuery = {
   filename?: string | null;
   height?: number | null;
   width?: number | null;
+  likes?: {
+    __typename: "ModelLikeConnection";
+    items: Array<{
+      __typename: "Like";
+      id: string;
+      user: string;
+      photoId: string;
+      createdAt: string;
+      updatedAt: string;
+      photoLikesId: string;
+    } | null>;
+    nextToken?: string | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -461,6 +449,10 @@ export type ListPhotosQuery = {
     filename?: string | null;
     height?: number | null;
     width?: number | null;
+    likes?: {
+      __typename: "ModelLikeConnection";
+      nextToken?: string | null;
+    } | null;
     createdAt: string;
     updatedAt: string;
   } | null>;
@@ -472,8 +464,24 @@ export type GetLikeQuery = {
   id: string;
   user: string;
   photoId: string;
+  photo?: {
+    __typename: "Photo";
+    id: string;
+    user: string;
+    image?: string | null;
+    filename?: string | null;
+    height?: number | null;
+    width?: number | null;
+    likes?: {
+      __typename: "ModelLikeConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   createdAt: string;
   updatedAt: string;
+  photoLikesId: string;
 };
 
 export type ListLikesQuery = {
@@ -483,40 +491,22 @@ export type ListLikesQuery = {
     id: string;
     user: string;
     photoId: string;
+    photo?: {
+      __typename: "Photo";
+      id: string;
+      user: string;
+      image?: string | null;
+      filename?: string | null;
+      height?: number | null;
+      width?: number | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
+    photoLikesId: string;
   } | null>;
   nextToken?: string | null;
-};
-
-export type OnCreateRestaurantSubscription = {
-  __typename: "Restaurant";
-  id: string;
-  name: string;
-  description: string;
-  city: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type OnUpdateRestaurantSubscription = {
-  __typename: "Restaurant";
-  id: string;
-  name: string;
-  description: string;
-  city: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type OnDeleteRestaurantSubscription = {
-  __typename: "Restaurant";
-  id: string;
-  name: string;
-  description: string;
-  city: string;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type OnCreatePhotoSubscription = {
@@ -527,6 +517,19 @@ export type OnCreatePhotoSubscription = {
   filename?: string | null;
   height?: number | null;
   width?: number | null;
+  likes?: {
+    __typename: "ModelLikeConnection";
+    items: Array<{
+      __typename: "Like";
+      id: string;
+      user: string;
+      photoId: string;
+      createdAt: string;
+      updatedAt: string;
+      photoLikesId: string;
+    } | null>;
+    nextToken?: string | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -539,6 +542,19 @@ export type OnUpdatePhotoSubscription = {
   filename?: string | null;
   height?: number | null;
   width?: number | null;
+  likes?: {
+    __typename: "ModelLikeConnection";
+    items: Array<{
+      __typename: "Like";
+      id: string;
+      user: string;
+      photoId: string;
+      createdAt: string;
+      updatedAt: string;
+      photoLikesId: string;
+    } | null>;
+    nextToken?: string | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -551,6 +567,19 @@ export type OnDeletePhotoSubscription = {
   filename?: string | null;
   height?: number | null;
   width?: number | null;
+  likes?: {
+    __typename: "ModelLikeConnection";
+    items: Array<{
+      __typename: "Like";
+      id: string;
+      user: string;
+      photoId: string;
+      createdAt: string;
+      updatedAt: string;
+      photoLikesId: string;
+    } | null>;
+    nextToken?: string | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -560,8 +589,24 @@ export type OnCreateLikeSubscription = {
   id: string;
   user: string;
   photoId: string;
+  photo?: {
+    __typename: "Photo";
+    id: string;
+    user: string;
+    image?: string | null;
+    filename?: string | null;
+    height?: number | null;
+    width?: number | null;
+    likes?: {
+      __typename: "ModelLikeConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   createdAt: string;
   updatedAt: string;
+  photoLikesId: string;
 };
 
 export type OnUpdateLikeSubscription = {
@@ -569,8 +614,24 @@ export type OnUpdateLikeSubscription = {
   id: string;
   user: string;
   photoId: string;
+  photo?: {
+    __typename: "Photo";
+    id: string;
+    user: string;
+    image?: string | null;
+    filename?: string | null;
+    height?: number | null;
+    width?: number | null;
+    likes?: {
+      __typename: "ModelLikeConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   createdAt: string;
   updatedAt: string;
+  photoLikesId: string;
 };
 
 export type OnDeleteLikeSubscription = {
@@ -578,92 +639,30 @@ export type OnDeleteLikeSubscription = {
   id: string;
   user: string;
   photoId: string;
+  photo?: {
+    __typename: "Photo";
+    id: string;
+    user: string;
+    image?: string | null;
+    filename?: string | null;
+    height?: number | null;
+    width?: number | null;
+    likes?: {
+      __typename: "ModelLikeConnection";
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
   createdAt: string;
   updatedAt: string;
+  photoLikesId: string;
 };
 
 @Injectable({
   providedIn: "root"
 })
 export class APIService {
-  async CreateRestaurant(
-    input: CreateRestaurantInput,
-    condition?: ModelRestaurantConditionInput
-  ): Promise<CreateRestaurantMutation> {
-    const statement = `mutation CreateRestaurant($input: CreateRestaurantInput!, $condition: ModelRestaurantConditionInput) {
-        createRestaurant(input: $input, condition: $condition) {
-          __typename
-          id
-          name
-          description
-          city
-          createdAt
-          updatedAt
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      input
-    };
-    if (condition) {
-      gqlAPIServiceArguments.condition = condition;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <CreateRestaurantMutation>response.data.createRestaurant;
-  }
-  async UpdateRestaurant(
-    input: UpdateRestaurantInput,
-    condition?: ModelRestaurantConditionInput
-  ): Promise<UpdateRestaurantMutation> {
-    const statement = `mutation UpdateRestaurant($input: UpdateRestaurantInput!, $condition: ModelRestaurantConditionInput) {
-        updateRestaurant(input: $input, condition: $condition) {
-          __typename
-          id
-          name
-          description
-          city
-          createdAt
-          updatedAt
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      input
-    };
-    if (condition) {
-      gqlAPIServiceArguments.condition = condition;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <UpdateRestaurantMutation>response.data.updateRestaurant;
-  }
-  async DeleteRestaurant(
-    input: DeleteRestaurantInput,
-    condition?: ModelRestaurantConditionInput
-  ): Promise<DeleteRestaurantMutation> {
-    const statement = `mutation DeleteRestaurant($input: DeleteRestaurantInput!, $condition: ModelRestaurantConditionInput) {
-        deleteRestaurant(input: $input, condition: $condition) {
-          __typename
-          id
-          name
-          description
-          city
-          createdAt
-          updatedAt
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      input
-    };
-    if (condition) {
-      gqlAPIServiceArguments.condition = condition;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <DeleteRestaurantMutation>response.data.deleteRestaurant;
-  }
   async CreatePhoto(
     input: CreatePhotoInput,
     condition?: ModelPhotoConditionInput
@@ -677,6 +676,19 @@ export class APIService {
           filename
           height
           width
+          likes {
+            __typename
+            items {
+              __typename
+              id
+              user
+              photoId
+              createdAt
+              updatedAt
+              photoLikesId
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -705,6 +717,19 @@ export class APIService {
           filename
           height
           width
+          likes {
+            __typename
+            items {
+              __typename
+              id
+              user
+              photoId
+              createdAt
+              updatedAt
+              photoLikesId
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -733,6 +758,19 @@ export class APIService {
           filename
           height
           width
+          likes {
+            __typename
+            items {
+              __typename
+              id
+              user
+              photoId
+              createdAt
+              updatedAt
+              photoLikesId
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -758,8 +796,24 @@ export class APIService {
           id
           user
           photoId
+          photo {
+            __typename
+            id
+            user
+            image
+            filename
+            height
+            width
+            likes {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
+          photoLikesId
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -783,8 +837,24 @@ export class APIService {
           id
           user
           photoId
+          photo {
+            __typename
+            id
+            user
+            image
+            filename
+            height
+            width
+            likes {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
+          photoLikesId
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -808,8 +878,24 @@ export class APIService {
           id
           user
           photoId
+          photo {
+            __typename
+            id
+            user
+            image
+            filename
+            height
+            width
+            likes {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
+          photoLikesId
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -823,61 +909,6 @@ export class APIService {
     )) as any;
     return <DeleteLikeMutation>response.data.deleteLike;
   }
-  async GetRestaurant(id: string): Promise<GetRestaurantQuery> {
-    const statement = `query GetRestaurant($id: ID!) {
-        getRestaurant(id: $id) {
-          __typename
-          id
-          name
-          description
-          city
-          createdAt
-          updatedAt
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      id
-    };
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <GetRestaurantQuery>response.data.getRestaurant;
-  }
-  async ListRestaurants(
-    filter?: ModelRestaurantFilterInput,
-    limit?: number,
-    nextToken?: string
-  ): Promise<ListRestaurantsQuery> {
-    const statement = `query ListRestaurants($filter: ModelRestaurantFilterInput, $limit: Int, $nextToken: String) {
-        listRestaurants(filter: $filter, limit: $limit, nextToken: $nextToken) {
-          __typename
-          items {
-            __typename
-            id
-            name
-            description
-            city
-            createdAt
-            updatedAt
-          }
-          nextToken
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    if (limit) {
-      gqlAPIServiceArguments.limit = limit;
-    }
-    if (nextToken) {
-      gqlAPIServiceArguments.nextToken = nextToken;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <ListRestaurantsQuery>response.data.listRestaurants;
-  }
   async GetPhoto(id: string): Promise<GetPhotoQuery> {
     const statement = `query GetPhoto($id: ID!) {
         getPhoto(id: $id) {
@@ -888,6 +919,19 @@ export class APIService {
           filename
           height
           width
+          likes {
+            __typename
+            items {
+              __typename
+              id
+              user
+              photoId
+              createdAt
+              updatedAt
+              photoLikesId
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -916,6 +960,10 @@ export class APIService {
             filename
             height
             width
+            likes {
+              __typename
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -944,8 +992,24 @@ export class APIService {
           id
           user
           photoId
+          photo {
+            __typename
+            id
+            user
+            image
+            filename
+            height
+            width
+            likes {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
+          photoLikesId
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -969,8 +1033,20 @@ export class APIService {
             id
             user
             photoId
+            photo {
+              __typename
+              id
+              user
+              image
+              filename
+              height
+              width
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
+            photoLikesId
           }
           nextToken
         }
@@ -990,87 +1066,6 @@ export class APIService {
     )) as any;
     return <ListLikesQuery>response.data.listLikes;
   }
-  OnCreateRestaurantListener(
-    filter?: ModelSubscriptionRestaurantFilterInput
-  ): Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateRestaurant">>
-  > {
-    const statement = `subscription OnCreateRestaurant($filter: ModelSubscriptionRestaurantFilterInput) {
-        onCreateRestaurant(filter: $filter) {
-          __typename
-          id
-          name
-          description
-          city
-          createdAt
-          updatedAt
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateRestaurant">>
-    >;
-  }
-
-  OnUpdateRestaurantListener(
-    filter?: ModelSubscriptionRestaurantFilterInput
-  ): Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateRestaurant">>
-  > {
-    const statement = `subscription OnUpdateRestaurant($filter: ModelSubscriptionRestaurantFilterInput) {
-        onUpdateRestaurant(filter: $filter) {
-          __typename
-          id
-          name
-          description
-          city
-          createdAt
-          updatedAt
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateRestaurant">>
-    >;
-  }
-
-  OnDeleteRestaurantListener(
-    filter?: ModelSubscriptionRestaurantFilterInput
-  ): Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteRestaurant">>
-  > {
-    const statement = `subscription OnDeleteRestaurant($filter: ModelSubscriptionRestaurantFilterInput) {
-        onDeleteRestaurant(filter: $filter) {
-          __typename
-          id
-          name
-          description
-          city
-          createdAt
-          updatedAt
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteRestaurant">>
-    >;
-  }
-
   OnCreatePhotoListener(
     filter?: ModelSubscriptionPhotoFilterInput
   ): Observable<
@@ -1085,6 +1080,19 @@ export class APIService {
           filename
           height
           width
+          likes {
+            __typename
+            items {
+              __typename
+              id
+              user
+              photoId
+              createdAt
+              updatedAt
+              photoLikesId
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -1114,6 +1122,19 @@ export class APIService {
           filename
           height
           width
+          likes {
+            __typename
+            items {
+              __typename
+              id
+              user
+              photoId
+              createdAt
+              updatedAt
+              photoLikesId
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -1143,6 +1164,19 @@ export class APIService {
           filename
           height
           width
+          likes {
+            __typename
+            items {
+              __typename
+              id
+              user
+              photoId
+              createdAt
+              updatedAt
+              photoLikesId
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -1169,8 +1203,24 @@ export class APIService {
           id
           user
           photoId
+          photo {
+            __typename
+            id
+            user
+            image
+            filename
+            height
+            width
+            likes {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
+          photoLikesId
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -1195,8 +1245,24 @@ export class APIService {
           id
           user
           photoId
+          photo {
+            __typename
+            id
+            user
+            image
+            filename
+            height
+            width
+            likes {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
+          photoLikesId
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -1221,8 +1287,24 @@ export class APIService {
           id
           user
           photoId
+          photo {
+            __typename
+            id
+            user
+            image
+            filename
+            height
+            width
+            likes {
+              __typename
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
+          photoLikesId
         }
       }`;
     const gqlAPIServiceArguments: any = {};

@@ -1,43 +1,4 @@
 # this is an auto generated file. This will be overwritten
-mutation CreateRestaurant(
-  $input: CreateRestaurantInput!
-  $condition: ModelRestaurantConditionInput
-) {
-  createRestaurant(input: $input, condition: $condition) {
-    id
-    name
-    description
-    city
-    createdAt
-    updatedAt
-  }
-}
-mutation UpdateRestaurant(
-  $input: UpdateRestaurantInput!
-  $condition: ModelRestaurantConditionInput
-) {
-  updateRestaurant(input: $input, condition: $condition) {
-    id
-    name
-    description
-    city
-    createdAt
-    updatedAt
-  }
-}
-mutation DeleteRestaurant(
-  $input: DeleteRestaurantInput!
-  $condition: ModelRestaurantConditionInput
-) {
-  deleteRestaurant(input: $input, condition: $condition) {
-    id
-    name
-    description
-    city
-    createdAt
-    updatedAt
-  }
-}
 mutation CreatePhoto(
   $input: CreatePhotoInput!
   $condition: ModelPhotoConditionInput
@@ -49,6 +10,17 @@ mutation CreatePhoto(
     filename
     height
     width
+    likes {
+      items {
+        id
+        user
+        photoId
+        createdAt
+        updatedAt
+        photoLikesId
+      }
+      nextToken
+    }
     createdAt
     updatedAt
   }
@@ -64,6 +36,17 @@ mutation UpdatePhoto(
     filename
     height
     width
+    likes {
+      items {
+        id
+        user
+        photoId
+        createdAt
+        updatedAt
+        photoLikesId
+      }
+      nextToken
+    }
     createdAt
     updatedAt
   }
@@ -79,6 +62,17 @@ mutation DeletePhoto(
     filename
     height
     width
+    likes {
+      items {
+        id
+        user
+        photoId
+        createdAt
+        updatedAt
+        photoLikesId
+      }
+      nextToken
+    }
     createdAt
     updatedAt
   }
@@ -91,8 +85,22 @@ mutation CreateLike(
     id
     user
     photoId
+    photo {
+      id
+      user
+      image
+      filename
+      height
+      width
+      likes {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
+    photoLikesId
   }
 }
 mutation UpdateLike(
@@ -103,8 +111,22 @@ mutation UpdateLike(
     id
     user
     photoId
+    photo {
+      id
+      user
+      image
+      filename
+      height
+      width
+      likes {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
+    photoLikesId
   }
 }
 mutation DeleteLike(
@@ -115,7 +137,21 @@ mutation DeleteLike(
     id
     user
     photoId
+    photo {
+      id
+      user
+      image
+      filename
+      height
+      width
+      likes {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
+    photoLikesId
   }
 }
