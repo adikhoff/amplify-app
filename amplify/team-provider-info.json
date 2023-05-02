@@ -31,5 +31,41 @@
         "photos": {}
       }
     }
+  },
+  "develop": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-dekkerreunie-develop-131522-authRole",
+      "UnauthRoleArn": "arn:aws:iam::316585520392:role/amplify-dekkerreunie-develop-131522-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::316585520392:role/amplify-dekkerreunie-develop-131522-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-dekkerreunie-develop-131522-deployment",
+      "UnauthRoleName": "amplify-dekkerreunie-develop-131522-unauthRole",
+      "StackName": "amplify-dekkerreunie-develop-131522",
+      "StackId": "arn:aws:cloudformation:eu-central-1:316585520392:stack/amplify-dekkerreunie-develop-131522/a39ad020-e8da-11ed-850b-0a341c9fa9b0",
+      "AmplifyAppId": "d2whgzh7m9q928"
+    },
+    "categories": {
+      "auth": {
+        "amplifyapp18ea8822": {}
+      },
+      "function": {
+        "S3Trigger1d1e25c5": {
+          "deploymentBucketName": "amplify-dekkerreunie-develop-131522-deployment",
+          "s3Key": "amplify-builds/S3Trigger1d1e25c5-556e7a4c6a5755464e52-build.zip"
+        }
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d2whgzh7m9q928",
+          "type": "manual"
+        }
+      },
+      "api": {
+        "RestaurantAPI": {}
+      },
+      "storage": {
+        "photos": {}
+      }
+    }
   }
 }
