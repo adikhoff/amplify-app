@@ -3,14 +3,14 @@
 
 const awsmobile = {
     "aws_project_region": "eu-central-1",
-    "aws_appsync_graphqlEndpoint": "https://ivzpq3eqpzbptdzcdozzagqgsa.appsync-api.eu-central-1.amazonaws.com/graphql",
+    "aws_appsync_graphqlEndpoint": "https://kbthqgke5vd3nphfh6eubt4vme.appsync-api.eu-central-1.amazonaws.com/graphql",
     "aws_appsync_region": "eu-central-1",
     "aws_appsync_authenticationType": "API_KEY",
-    "aws_appsync_apiKey": "da2-62qtf4sqdjcv5latbu7f44bkzq",
-    "aws_cognito_identity_pool_id": "eu-central-1:0b97878f-72b5-4145-b269-45cde20928c6",
+    "aws_appsync_apiKey": "da2-gwuwgas7cvae5nt5dmixmc5hpm",
+    "aws_cognito_identity_pool_id": "eu-central-1:e8c10662-26e2-41ef-b0ae-fc5e4237f00f",
     "aws_cognito_region": "eu-central-1",
-    "aws_user_pools_id": "eu-central-1_uLS0E5v9D",
-    "aws_user_pools_web_client_id": "73sjjomdfdbj6bnqqdppmfsbac",
+    "aws_user_pools_id": "eu-central-1_unCm7mCvJ",
+    "aws_user_pools_web_client_id": "4b7vrn1bnbqd4q95r6k712vpio",
     "oauth": {},
     "aws_cognito_username_attributes": [],
     "aws_cognito_social_providers": [],
@@ -28,7 +28,7 @@ const awsmobile = {
     "aws_cognito_verification_mechanisms": [
         "EMAIL"
     ],
-    "aws_user_files_s3_bucket": "photos110954-dev",
+    "aws_user_files_s3_bucket": "photos111739-main",
     "aws_user_files_s3_bucket_region": "eu-central-1"
 };
 

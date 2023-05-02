@@ -20,6 +20,7 @@ h1 {
   height: 50px;
   font-weight: bolder;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .grid-container {
