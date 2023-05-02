@@ -1,0 +1,29 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-dekkerreunie-dev-141208-authRole",
+      "UnauthRoleArn": "arn:aws:iam::316585520392:role/amplify-dekkerreunie-dev-141208-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::316585520392:role/amplify-dekkerreunie-dev-141208-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-dekkerreunie-dev-141208-deployment",
+      "UnauthRoleName": "amplify-dekkerreunie-dev-141208-unauthRole",
+      "StackName": "amplify-dekkerreunie-dev-141208",
+      "StackId": "arn:aws:cloudformation:eu-central-1:316585520392:stack/amplify-dekkerreunie-dev-141208/921f2140-e8e2-11ed-a73b-026a44709228",
+      "AmplifyAppId": "d9goqhh8lcqps"
+    },
+    "categories": {
+      "api": {
+        "dekkerreunie": {}
+      },
+      "auth": {
+        "dekkerreuniee387ba55": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d9goqhh8lcqps",
+          "type": "cicd"
+        }
+      }
+    }
+  }
+}
