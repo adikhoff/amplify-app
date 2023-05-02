@@ -10,14 +10,14 @@
   </button>
 </div>
 
-<ul *ngFor="let progressBar of progressBars">
-  <li><label for="file">{{progressBar.fileName}}:</label>
-    <progress id="file" value="{{calcPercentage(progressBar)}}" max="100"> {{calcPercentage(progressBar)}}%</progress>
-  </li>
-</ul>
+<!--<ul *ngFor="let progressBar of progressBars">-->
+<!--  <li><label for="file">{{progressBar.fileName}}:</label>-->
+<!--    <progress id="file" value="{{calcPercentage(progressBar)}}" max="100"> {{calcPercentage(progressBar)}}%</progress>-->
+<!--  </li>-->
+<!--</ul>-->
 
 <div class="grid-container">
   <div *ngFor="let photoUrl of photos; let i = index" class="grid-container-div">
-    <app-photo [photoUrl]="photoUrl" [index]="i"></app-photo>
+    <app-photo [photoUrl]="photoUrl" [index]="i + 1"></app-photo>
   </div>
 </div>

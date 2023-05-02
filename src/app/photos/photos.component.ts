@@ -134,12 +134,13 @@ export class PhotosComponent implements OnInit, OnDestroy {
         for (let i = 0; i < this.files.length; i++) {
           const file = this.files[i];
           if (file) {
+            const progressBar = new Progress();
+            this.insertLoadingImage(file, progressBar);
+
             const fileExt = file.name.substring(file.name.lastIndexOf("."));
             const fileName = this.userName + "-" + this.idService.generate() + fileExt;
-            const progressBar = new Progress();
-            progressBar.fileName = fileName;
             this.progressBars?.push(progressBar);
-            Storage.put(fileName, this.files[i], {
+            Storage.put(fileName, file, {
               level: "public",
               progressCallback(progress) {
                 progressBar.loaded = progress.loaded;
@@ -155,23 +156,42 @@ export class PhotosComponent implements OnInit, OnDestroy {
                   image.src = e.target.result as string;
                 }
                 image.onload = () => {
-                    let cpi: CreatePhotoInput = {
-                      user: this.userName!,
-                      filename: fileName,
-                      width: image.width,
-                      height: image.height
-                    };
-                    this.api.CreatePhoto(cpi).then(() => {
+                  let cpi: CreatePhotoInput = {
+                    user: this.userName!,
+                    filename: fileName,
+                    width: image.width,
+                    height: image.height
+                  };
+                  this.api.CreatePhoto(cpi).then(() => {
                   });
-                };
-              };
-            })
+                }
+              }
+            });
           }
         }
       }
     } catch (error) {
       console.log("Error uploading file: ", error);
     }
+  }
+
+  private insertLoadingImage(file: File, progress: Progress) {
+    const photoUrl: PhotoUrl = {
+      photo: {
+        __typename: "Photo",
+        id: "new",
+        user: "none",
+        createdAt: "",
+        updatedAt: "",
+        width: 100,
+        height: 50
+      },
+      url: URL.createObjectURL(file),
+      progress: progress
+    }
+    this.photos = [photoUrl, ...this.photos];
+    let image: HTMLImageElement | null = document.getElementById("photo-1") as HTMLImageElement;
+    image.src = URL.createObjectURL(file);
   }
 
   public calcPercentage(progress: Progress) {

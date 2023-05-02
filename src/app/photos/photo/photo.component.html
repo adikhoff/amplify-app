@@ -1,4 +1,8 @@
+
 <div class="img-container" *ngIf="photoUrl.photo.width && photoUrl.photo.height" style="{{'padding-top:' + (100 * photoUrl.photo.height / photoUrl.photo.width) + '%;'}}">
+  <div *ngIf="photoUrl.progress" class="progress-bar">
+    <div *ngIf="photoUrl.progress.loaded && photoUrl.progress.total" class="progress-bar-fill" style="{{'width:' + (100 * photoUrl.progress.loaded / photoUrl.progress.total) + '%;' }}"></div>
+  </div>
   <img loading="lazy" class='grid-item grid-item-{{index}}' id="photo-{{index}}" src='{{photoUrl.url}}' alt='' (click)="onModal(photoUrl)" style="">
 </div>
 <app-like-counter [photoUrl]="photoUrl"></app-like-counter>
