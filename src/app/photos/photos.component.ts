@@ -243,6 +243,19 @@ export class PhotosComponent implements OnInit, OnDestroy {
     }
     return 0;
   }
+
+  public calcStyle(photo: Photo, i: number) {
+    let newStyle: string = "height: 100px;";
+    const div: HTMLElement = document.querySelector("#div-photo-" + i) as HTMLElement;
+    if (div) {
+      const width = div.clientWidth;
+      if (photo.width && photo.height) {
+        newStyle = "height: " + (((width / photo.width) * photo.height) + 10) + "px;";
+      }
+    }
+    return newStyle;
+  }
+
 }
 
 type PhotoUrl = {

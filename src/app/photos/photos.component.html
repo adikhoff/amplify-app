@@ -17,8 +17,10 @@
 </ul>
 
 <div class="grid-container">
-  <div *ngFor="let photoUrl of photos; let i = index">
-    <img class='grid-item grid-item-{{i}}' src='{{photoUrl.url}}' alt='' (click)="onModal(photoUrl)">
+  <div *ngFor="let photoUrl of photos; let i = index" class="grid-container-div">
+    <div class="img-container" *ngIf="photoUrl.photo.width && photoUrl.photo.height" style="{{'padding-top:' + (100 * photoUrl.photo.height / photoUrl.photo.width) + '%;'}}">
+      <img loading="lazy" class='grid-item grid-item-{{i}}' id="photo-{{i}}" src='{{photoUrl.url}}' alt='' (click)="onModal(photoUrl)" style="">
+    </div>
     <svg *ngIf="!this.isLikedByCurrent(photoUrl)" (click)="this.onLike(photoUrl.photo)" viewBox="0 0 24 24"
          aria-hidden="true" class="heart">
       <g>
