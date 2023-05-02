@@ -1,25 +1,10 @@
 {
   "api": {
-    "RestaurantAPI": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "UserPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "amplifyapp18ea8822"
-        }
-      ],
+    "dekkerreunie": {
+      "dependsOn": [],
       "output": {
         "authConfig": {
-          "additionalAuthenticationProviders": [
-            {
-              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
-              "userPoolConfig": {
-                "userPoolId": "authamplifyapp18ea8822"
-              }
-            }
-          ],
+          "additionalAuthenticationProviders": [],
           "defaultAuthentication": {
             "apiKeyConfig": {
               "apiKeyExpirationDays": 7
@@ -33,7 +18,7 @@
     }
   },
   "auth": {
-    "amplifyapp18ea8822": {
+    "dekkerreuniee387ba55": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -59,7 +44,7 @@
     }
   },
   "function": {
-    "S3Trigger1d1e25c5": {
+    "S3Trigger6abc9819": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
@@ -67,25 +52,25 @@
   },
   "hosting": {
     "amplifyhosting": {
-      "providerPlugin": "awscloudformation",
+      "lastPushTimeStamp": "2023-05-02T12:38:36.422Z",
       "service": "amplifyhosting",
-      "type": "manual"
+      "type": "cicd"
     }
   },
   "parameters": {
-    "AMPLIFY_function_S3Trigger1d1e25c5_deploymentBucketName": {
+    "AMPLIFY_function_S3Trigger6abc9819_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "S3Trigger1d1e25c5"
+          "resourceName": "S3Trigger6abc9819"
         }
       ]
     },
-    "AMPLIFY_function_S3Trigger1d1e25c5_s3Key": {
+    "AMPLIFY_function_S3Trigger6abc9819_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "S3Trigger1d1e25c5"
+          "resourceName": "S3Trigger6abc9819"
         }
       ]
     },
@@ -116,7 +101,7 @@
             "LambdaExecutionRole"
           ],
           "category": "function",
-          "resourceName": "S3Trigger1d1e25c5"
+          "resourceName": "S3Trigger6abc9819"
         }
       ],
       "providerPlugin": "awscloudformation",

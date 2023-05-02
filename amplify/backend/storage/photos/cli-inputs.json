@@ -1,7 +1,7 @@
 {
   "resourceName": "photos",
-  "policyUUID": "50b22f4c",
-  "bucketName": "photos",
+  "policyUUID": "73cd52b3",
+  "bucketName": "dekkerreunie-photos",
   "storageAccess": "authAndGuest",
   "guestAccess": [
     "READ"
@@ -11,6 +11,6 @@
     "READ",
     "DELETE"
   ],
-  "triggerFunction": "S3Trigger1d1e25c5",
+  "triggerFunction": "S3Trigger6abc9819",
   "groupAccess": {}
 }
