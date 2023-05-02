@@ -86,7 +86,7 @@ export class PhotosComponent implements OnInit, OnDestroy {
   }
 
   public fetchPhotos() {
-    this.api.ListPhotos().then((event) => {
+    this.api.ListPhotos({}, 1000).then((event) => {
       const photos = event.items as Photo[];
       const newPhotos: PhotoUrl[] = [];
       for (let i = 0; i < photos.length; i++) {
@@ -99,6 +99,24 @@ export class PhotosComponent implements OnInit, OnDestroy {
               likes: likes.items.map((item) => item?.user)
             }
             newPhotos.push(pu);
+            if (photo.width == null || photo.height == null || photo.filename == null) {
+              const image = new Image();
+              if (url) {
+                image.src = url;
+              }
+              image.onload = () => {
+                let udi: UpdatePhotoInput = {
+                  id: photo.id,
+                  user: `${this.userName}`,
+                  filename: photo.image,
+                  width: image.width,
+                  height: image.height
+                };
+                this.api.UpdatePhoto(udi).then(() => {
+                });
+              };
+
+            }
           })
         });
       }
