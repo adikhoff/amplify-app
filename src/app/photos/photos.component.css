@@ -34,7 +34,7 @@ h1 {
   width: 100%;
   margin: 0 1.5rem 1.5rem 0;
   display: inline-block;
-  border: solid 2px black;
+  border: solid 2px gray;
   padding: 5px;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
