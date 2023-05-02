@@ -4,7 +4,7 @@
     let-user="user"
     let-signOut="signOut"
   >
-    <app-photos userName="{{user.username}}"></app-photos>
+    <app-photos user="{{user}}"></app-photos>
     <button (click)="signOut()">Uitloggen</button>
   </ng-template>
 </amplify-authenticator>

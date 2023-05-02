@@ -2,11 +2,126 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getProfile = /* GraphQL */ `
+  query GetProfile($id: ID!) {
+    getProfile(id: $id) {
+      id
+      name
+      email
+      bio
+      age
+      profilePic {
+        id
+        user
+        profile {
+          id
+          name
+          email
+          bio
+          age
+          score
+          createdAt
+          updatedAt
+          profileProfilePicId
+        }
+        image
+        filename
+        height
+        width
+        likes {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        profilePhotosId
+      }
+      score
+      photos {
+        items {
+          id
+          user
+          image
+          filename
+          height
+          width
+          createdAt
+          updatedAt
+          profilePhotosId
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      profileProfilePicId
+    }
+  }
+`;
+export const listProfiles = /* GraphQL */ `
+  query ListProfiles(
+    $filter: ModelProfileFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listProfiles(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        email
+        bio
+        age
+        profilePic {
+          id
+          user
+          image
+          filename
+          height
+          width
+          createdAt
+          updatedAt
+          profilePhotosId
+        }
+        score
+        photos {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        profileProfilePicId
+      }
+      nextToken
+    }
+  }
+`;
 export const getPhoto = /* GraphQL */ `
   query GetPhoto($id: ID!) {
     getPhoto(id: $id) {
       id
       user
+      profile {
+        id
+        name
+        email
+        bio
+        age
+        profilePic {
+          id
+          user
+          image
+          filename
+          height
+          width
+          createdAt
+          updatedAt
+          profilePhotosId
+        }
+        score
+        photos {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        profileProfilePicId
+      }
       image
       filename
       height
@@ -24,6 +139,7 @@ export const getPhoto = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      profilePhotosId
     }
   }
 `;
@@ -37,6 +153,17 @@ export const listPhotos = /* GraphQL */ `
       items {
         id
         user
+        profile {
+          id
+          name
+          email
+          bio
+          age
+          score
+          createdAt
+          updatedAt
+          profileProfilePicId
+        }
         image
         filename
         height
@@ -46,6 +173,7 @@ export const listPhotos = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        profilePhotosId
       }
       nextToken
     }
@@ -60,6 +188,17 @@ export const getLike = /* GraphQL */ `
       photo {
         id
         user
+        profile {
+          id
+          name
+          email
+          bio
+          age
+          score
+          createdAt
+          updatedAt
+          profileProfilePicId
+        }
         image
         filename
         height
@@ -69,6 +208,7 @@ export const getLike = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        profilePhotosId
       }
       createdAt
       updatedAt
@@ -96,10 +236,55 @@ export const listLikes = /* GraphQL */ `
           width
           createdAt
           updatedAt
+          profilePhotosId
         }
         createdAt
         updatedAt
         photoLikesId
+      }
+      nextToken
+    }
+  }
+`;
+export const profilesByName = /* GraphQL */ `
+  query ProfilesByName(
+    $name: String!
+    $sortDirection: ModelSortDirection
+    $filter: ModelProfileFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    profilesByName(
+      name: $name
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        email
+        bio
+        age
+        profilePic {
+          id
+          user
+          image
+          filename
+          height
+          width
+          createdAt
+          updatedAt
+          profilePhotosId
+        }
+        score
+        photos {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        profileProfilePicId
       }
       nextToken
     }

@@ -2,11 +2,198 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateProfile = /* GraphQL */ `
+  subscription OnCreateProfile($filter: ModelSubscriptionProfileFilterInput) {
+    onCreateProfile(filter: $filter) {
+      id
+      name
+      email
+      bio
+      age
+      profilePic {
+        id
+        user
+        profile {
+          id
+          name
+          email
+          bio
+          age
+          score
+          createdAt
+          updatedAt
+          profileProfilePicId
+        }
+        image
+        filename
+        height
+        width
+        likes {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        profilePhotosId
+      }
+      score
+      photos {
+        items {
+          id
+          user
+          image
+          filename
+          height
+          width
+          createdAt
+          updatedAt
+          profilePhotosId
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      profileProfilePicId
+    }
+  }
+`;
+export const onUpdateProfile = /* GraphQL */ `
+  subscription OnUpdateProfile($filter: ModelSubscriptionProfileFilterInput) {
+    onUpdateProfile(filter: $filter) {
+      id
+      name
+      email
+      bio
+      age
+      profilePic {
+        id
+        user
+        profile {
+          id
+          name
+          email
+          bio
+          age
+          score
+          createdAt
+          updatedAt
+          profileProfilePicId
+        }
+        image
+        filename
+        height
+        width
+        likes {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        profilePhotosId
+      }
+      score
+      photos {
+        items {
+          id
+          user
+          image
+          filename
+          height
+          width
+          createdAt
+          updatedAt
+          profilePhotosId
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      profileProfilePicId
+    }
+  }
+`;
+export const onDeleteProfile = /* GraphQL */ `
+  subscription OnDeleteProfile($filter: ModelSubscriptionProfileFilterInput) {
+    onDeleteProfile(filter: $filter) {
+      id
+      name
+      email
+      bio
+      age
+      profilePic {
+        id
+        user
+        profile {
+          id
+          name
+          email
+          bio
+          age
+          score
+          createdAt
+          updatedAt
+          profileProfilePicId
+        }
+        image
+        filename
+        height
+        width
+        likes {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        profilePhotosId
+      }
+      score
+      photos {
+        items {
+          id
+          user
+          image
+          filename
+          height
+          width
+          createdAt
+          updatedAt
+          profilePhotosId
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      profileProfilePicId
+    }
+  }
+`;
 export const onCreatePhoto = /* GraphQL */ `
   subscription OnCreatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
     onCreatePhoto(filter: $filter) {
       id
       user
+      profile {
+        id
+        name
+        email
+        bio
+        age
+        profilePic {
+          id
+          user
+          image
+          filename
+          height
+          width
+          createdAt
+          updatedAt
+          profilePhotosId
+        }
+        score
+        photos {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        profileProfilePicId
+      }
       image
       filename
       height
@@ -24,6 +211,7 @@ export const onCreatePhoto = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      profilePhotosId
     }
   }
 `;
@@ -32,6 +220,31 @@ export const onUpdatePhoto = /* GraphQL */ `
     onUpdatePhoto(filter: $filter) {
       id
       user
+      profile {
+        id
+        name
+        email
+        bio
+        age
+        profilePic {
+          id
+          user
+          image
+          filename
+          height
+          width
+          createdAt
+          updatedAt
+          profilePhotosId
+        }
+        score
+        photos {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        profileProfilePicId
+      }
       image
       filename
       height
@@ -49,6 +262,7 @@ export const onUpdatePhoto = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      profilePhotosId
     }
   }
 `;
@@ -57,6 +271,31 @@ export const onDeletePhoto = /* GraphQL */ `
     onDeletePhoto(filter: $filter) {
       id
       user
+      profile {
+        id
+        name
+        email
+        bio
+        age
+        profilePic {
+          id
+          user
+          image
+          filename
+          height
+          width
+          createdAt
+          updatedAt
+          profilePhotosId
+        }
+        score
+        photos {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        profileProfilePicId
+      }
       image
       filename
       height
@@ -74,6 +313,7 @@ export const onDeletePhoto = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      profilePhotosId
     }
   }
 `;
@@ -86,6 +326,17 @@ export const onCreateLike = /* GraphQL */ `
       photo {
         id
         user
+        profile {
+          id
+          name
+          email
+          bio
+          age
+          score
+          createdAt
+          updatedAt
+          profileProfilePicId
+        }
         image
         filename
         height
@@ -95,6 +346,7 @@ export const onCreateLike = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        profilePhotosId
       }
       createdAt
       updatedAt
@@ -111,6 +363,17 @@ export const onUpdateLike = /* GraphQL */ `
       photo {
         id
         user
+        profile {
+          id
+          name
+          email
+          bio
+          age
+          score
+          createdAt
+          updatedAt
+          profileProfilePicId
+        }
         image
         filename
         height
@@ -120,6 +383,7 @@ export const onUpdateLike = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        profilePhotosId
       }
       createdAt
       updatedAt
@@ -136,6 +400,17 @@ export const onDeleteLike = /* GraphQL */ `
       photo {
         id
         user
+        profile {
+          id
+          name
+          email
+          bio
+          age
+          score
+          createdAt
+          updatedAt
+          profileProfilePicId
+        }
         image
         filename
         height
@@ -145,6 +420,7 @@ export const onDeleteLike = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        profilePhotosId
       }
       createdAt
       updatedAt
