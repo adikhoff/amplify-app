@@ -28,8 +28,9 @@ export class LikeCounterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.userService.getCurrentLoggedinUser();
-    this.userName = this.user.username;
+    this.userService.getLoggedInUsername().then(name => {
+      this.userName = name;
+    });
   }
 
   public isLikedByCurrent(): boolean {

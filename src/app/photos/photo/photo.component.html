@@ -4,7 +4,7 @@
 <app-like-counter [photoUrl]="photoUrl"></app-like-counter>
 {{photoUrl.photo.user}}
 
-<a *ngIf="photoUrl.photo.user === this.userName || this.userName === 'admin'" class="delete" (click)="this.onDelete(photoUrl.photo)">x</a>
+<a *ngIf="this.canDelete(photoUrl)" class="delete" (click)="this.onDelete(photoUrl.photo)">x</a>
 
 <div id="myModal" class="modal" *ngIf="modalPhoto">
   <span class="close" (click)="stopModal()">&times;</span>

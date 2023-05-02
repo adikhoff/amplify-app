@@ -6,8 +6,8 @@ import {APIService, CreateProfileInput, Profile} from "../API.service";
   providedIn: 'root',
 })
 export class UserService implements OnInit {
-  private user: any;
-  private profile: Profile | undefined;
+  private user?: any;
+  private currentProfile?: Profile;
 
   constructor(private api: APIService) {
   }
@@ -15,43 +15,61 @@ export class UserService implements OnInit {
   ngOnInit() {
   }
 
-  configure() {
-    Auth.currentAuthenticatedUser().then(user => {
-      console.log("user found", user);
-      this.user = user;
-      this.profile = this.getProfileForUser(user);
+  public async getProfileForUser(user: any): Promise<Profile> {
+    return new Promise((resolve, reject) => {
+      this.api.ListProfiles({name: {eq: user.userName}}).then(profiles => {
+        let profile = profiles.items[0] as Profile;
+        if (profile) {
+          resolve(profile);
+        } else {
+          const cpi: CreateProfileInput = {
+            name: user.username,
+            email: user.attributes.email
+          }
+          this.api.CreateProfile(cpi).then(profile => {
+            this.currentProfile = profile as Profile;
+            resolve(this.currentProfile);
+          }).catch(err => reject(err));
+        }
+      });
     });
   }
 
-  public getProfileForUser(user: any): Profile | undefined {
-    let foundProfile = undefined;
-    this.api.ListProfiles({name: {eq: user.username}}).then((profiles) => {
-      let profile = profiles.items[0] as Profile;
-      if (profile) {
-        foundProfile = profile;
+  public async getCurrentLoggedinUser(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      if (this.user) {
+        resolve(this.user);
       } else {
-        const cpi: CreateProfileInput = {
-          name: user.username,
-          email: user.attributes.email
-        }
-        this.api.CreateProfile(cpi).then(profile => {
-          foundProfile = profile as Profile;
-        });
+        Auth.currentAuthenticatedUser().then(user => {
+          this.user = user;
+          resolve(this.user);
+        }).catch(err => reject(err));
       }
     });
-    return foundProfile;
   }
 
-  public getCurrentLoggedinUser(): string {
-    return this.user;
+  public async getLoggedInUsername(): Promise<string> {
+    return new Promise((resolve, reject) => {
+      if (this.user) {
+        resolve(this.user.username);
+      } else {
+        this.getCurrentLoggedinUser().then(user => {
+          resolve(user.username);
+        }).catch(err => reject(err));
+      }
+    })
   }
 
-  public getLoggedInUsername(): string {
-    return this.user.username;
-  }
-
-  public getCurrentLoggedinProfile(): Profile | undefined {
-    return this.profile;
+  public async getCurrentLoggedinProfile(): Promise<Profile> {
+    if (this.currentProfile) {
+      return Promise.resolve(this.currentProfile);
+    } else {
+      return new Promise((resolve, reject) => {
+        this.getCurrentLoggedinUser().then(user => {
+          resolve(this.getProfileForUser(user));
+        });
+      });
+    }
   }
 
 }

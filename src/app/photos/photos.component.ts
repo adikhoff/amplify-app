@@ -1,14 +1,6 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {
-  APIService,
-  CreateLikeInput,
-  CreatePhotoInput,
-  DeleteLikeInput,
-  DeletePhotoInput,
-  Like,
-  Photo
-} from '../API.service';
+import {APIService, CreatePhotoInput, Like, Photo} from '../API.service';
 import {ZenObservable} from 'zen-observable-ts';
 import {Storage} from "aws-amplify";
 import {Progress} from "../model/progress";
@@ -23,14 +15,13 @@ import {UserService} from "../util/user-service";
   styleUrls: ['./photos.component.css']
 })
 export class PhotosComponent implements OnInit, OnDestroy {
-  @Input() user: any = "";
-
   public photos: Array<PhotoUrl> = [];
 
   public fileName?: string;
   public files?: File[];
   public progressBars: Array<Progress> = [];
   public modalPhoto?: PhotoUrl;
+  public userName?: string;
 
   private photoCreateSubscription: ZenObservable.Subscription | null = null;
   private photoDeleteSubscription: ZenObservable.Subscription | null = null;
@@ -42,8 +33,10 @@ export class PhotosComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
-    this.userService.configure();
     this.fetchPhotos();
+    this.userService.getLoggedInUsername().then(name => {
+      this.userName = name;
+    })
     this.photoCreateSubscription = this.api.OnCreatePhotoListener().subscribe(
       (event: any) => {
         const newPhoto = event.value.data.onCreatePhoto;
@@ -142,7 +135,7 @@ export class PhotosComponent implements OnInit, OnDestroy {
           const file = this.files[i];
           if (file) {
             const fileExt = file.name.substring(file.name.lastIndexOf("."));
-            const fileName = this.user.username + "-" + this.idService.generate() + fileExt;
+            const fileName = this.userName + "-" + this.idService.generate() + fileExt;
             const progressBar = new Progress();
             progressBar.fileName = fileName;
             this.progressBars?.push(progressBar);
@@ -162,17 +155,16 @@ export class PhotosComponent implements OnInit, OnDestroy {
                   image.src = e.target.result as string;
                 }
                 image.onload = () => {
-                  let cpi: CreatePhotoInput = {
-                    user: this.userService.getLoggedInUsername(),
-                    filename: fileName,
-                    width: image.width,
-                    height: image.height
-                  };
-                  this.api.CreatePhoto(cpi).then(() => {
+                    let cpi: CreatePhotoInput = {
+                      user: this.userName!,
+                      filename: fileName,
+                      width: image.width,
+                      height: image.height
+                    };
+                    this.api.CreatePhoto(cpi).then(() => {
                   });
                 };
               };
-
             })
           }
         }

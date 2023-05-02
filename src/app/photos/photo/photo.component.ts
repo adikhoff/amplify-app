@@ -22,14 +22,17 @@ export class PhotoComponent implements OnInit {
   };
   @Input() index: any;
 
-  public userName?: string;
+  userName?: string;
+
   public modalPhoto: PhotoUrl | undefined;
 
   constructor(private api: APIService, public userService: UserService) {
-    this.userName = userService.getLoggedInUsername();
   }
 
   ngOnInit() {
+    this.userService.getLoggedInUsername().then(userName => {
+      this.userName = userName;
+    });
   }
 
   public onModal(photoUrl: PhotoUrl) {
@@ -55,4 +58,7 @@ export class PhotoComponent implements OnInit {
     }
   }
 
+  canDelete(photoUrl: PhotoUrl) {
+    return photoUrl.photo.user === this.userName || this.userName === 'admin';
+  }
 }
