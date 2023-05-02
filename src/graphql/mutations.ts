@@ -2,6 +2,177 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createProfile = /* GraphQL */ `
+  mutation CreateProfile(
+    $input: CreateProfileInput!
+    $condition: ModelProfileConditionInput
+  ) {
+    createProfile(input: $input, condition: $condition) {
+      id
+      name
+      email
+      bio
+      age
+      profilePic {
+        id
+        user
+        profile {
+          id
+          name
+          email
+          bio
+          age
+          score
+          createdAt
+          updatedAt
+          profileProfilePicId
+        }
+        image
+        filename
+        height
+        width
+        likes {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        profilePhotosId
+      }
+      score
+      photos {
+        items {
+          id
+          user
+          image
+          filename
+          height
+          width
+          createdAt
+          updatedAt
+          profilePhotosId
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      profileProfilePicId
+    }
+  }
+`;
+export const updateProfile = /* GraphQL */ `
+  mutation UpdateProfile(
+    $input: UpdateProfileInput!
+    $condition: ModelProfileConditionInput
+  ) {
+    updateProfile(input: $input, condition: $condition) {
+      id
+      name
+      email
+      bio
+      age
+      profilePic {
+        id
+        user
+        profile {
+          id
+          name
+          email
+          bio
+          age
+          score
+          createdAt
+          updatedAt
+          profileProfilePicId
+        }
+        image
+        filename
+        height
+        width
+        likes {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        profilePhotosId
+      }
+      score
+      photos {
+        items {
+          id
+          user
+          image
+          filename
+          height
+          width
+          createdAt
+          updatedAt
+          profilePhotosId
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      profileProfilePicId
+    }
+  }
+`;
+export const deleteProfile = /* GraphQL */ `
+  mutation DeleteProfile(
+    $input: DeleteProfileInput!
+    $condition: ModelProfileConditionInput
+  ) {
+    deleteProfile(input: $input, condition: $condition) {
+      id
+      name
+      email
+      bio
+      age
+      profilePic {
+        id
+        user
+        profile {
+          id
+          name
+          email
+          bio
+          age
+          score
+          createdAt
+          updatedAt
+          profileProfilePicId
+        }
+        image
+        filename
+        height
+        width
+        likes {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        profilePhotosId
+      }
+      score
+      photos {
+        items {
+          id
+          user
+          image
+          filename
+          height
+          width
+          createdAt
+          updatedAt
+          profilePhotosId
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      profileProfilePicId
+    }
+  }
+`;
 export const createPhoto = /* GraphQL */ `
   mutation CreatePhoto(
     $input: CreatePhotoInput!
@@ -10,6 +181,31 @@ export const createPhoto = /* GraphQL */ `
     createPhoto(input: $input, condition: $condition) {
       id
       user
+      profile {
+        id
+        name
+        email
+        bio
+        age
+        profilePic {
+          id
+          user
+          image
+          filename
+          height
+          width
+          createdAt
+          updatedAt
+          profilePhotosId
+        }
+        score
+        photos {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        profileProfilePicId
+      }
       image
       filename
       height
@@ -27,6 +223,7 @@ export const createPhoto = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      profilePhotosId
     }
   }
 `;
@@ -38,6 +235,31 @@ export const updatePhoto = /* GraphQL */ `
     updatePhoto(input: $input, condition: $condition) {
       id
       user
+      profile {
+        id
+        name
+        email
+        bio
+        age
+        profilePic {
+          id
+          user
+          image
+          filename
+          height
+          width
+          createdAt
+          updatedAt
+          profilePhotosId
+        }
+        score
+        photos {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        profileProfilePicId
+      }
       image
       filename
       height
@@ -55,6 +277,7 @@ export const updatePhoto = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      profilePhotosId
     }
   }
 `;
@@ -66,6 +289,31 @@ export const deletePhoto = /* GraphQL */ `
     deletePhoto(input: $input, condition: $condition) {
       id
       user
+      profile {
+        id
+        name
+        email
+        bio
+        age
+        profilePic {
+          id
+          user
+          image
+          filename
+          height
+          width
+          createdAt
+          updatedAt
+          profilePhotosId
+        }
+        score
+        photos {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        profileProfilePicId
+      }
       image
       filename
       height
@@ -83,6 +331,7 @@ export const deletePhoto = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      profilePhotosId
     }
   }
 `;
@@ -98,6 +347,17 @@ export const createLike = /* GraphQL */ `
       photo {
         id
         user
+        profile {
+          id
+          name
+          email
+          bio
+          age
+          score
+          createdAt
+          updatedAt
+          profileProfilePicId
+        }
         image
         filename
         height
@@ -107,6 +367,7 @@ export const createLike = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        profilePhotosId
       }
       createdAt
       updatedAt
@@ -126,6 +387,17 @@ export const updateLike = /* GraphQL */ `
       photo {
         id
         user
+        profile {
+          id
+          name
+          email
+          bio
+          age
+          score
+          createdAt
+          updatedAt
+          profileProfilePicId
+        }
         image
         filename
         height
@@ -135,6 +407,7 @@ export const updateLike = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        profilePhotosId
       }
       createdAt
       updatedAt
@@ -154,6 +427,17 @@ export const deleteLike = /* GraphQL */ `
       photo {
         id
         user
+        profile {
+          id
+          name
+          email
+          bio
+          age
+          score
+          createdAt
+          updatedAt
+          profileProfilePicId
+        }
         image
         filename
         height
@@ -163,6 +447,7 @@ export const deleteLike = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        profilePhotosId
       }
       createdAt
       updatedAt

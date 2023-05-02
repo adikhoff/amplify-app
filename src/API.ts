@@ -2,24 +2,26 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreatePhotoInput = {
+export type CreateProfileInput = {
   id?: string | null,
-  user: string,
-  image?: string | null,
-  filename?: string | null,
-  height?: number | null,
-  width?: number | null,
+  name: string,
+  email: string,
+  bio?: string | null,
+  age?: string | null,
+  score?: number | null,
+  profileProfilePicId?: string | null,
 };
 
-export type ModelPhotoConditionInput = {
-  user?: ModelStringInput | null,
-  image?: ModelStringInput | null,
-  filename?: ModelStringInput | null,
-  height?: ModelIntInput | null,
-  width?: ModelIntInput | null,
-  and?: Array< ModelPhotoConditionInput | null > | null,
-  or?: Array< ModelPhotoConditionInput | null > | null,
-  not?: ModelPhotoConditionInput | null,
+export type ModelProfileConditionInput = {
+  name?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  bio?: ModelStringInput | null,
+  age?: ModelStringInput | null,
+  score?: ModelIntInput | null,
+  and?: Array< ModelProfileConditionInput | null > | null,
+  or?: Array< ModelProfileConditionInput | null > | null,
+  not?: ModelProfileConditionInput | null,
+  profileProfilePicId?: ModelIDInput | null,
 };
 
 export type ModelStringInput = {
@@ -74,10 +76,42 @@ export type ModelIntInput = {
   attributeType?: ModelAttributeTypes | null,
 };
 
+export type ModelIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
+};
+
+export type Profile = {
+  __typename: "Profile",
+  id: string,
+  name: string,
+  email: string,
+  bio?: string | null,
+  age?: string | null,
+  profilePic?: Photo | null,
+  score?: number | null,
+  photos?: ModelPhotoConnection | null,
+  createdAt: string,
+  updatedAt: string,
+  profileProfilePicId?: string | null,
+};
+
 export type Photo = {
   __typename: "Photo",
   id: string,
   user: string,
+  profile?: Profile | null,
   image?: string | null,
   filename?: string | null,
   height?: number | null,
@@ -85,6 +119,7 @@ export type Photo = {
   likes?: ModelLikeConnection | null,
   createdAt: string,
   updatedAt: string,
+  profilePhotosId?: string | null,
 };
 
 export type ModelLikeConnection = {
@@ -104,6 +139,48 @@ export type Like = {
   photoLikesId: string,
 };
 
+export type ModelPhotoConnection = {
+  __typename: "ModelPhotoConnection",
+  items:  Array<Photo | null >,
+  nextToken?: string | null,
+};
+
+export type UpdateProfileInput = {
+  id: string,
+  name?: string | null,
+  email?: string | null,
+  bio?: string | null,
+  age?: string | null,
+  score?: number | null,
+  profileProfilePicId?: string | null,
+};
+
+export type DeleteProfileInput = {
+  id: string,
+};
+
+export type CreatePhotoInput = {
+  id?: string | null,
+  user: string,
+  image?: string | null,
+  filename?: string | null,
+  height?: number | null,
+  width?: number | null,
+  profilePhotosId?: string | null,
+};
+
+export type ModelPhotoConditionInput = {
+  user?: ModelStringInput | null,
+  image?: ModelStringInput | null,
+  filename?: ModelStringInput | null,
+  height?: ModelIntInput | null,
+  width?: ModelIntInput | null,
+  and?: Array< ModelPhotoConditionInput | null > | null,
+  or?: Array< ModelPhotoConditionInput | null > | null,
+  not?: ModelPhotoConditionInput | null,
+  profilePhotosId?: ModelIDInput | null,
+};
+
 export type UpdatePhotoInput = {
   id: string,
   user?: string | null,
@@ -111,6 +188,7 @@ export type UpdatePhotoInput = {
   filename?: string | null,
   height?: number | null,
   width?: number | null,
+  profilePhotosId?: string | null,
 };
 
 export type DeletePhotoInput = {
@@ -133,22 +211,6 @@ export type ModelLikeConditionInput = {
   photoLikesId?: ModelIDInput | null,
 };
 
-export type ModelIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
-};
-
 export type UpdateLikeInput = {
   id: string,
   user?: string | null,
@@ -158,6 +220,25 @@ export type UpdateLikeInput = {
 
 export type DeleteLikeInput = {
   id: string,
+};
+
+export type ModelProfileFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  bio?: ModelStringInput | null,
+  age?: ModelStringInput | null,
+  score?: ModelIntInput | null,
+  and?: Array< ModelProfileFilterInput | null > | null,
+  or?: Array< ModelProfileFilterInput | null > | null,
+  not?: ModelProfileFilterInput | null,
+  profileProfilePicId?: ModelIDInput | null,
+};
+
+export type ModelProfileConnection = {
+  __typename: "ModelProfileConnection",
+  items:  Array<Profile | null >,
+  nextToken?: string | null,
 };
 
 export type ModelPhotoFilterInput = {
@@ -170,12 +251,7 @@ export type ModelPhotoFilterInput = {
   and?: Array< ModelPhotoFilterInput | null > | null,
   or?: Array< ModelPhotoFilterInput | null > | null,
   not?: ModelPhotoFilterInput | null,
-};
-
-export type ModelPhotoConnection = {
-  __typename: "ModelPhotoConnection",
-  items:  Array<Photo | null >,
-  nextToken?: string | null,
+  profilePhotosId?: ModelIDInput | null,
 };
 
 export type ModelLikeFilterInput = {
@@ -188,15 +264,21 @@ export type ModelLikeFilterInput = {
   photoLikesId?: ModelIDInput | null,
 };
 
-export type ModelSubscriptionPhotoFilterInput = {
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+
+export type ModelSubscriptionProfileFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  user?: ModelSubscriptionStringInput | null,
-  image?: ModelSubscriptionStringInput | null,
-  filename?: ModelSubscriptionStringInput | null,
-  height?: ModelSubscriptionIntInput | null,
-  width?: ModelSubscriptionIntInput | null,
-  and?: Array< ModelSubscriptionPhotoFilterInput | null > | null,
-  or?: Array< ModelSubscriptionPhotoFilterInput | null > | null,
+  name?: ModelSubscriptionStringInput | null,
+  email?: ModelSubscriptionStringInput | null,
+  bio?: ModelSubscriptionStringInput | null,
+  age?: ModelSubscriptionStringInput | null,
+  score?: ModelSubscriptionIntInput | null,
+  and?: Array< ModelSubscriptionProfileFilterInput | null > | null,
+  or?: Array< ModelSubscriptionProfileFilterInput | null > | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -241,12 +323,215 @@ export type ModelSubscriptionIntInput = {
   notIn?: Array< number | null > | null,
 };
 
+export type ModelSubscriptionPhotoFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  user?: ModelSubscriptionStringInput | null,
+  image?: ModelSubscriptionStringInput | null,
+  filename?: ModelSubscriptionStringInput | null,
+  height?: ModelSubscriptionIntInput | null,
+  width?: ModelSubscriptionIntInput | null,
+  and?: Array< ModelSubscriptionPhotoFilterInput | null > | null,
+  or?: Array< ModelSubscriptionPhotoFilterInput | null > | null,
+};
+
 export type ModelSubscriptionLikeFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   user?: ModelSubscriptionStringInput | null,
   photoId?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionLikeFilterInput | null > | null,
   or?: Array< ModelSubscriptionLikeFilterInput | null > | null,
+};
+
+export type CreateProfileMutationVariables = {
+  input: CreateProfileInput,
+  condition?: ModelProfileConditionInput | null,
+};
+
+export type CreateProfileMutation = {
+  createProfile?:  {
+    __typename: "Profile",
+    id: string,
+    name: string,
+    email: string,
+    bio?: string | null,
+    age?: string | null,
+    profilePic?:  {
+      __typename: "Photo",
+      id: string,
+      user: string,
+      profile?:  {
+        __typename: "Profile",
+        id: string,
+        name: string,
+        email: string,
+        bio?: string | null,
+        age?: string | null,
+        score?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profileProfilePicId?: string | null,
+      } | null,
+      image?: string | null,
+      filename?: string | null,
+      height?: number | null,
+      width?: number | null,
+      likes?:  {
+        __typename: "ModelLikeConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      profilePhotosId?: string | null,
+    } | null,
+    score?: number | null,
+    photos?:  {
+      __typename: "ModelPhotoConnection",
+      items:  Array< {
+        __typename: "Photo",
+        id: string,
+        user: string,
+        image?: string | null,
+        filename?: string | null,
+        height?: number | null,
+        width?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profilePhotosId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    profileProfilePicId?: string | null,
+  } | null,
+};
+
+export type UpdateProfileMutationVariables = {
+  input: UpdateProfileInput,
+  condition?: ModelProfileConditionInput | null,
+};
+
+export type UpdateProfileMutation = {
+  updateProfile?:  {
+    __typename: "Profile",
+    id: string,
+    name: string,
+    email: string,
+    bio?: string | null,
+    age?: string | null,
+    profilePic?:  {
+      __typename: "Photo",
+      id: string,
+      user: string,
+      profile?:  {
+        __typename: "Profile",
+        id: string,
+        name: string,
+        email: string,
+        bio?: string | null,
+        age?: string | null,
+        score?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profileProfilePicId?: string | null,
+      } | null,
+      image?: string | null,
+      filename?: string | null,
+      height?: number | null,
+      width?: number | null,
+      likes?:  {
+        __typename: "ModelLikeConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      profilePhotosId?: string | null,
+    } | null,
+    score?: number | null,
+    photos?:  {
+      __typename: "ModelPhotoConnection",
+      items:  Array< {
+        __typename: "Photo",
+        id: string,
+        user: string,
+        image?: string | null,
+        filename?: string | null,
+        height?: number | null,
+        width?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profilePhotosId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    profileProfilePicId?: string | null,
+  } | null,
+};
+
+export type DeleteProfileMutationVariables = {
+  input: DeleteProfileInput,
+  condition?: ModelProfileConditionInput | null,
+};
+
+export type DeleteProfileMutation = {
+  deleteProfile?:  {
+    __typename: "Profile",
+    id: string,
+    name: string,
+    email: string,
+    bio?: string | null,
+    age?: string | null,
+    profilePic?:  {
+      __typename: "Photo",
+      id: string,
+      user: string,
+      profile?:  {
+        __typename: "Profile",
+        id: string,
+        name: string,
+        email: string,
+        bio?: string | null,
+        age?: string | null,
+        score?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profileProfilePicId?: string | null,
+      } | null,
+      image?: string | null,
+      filename?: string | null,
+      height?: number | null,
+      width?: number | null,
+      likes?:  {
+        __typename: "ModelLikeConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      profilePhotosId?: string | null,
+    } | null,
+    score?: number | null,
+    photos?:  {
+      __typename: "ModelPhotoConnection",
+      items:  Array< {
+        __typename: "Photo",
+        id: string,
+        user: string,
+        image?: string | null,
+        filename?: string | null,
+        height?: number | null,
+        width?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profilePhotosId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    profileProfilePicId?: string | null,
+  } | null,
 };
 
 export type CreatePhotoMutationVariables = {
@@ -259,6 +544,34 @@ export type CreatePhotoMutation = {
     __typename: "Photo",
     id: string,
     user: string,
+    profile?:  {
+      __typename: "Profile",
+      id: string,
+      name: string,
+      email: string,
+      bio?: string | null,
+      age?: string | null,
+      profilePic?:  {
+        __typename: "Photo",
+        id: string,
+        user: string,
+        image?: string | null,
+        filename?: string | null,
+        height?: number | null,
+        width?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profilePhotosId?: string | null,
+      } | null,
+      score?: number | null,
+      photos?:  {
+        __typename: "ModelPhotoConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      profileProfilePicId?: string | null,
+    } | null,
     image?: string | null,
     filename?: string | null,
     height?: number | null,
@@ -278,6 +591,7 @@ export type CreatePhotoMutation = {
     } | null,
     createdAt: string,
     updatedAt: string,
+    profilePhotosId?: string | null,
   } | null,
 };
 
@@ -291,6 +605,34 @@ export type UpdatePhotoMutation = {
     __typename: "Photo",
     id: string,
     user: string,
+    profile?:  {
+      __typename: "Profile",
+      id: string,
+      name: string,
+      email: string,
+      bio?: string | null,
+      age?: string | null,
+      profilePic?:  {
+        __typename: "Photo",
+        id: string,
+        user: string,
+        image?: string | null,
+        filename?: string | null,
+        height?: number | null,
+        width?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profilePhotosId?: string | null,
+      } | null,
+      score?: number | null,
+      photos?:  {
+        __typename: "ModelPhotoConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      profileProfilePicId?: string | null,
+    } | null,
     image?: string | null,
     filename?: string | null,
     height?: number | null,
@@ -310,6 +652,7 @@ export type UpdatePhotoMutation = {
     } | null,
     createdAt: string,
     updatedAt: string,
+    profilePhotosId?: string | null,
   } | null,
 };
 
@@ -323,6 +666,34 @@ export type DeletePhotoMutation = {
     __typename: "Photo",
     id: string,
     user: string,
+    profile?:  {
+      __typename: "Profile",
+      id: string,
+      name: string,
+      email: string,
+      bio?: string | null,
+      age?: string | null,
+      profilePic?:  {
+        __typename: "Photo",
+        id: string,
+        user: string,
+        image?: string | null,
+        filename?: string | null,
+        height?: number | null,
+        width?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profilePhotosId?: string | null,
+      } | null,
+      score?: number | null,
+      photos?:  {
+        __typename: "ModelPhotoConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      profileProfilePicId?: string | null,
+    } | null,
     image?: string | null,
     filename?: string | null,
     height?: number | null,
@@ -342,6 +713,7 @@ export type DeletePhotoMutation = {
     } | null,
     createdAt: string,
     updatedAt: string,
+    profilePhotosId?: string | null,
   } | null,
 };
 
@@ -360,6 +732,18 @@ export type CreateLikeMutation = {
       __typename: "Photo",
       id: string,
       user: string,
+      profile?:  {
+        __typename: "Profile",
+        id: string,
+        name: string,
+        email: string,
+        bio?: string | null,
+        age?: string | null,
+        score?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profileProfilePicId?: string | null,
+      } | null,
       image?: string | null,
       filename?: string | null,
       height?: number | null,
@@ -370,6 +754,7 @@ export type CreateLikeMutation = {
       } | null,
       createdAt: string,
       updatedAt: string,
+      profilePhotosId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -392,6 +777,18 @@ export type UpdateLikeMutation = {
       __typename: "Photo",
       id: string,
       user: string,
+      profile?:  {
+        __typename: "Profile",
+        id: string,
+        name: string,
+        email: string,
+        bio?: string | null,
+        age?: string | null,
+        score?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profileProfilePicId?: string | null,
+      } | null,
       image?: string | null,
       filename?: string | null,
       height?: number | null,
@@ -402,6 +799,7 @@ export type UpdateLikeMutation = {
       } | null,
       createdAt: string,
       updatedAt: string,
+      profilePhotosId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -424,6 +822,18 @@ export type DeleteLikeMutation = {
       __typename: "Photo",
       id: string,
       user: string,
+      profile?:  {
+        __typename: "Profile",
+        id: string,
+        name: string,
+        email: string,
+        bio?: string | null,
+        age?: string | null,
+        score?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profileProfilePicId?: string | null,
+      } | null,
       image?: string | null,
       filename?: string | null,
       height?: number | null,
@@ -434,10 +844,115 @@ export type DeleteLikeMutation = {
       } | null,
       createdAt: string,
       updatedAt: string,
+      profilePhotosId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     photoLikesId: string,
+  } | null,
+};
+
+export type GetProfileQueryVariables = {
+  id: string,
+};
+
+export type GetProfileQuery = {
+  getProfile?:  {
+    __typename: "Profile",
+    id: string,
+    name: string,
+    email: string,
+    bio?: string | null,
+    age?: string | null,
+    profilePic?:  {
+      __typename: "Photo",
+      id: string,
+      user: string,
+      profile?:  {
+        __typename: "Profile",
+        id: string,
+        name: string,
+        email: string,
+        bio?: string | null,
+        age?: string | null,
+        score?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profileProfilePicId?: string | null,
+      } | null,
+      image?: string | null,
+      filename?: string | null,
+      height?: number | null,
+      width?: number | null,
+      likes?:  {
+        __typename: "ModelLikeConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      profilePhotosId?: string | null,
+    } | null,
+    score?: number | null,
+    photos?:  {
+      __typename: "ModelPhotoConnection",
+      items:  Array< {
+        __typename: "Photo",
+        id: string,
+        user: string,
+        image?: string | null,
+        filename?: string | null,
+        height?: number | null,
+        width?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profilePhotosId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    profileProfilePicId?: string | null,
+  } | null,
+};
+
+export type ListProfilesQueryVariables = {
+  filter?: ModelProfileFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListProfilesQuery = {
+  listProfiles?:  {
+    __typename: "ModelProfileConnection",
+    items:  Array< {
+      __typename: "Profile",
+      id: string,
+      name: string,
+      email: string,
+      bio?: string | null,
+      age?: string | null,
+      profilePic?:  {
+        __typename: "Photo",
+        id: string,
+        user: string,
+        image?: string | null,
+        filename?: string | null,
+        height?: number | null,
+        width?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profilePhotosId?: string | null,
+      } | null,
+      score?: number | null,
+      photos?:  {
+        __typename: "ModelPhotoConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      profileProfilePicId?: string | null,
+    } | null >,
+    nextToken?: string | null,
   } | null,
 };
 
@@ -450,6 +965,34 @@ export type GetPhotoQuery = {
     __typename: "Photo",
     id: string,
     user: string,
+    profile?:  {
+      __typename: "Profile",
+      id: string,
+      name: string,
+      email: string,
+      bio?: string | null,
+      age?: string | null,
+      profilePic?:  {
+        __typename: "Photo",
+        id: string,
+        user: string,
+        image?: string | null,
+        filename?: string | null,
+        height?: number | null,
+        width?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profilePhotosId?: string | null,
+      } | null,
+      score?: number | null,
+      photos?:  {
+        __typename: "ModelPhotoConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      profileProfilePicId?: string | null,
+    } | null,
     image?: string | null,
     filename?: string | null,
     height?: number | null,
@@ -469,6 +1012,7 @@ export type GetPhotoQuery = {
     } | null,
     createdAt: string,
     updatedAt: string,
+    profilePhotosId?: string | null,
   } | null,
 };
 
@@ -485,6 +1029,18 @@ export type ListPhotosQuery = {
       __typename: "Photo",
       id: string,
       user: string,
+      profile?:  {
+        __typename: "Profile",
+        id: string,
+        name: string,
+        email: string,
+        bio?: string | null,
+        age?: string | null,
+        score?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profileProfilePicId?: string | null,
+      } | null,
       image?: string | null,
       filename?: string | null,
       height?: number | null,
@@ -495,6 +1051,7 @@ export type ListPhotosQuery = {
       } | null,
       createdAt: string,
       updatedAt: string,
+      profilePhotosId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -514,6 +1071,18 @@ export type GetLikeQuery = {
       __typename: "Photo",
       id: string,
       user: string,
+      profile?:  {
+        __typename: "Profile",
+        id: string,
+        name: string,
+        email: string,
+        bio?: string | null,
+        age?: string | null,
+        score?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profileProfilePicId?: string | null,
+      } | null,
       image?: string | null,
       filename?: string | null,
       height?: number | null,
@@ -524,6 +1093,7 @@ export type GetLikeQuery = {
       } | null,
       createdAt: string,
       updatedAt: string,
+      profilePhotosId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -555,12 +1125,245 @@ export type ListLikesQuery = {
         width?: number | null,
         createdAt: string,
         updatedAt: string,
+        profilePhotosId?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
       photoLikesId: string,
     } | null >,
     nextToken?: string | null,
+  } | null,
+};
+
+export type ProfilesByNameQueryVariables = {
+  name: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelProfileFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ProfilesByNameQuery = {
+  profilesByName?:  {
+    __typename: "ModelProfileConnection",
+    items:  Array< {
+      __typename: "Profile",
+      id: string,
+      name: string,
+      email: string,
+      bio?: string | null,
+      age?: string | null,
+      profilePic?:  {
+        __typename: "Photo",
+        id: string,
+        user: string,
+        image?: string | null,
+        filename?: string | null,
+        height?: number | null,
+        width?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profilePhotosId?: string | null,
+      } | null,
+      score?: number | null,
+      photos?:  {
+        __typename: "ModelPhotoConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      profileProfilePicId?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type OnCreateProfileSubscriptionVariables = {
+  filter?: ModelSubscriptionProfileFilterInput | null,
+};
+
+export type OnCreateProfileSubscription = {
+  onCreateProfile?:  {
+    __typename: "Profile",
+    id: string,
+    name: string,
+    email: string,
+    bio?: string | null,
+    age?: string | null,
+    profilePic?:  {
+      __typename: "Photo",
+      id: string,
+      user: string,
+      profile?:  {
+        __typename: "Profile",
+        id: string,
+        name: string,
+        email: string,
+        bio?: string | null,
+        age?: string | null,
+        score?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profileProfilePicId?: string | null,
+      } | null,
+      image?: string | null,
+      filename?: string | null,
+      height?: number | null,
+      width?: number | null,
+      likes?:  {
+        __typename: "ModelLikeConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      profilePhotosId?: string | null,
+    } | null,
+    score?: number | null,
+    photos?:  {
+      __typename: "ModelPhotoConnection",
+      items:  Array< {
+        __typename: "Photo",
+        id: string,
+        user: string,
+        image?: string | null,
+        filename?: string | null,
+        height?: number | null,
+        width?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profilePhotosId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    profileProfilePicId?: string | null,
+  } | null,
+};
+
+export type OnUpdateProfileSubscriptionVariables = {
+  filter?: ModelSubscriptionProfileFilterInput | null,
+};
+
+export type OnUpdateProfileSubscription = {
+  onUpdateProfile?:  {
+    __typename: "Profile",
+    id: string,
+    name: string,
+    email: string,
+    bio?: string | null,
+    age?: string | null,
+    profilePic?:  {
+      __typename: "Photo",
+      id: string,
+      user: string,
+      profile?:  {
+        __typename: "Profile",
+        id: string,
+        name: string,
+        email: string,
+        bio?: string | null,
+        age?: string | null,
+        score?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profileProfilePicId?: string | null,
+      } | null,
+      image?: string | null,
+      filename?: string | null,
+      height?: number | null,
+      width?: number | null,
+      likes?:  {
+        __typename: "ModelLikeConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      profilePhotosId?: string | null,
+    } | null,
+    score?: number | null,
+    photos?:  {
+      __typename: "ModelPhotoConnection",
+      items:  Array< {
+        __typename: "Photo",
+        id: string,
+        user: string,
+        image?: string | null,
+        filename?: string | null,
+        height?: number | null,
+        width?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profilePhotosId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    profileProfilePicId?: string | null,
+  } | null,
+};
+
+export type OnDeleteProfileSubscriptionVariables = {
+  filter?: ModelSubscriptionProfileFilterInput | null,
+};
+
+export type OnDeleteProfileSubscription = {
+  onDeleteProfile?:  {
+    __typename: "Profile",
+    id: string,
+    name: string,
+    email: string,
+    bio?: string | null,
+    age?: string | null,
+    profilePic?:  {
+      __typename: "Photo",
+      id: string,
+      user: string,
+      profile?:  {
+        __typename: "Profile",
+        id: string,
+        name: string,
+        email: string,
+        bio?: string | null,
+        age?: string | null,
+        score?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profileProfilePicId?: string | null,
+      } | null,
+      image?: string | null,
+      filename?: string | null,
+      height?: number | null,
+      width?: number | null,
+      likes?:  {
+        __typename: "ModelLikeConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      profilePhotosId?: string | null,
+    } | null,
+    score?: number | null,
+    photos?:  {
+      __typename: "ModelPhotoConnection",
+      items:  Array< {
+        __typename: "Photo",
+        id: string,
+        user: string,
+        image?: string | null,
+        filename?: string | null,
+        height?: number | null,
+        width?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profilePhotosId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    profileProfilePicId?: string | null,
   } | null,
 };
 
@@ -573,6 +1376,34 @@ export type OnCreatePhotoSubscription = {
     __typename: "Photo",
     id: string,
     user: string,
+    profile?:  {
+      __typename: "Profile",
+      id: string,
+      name: string,
+      email: string,
+      bio?: string | null,
+      age?: string | null,
+      profilePic?:  {
+        __typename: "Photo",
+        id: string,
+        user: string,
+        image?: string | null,
+        filename?: string | null,
+        height?: number | null,
+        width?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profilePhotosId?: string | null,
+      } | null,
+      score?: number | null,
+      photos?:  {
+        __typename: "ModelPhotoConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      profileProfilePicId?: string | null,
+    } | null,
     image?: string | null,
     filename?: string | null,
     height?: number | null,
@@ -592,6 +1423,7 @@ export type OnCreatePhotoSubscription = {
     } | null,
     createdAt: string,
     updatedAt: string,
+    profilePhotosId?: string | null,
   } | null,
 };
 
@@ -604,6 +1436,34 @@ export type OnUpdatePhotoSubscription = {
     __typename: "Photo",
     id: string,
     user: string,
+    profile?:  {
+      __typename: "Profile",
+      id: string,
+      name: string,
+      email: string,
+      bio?: string | null,
+      age?: string | null,
+      profilePic?:  {
+        __typename: "Photo",
+        id: string,
+        user: string,
+        image?: string | null,
+        filename?: string | null,
+        height?: number | null,
+        width?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profilePhotosId?: string | null,
+      } | null,
+      score?: number | null,
+      photos?:  {
+        __typename: "ModelPhotoConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      profileProfilePicId?: string | null,
+    } | null,
     image?: string | null,
     filename?: string | null,
     height?: number | null,
@@ -623,6 +1483,7 @@ export type OnUpdatePhotoSubscription = {
     } | null,
     createdAt: string,
     updatedAt: string,
+    profilePhotosId?: string | null,
   } | null,
 };
 
@@ -635,6 +1496,34 @@ export type OnDeletePhotoSubscription = {
     __typename: "Photo",
     id: string,
     user: string,
+    profile?:  {
+      __typename: "Profile",
+      id: string,
+      name: string,
+      email: string,
+      bio?: string | null,
+      age?: string | null,
+      profilePic?:  {
+        __typename: "Photo",
+        id: string,
+        user: string,
+        image?: string | null,
+        filename?: string | null,
+        height?: number | null,
+        width?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profilePhotosId?: string | null,
+      } | null,
+      score?: number | null,
+      photos?:  {
+        __typename: "ModelPhotoConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      profileProfilePicId?: string | null,
+    } | null,
     image?: string | null,
     filename?: string | null,
     height?: number | null,
@@ -654,6 +1543,7 @@ export type OnDeletePhotoSubscription = {
     } | null,
     createdAt: string,
     updatedAt: string,
+    profilePhotosId?: string | null,
   } | null,
 };
 
@@ -671,6 +1561,18 @@ export type OnCreateLikeSubscription = {
       __typename: "Photo",
       id: string,
       user: string,
+      profile?:  {
+        __typename: "Profile",
+        id: string,
+        name: string,
+        email: string,
+        bio?: string | null,
+        age?: string | null,
+        score?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profileProfilePicId?: string | null,
+      } | null,
       image?: string | null,
       filename?: string | null,
       height?: number | null,
@@ -681,6 +1583,7 @@ export type OnCreateLikeSubscription = {
       } | null,
       createdAt: string,
       updatedAt: string,
+      profilePhotosId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -702,6 +1605,18 @@ export type OnUpdateLikeSubscription = {
       __typename: "Photo",
       id: string,
       user: string,
+      profile?:  {
+        __typename: "Profile",
+        id: string,
+        name: string,
+        email: string,
+        bio?: string | null,
+        age?: string | null,
+        score?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profileProfilePicId?: string | null,
+      } | null,
       image?: string | null,
       filename?: string | null,
       height?: number | null,
@@ -712,6 +1627,7 @@ export type OnUpdateLikeSubscription = {
       } | null,
       createdAt: string,
       updatedAt: string,
+      profilePhotosId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -733,6 +1649,18 @@ export type OnDeleteLikeSubscription = {
       __typename: "Photo",
       id: string,
       user: string,
+      profile?:  {
+        __typename: "Profile",
+        id: string,
+        name: string,
+        email: string,
+        bio?: string | null,
+        age?: string | null,
+        score?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        profileProfilePicId?: string | null,
+      } | null,
       image?: string | null,
       filename?: string | null,
       height?: number | null,
@@ -743,6 +1671,7 @@ export type OnDeleteLikeSubscription = {
       } | null,
       createdAt: string,
       updatedAt: string,
+      profilePhotosId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,

@@ -1,19 +1,13 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {
-  APIService,
-  CreateLikeInput,
-  CreatePhotoInput,
-  DeleteLikeInput,
-  DeletePhotoInput,
-  Like,
-  Photo
-} from '../API.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormBuilder} from '@angular/forms';
+import {APIService, CreatePhotoInput, Like, Photo} from '../API.service';
 import {ZenObservable} from 'zen-observable-ts';
 import {Storage} from "aws-amplify";
 import {Progress} from "../model/progress";
-import {IdService} from "../util/idservice";
+import {IdService} from "../util/id-service";
 import {CustomAPIService} from "../CustomAPI.service";
+import {PhotoUrl} from "../model/photo-url";
+import {UserService} from "../util/user-service";
 
 @Component({
   selector: 'app-photos',
@@ -21,14 +15,13 @@ import {CustomAPIService} from "../CustomAPI.service";
   styleUrls: ['./photos.component.css']
 })
 export class PhotosComponent implements OnInit, OnDestroy {
-  @Input() userName: any;
-
   public photos: Array<PhotoUrl> = [];
 
   public fileName?: string;
   public files?: File[];
   public progressBars: Array<Progress> = [];
   public modalPhoto?: PhotoUrl;
+  public userName?: string;
 
   private photoCreateSubscription: ZenObservable.Subscription | null = null;
   private photoDeleteSubscription: ZenObservable.Subscription | null = null;
@@ -36,11 +29,14 @@ export class PhotosComponent implements OnInit, OnDestroy {
   private likeCreateSubscription: ZenObservable.Subscription | null = null;
   private likeDeleteSubscription: ZenObservable.Subscription | null = null;
 
-  constructor(private api: APIService, private customApi: CustomAPIService, private fb: FormBuilder, private idService: IdService) {
+  constructor(private api: APIService, private customApi: CustomAPIService, private fb: FormBuilder, private idService: IdService, public userService: UserService) {
   }
 
   async ngOnInit() {
     this.fetchPhotos();
+    this.userService.getLoggedInUsername().then(name => {
+      this.userName = name;
+    })
     this.photoCreateSubscription = this.api.OnCreatePhotoListener().subscribe(
       (event: any) => {
         const newPhoto = event.value.data.onCreatePhoto;
@@ -159,81 +155,22 @@ export class PhotosComponent implements OnInit, OnDestroy {
                   image.src = e.target.result as string;
                 }
                 image.onload = () => {
-                  let cpi: CreatePhotoInput = {
-                    user: `${this.userName}`,
-                    filename: fileName,
-                    width: image.width,
-                    height: image.height
-                  };
-                  this.api.CreatePhoto(cpi).then(() => {
+                    let cpi: CreatePhotoInput = {
+                      user: this.userName!,
+                      filename: fileName,
+                      width: image.width,
+                      height: image.height
+                    };
+                    this.api.CreatePhoto(cpi).then(() => {
                   });
                 };
               };
-
             })
           }
         }
       }
     } catch (error) {
       console.log("Error uploading file: ", error);
-    }
-  }
-
-  public onModal(photoUrl: PhotoUrl) {
-    this.modalPhoto = photoUrl;
-  }
-
-  public stopModal() {
-    this.modalPhoto = undefined;
-  }
-
-  public onDelete(photo: Photo) {
-    const confirmed = confirm("Weet je zeker dat je de foto wil verwijderen?");
-    if (confirmed) {
-      const dfi: DeletePhotoInput = {
-        id: photo.id
-      }
-      this.api.DeletePhoto(dfi).then(() => {
-      });
-      if (photo.filename) {
-        Storage.remove(photo.filename).then(() => {
-        });
-      }
-    }
-  }
-
-  public isLikedByCurrent(photoUrl: PhotoUrl): boolean {
-    if (photoUrl.photo === this.likeClicked) {
-      return true;
-    }
-    if (!photoUrl.photo.likes?.items) return false;
-    const search = photoUrl.photo.likes?.items.filter((item) => item?.user === this.userName);
-    return search.length != 0
-  }
-
-  private likeClicked?: Photo = undefined;
-
-  public onLike(photo: Photo) {
-    this.likeClicked = photo;
-    const userName = this.userName;
-    if (photo.likes?.items === undefined || photo.likes?.items.filter((item) => item?.user === this.userName).length == 0) {
-      const cli: CreateLikeInput = {
-        user: userName,
-        photoId: photo.id,
-        photoLikesId: photo.id
-      }
-      this.api.CreateLike(cli).then(() => {});
-    }
-  }
-
-  public onUnLike(photo: Photo) {
-    this.likeClicked = undefined;
-    const currentLike: Like | null | undefined = photo.likes?.items.filter((item) => item?.user === this.userName)[0];
-    if (currentLike) {
-      const dli: DeleteLikeInput = {
-        id: currentLike.id
-      }
-      this.api.DeleteLike(dli).then((like) => {});
     }
   }
 
@@ -256,9 +193,4 @@ export class PhotosComponent implements OnInit, OnDestroy {
     return newStyle;
   }
 
-}
-
-type PhotoUrl = {
-  photo: Photo
-  url: string
 }

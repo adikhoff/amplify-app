@@ -1,0 +1,16 @@
+<div class="img-container" *ngIf="photoUrl.photo.width && photoUrl.photo.height" style="{{'padding-top:' + (100 * photoUrl.photo.height / photoUrl.photo.width) + '%;'}}">
+  <img loading="lazy" class='grid-item grid-item-{{index}}' id="photo-{{index}}" src='{{photoUrl.url}}' alt='' (click)="onModal(photoUrl)" style="">
+</div>
+<app-like-counter [photoUrl]="photoUrl"></app-like-counter>
+{{photoUrl.photo.user}}
+
+<a *ngIf="this.canDelete(photoUrl)" class="delete" (click)="this.onDelete(photoUrl.photo)">x</a>
+
+<div id="myModal" class="modal" *ngIf="modalPhoto">
+  <span class="close" (click)="stopModal()">&times;</span>
+  <img class="modal-content" id="img01" src="{{modalPhoto.url}}" (click)="stopModal()">
+  <div class="caption">
+    <app-like-counter [photoUrl]="modalPhoto"></app-like-counter>
+    {{modalPhoto.photo.user}}
+  </div>
+</div>

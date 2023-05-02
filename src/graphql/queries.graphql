@@ -1,8 +1,119 @@
 # this is an auto generated file. This will be overwritten
+query GetProfile($id: ID!) {
+  getProfile(id: $id) {
+    id
+    name
+    email
+    bio
+    age
+    profilePic {
+      id
+      user
+      profile {
+        id
+        name
+        email
+        bio
+        age
+        score
+        createdAt
+        updatedAt
+        profileProfilePicId
+      }
+      image
+      filename
+      height
+      width
+      likes {
+        nextToken
+      }
+      createdAt
+      updatedAt
+      profilePhotosId
+    }
+    score
+    photos {
+      items {
+        id
+        user
+        image
+        filename
+        height
+        width
+        createdAt
+        updatedAt
+        profilePhotosId
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+    profileProfilePicId
+  }
+}
+query ListProfiles(
+  $filter: ModelProfileFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listProfiles(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      email
+      bio
+      age
+      profilePic {
+        id
+        user
+        image
+        filename
+        height
+        width
+        createdAt
+        updatedAt
+        profilePhotosId
+      }
+      score
+      photos {
+        nextToken
+      }
+      createdAt
+      updatedAt
+      profileProfilePicId
+    }
+    nextToken
+  }
+}
 query GetPhoto($id: ID!) {
   getPhoto(id: $id) {
     id
     user
+    profile {
+      id
+      name
+      email
+      bio
+      age
+      profilePic {
+        id
+        user
+        image
+        filename
+        height
+        width
+        createdAt
+        updatedAt
+        profilePhotosId
+      }
+      score
+      photos {
+        nextToken
+      }
+      createdAt
+      updatedAt
+      profileProfilePicId
+    }
     image
     filename
     height
@@ -20,6 +131,7 @@ query GetPhoto($id: ID!) {
     }
     createdAt
     updatedAt
+    profilePhotosId
   }
 }
 query ListPhotos(
@@ -31,6 +143,17 @@ query ListPhotos(
     items {
       id
       user
+      profile {
+        id
+        name
+        email
+        bio
+        age
+        score
+        createdAt
+        updatedAt
+        profileProfilePicId
+      }
       image
       filename
       height
@@ -40,6 +163,7 @@ query ListPhotos(
       }
       createdAt
       updatedAt
+      profilePhotosId
     }
     nextToken
   }
@@ -52,6 +176,17 @@ query GetLike($id: ID!) {
     photo {
       id
       user
+      profile {
+        id
+        name
+        email
+        bio
+        age
+        score
+        createdAt
+        updatedAt
+        profileProfilePicId
+      }
       image
       filename
       height
@@ -61,6 +196,7 @@ query GetLike($id: ID!) {
       }
       createdAt
       updatedAt
+      profilePhotosId
     }
     createdAt
     updatedAt
@@ -86,10 +222,53 @@ query ListLikes(
         width
         createdAt
         updatedAt
+        profilePhotosId
       }
       createdAt
       updatedAt
       photoLikesId
+    }
+    nextToken
+  }
+}
+query ProfilesByName(
+  $name: String!
+  $sortDirection: ModelSortDirection
+  $filter: ModelProfileFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  profilesByName(
+    name: $name
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      name
+      email
+      bio
+      age
+      profilePic {
+        id
+        user
+        image
+        filename
+        height
+        width
+        createdAt
+        updatedAt
+        profilePhotosId
+      }
+      score
+      photos {
+        nextToken
+      }
+      createdAt
+      updatedAt
+      profileProfilePicId
     }
     nextToken
   }

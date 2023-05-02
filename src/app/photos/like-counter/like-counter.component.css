@@ -1,0 +1,30 @@
+.heart {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  pointer-events: auto;
+  cursor: pointer;
+  word-wrap: break-word;
+  line-height: 20px;
+  font-size: 15px;
+  font-weight: 400;
+  white-space: nowrap;
+  color: rgb(113, 118, 123);
+  -webkit-box-direction: normal;
+  display: inline-block;
+  fill: currentcolor;
+  height: 1.25em;
+  max-width: 100%;
+  position: relative;
+  vertical-align: text-bottom;
+  user-select: none;
+  width: 1.25em;
+}
+
+.heart-selected {
+  color: rgb(249, 24, 128);
+}
+
+.red {
+  color: rgb(249, 24, 128);
+}
+

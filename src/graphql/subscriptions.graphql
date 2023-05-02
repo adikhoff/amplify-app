@@ -1,8 +1,189 @@
 # this is an auto generated file. This will be overwritten
+subscription OnCreateProfile($filter: ModelSubscriptionProfileFilterInput) {
+  onCreateProfile(filter: $filter) {
+    id
+    name
+    email
+    bio
+    age
+    profilePic {
+      id
+      user
+      profile {
+        id
+        name
+        email
+        bio
+        age
+        score
+        createdAt
+        updatedAt
+        profileProfilePicId
+      }
+      image
+      filename
+      height
+      width
+      likes {
+        nextToken
+      }
+      createdAt
+      updatedAt
+      profilePhotosId
+    }
+    score
+    photos {
+      items {
+        id
+        user
+        image
+        filename
+        height
+        width
+        createdAt
+        updatedAt
+        profilePhotosId
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+    profileProfilePicId
+  }
+}
+subscription OnUpdateProfile($filter: ModelSubscriptionProfileFilterInput) {
+  onUpdateProfile(filter: $filter) {
+    id
+    name
+    email
+    bio
+    age
+    profilePic {
+      id
+      user
+      profile {
+        id
+        name
+        email
+        bio
+        age
+        score
+        createdAt
+        updatedAt
+        profileProfilePicId
+      }
+      image
+      filename
+      height
+      width
+      likes {
+        nextToken
+      }
+      createdAt
+      updatedAt
+      profilePhotosId
+    }
+    score
+    photos {
+      items {
+        id
+        user
+        image
+        filename
+        height
+        width
+        createdAt
+        updatedAt
+        profilePhotosId
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+    profileProfilePicId
+  }
+}
+subscription OnDeleteProfile($filter: ModelSubscriptionProfileFilterInput) {
+  onDeleteProfile(filter: $filter) {
+    id
+    name
+    email
+    bio
+    age
+    profilePic {
+      id
+      user
+      profile {
+        id
+        name
+        email
+        bio
+        age
+        score
+        createdAt
+        updatedAt
+        profileProfilePicId
+      }
+      image
+      filename
+      height
+      width
+      likes {
+        nextToken
+      }
+      createdAt
+      updatedAt
+      profilePhotosId
+    }
+    score
+    photos {
+      items {
+        id
+        user
+        image
+        filename
+        height
+        width
+        createdAt
+        updatedAt
+        profilePhotosId
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+    profileProfilePicId
+  }
+}
 subscription OnCreatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
   onCreatePhoto(filter: $filter) {
     id
     user
+    profile {
+      id
+      name
+      email
+      bio
+      age
+      profilePic {
+        id
+        user
+        image
+        filename
+        height
+        width
+        createdAt
+        updatedAt
+        profilePhotosId
+      }
+      score
+      photos {
+        nextToken
+      }
+      createdAt
+      updatedAt
+      profileProfilePicId
+    }
     image
     filename
     height
@@ -20,12 +201,38 @@ subscription OnCreatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
     }
     createdAt
     updatedAt
+    profilePhotosId
   }
 }
 subscription OnUpdatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
   onUpdatePhoto(filter: $filter) {
     id
     user
+    profile {
+      id
+      name
+      email
+      bio
+      age
+      profilePic {
+        id
+        user
+        image
+        filename
+        height
+        width
+        createdAt
+        updatedAt
+        profilePhotosId
+      }
+      score
+      photos {
+        nextToken
+      }
+      createdAt
+      updatedAt
+      profileProfilePicId
+    }
     image
     filename
     height
@@ -43,12 +250,38 @@ subscription OnUpdatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
     }
     createdAt
     updatedAt
+    profilePhotosId
   }
 }
 subscription OnDeletePhoto($filter: ModelSubscriptionPhotoFilterInput) {
   onDeletePhoto(filter: $filter) {
     id
     user
+    profile {
+      id
+      name
+      email
+      bio
+      age
+      profilePic {
+        id
+        user
+        image
+        filename
+        height
+        width
+        createdAt
+        updatedAt
+        profilePhotosId
+      }
+      score
+      photos {
+        nextToken
+      }
+      createdAt
+      updatedAt
+      profileProfilePicId
+    }
     image
     filename
     height
@@ -66,6 +299,7 @@ subscription OnDeletePhoto($filter: ModelSubscriptionPhotoFilterInput) {
     }
     createdAt
     updatedAt
+    profilePhotosId
   }
 }
 subscription OnCreateLike($filter: ModelSubscriptionLikeFilterInput) {
@@ -76,6 +310,17 @@ subscription OnCreateLike($filter: ModelSubscriptionLikeFilterInput) {
     photo {
       id
       user
+      profile {
+        id
+        name
+        email
+        bio
+        age
+        score
+        createdAt
+        updatedAt
+        profileProfilePicId
+      }
       image
       filename
       height
@@ -85,6 +330,7 @@ subscription OnCreateLike($filter: ModelSubscriptionLikeFilterInput) {
       }
       createdAt
       updatedAt
+      profilePhotosId
     }
     createdAt
     updatedAt
@@ -99,6 +345,17 @@ subscription OnUpdateLike($filter: ModelSubscriptionLikeFilterInput) {
     photo {
       id
       user
+      profile {
+        id
+        name
+        email
+        bio
+        age
+        score
+        createdAt
+        updatedAt
+        profileProfilePicId
+      }
       image
       filename
       height
@@ -108,6 +365,7 @@ subscription OnUpdateLike($filter: ModelSubscriptionLikeFilterInput) {
       }
       createdAt
       updatedAt
+      profilePhotosId
     }
     createdAt
     updatedAt
@@ -122,6 +380,17 @@ subscription OnDeleteLike($filter: ModelSubscriptionLikeFilterInput) {
     photo {
       id
       user
+      profile {
+        id
+        name
+        email
+        bio
+        age
+        score
+        createdAt
+        updatedAt
+        profileProfilePicId
+      }
       image
       filename
       height
@@ -131,6 +400,7 @@ subscription OnDeleteLike($filter: ModelSubscriptionLikeFilterInput) {
       }
       createdAt
       updatedAt
+      profilePhotosId
     }
     createdAt
     updatedAt

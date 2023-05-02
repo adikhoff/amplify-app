@@ -1,7 +1,19 @@
 
+type Profile @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  name: String! @index
+  email: String!
+  bio: String
+  age: String
+  profilePic: Photo @hasOne
+  score: Int
+  photos: [Photo] @hasMany
+}
+
 type Photo @model @auth(rules: [{ allow: public }]) {
   id: ID!
   user: String!
+  profile: Profile
   image: String
   filename: String
   height: Int

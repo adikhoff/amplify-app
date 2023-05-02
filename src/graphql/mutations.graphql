@@ -1,4 +1,169 @@
 # this is an auto generated file. This will be overwritten
+mutation CreateProfile(
+  $input: CreateProfileInput!
+  $condition: ModelProfileConditionInput
+) {
+  createProfile(input: $input, condition: $condition) {
+    id
+    name
+    email
+    bio
+    age
+    profilePic {
+      id
+      user
+      profile {
+        id
+        name
+        email
+        bio
+        age
+        score
+        createdAt
+        updatedAt
+        profileProfilePicId
+      }
+      image
+      filename
+      height
+      width
+      likes {
+        nextToken
+      }
+      createdAt
+      updatedAt
+      profilePhotosId
+    }
+    score
+    photos {
+      items {
+        id
+        user
+        image
+        filename
+        height
+        width
+        createdAt
+        updatedAt
+        profilePhotosId
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+    profileProfilePicId
+  }
+}
+mutation UpdateProfile(
+  $input: UpdateProfileInput!
+  $condition: ModelProfileConditionInput
+) {
+  updateProfile(input: $input, condition: $condition) {
+    id
+    name
+    email
+    bio
+    age
+    profilePic {
+      id
+      user
+      profile {
+        id
+        name
+        email
+        bio
+        age
+        score
+        createdAt
+        updatedAt
+        profileProfilePicId
+      }
+      image
+      filename
+      height
+      width
+      likes {
+        nextToken
+      }
+      createdAt
+      updatedAt
+      profilePhotosId
+    }
+    score
+    photos {
+      items {
+        id
+        user
+        image
+        filename
+        height
+        width
+        createdAt
+        updatedAt
+        profilePhotosId
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+    profileProfilePicId
+  }
+}
+mutation DeleteProfile(
+  $input: DeleteProfileInput!
+  $condition: ModelProfileConditionInput
+) {
+  deleteProfile(input: $input, condition: $condition) {
+    id
+    name
+    email
+    bio
+    age
+    profilePic {
+      id
+      user
+      profile {
+        id
+        name
+        email
+        bio
+        age
+        score
+        createdAt
+        updatedAt
+        profileProfilePicId
+      }
+      image
+      filename
+      height
+      width
+      likes {
+        nextToken
+      }
+      createdAt
+      updatedAt
+      profilePhotosId
+    }
+    score
+    photos {
+      items {
+        id
+        user
+        image
+        filename
+        height
+        width
+        createdAt
+        updatedAt
+        profilePhotosId
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+    profileProfilePicId
+  }
+}
 mutation CreatePhoto(
   $input: CreatePhotoInput!
   $condition: ModelPhotoConditionInput
@@ -6,6 +171,31 @@ mutation CreatePhoto(
   createPhoto(input: $input, condition: $condition) {
     id
     user
+    profile {
+      id
+      name
+      email
+      bio
+      age
+      profilePic {
+        id
+        user
+        image
+        filename
+        height
+        width
+        createdAt
+        updatedAt
+        profilePhotosId
+      }
+      score
+      photos {
+        nextToken
+      }
+      createdAt
+      updatedAt
+      profileProfilePicId
+    }
     image
     filename
     height
@@ -23,6 +213,7 @@ mutation CreatePhoto(
     }
     createdAt
     updatedAt
+    profilePhotosId
   }
 }
 mutation UpdatePhoto(
@@ -32,6 +223,31 @@ mutation UpdatePhoto(
   updatePhoto(input: $input, condition: $condition) {
     id
     user
+    profile {
+      id
+      name
+      email
+      bio
+      age
+      profilePic {
+        id
+        user
+        image
+        filename
+        height
+        width
+        createdAt
+        updatedAt
+        profilePhotosId
+      }
+      score
+      photos {
+        nextToken
+      }
+      createdAt
+      updatedAt
+      profileProfilePicId
+    }
     image
     filename
     height
@@ -49,6 +265,7 @@ mutation UpdatePhoto(
     }
     createdAt
     updatedAt
+    profilePhotosId
   }
 }
 mutation DeletePhoto(
@@ -58,6 +275,31 @@ mutation DeletePhoto(
   deletePhoto(input: $input, condition: $condition) {
     id
     user
+    profile {
+      id
+      name
+      email
+      bio
+      age
+      profilePic {
+        id
+        user
+        image
+        filename
+        height
+        width
+        createdAt
+        updatedAt
+        profilePhotosId
+      }
+      score
+      photos {
+        nextToken
+      }
+      createdAt
+      updatedAt
+      profileProfilePicId
+    }
     image
     filename
     height
@@ -75,6 +317,7 @@ mutation DeletePhoto(
     }
     createdAt
     updatedAt
+    profilePhotosId
   }
 }
 mutation CreateLike(
@@ -88,6 +331,17 @@ mutation CreateLike(
     photo {
       id
       user
+      profile {
+        id
+        name
+        email
+        bio
+        age
+        score
+        createdAt
+        updatedAt
+        profileProfilePicId
+      }
       image
       filename
       height
@@ -97,6 +351,7 @@ mutation CreateLike(
       }
       createdAt
       updatedAt
+      profilePhotosId
     }
     createdAt
     updatedAt
@@ -114,6 +369,17 @@ mutation UpdateLike(
     photo {
       id
       user
+      profile {
+        id
+        name
+        email
+        bio
+        age
+        score
+        createdAt
+        updatedAt
+        profileProfilePicId
+      }
       image
       filename
       height
@@ -123,6 +389,7 @@ mutation UpdateLike(
       }
       createdAt
       updatedAt
+      profilePhotosId
     }
     createdAt
     updatedAt
@@ -140,6 +407,17 @@ mutation DeleteLike(
     photo {
       id
       user
+      profile {
+        id
+        name
+        email
+        bio
+        age
+        score
+        createdAt
+        updatedAt
+        profileProfilePicId
+      }
       image
       filename
       height
@@ -149,6 +427,7 @@ mutation DeleteLike(
       }
       createdAt
       updatedAt
+      profilePhotosId
     }
     createdAt
     updatedAt
