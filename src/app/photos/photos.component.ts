@@ -31,8 +31,6 @@ export class PhotosComponent implements OnInit, OnDestroy {
   constructor(
     private api: APIService,
     private customApi: CustomAPIService,
-    private fb: FormBuilder,
-    private idService: IdService,
     public userService: UserService) {
   }
 

@@ -11,12 +11,6 @@
   cursor: pointer;
 }
 
-.perimeter {
-  display: block;
-}
-
-
-
 .upload-container {
   columns: 5 100px;
   column-gap: 1.0rem;
@@ -65,4 +59,3 @@
   text-align: center;
   font-style: italic;
 }
-

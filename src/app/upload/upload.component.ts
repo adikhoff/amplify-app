@@ -34,7 +34,7 @@ export class UploadComponent implements OnInit {
     this.createUIElementsForUpload();
     this.changeDetectorRef.detectChanges();
     this.insertImagesInUploadUI();
-    this.uploadFiles()
+    this.uploadFiles();
   }
 
   private createUIElementsForUpload() {
