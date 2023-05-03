@@ -11,11 +11,12 @@ import { PhotosComponent } from './photos/photos.component';
 import { MyPhotosComponent } from './my-photos/my-photos.component';
 import { PhotoComponent } from './photos/photo/photo.component';
 import { LikeCounterComponent } from './photos/like-counter/like-counter.component';
-import {UserService} from "./util/user-service";
+import { UserService } from "./util/user-service";
 import { UploadComponent } from './upload/upload.component';
+import { AvatarComponent } from './avatar/avatar.component';
 
 @NgModule({
-  declarations: [AppComponent, PhotosComponent, MyPhotosComponent, PhotoComponent, LikeCounterComponent, UploadComponent],
+  declarations: [AppComponent, PhotosComponent, MyPhotosComponent, PhotoComponent, LikeCounterComponent, UploadComponent, AvatarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
