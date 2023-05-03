@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {UserService} from "../util/user-service";
 
 @Component({
   selector: 'app-avatar',
@@ -7,5 +6,5 @@ import {UserService} from "../util/user-service";
   styleUrls: ['./avatar.component.css']
 })
 export class AvatarComponent {
-  @Input() user: string = ""
+  @Input() forUser: string = ""
 }

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PhotoUrl} from "../../model/photo-url";
-import {APIService, CreateLikeInput, DeleteLikeInput, Like, Photo, Profile} from "../../API.service";
+import {APIService, CreateLikeInput, DeleteLikeInput, Like, Photo} from "../../API.service";
 import {UserService} from "../../util/user-service";
 import {MockService} from "../../util/mock-service";
 
@@ -13,26 +13,22 @@ export class LikeCounterComponent implements OnInit {
   @Input() photoUrl: PhotoUrl = this.mockService.getMockPhotoUrl();
 
   private user: any;
-  private userName?: string;
   private likeClicked?: Photo = undefined;
 
   constructor(private api: APIService, private userService: UserService, private mockService: MockService) {
   }
 
   ngOnInit() {
-    this.userService.getLoggedInUsername().then(name => {
-      this.userName = name;
-    });
   }
 
   public alreadyLiked(): boolean {
-    if (this.userName) {
+    if (this.userService.userName) {
       if (this.photoUrl?.photo === this.likeClicked) {
         return true;
       }
       if (!this.photoUrl?.photo.likes?.items) return false;
-      const search = this.photoUrl.photo.likes?.items.filter((item) => item?.user === this.userName);
-      return search.length != 0
+      const search = this.photoUrl.photo.likes?.items.filter((item) => item?.user === this.userService.userName);
+      return search?.length !== 0;
     }
     return false;
   }
@@ -47,22 +43,24 @@ export class LikeCounterComponent implements OnInit {
 
   private decreaseLikes(photo: Photo) {
     this.likeClicked = undefined;
-    const currentLike: Like | null | undefined = photo.likes?.items.filter((item) => item?.user === this.userName)[0];
-    if (currentLike) {
-      const dli: DeleteLikeInput = {
-        id: currentLike.id
+    if (this.userService.userName) {
+      const currentLike: Like | null | undefined = photo.likes?.items.filter((item) => item?.user === name)[0];
+      if (currentLike) {
+        const dli: DeleteLikeInput = {
+          id: currentLike.id
+        }
+        this.api.DeleteLike(dli).then((like) => {
+        });
       }
-      this.api.DeleteLike(dli).then((like) => {
-      });
     }
   }
 
   private increaseLikes(photo: Photo) {
-    if (this.userName) {
+    if (this.userService.userName) {
       this.simulateScoreIncrease(photo);
-      if (photo.likes?.items === undefined || photo.likes?.items.filter((item) => item?.user === this.userName).length == 0) {
+      if (photo.likes?.items === undefined || photo.likes?.items.filter((item) => item?.user === name).length == 0) {
         const cli: CreateLikeInput = {
-          user: this.userName,
+          user: this.userService.userName,
           photoId: photo.id,
           photoLikesId: photo.id
         }

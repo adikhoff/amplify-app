@@ -15,11 +15,8 @@ import {MockService} from "../util/mock-service";
 export class UploadComponent implements OnInit {
 
   private files: File[] = [];
-  private progressBars: Progress[] = [];
   uploads: PhotoUrl[] = [];
   hidden: string = "hidden";
-
-  private userName?: string;
 
   constructor(
     private api: APIService,
@@ -30,9 +27,6 @@ export class UploadComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getLoggedInUsername().then(name => {
-      this.userName = name;
-    });
   }
 
   public onFileSelected(e: any) {
@@ -78,37 +72,43 @@ export class UploadComponent implements OnInit {
   private uploadToStorage(photoUrl: PhotoUrl) {
     const file = photoUrl.file;
     if (file) {
-      const fileExt = file.name.substring(file.name.lastIndexOf("."));
-      const fileName = this.userName + "-" + this.idService.generate() + fileExt;
+      if (this.userService.userName) {
+        const fileExt = file.name.substring(file.name.lastIndexOf("."));
+        const fileName = this.userService.userName + "/" + this.idService.generate() + fileExt;
 
-      Storage.put(fileName, file, {
-        level: "protected",
-        progressCallback(progress) {
-          photoUrl.progress!.loaded = progress.loaded;
-          photoUrl.progress!.total = progress.total;
-        }
-      }).then((response) => {
-        console.log("PutResult: ", response);
-        this.uploads = this.uploads.filter(pul => pul.progress!.loaded != pul.progress!.total);
-        if (this.uploads.length === 0) { this.hidden = "hidden"; }
-        this.addToDatabase(photoUrl, fileName);
-      });
+        Storage.put(fileName, file, {
+          level: "public",
+          progressCallback(progress) {
+            photoUrl.progress!.loaded = progress.loaded;
+            photoUrl.progress!.total = progress.total;
+          }
+        }).then((response) => {
+          console.log("PutResult: ", response);
+          this.uploads = this.uploads.filter(pul => pul.progress!.loaded != pul.progress!.total);
+          if (this.uploads.length === 0) {
+            this.hidden = "hidden";
+          }
+          this.addToDatabase(photoUrl, fileName);
+        });
+      }
     }
   }
 
   // Todo: this should be done in a Lambda
   private addToDatabase(photoUrl: PhotoUrl, fileName: string) {
     const image = photoUrl.image!;
-    let cpi: CreatePhotoInput = {
-      user: this.userName!,
-      filename: fileName,
-      width: image.width,
-      height: image.height
-    };
-    console.log("Storing to database: ", cpi);
-    this.api.CreatePhoto(cpi).then(() => {
-      console.log("Creation of database row succesful");
-    });
+    if (this.userService.userName) {
+      let cpi: CreatePhotoInput = {
+        user: this.userService.userName,
+        filename: fileName,
+        width: image.width,
+        height: image.height
+      };
+      console.log("Storing to database: ", cpi);
+      this.api.CreatePhoto(cpi).then(() => {
+        console.log("Creation of database row succesful");
+      });
+    }
   }
 
   public calcPercentage(progress: Progress) {

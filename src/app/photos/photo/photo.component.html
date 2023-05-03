@@ -6,7 +6,7 @@
 
 <app-like-counter [photoUrl]="photoUrl"></app-like-counter>
 
-<app-avatar [user]="photoUrl.photo.user"></app-avatar>
+<app-avatar [forUser]="photoUrl.photo.user"></app-avatar>
 
 <a *ngIf="this.canDelete(photoUrl)" class="delete" (click)="this.onDelete(photoUrl.photo)">x</a>
 
@@ -17,6 +17,6 @@
   <div class="caption">
     <app-like-counter [photoUrl]="modalPhoto"></app-like-counter>
 
-    <app-avatar [user]="modalPhoto.photo.user"></app-avatar>
+    <app-avatar [forUser]="modalPhoto.photo.user"></app-avatar>
   </div>
 </div>

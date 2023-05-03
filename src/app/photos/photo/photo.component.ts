@@ -14,17 +14,12 @@ export class PhotoComponent implements OnInit {
   @Input() photoUrl: PhotoUrl = this.mockService.getMockPhotoUrl();
   @Input() index: any;
 
-  userName?: string;
-
   public modalPhoto: PhotoUrl | undefined;
 
   constructor(private api: APIService, private userService: UserService, private mockService: MockService) {
   }
 
   ngOnInit() {
-    this.userService.getLoggedInUsername().then(userName => {
-      this.userName = userName;
-    });
   }
 
   public onModal(photoUrl: PhotoUrl) {
@@ -50,6 +45,9 @@ export class PhotoComponent implements OnInit {
   }
 
   canDelete(photoUrl: PhotoUrl) {
-    return photoUrl.photo.user === this.userName || this.userName === 'admin';
+    if (this.userService.userName) {
+      return photoUrl.photo.user === this.userService.userName || this.userService.userName === 'admin';
+    }
+    return false;
   }
 }

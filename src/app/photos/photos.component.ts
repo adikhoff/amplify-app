@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {APIService, CreatePhotoInput, Like, Photo} from '../API.service';
+import {APIService, Like, Photo} from '../API.service';
 import {ZenObservable} from 'zen-observable-ts';
 import {Storage} from "aws-amplify";
 import {Progress} from "../model/progress";
@@ -8,7 +8,6 @@ import {IdService} from "../util/id-service";
 import {CustomAPIService} from "../CustomAPI.service";
 import {PhotoUrl} from "../model/photo-url";
 import {UserService} from "../util/user-service";
-import {MockService} from "../util/mock-service";
 
 @Component({
   selector: 'app-photos',
@@ -22,7 +21,6 @@ export class PhotosComponent implements OnInit, OnDestroy {
   public files?: File[];
   public progressBars: Array<Progress> = [];
   public modalPhoto?: PhotoUrl;
-  public userName?: string;
 
   private photoCreateSubscription: ZenObservable.Subscription | null = null;
   private photoDeleteSubscription: ZenObservable.Subscription | null = null;
@@ -35,15 +33,11 @@ export class PhotosComponent implements OnInit, OnDestroy {
     private customApi: CustomAPIService,
     private fb: FormBuilder,
     private idService: IdService,
-    private userService: UserService,
-    private mockService: MockService) {
+    public userService: UserService) {
   }
 
   async ngOnInit() {
     this.fetchPhotos();
-    this.userService.getLoggedInUsername().then(name => {
-      this.userName = name;
-    })
     this.photoCreateSubscription = this.api.OnCreatePhotoListener().subscribe(
       (event: any) => {
         const newPhoto = event.value.data.onCreatePhoto;

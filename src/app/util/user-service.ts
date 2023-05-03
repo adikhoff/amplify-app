@@ -1,18 +1,44 @@
-import {Injectable, OnInit} from '@angular/core';
-import {Auth} from "aws-amplify";
+import {Injectable} from '@angular/core';
+import {Auth, Hub} from "aws-amplify";
 import {APIService, CreateProfileInput, Profile} from "../API.service";
 
-@Injectable({
-  providedIn: 'root',
-})
-export class UserService implements OnInit {
-  private user?: any;
-  private currentProfile?: Profile;
+@Injectable()
+export class UserService {
+  public user: any;
+  public userName?: string;
+  public currentProfile?: Profile;
 
   constructor(private api: APIService) {
+    Hub.listen('auth', (data) => {
+      const {payload} = data;
+      this.onAuthEvent(payload);
+      console.log('A new auth event has happened: ', data.payload.data.username + ' has ' + data.payload.event);
+    });
+    this.setupCredentials();
   }
 
-  ngOnInit() {
+  private setupCredentials() {
+    console.log("constructor");
+    this.getCurrentLoggedinUser().then(user => {
+      this.user = user;
+      console.log("user found", this.user);
+      this.userName = user.username;
+      console.log("userName found", this.userName);
+      this.getProfileForUser(user).then(profile => {
+        console.log("profile found", profile);
+        this.currentProfile = profile;
+      });
+    })
+  }
+
+  private onAuthEvent(payload: any) {
+    console.log("payload", payload);
+    if (payload.event === 'signOut') {
+      console.log("Removing credentials from this device");
+      this.user = undefined;
+      this.currentProfile = undefined;
+    }
+
   }
 
   public async getProfileForUser(user: any): Promise<Profile> {
@@ -35,41 +61,12 @@ export class UserService implements OnInit {
     });
   }
 
-  public async getCurrentLoggedinUser(): Promise<any> {
+  private async getCurrentLoggedinUser(): Promise<any> {
     return new Promise((resolve, reject) => {
-      if (this.user) {
-        resolve(this.user);
-      } else {
-        Auth.currentAuthenticatedUser().then(user => {
-          this.user = user;
-          resolve(this.user);
-        }).catch(err => reject(err));
-      }
+      Auth.currentAuthenticatedUser().then(user => {
+        resolve(user);
+      }).catch(err => reject(err));
     });
-  }
-
-  public async getLoggedInUsername(): Promise<string> {
-    return new Promise((resolve, reject) => {
-      if (this.user) {
-        resolve(this.user.username);
-      } else {
-        this.getCurrentLoggedinUser().then(user => {
-          resolve(user.username);
-        }).catch(err => reject(err));
-      }
-    })
-  }
-
-  public async getCurrentLoggedinProfile(): Promise<Profile> {
-    if (this.currentProfile) {
-      return Promise.resolve(this.currentProfile);
-    } else {
-      return new Promise((resolve, reject) => {
-        this.getCurrentLoggedinUser().then(user => {
-          resolve(this.getProfileForUser(user));
-        });
-      });
-    }
   }
 
 }
