@@ -24,7 +24,6 @@ export const getProfile = /* GraphQL */ `
           updatedAt
           profileProfilePicId
         }
-        image
         filename
         height
         width
@@ -40,7 +39,6 @@ export const getProfile = /* GraphQL */ `
         items {
           id
           user
-          image
           filename
           height
           width
@@ -72,7 +70,6 @@ export const listProfiles = /* GraphQL */ `
         profilePic {
           id
           user
-          image
           filename
           height
           width
@@ -106,7 +103,6 @@ export const getPhoto = /* GraphQL */ `
         profilePic {
           id
           user
-          image
           filename
           height
           width
@@ -122,7 +118,6 @@ export const getPhoto = /* GraphQL */ `
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -164,7 +159,6 @@ export const listPhotos = /* GraphQL */ `
           updatedAt
           profileProfilePicId
         }
-        image
         filename
         height
         width
@@ -199,7 +193,6 @@ export const getLike = /* GraphQL */ `
           updatedAt
           profileProfilePicId
         }
-        image
         filename
         height
         width
@@ -230,7 +223,6 @@ export const listLikes = /* GraphQL */ `
         photo {
           id
           user
-          image
           filename
           height
           width
@@ -270,7 +262,6 @@ export const profilesByName = /* GraphQL */ `
         profilePic {
           id
           user
-          image
           filename
           height
           width

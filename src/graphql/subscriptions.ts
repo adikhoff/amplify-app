@@ -24,7 +24,6 @@ export const onCreateProfile = /* GraphQL */ `
           updatedAt
           profileProfilePicId
         }
-        image
         filename
         height
         width
@@ -40,7 +39,6 @@ export const onCreateProfile = /* GraphQL */ `
         items {
           id
           user
-          image
           filename
           height
           width
@@ -78,7 +76,6 @@ export const onUpdateProfile = /* GraphQL */ `
           updatedAt
           profileProfilePicId
         }
-        image
         filename
         height
         width
@@ -94,7 +91,6 @@ export const onUpdateProfile = /* GraphQL */ `
         items {
           id
           user
-          image
           filename
           height
           width
@@ -132,7 +128,6 @@ export const onDeleteProfile = /* GraphQL */ `
           updatedAt
           profileProfilePicId
         }
-        image
         filename
         height
         width
@@ -148,7 +143,6 @@ export const onDeleteProfile = /* GraphQL */ `
         items {
           id
           user
-          image
           filename
           height
           width
@@ -178,7 +172,6 @@ export const onCreatePhoto = /* GraphQL */ `
         profilePic {
           id
           user
-          image
           filename
           height
           width
@@ -194,7 +187,6 @@ export const onCreatePhoto = /* GraphQL */ `
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -229,7 +221,6 @@ export const onUpdatePhoto = /* GraphQL */ `
         profilePic {
           id
           user
-          image
           filename
           height
           width
@@ -245,7 +236,6 @@ export const onUpdatePhoto = /* GraphQL */ `
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -280,7 +270,6 @@ export const onDeletePhoto = /* GraphQL */ `
         profilePic {
           id
           user
-          image
           filename
           height
           width
@@ -296,7 +285,6 @@ export const onDeletePhoto = /* GraphQL */ `
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -337,7 +325,6 @@ export const onCreateLike = /* GraphQL */ `
           updatedAt
           profileProfilePicId
         }
-        image
         filename
         height
         width
@@ -374,7 +361,6 @@ export const onUpdateLike = /* GraphQL */ `
           updatedAt
           profileProfilePicId
         }
-        image
         filename
         height
         width
@@ -411,7 +397,6 @@ export const onDeleteLike = /* GraphQL */ `
           updatedAt
           profileProfilePicId
         }
-        image
         filename
         height
         width

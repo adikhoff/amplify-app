@@ -10,16 +10,7 @@ import {MockService} from "../../util/mock-service";
   styleUrls: ['./like-counter.component.css']
 })
 export class LikeCounterComponent implements OnInit {
-  @Input() photoUrl: PhotoUrl = {
-    photo: {
-      __typename: "Photo",
-      id: "",
-      user: "",
-      createdAt: "",
-      updatedAt: ""
-    },
-    url: ""
-  };
+  @Input() photoUrl: PhotoUrl = this.mockService.getMockPhotoUrl();
 
   private user: any;
   private userName?: string;

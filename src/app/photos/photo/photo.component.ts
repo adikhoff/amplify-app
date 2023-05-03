@@ -3,6 +3,7 @@ import {PhotoUrl} from "../../model/photo-url";
 import {UserService} from "../../util/user-service";
 import {APIService, DeletePhotoInput, Photo} from "../../API.service";
 import {Storage} from "aws-amplify";
+import {MockService} from "../../util/mock-service";
 
 @Component({
   selector: 'app-photo',
@@ -10,23 +11,14 @@ import {Storage} from "aws-amplify";
   styleUrls: ['./photo.component.css']
 })
 export class PhotoComponent implements OnInit {
-  @Input() photoUrl: PhotoUrl = {
-    photo: {
-      __typename: "Photo",
-      id: "",
-      user: "",
-      createdAt: "",
-      updatedAt: ""
-    },
-    url: ""
-  };
+  @Input() photoUrl: PhotoUrl = this.mockService.getMockPhotoUrl();
   @Input() index: any;
 
   userName?: string;
 
   public modalPhoto: PhotoUrl | undefined;
 
-  constructor(private api: APIService, public userService: UserService) {
+  constructor(private api: APIService, private userService: UserService, private mockService: MockService) {
   }
 
   ngOnInit() {

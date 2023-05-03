@@ -20,7 +20,6 @@ subscription OnCreateProfile($filter: ModelSubscriptionProfileFilterInput) {
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -36,7 +35,6 @@ subscription OnCreateProfile($filter: ModelSubscriptionProfileFilterInput) {
       items {
         id
         user
-        image
         filename
         height
         width
@@ -72,7 +70,6 @@ subscription OnUpdateProfile($filter: ModelSubscriptionProfileFilterInput) {
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -88,7 +85,6 @@ subscription OnUpdateProfile($filter: ModelSubscriptionProfileFilterInput) {
       items {
         id
         user
-        image
         filename
         height
         width
@@ -124,7 +120,6 @@ subscription OnDeleteProfile($filter: ModelSubscriptionProfileFilterInput) {
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -140,7 +135,6 @@ subscription OnDeleteProfile($filter: ModelSubscriptionProfileFilterInput) {
       items {
         id
         user
-        image
         filename
         height
         width
@@ -168,7 +162,6 @@ subscription OnCreatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
       profilePic {
         id
         user
-        image
         filename
         height
         width
@@ -184,7 +177,6 @@ subscription OnCreatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
       updatedAt
       profileProfilePicId
     }
-    image
     filename
     height
     width
@@ -217,7 +209,6 @@ subscription OnUpdatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
       profilePic {
         id
         user
-        image
         filename
         height
         width
@@ -233,7 +224,6 @@ subscription OnUpdatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
       updatedAt
       profileProfilePicId
     }
-    image
     filename
     height
     width
@@ -266,7 +256,6 @@ subscription OnDeletePhoto($filter: ModelSubscriptionPhotoFilterInput) {
       profilePic {
         id
         user
-        image
         filename
         height
         width
@@ -282,7 +271,6 @@ subscription OnDeletePhoto($filter: ModelSubscriptionPhotoFilterInput) {
       updatedAt
       profileProfilePicId
     }
-    image
     filename
     height
     width
@@ -321,7 +309,6 @@ subscription OnCreateLike($filter: ModelSubscriptionLikeFilterInput) {
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -356,7 +343,6 @@ subscription OnUpdateLike($filter: ModelSubscriptionLikeFilterInput) {
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -391,7 +377,6 @@ subscription OnDeleteLike($filter: ModelSubscriptionLikeFilterInput) {
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width

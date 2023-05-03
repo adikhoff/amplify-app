@@ -23,7 +23,6 @@ mutation CreateProfile(
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -39,7 +38,6 @@ mutation CreateProfile(
       items {
         id
         user
-        image
         filename
         height
         width
@@ -78,7 +76,6 @@ mutation UpdateProfile(
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -94,7 +91,6 @@ mutation UpdateProfile(
       items {
         id
         user
-        image
         filename
         height
         width
@@ -133,7 +129,6 @@ mutation DeleteProfile(
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -149,7 +144,6 @@ mutation DeleteProfile(
       items {
         id
         user
-        image
         filename
         height
         width
@@ -180,7 +174,6 @@ mutation CreatePhoto(
       profilePic {
         id
         user
-        image
         filename
         height
         width
@@ -196,7 +189,6 @@ mutation CreatePhoto(
       updatedAt
       profileProfilePicId
     }
-    image
     filename
     height
     width
@@ -232,7 +224,6 @@ mutation UpdatePhoto(
       profilePic {
         id
         user
-        image
         filename
         height
         width
@@ -248,7 +239,6 @@ mutation UpdatePhoto(
       updatedAt
       profileProfilePicId
     }
-    image
     filename
     height
     width
@@ -284,7 +274,6 @@ mutation DeletePhoto(
       profilePic {
         id
         user
-        image
         filename
         height
         width
@@ -300,7 +289,6 @@ mutation DeletePhoto(
       updatedAt
       profileProfilePicId
     }
-    image
     filename
     height
     width
@@ -342,7 +330,6 @@ mutation CreateLike(
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -380,7 +367,6 @@ mutation UpdateLike(
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -418,7 +404,6 @@ mutation DeleteLike(
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width

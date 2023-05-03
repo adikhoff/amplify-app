@@ -8,6 +8,7 @@ import {IdService} from "../util/id-service";
 import {CustomAPIService} from "../CustomAPI.service";
 import {PhotoUrl} from "../model/photo-url";
 import {UserService} from "../util/user-service";
+import {MockService} from "../util/mock-service";
 
 @Component({
   selector: 'app-photos',
@@ -29,7 +30,13 @@ export class PhotosComponent implements OnInit, OnDestroy {
   private likeCreateSubscription: ZenObservable.Subscription | null = null;
   private likeDeleteSubscription: ZenObservable.Subscription | null = null;
 
-  constructor(private api: APIService, private customApi: CustomAPIService, private fb: FormBuilder, private idService: IdService, public userService: UserService) {
+  constructor(
+    private api: APIService,
+    private customApi: CustomAPIService,
+    private fb: FormBuilder,
+    private idService: IdService,
+    private userService: UserService,
+    private mockService: MockService) {
   }
 
   async ngOnInit() {
@@ -40,7 +47,7 @@ export class PhotosComponent implements OnInit, OnDestroy {
     this.photoCreateSubscription = this.api.OnCreatePhotoListener().subscribe(
       (event: any) => {
         const newPhoto = event.value.data.onCreatePhoto;
-        this.getPhotoUrl(newPhoto).then((url) => {
+        this.getObjectUrl(newPhoto).then((url) => {
           const pu: PhotoUrl = {
             photo: newPhoto,
             url: url
@@ -86,24 +93,6 @@ export class PhotosComponent implements OnInit, OnDestroy {
     )
   }
 
-  public fetchPhotos() {
-    this.customApi.ListPhotosWithLikes({}, 1000).then((event) => {
-      const photos = event.items as Photo[];
-      const newPhotos: PhotoUrl[] = [];
-      for (let i = 0; i < photos.length; i++) {
-        const photo = photos[i];
-        this.getPhotoUrl(photo as Photo).then((url) => {
-          let pu: PhotoUrl = {
-            photo: photo as Photo,
-            url: url,
-          }
-          newPhotos.push(pu);
-        });
-      }
-      this.photos = newPhotos;
-    })
-  }
-
   ngOnDestroy() {
     if (this.photoCreateSubscription) {
       this.photoCreateSubscription.unsubscribe();
@@ -116,14 +105,32 @@ export class PhotosComponent implements OnInit, OnDestroy {
     this.onUpload();
   }
 
-  public async getPhotoUrl(photo: Photo): Promise<string> {
-    if (photo.filename) {
-      return Storage.get(photo.filename, {download: false});
-    }
-    if (photo.image) {
-      return Storage.get(photo.image, {download: false});
-    }
-    return Storage.get("dummy", {download: false});
+  public fetchPhotos() {
+    this.customApi.ListPhotosWithLikes({}, 50).then((event) => {
+      const photos = event.items as Photo[];
+      const newPhotos: PhotoUrl[] = [];
+      for (let i = 0; i < photos.length; i++) {
+        const photo = photos[i];
+        this.getObjectUrl(photo as Photo).then(url => {
+          let pu: PhotoUrl = {
+            photo: photo as Photo,
+            url: url,
+          }
+          newPhotos.push(pu);
+        });
+      }
+      this.photos = newPhotos;
+    })
+  }
+
+  public async getObjectUrl(photo: Photo): Promise<string> {
+    return Storage.get(photo.filename, {download: false});
+  }
+
+  public createUrl(photo: Photo, size: number): string {
+    if (size === 0) return photo.filename;
+    const parts = photo.filename.split(".");
+    return parts[0] + "_" + size + "." + parts[1];
   }
 
   public onUpload() {
@@ -175,19 +182,8 @@ export class PhotosComponent implements OnInit, OnDestroy {
   }
 
   private insertLoadingImage(file: File, progress: Progress) {
-    const photoUrl: PhotoUrl = {
-      photo: {
-        __typename: "Photo",
-        id: "new",
-        user: "none",
-        createdAt: "",
-        updatedAt: "",
-        width: 100,
-        height: 50
-      },
-      url: URL.createObjectURL(file),
-      progress: progress
-    }
+    const photoUrl: PhotoUrl = this.mockService.getMockPhotoUrl();
+    photoUrl.progress = progress;
     this.photos = [photoUrl, ...this.photos];
     let image: HTMLImageElement | null = document.getElementById("photo-1") as HTMLImageElement;
     image.src = URL.createObjectURL(file);
