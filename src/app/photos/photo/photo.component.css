@@ -68,19 +68,6 @@
   height: 150px;
 }
 
-/* No animation on Smaller Screens */
-@media only screen and (min-width: 1024px){
-  .modal-content, #caption {
-    animation-name: zoom;
-    animation-duration: 0.6s;
-  }
-
-  @keyframes zoom {
-    from {transform:scale(0)}
-    to {transform:scale(1)}
-  }
-}
-
 /* Add Animation - Zoom in the Modal */
 
 /* The Close Button */
@@ -105,6 +92,19 @@
 @media only screen and (max-width: 700px){
   .modal-content {
     width: 100%;
+  }
+}
+
+/* No animation on Smaller Screens */
+@media only screen and (min-width: 1024px){
+  .modal-content, #caption {
+    animation-name: zoom;
+    animation-duration: 0.6s;
+  }
+
+  @keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
   }
 }
 

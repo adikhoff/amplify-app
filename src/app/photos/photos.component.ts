@@ -60,7 +60,6 @@ export class PhotosComponent implements OnInit, OnDestroy {
     this.photoUpdateSubscription = this.api.OnUpdatePhotoListener().subscribe(
       (event: any) => {
         const updatedPhoto = event.value.data.onUpdatePhoto as Photo;
-        console.log("Update photo event", updatedPhoto);
         //this.photos = this.photos.filter((ph) => ph.photo.id !== removedPhoto.id);
       }
     );
@@ -68,9 +67,9 @@ export class PhotosComponent implements OnInit, OnDestroy {
     this.likeCreateSubscription = this.api.OnCreateLikeListener().subscribe(
       (event: any) => {
         const newLike = event.value.data.onCreateLike as Like;
-        console.log("Create like event", newLike);
         const photoUrl: PhotoUrl = this.photos.filter((ph) => ph.photo.id === newLike.photoId)[0];
         if (photoUrl.photo.likes) {
+          photoUrl.photo.likes.items = photoUrl.photo.likes.items.filter(like => like?.id !== "mock");
           photoUrl.photo.likes.items.push(newLike);
         }
       }
@@ -79,7 +78,6 @@ export class PhotosComponent implements OnInit, OnDestroy {
     this.likeDeleteSubscription = this.api.OnDeleteLikeListener().subscribe(
       (event: any) => {
         const removedLike = event.value.data.onDeleteLike;
-        console.log("Delete like event", removedLike);
         const photoUrl: PhotoUrl = this.photos.filter((ph) => ph.photo.id === removedLike.photoId)[0];
         if (photoUrl.photo.likes) {
           photoUrl.photo.likes.items = photoUrl.photo.likes.items.filter((like) => like?.user != removedLike.user);

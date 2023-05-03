@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {PhotoUrl} from "../../model/photo-url";
 import {APIService, CreateLikeInput, DeleteLikeInput, Like, Photo, Profile} from "../../API.service";
 import {UserService} from "../../util/user-service";
+import {MockService} from "../../util/mock-service";
 
 @Component({
   selector: 'app-like-counter',
@@ -24,7 +25,7 @@ export class LikeCounterComponent implements OnInit {
   private userName?: string;
   private likeClicked?: Photo = undefined;
 
-  constructor(private api: APIService, private userService: UserService) {
+  constructor(private api: APIService, private userService: UserService, private mockService: MockService) {
   }
 
   ngOnInit() {
@@ -33,7 +34,7 @@ export class LikeCounterComponent implements OnInit {
     });
   }
 
-  public isLikedByCurrent(): boolean {
+  public alreadyLiked(): boolean {
     if (this.userName) {
       if (this.photoUrl?.photo === this.likeClicked) {
         return true;
@@ -45,9 +46,29 @@ export class LikeCounterComponent implements OnInit {
     return false;
   }
 
-  public onLike(photo: Photo) {
+  public onHeartClicked(photo: Photo) {
+    if (!this.alreadyLiked()) {
+      this.increaseLikes(photo);
+    } else {
+      this.decreaseLikes(photo);
+    }
+  }
+
+  private decreaseLikes(photo: Photo) {
+    this.likeClicked = undefined;
+    const currentLike: Like | null | undefined = photo.likes?.items.filter((item) => item?.user === this.userName)[0];
+    if (currentLike) {
+      const dli: DeleteLikeInput = {
+        id: currentLike.id
+      }
+      this.api.DeleteLike(dli).then((like) => {
+      });
+    }
+  }
+
+  private increaseLikes(photo: Photo) {
     if (this.userName) {
-      this.likeClicked = photo;
+      this.simulateScoreIncrease(photo);
       if (photo.likes?.items === undefined || photo.likes?.items.filter((item) => item?.user === this.userName).length == 0) {
         const cli: CreateLikeInput = {
           user: this.userName,
@@ -60,19 +81,10 @@ export class LikeCounterComponent implements OnInit {
     }
   }
 
-  public onUnLike(photo: Photo) {
-    if (this.userName) {
-      this.likeClicked = undefined;
-      const currentLike: Like | null | undefined = photo.likes?.items.filter((item) => item?.user === this.userName)[0];
-      if (currentLike) {
-        const dli: DeleteLikeInput = {
-          id: currentLike.id
-        }
-        this.api.DeleteLike(dli).then((like) => {
-        });
-      }
-    }
+  private simulateScoreIncrease(photo: Photo) {
+    this.likeClicked = photo;
+    const like: Like = this.mockService.getMockLike();
+    photo.likes?.items.push(like);
   }
-
 
 }
