@@ -6,7 +6,7 @@
   </button>
 </div>
 
-<div class="upload-container {{this.hidden}}">
+<div class="upload-container">
   <div *ngFor="let photoUrl of uploads; let i = index" class="upload-container-div">
     <div class="upload-img-container">
       <img class="upload-item upload-item-{{i}}" id="photo-{{i}}" src="{{photoUrl.url}}"/>
@@ -14,5 +14,3 @@
     </div>
   </div>
 </div>
-
-<button *ngIf="uploads" (click)="this.uploadFiles()">Start upload</button>

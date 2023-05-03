@@ -16,7 +16,6 @@ export class UploadComponent implements OnInit {
 
   private files: File[] = [];
   uploads: PhotoUrl[] = [];
-  hidden: string = "hidden";
 
   constructor(
     private api: APIService,
@@ -35,7 +34,7 @@ export class UploadComponent implements OnInit {
     this.createUIElementsForUpload();
     this.changeDetectorRef.detectChanges();
     this.insertImagesInUploadUI();
-    this.hidden = "";
+    this.uploadFiles()
   }
 
   private createUIElementsForUpload() {
@@ -85,9 +84,6 @@ export class UploadComponent implements OnInit {
         }).then((response) => {
           console.log("PutResult: ", response);
           this.uploads = this.uploads.filter(pul => pul.progress!.loaded != pul.progress!.total);
-          if (this.uploads.length === 0) {
-            this.hidden = "hidden";
-          }
           this.addToDatabase(photoUrl, fileName);
         });
       }
