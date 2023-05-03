@@ -10,7 +10,10 @@
   <div *ngFor="let photoUrl of uploads; let i = index" class="upload-container-div">
     <div class="upload-img-container">
       <img class="upload-item upload-item-{{i}}" id="photo-{{i}}" src="{{photoUrl.url}}"/>
-      <span *ngIf="photoUrl.progress">{{this.calcPercentage(photoUrl.progress)}}%</span>
+      <div class="progress-container" *ngIf="photoUrl.progress">
+        <div class="progress" style="{{'width:' + this.calcPercentage(photoUrl.progress) + '%'}}"></div>
+      </div>
     </div>
   </div>
 </div>
+
