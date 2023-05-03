@@ -100,11 +100,6 @@ export class PhotosComponent implements OnInit, OnDestroy {
     this.photoCreateSubscription = null;
   }
 
-  public onFileSelected(e: any) {
-    this.files = e?.target?.files;
-    this.onUpload();
-  }
-
   public fetchPhotos() {
     this.customApi.ListPhotosWithLikes({}, 50).then((event) => {
       const photos = event.items as Photo[];
@@ -124,76 +119,13 @@ export class PhotosComponent implements OnInit, OnDestroy {
   }
 
   public async getObjectUrl(photo: Photo): Promise<string> {
-    return Storage.get(photo.filename, {download: false});
+    return Storage.get(photo.filename, {download: false });
   }
 
   public createUrl(photo: Photo, size: number): string {
     if (size === 0) return photo.filename;
     const parts = photo.filename.split(".");
     return parts[0] + "_" + size + "." + parts[1];
-  }
-
-  public onUpload() {
-    try {
-      if (this.files) {
-        for (let i = 0; i < this.files.length; i++) {
-          const file = this.files[i];
-          if (file) {
-            const progressBar = new Progress();
-            this.insertLoadingImage(file, progressBar);
-
-            const fileExt = file.name.substring(file.name.lastIndexOf("."));
-            const fileName = this.userName + "-" + this.idService.generate() + fileExt;
-            this.progressBars?.push(progressBar);
-            Storage.put(fileName, file, {
-              level: "public",
-              contentType: "image/" + fileExt,
-              progressCallback(progress) {
-                progressBar.loaded = progress.loaded;
-                progressBar.total = progress.total;
-              }
-            }).then(() => {
-              this.progressBars = this.progressBars.filter((el) => el.loaded !== el.total);
-              const reader = new FileReader();
-              reader.readAsDataURL(file);
-              reader.onload = (e) => {
-                const image = new Image();
-                if (e.target?.result) {
-                  image.src = e.target.result as string;
-                }
-                image.onload = () => {
-                  let cpi: CreatePhotoInput = {
-                    user: this.userName!,
-                    filename: fileName,
-                    width: image.width,
-                    height: image.height
-                  };
-                  this.api.CreatePhoto(cpi).then(() => {
-                  });
-                }
-              }
-            });
-          }
-        }
-      }
-    } catch (error) {
-      console.log("Error uploading file: ", error);
-    }
-  }
-
-  private insertLoadingImage(file: File, progress: Progress) {
-    const photoUrl: PhotoUrl = this.mockService.getMockPhotoUrl();
-    photoUrl.progress = progress;
-    this.photos = [photoUrl, ...this.photos];
-    let image: HTMLImageElement | null = document.getElementById("photo-1") as HTMLImageElement;
-    image.src = URL.createObjectURL(file);
-  }
-
-  public calcPercentage(progress: Progress) {
-    if (progress.loaded && progress.total) {
-      return Math.round((progress.loaded / progress.total) * 100);
-    }
-    return 0;
   }
 
   public calcStyle(photo: Photo, i: number) {

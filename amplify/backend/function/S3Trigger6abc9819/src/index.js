@@ -18,12 +18,12 @@ exports.handler = async function (event, context) {
   console.log(`Bucket: ${bucket}`, `Key: ${key}`);
 
   try {
-    // get image from s3
     let image = await s3.getObject({Bucket: bucket, Key: key}).promise();
 
     image = await sharp(image.Body);
     const metadata = await image.metadata();
     if (metadata.width > 1024) {
+
       // resize image
       const resizedImage = await image
         .resize({width: 1024})
@@ -31,9 +31,8 @@ exports.handler = async function (event, context) {
         .toBuffer();
 
       // store image
-      await s3
-        .putObject({Bucket: bucket, Key: key, Body: resizedImage})
-        .promise();
+      await s3.putObject({Bucket: bucket, Key: key, Body: resizedImage}).promise();
+
     } else {
       console.log("Skipping " + key);
     }

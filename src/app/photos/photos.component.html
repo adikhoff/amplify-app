@@ -2,16 +2,10 @@
 
 <p>Ingelogd als {{this.userName}}</p>
 
-<input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload style="display: none" multiple accept="image/*">
+<app-upload></app-upload>
 
-<div class="file-upload">
-  <button class="upload-btn" (click)="fileUpload.click()">
-    Foto's uploaden
-  </button>
-</div>
-
-<div class="grid-container">
-  <div *ngFor="let photoUrl of photos; let i = index" class="grid-container-div">
+<div class="gallery-container">
+  <div *ngFor="let photoUrl of photos; let i = index" class="gallery-container-div">
     <app-photo [photoUrl]="photoUrl" [index]="i + 1"></app-photo>
   </div>
 </div>
