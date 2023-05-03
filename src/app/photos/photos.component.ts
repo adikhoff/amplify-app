@@ -140,6 +140,7 @@ export class PhotosComponent implements OnInit, OnDestroy {
             this.progressBars?.push(progressBar);
             Storage.put(fileName, file, {
               level: "public",
+              contentType: "image/" + fileExt,
               progressCallback(progress) {
                 progressBar.loaded = progress.loaded;
                 progressBar.total = progress.total;

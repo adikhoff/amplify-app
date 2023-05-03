@@ -1,74 +1,48 @@
-// dependencies
-const AWS = require('aws-sdk');
-const util = require('util');
-const sharp = require('sharp');
+const aws = require("aws-sdk");
+const sharp = require("sharp");
+const s3 = new aws.S3();
 
-// get reference to S3 client
-const s3 = new AWS.S3();
-
-exports.handler = async (event, context, callback) => {
+exports.handler = async function (event, context) {
   const start = Date.now();
-  console.log("Reading options from event:\n", util.inspect(event, {depth: 5}));
-  console.log("stopping the cascade");
-  return;
-  const srcBucket = event.Records[0].s3.bucket.name;
-  const srcKey = decodeURIComponent(event.Records[0].s3.object.key.replace(/\+/g, " "));
-
-  const typeMatch = srcKey.match(/\.([^.]*)$/);
-  if (!typeMatch) {
-    console.log("Could not determine the image type.");
+  console.log("Received S3 event:", JSON.stringify(event, null, 2));
+  if (event.Records[0].eventName === "ObjectRemoved:Delete") {
     return;
   }
-
-  const imageType = typeMatch[1].toLowerCase();
-  if (imageType !== "jpg" && imageType !== "png") {
-    console.log(`Unsupported image type: ${imageType}`);
-    return;
-  }
-
+  const bucket = event.Records[0].s3.bucket.name;
+  const key = event.Records[0].s3.object.key;
+  console.log(`Bucket: ${bucket}`, `Key: ${key}`);
   try {
-    const params = {
-      Bucket: srcBucket,
-      Key: srcKey
-    };
-    var origimage = await s3.getObject(params).promise();
-  } catch (error) {
-    console.log(error);
-    return;
-  }
+    // get image from s3
+    let image = await s3.getObject({Bucket: bucket, Key: key}).promise();
 
-  const widths = [200, 400];
-  for (let i = 0; i < widths.length; i++) {
-    const width = widths[i];
-    const srcParts = srcKey.split(".");
-    const dstKey = srcParts[0] + "-" + width + "." + srcParts[1];
-    console.log("Creating new file: ", dstKey);
+    image = await sharp(image.Body);
+    const metadata = await image.metadata();
+    if (metadata.width > 800) {
 
-    try {
-      var buffer = await sharp(origimage.Body).resize(width).toBuffer();
-    } catch (error) {
-      console.log(error);
-      continue;
+      const widths = [400, 200];
+
+      for (let i = 0; i < widths.length; i++) {
+        const newWidth = widths[i];
+        const parts = key.split(".");
+        const newKey = parts[0] + "_" + newWidth + "." + parts[1];
+        console.log("New name: ", newKey);
+
+        // resize image
+        const resizedImage = await image
+          .resize({width: newWidth})
+          .withMetadata()
+          .toBuffer();
+
+        // store image
+        await s3
+          .putObject({Bucket: bucket, Key: newKey, Body: resizedImage, ContentType: "Image/" + parts[1]})
+          .promise();
+      }
+    } else {
+      console.log("Skipping " + key);
     }
-
-    try {
-      const destparams = {
-        Bucket: srcBucket,
-        Key: dstKey,
-        Body: buffer,
-        ContentType: "image"
-      };
-
-      const putResult = await s3.putObject(destparams).promise();
-
-    } catch (error) {
-      console.log(error);
-      continue;
-    }
-
-    console.log('Successfully resized ' + srcBucket + '/' + srcKey +
-      ' and uploaded to ' + srcBucket + '/' + dstKey);
+  } catch (err) {
+    context.fail(`Error resizing image: ${err}`);
   }
-
-  console.log(`Operation completed in ${Date.now() - start} ms`);
+  console.log(`Operation done in ${Date.now() - start}`);
 };
