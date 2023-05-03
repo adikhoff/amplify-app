@@ -5,6 +5,7 @@
   "main": "index.js",
   "license": "Apache-2.0",
   "dependencies": {
+    "libvips": "^0.0.2",
     "sharp": "^0.28.3"
   },
   "scripts": {

@@ -34,7 +34,7 @@ exports.handler = async function (event, context) {
       await s3.putObject({Bucket: bucket, Key: key, Body: resizedImage}).promise();
 
     } else {
-      console.log("Skipping " + key);
+      console.log(`Skipping key ${key}, within the size limit.`);
     }
   } catch (err) {
     context.fail(`Error resizing image: ${err}`);

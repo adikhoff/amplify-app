@@ -27,7 +27,7 @@
       "function": {
         "S3Trigger6abc9819": {
           "deploymentBucketName": "amplify-dekkerreunie-dev-141208-deployment",
-          "s3Key": "amplify-builds/S3Trigger6abc9819-6c702f3166495a544266-build.zip"
+          "s3Key": "amplify-builds/S3Trigger6abc9819-75473450444557335535-build.zip"
         }
       },
       "storage": {
