@@ -1,5 +1,5 @@
 <ul>
-  <li><a href="/">home</a></li>
-  <li><a href="/gallery">gallerij</a></li>
-  <li class="profile"><a href="/profile">{{userService.userName}}</a></li>
+  <li><a [routerLink] = "'/'">home</a></li>
+  <li><a [routerLink] = "'/gallery'">gallerij</a></li>
+  <li class="profile"><a [routerLink] = "'/profile'">{{userService.userName}}</a></li>
 </ul>
