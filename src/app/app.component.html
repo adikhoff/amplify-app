@@ -5,10 +5,9 @@
     let-signOut="signOut"
   >
     <div class="application-container">
-      <app-navigation></app-navigation>
+      <app-navigation [signout]="signOut"></app-navigation>
       <router-outlet></router-outlet>
       <app-navigation [isFooter]="true"></app-navigation>
-      <button (click)="signOut()">Uitloggen</button>
     </div>
 
   </ng-template>

@@ -10,6 +10,7 @@ body {
   columns: 5 200px;
   column-gap: 0.5rem;
   margin: 3px auto;
+  min-height: 1000px;
 }
 
 .gallery-container-div {
@@ -20,7 +21,6 @@ body {
   border: solid 1px white;
   padding: 5px;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
-  /*border-radius: 5px;*/
   transition: all 0.25s ease-in-out;
 }
 

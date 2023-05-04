@@ -8,6 +8,7 @@ import {UserService} from "../util/user-service";
 })
 export class NavigationComponent {
   @Input() isFooter: boolean = false;
+  @Input() signout: Function = () => {};
 
   constructor(
     public userService: UserService

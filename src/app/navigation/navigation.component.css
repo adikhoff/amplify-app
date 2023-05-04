@@ -22,15 +22,6 @@ li a:hover {
   background-color: rgb(250, 25, 130);
 }
 
-.middle {
-  display: block;
-  width: 100%;
-  color: white;
-  text-align: center;
-  padding: 16px;
-  text-decoration: none;
-}
-
 .last {
   float: right;
   font-weight: bolder;
