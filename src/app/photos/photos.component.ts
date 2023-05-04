@@ -32,6 +32,7 @@ export class PhotosComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
+    // Todo: migrate all this to app.component, so we don't lose the data between page switches
     this.fetchPhotos();
     this.photoCreateSubscription = this.api.OnCreatePhotoListener().subscribe(
       (event: any) => {

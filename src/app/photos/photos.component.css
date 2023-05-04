@@ -33,4 +33,5 @@ body {
 
 .gallery-container div:hover {
   border: solid 1px rgb(250, 25, 130);
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
