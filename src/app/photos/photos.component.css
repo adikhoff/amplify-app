@@ -6,31 +6,9 @@ body {
   font-family: sans-serif;
 }
 
-h1 {
-  color: rgb(249, 24, 128);
-}
-
-.welcome-message {
-  width: 95%;
-  margin: 5px auto;
-}
-
-.welcome-message a {
-  color: rgb(249, 24, 128);
-  font-weight: bolder;
-  text-decoration: none;
-}
-
-.welcome-message a:hover {
-  color: rgb(249, 24, 128);
-  font-weight: bolder;
-  text-decoration: underline;
-}
-
 .gallery-container {
   columns: 5 200px;
   column-gap: 0.5rem;
-  width: 95%;
   margin: 3px auto;
 }
 
@@ -54,5 +32,5 @@ h1 {
 }
 
 .gallery-container div:hover {
-  border: solid 1px rgb(249, 24, 128);
+  border: solid 1px rgb(250, 25, 130);
 }

@@ -1,10 +1,8 @@
 ul {
-  width: 95%;
   list-style-type: none;
-  margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: rgb(29, 155, 240);
+  background-color: rgb(25, 150, 230);
   margin: 5px auto;
 }
 
@@ -21,10 +19,19 @@ li a {
 }
 
 li a:hover {
-  background-color: rgb(249, 24, 128);
+  background-color: rgb(250, 25, 130);
 }
 
-.profile {
+.middle {
+  display: block;
+  width: 100%;
+  color: white;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
+
+.last {
   float: right;
   font-weight: bolder;
 }

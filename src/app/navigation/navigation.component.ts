@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {UserService} from "../util/user-service";
 
 @Component({
@@ -7,6 +7,7 @@ import {UserService} from "../util/user-service";
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent {
+  @Input() isFooter: boolean = false;
 
   constructor(
     public userService: UserService

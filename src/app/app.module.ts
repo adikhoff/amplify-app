@@ -16,9 +16,10 @@ import { UploadComponent } from './upload/upload.component';
 import { AvatarComponent } from './avatar/avatar.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { ProfileComponent } from './profile/profile.component';
+import { LegalComponent } from './legal/legal.component';
 
 @NgModule({
-  declarations: [AppComponent, PhotosComponent, MyPhotosComponent, PhotoComponent, LikeCounterComponent, UploadComponent, AvatarComponent, NavigationComponent, ProfileComponent],
+  declarations: [AppComponent, PhotosComponent, MyPhotosComponent, PhotoComponent, LikeCounterComponent, UploadComponent, AvatarComponent, NavigationComponent, ProfileComponent, LegalComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
