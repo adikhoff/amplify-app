@@ -44,7 +44,7 @@ export class LikeCounterComponent implements OnInit {
   private decreaseLikes(photo: Photo) {
     this.likeClicked = undefined;
     if (this.userService.userName) {
-      const currentLike: Like | null | undefined = photo.likes?.items.filter((item) => item?.user === name)[0];
+      const currentLike: Like | null | undefined = photo.likes?.items.filter((item) => item?.user === this.userService.userName)[0];
       if (currentLike) {
         const dli: DeleteLikeInput = {
           id: currentLike.id
@@ -58,7 +58,7 @@ export class LikeCounterComponent implements OnInit {
   private increaseLikes(photo: Photo) {
     if (this.userService.userName) {
       this.simulateScoreIncrease(photo);
-      if (photo.likes?.items === undefined || photo.likes?.items.filter((item) => item?.user === name).length == 0) {
+      if (photo.likes?.items === undefined || photo.likes?.items.filter((item) => item?.user === this.userService.userName).length == 0) {
         const cli: CreateLikeInput = {
           user: this.userService.userName,
           photoId: photo.id,

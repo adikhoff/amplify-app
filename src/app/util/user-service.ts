@@ -36,14 +36,18 @@ export class UserService {
     if (payload.event === 'signOut') {
       console.log("Removing credentials from this device");
       this.user = undefined;
+      this.userName = undefined;
       this.currentProfile = undefined;
     }
 
+    if (payload.event === 'signIn') {
+      this.setupCredentials();
+    }
   }
 
   public async getProfileForUser(user: any): Promise<Profile> {
     return new Promise((resolve, reject) => {
-      this.api.ListProfiles({name: {eq: user.userName}}).then(profiles => {
+      this.api.ListProfiles({name: {eq: user.username}}).then(profiles => {
         let profile = profiles.items[0] as Profile;
         if (profile) {
           resolve(profile);

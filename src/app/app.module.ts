@@ -14,9 +14,10 @@ import { LikeCounterComponent } from './photos/like-counter/like-counter.compone
 import { UserService } from "./util/user-service";
 import { UploadComponent } from './upload/upload.component';
 import { AvatarComponent } from './avatar/avatar.component';
+import { NavigationComponent } from './navigation/navigation.component';
 
 @NgModule({
-  declarations: [AppComponent, PhotosComponent, MyPhotosComponent, PhotoComponent, LikeCounterComponent, UploadComponent, AvatarComponent],
+  declarations: [AppComponent, PhotosComponent, MyPhotosComponent, PhotoComponent, LikeCounterComponent, UploadComponent, AvatarComponent, NavigationComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

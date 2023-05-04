@@ -1,10 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
 import {APIService, Like, Photo} from '../API.service';
 import {ZenObservable} from 'zen-observable-ts';
 import {Storage} from "aws-amplify";
 import {Progress} from "../model/progress";
-import {IdService} from "../util/id-service";
 import {CustomAPIService} from "../CustomAPI.service";
 import {PhotoUrl} from "../model/photo-url";
 import {UserService} from "../util/user-service";
@@ -24,7 +22,6 @@ export class PhotosComponent implements OnInit, OnDestroy {
 
   private photoCreateSubscription: ZenObservable.Subscription | null = null;
   private photoDeleteSubscription: ZenObservable.Subscription | null = null;
-  private photoUpdateSubscription: ZenObservable.Subscription | null = null;
   private likeCreateSubscription: ZenObservable.Subscription | null = null;
   private likeDeleteSubscription: ZenObservable.Subscription | null = null;
 
@@ -53,13 +50,6 @@ export class PhotosComponent implements OnInit, OnDestroy {
       (event: any) => {
         const removedPhoto = event.value.data.onDeletePhoto;
         this.photos = this.photos.filter((ph) => ph.photo.id !== removedPhoto.id);
-      }
-    );
-
-    this.photoUpdateSubscription = this.api.OnUpdatePhotoListener().subscribe(
-      (event: any) => {
-        const updatedPhoto = event.value.data.onUpdatePhoto as Photo;
-        //this.photos = this.photos.filter((ph) => ph.photo.id !== removedPhoto.id);
       }
     );
 

@@ -32,7 +32,9 @@ export class UploadComponent implements OnInit {
     this.files = e?.target?.files;
     this.uploads = [];
     this.createUIElementsForUpload();
+
     this.changeDetectorRef.detectChanges();
+
     this.insertImagesInUploadUI();
     this.uploadFiles();
   }
@@ -41,8 +43,7 @@ export class UploadComponent implements OnInit {
     for (let i = 0; i < this.files.length; i++) {
       const file = this.files[i];
       const photoUrl: PhotoUrl = this.mockService.getMockPhotoUrl();
-      const progress = new Progress();
-      photoUrl.progress = progress;
+      photoUrl.progress = new Progress();
       photoUrl.file = file;
       this.uploads.push(photoUrl);
     }
@@ -82,15 +83,18 @@ export class UploadComponent implements OnInit {
             photoUrl.progress!.total = progress.total;
           }
         }).then((response) => {
-          console.log("PutResult: ", response);
-          this.uploads = this.uploads.filter(pul => pul.progress!.loaded != pul.progress!.total);
+          this.removeCompletedFromUploads();
           this.addToDatabase(photoUrl, fileName);
         });
       }
     }
   }
 
-  // Todo: this should be done in a Lambda
+  private removeCompletedFromUploads() {
+    this.uploads = this.uploads.filter(pul => pul.progress!.loaded != pul.progress!.total);
+  }
+
+// Todo: this should be done in a Lambda
   private addToDatabase(photoUrl: PhotoUrl, fileName: string) {
     const image = photoUrl.image!;
     if (this.userService.userName) {
@@ -100,9 +104,7 @@ export class UploadComponent implements OnInit {
         width: image.width,
         height: image.height
       };
-      console.log("Storing to database: ", cpi);
       this.api.CreatePhoto(cpi).then(() => {
-        console.log("Creation of database row succesful");
       });
     }
   }
