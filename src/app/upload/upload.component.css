@@ -9,6 +9,7 @@
   font-weight: bolder;
   border-radius: 5px;
   cursor: pointer;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .upload-container {
