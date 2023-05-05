@@ -20,7 +20,6 @@ export class CustomAPIService {
             __typename
             id
             user
-            image
             filename
             height
             width

@@ -2,7 +2,8 @@
 subscription OnCreateProfile($filter: ModelSubscriptionProfileFilterInput) {
   onCreateProfile(filter: $filter) {
     id
-    name
+    username
+    displayname
     email
     bio
     age
@@ -11,7 +12,8 @@ subscription OnCreateProfile($filter: ModelSubscriptionProfileFilterInput) {
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -20,7 +22,6 @@ subscription OnCreateProfile($filter: ModelSubscriptionProfileFilterInput) {
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -36,7 +37,6 @@ subscription OnCreateProfile($filter: ModelSubscriptionProfileFilterInput) {
       items {
         id
         user
-        image
         filename
         height
         width
@@ -54,7 +54,8 @@ subscription OnCreateProfile($filter: ModelSubscriptionProfileFilterInput) {
 subscription OnUpdateProfile($filter: ModelSubscriptionProfileFilterInput) {
   onUpdateProfile(filter: $filter) {
     id
-    name
+    username
+    displayname
     email
     bio
     age
@@ -63,7 +64,8 @@ subscription OnUpdateProfile($filter: ModelSubscriptionProfileFilterInput) {
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -72,7 +74,6 @@ subscription OnUpdateProfile($filter: ModelSubscriptionProfileFilterInput) {
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -88,7 +89,6 @@ subscription OnUpdateProfile($filter: ModelSubscriptionProfileFilterInput) {
       items {
         id
         user
-        image
         filename
         height
         width
@@ -106,7 +106,8 @@ subscription OnUpdateProfile($filter: ModelSubscriptionProfileFilterInput) {
 subscription OnDeleteProfile($filter: ModelSubscriptionProfileFilterInput) {
   onDeleteProfile(filter: $filter) {
     id
-    name
+    username
+    displayname
     email
     bio
     age
@@ -115,7 +116,8 @@ subscription OnDeleteProfile($filter: ModelSubscriptionProfileFilterInput) {
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -124,7 +126,6 @@ subscription OnDeleteProfile($filter: ModelSubscriptionProfileFilterInput) {
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -140,7 +141,6 @@ subscription OnDeleteProfile($filter: ModelSubscriptionProfileFilterInput) {
       items {
         id
         user
-        image
         filename
         height
         width
@@ -161,14 +161,14 @@ subscription OnCreatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
     user
     profile {
       id
-      name
+      username
+      displayname
       email
       bio
       age
       profilePic {
         id
         user
-        image
         filename
         height
         width
@@ -184,7 +184,6 @@ subscription OnCreatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
       updatedAt
       profileProfilePicId
     }
-    image
     filename
     height
     width
@@ -210,14 +209,14 @@ subscription OnUpdatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
     user
     profile {
       id
-      name
+      username
+      displayname
       email
       bio
       age
       profilePic {
         id
         user
-        image
         filename
         height
         width
@@ -233,7 +232,6 @@ subscription OnUpdatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
       updatedAt
       profileProfilePicId
     }
-    image
     filename
     height
     width
@@ -259,14 +257,14 @@ subscription OnDeletePhoto($filter: ModelSubscriptionPhotoFilterInput) {
     user
     profile {
       id
-      name
+      username
+      displayname
       email
       bio
       age
       profilePic {
         id
         user
-        image
         filename
         height
         width
@@ -282,7 +280,6 @@ subscription OnDeletePhoto($filter: ModelSubscriptionPhotoFilterInput) {
       updatedAt
       profileProfilePicId
     }
-    image
     filename
     height
     width
@@ -312,7 +309,8 @@ subscription OnCreateLike($filter: ModelSubscriptionLikeFilterInput) {
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -321,7 +319,6 @@ subscription OnCreateLike($filter: ModelSubscriptionLikeFilterInput) {
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -347,7 +344,8 @@ subscription OnUpdateLike($filter: ModelSubscriptionLikeFilterInput) {
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -356,7 +354,6 @@ subscription OnUpdateLike($filter: ModelSubscriptionLikeFilterInput) {
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -382,7 +379,8 @@ subscription OnDeleteLike($filter: ModelSubscriptionLikeFilterInput) {
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -391,7 +389,6 @@ subscription OnDeleteLike($filter: ModelSubscriptionLikeFilterInput) {
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width

@@ -1,0 +1,43 @@
+ul {
+  list-style-type: none;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgb(25, 150, 230);
+  margin: 5px auto;
+  line-height: 0;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 28px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: rgb(250, 25, 130);
+}
+
+.last {
+  float: right;
+  font-weight: bolder;
+}
+
+.last a {
+  float: right;
+  font-weight: bolder;
+}
+
+.logo {
+  float: right;
+}
+
+.logo a {
+  float: right;
+  padding: 3px;
+}

@@ -6,7 +6,8 @@ export const onCreateProfile = /* GraphQL */ `
   subscription OnCreateProfile($filter: ModelSubscriptionProfileFilterInput) {
     onCreateProfile(filter: $filter) {
       id
-      name
+      username
+      displayname
       email
       bio
       age
@@ -15,7 +16,8 @@ export const onCreateProfile = /* GraphQL */ `
         user
         profile {
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -24,7 +26,6 @@ export const onCreateProfile = /* GraphQL */ `
           updatedAt
           profileProfilePicId
         }
-        image
         filename
         height
         width
@@ -40,7 +41,6 @@ export const onCreateProfile = /* GraphQL */ `
         items {
           id
           user
-          image
           filename
           height
           width
@@ -60,7 +60,8 @@ export const onUpdateProfile = /* GraphQL */ `
   subscription OnUpdateProfile($filter: ModelSubscriptionProfileFilterInput) {
     onUpdateProfile(filter: $filter) {
       id
-      name
+      username
+      displayname
       email
       bio
       age
@@ -69,7 +70,8 @@ export const onUpdateProfile = /* GraphQL */ `
         user
         profile {
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -78,7 +80,6 @@ export const onUpdateProfile = /* GraphQL */ `
           updatedAt
           profileProfilePicId
         }
-        image
         filename
         height
         width
@@ -94,7 +95,6 @@ export const onUpdateProfile = /* GraphQL */ `
         items {
           id
           user
-          image
           filename
           height
           width
@@ -114,7 +114,8 @@ export const onDeleteProfile = /* GraphQL */ `
   subscription OnDeleteProfile($filter: ModelSubscriptionProfileFilterInput) {
     onDeleteProfile(filter: $filter) {
       id
-      name
+      username
+      displayname
       email
       bio
       age
@@ -123,7 +124,8 @@ export const onDeleteProfile = /* GraphQL */ `
         user
         profile {
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -132,7 +134,6 @@ export const onDeleteProfile = /* GraphQL */ `
           updatedAt
           profileProfilePicId
         }
-        image
         filename
         height
         width
@@ -148,7 +149,6 @@ export const onDeleteProfile = /* GraphQL */ `
         items {
           id
           user
-          image
           filename
           height
           width
@@ -171,14 +171,14 @@ export const onCreatePhoto = /* GraphQL */ `
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
         profilePic {
           id
           user
-          image
           filename
           height
           width
@@ -194,7 +194,6 @@ export const onCreatePhoto = /* GraphQL */ `
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -222,14 +221,14 @@ export const onUpdatePhoto = /* GraphQL */ `
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
         profilePic {
           id
           user
-          image
           filename
           height
           width
@@ -245,7 +244,6 @@ export const onUpdatePhoto = /* GraphQL */ `
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -273,14 +271,14 @@ export const onDeletePhoto = /* GraphQL */ `
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
         profilePic {
           id
           user
-          image
           filename
           height
           width
@@ -296,7 +294,6 @@ export const onDeletePhoto = /* GraphQL */ `
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -328,7 +325,8 @@ export const onCreateLike = /* GraphQL */ `
         user
         profile {
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -337,7 +335,6 @@ export const onCreateLike = /* GraphQL */ `
           updatedAt
           profileProfilePicId
         }
-        image
         filename
         height
         width
@@ -365,7 +362,8 @@ export const onUpdateLike = /* GraphQL */ `
         user
         profile {
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -374,7 +372,6 @@ export const onUpdateLike = /* GraphQL */ `
           updatedAt
           profileProfilePicId
         }
-        image
         filename
         height
         width
@@ -402,7 +399,8 @@ export const onDeleteLike = /* GraphQL */ `
         user
         profile {
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -411,7 +409,6 @@ export const onDeleteLike = /* GraphQL */ `
           updatedAt
           profileProfilePicId
         }
-        image
         filename
         height
         width

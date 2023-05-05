@@ -5,7 +5,8 @@ mutation CreateProfile(
 ) {
   createProfile(input: $input, condition: $condition) {
     id
-    name
+    username
+    displayname
     email
     bio
     age
@@ -14,7 +15,8 @@ mutation CreateProfile(
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -23,7 +25,6 @@ mutation CreateProfile(
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -39,7 +40,6 @@ mutation CreateProfile(
       items {
         id
         user
-        image
         filename
         height
         width
@@ -60,7 +60,8 @@ mutation UpdateProfile(
 ) {
   updateProfile(input: $input, condition: $condition) {
     id
-    name
+    username
+    displayname
     email
     bio
     age
@@ -69,7 +70,8 @@ mutation UpdateProfile(
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -78,7 +80,6 @@ mutation UpdateProfile(
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -94,7 +95,6 @@ mutation UpdateProfile(
       items {
         id
         user
-        image
         filename
         height
         width
@@ -115,7 +115,8 @@ mutation DeleteProfile(
 ) {
   deleteProfile(input: $input, condition: $condition) {
     id
-    name
+    username
+    displayname
     email
     bio
     age
@@ -124,7 +125,8 @@ mutation DeleteProfile(
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -133,7 +135,6 @@ mutation DeleteProfile(
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -149,7 +150,6 @@ mutation DeleteProfile(
       items {
         id
         user
-        image
         filename
         height
         width
@@ -173,14 +173,14 @@ mutation CreatePhoto(
     user
     profile {
       id
-      name
+      username
+      displayname
       email
       bio
       age
       profilePic {
         id
         user
-        image
         filename
         height
         width
@@ -196,7 +196,6 @@ mutation CreatePhoto(
       updatedAt
       profileProfilePicId
     }
-    image
     filename
     height
     width
@@ -225,14 +224,14 @@ mutation UpdatePhoto(
     user
     profile {
       id
-      name
+      username
+      displayname
       email
       bio
       age
       profilePic {
         id
         user
-        image
         filename
         height
         width
@@ -248,7 +247,6 @@ mutation UpdatePhoto(
       updatedAt
       profileProfilePicId
     }
-    image
     filename
     height
     width
@@ -277,14 +275,14 @@ mutation DeletePhoto(
     user
     profile {
       id
-      name
+      username
+      displayname
       email
       bio
       age
       profilePic {
         id
         user
-        image
         filename
         height
         width
@@ -300,7 +298,6 @@ mutation DeletePhoto(
       updatedAt
       profileProfilePicId
     }
-    image
     filename
     height
     width
@@ -333,7 +330,8 @@ mutation CreateLike(
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -342,7 +340,6 @@ mutation CreateLike(
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -371,7 +368,8 @@ mutation UpdateLike(
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -380,7 +378,6 @@ mutation UpdateLike(
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -409,7 +406,8 @@ mutation DeleteLike(
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -418,7 +416,6 @@ mutation DeleteLike(
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width

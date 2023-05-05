@@ -3,6 +3,7 @@ import {PhotoUrl} from "../../model/photo-url";
 import {UserService} from "../../util/user-service";
 import {APIService, DeletePhotoInput, Photo} from "../../API.service";
 import {Storage} from "aws-amplify";
+import {MockService} from "../../util/mock-service";
 
 @Component({
   selector: 'app-photo',
@@ -10,29 +11,15 @@ import {Storage} from "aws-amplify";
   styleUrls: ['./photo.component.css']
 })
 export class PhotoComponent implements OnInit {
-  @Input() photoUrl: PhotoUrl = {
-    photo: {
-      __typename: "Photo",
-      id: "",
-      user: "",
-      createdAt: "",
-      updatedAt: ""
-    },
-    url: ""
-  };
+  @Input() photoUrl: PhotoUrl = this.mockService.getMockPhotoUrl();
   @Input() index: any;
-
-  userName?: string;
 
   public modalPhoto: PhotoUrl | undefined;
 
-  constructor(private api: APIService, public userService: UserService) {
+  constructor(private api: APIService, private userService: UserService, private mockService: MockService) {
   }
 
   ngOnInit() {
-    this.userService.getLoggedInUsername().then(userName => {
-      this.userName = userName;
-    });
   }
 
   public onModal(photoUrl: PhotoUrl) {
@@ -52,13 +39,15 @@ export class PhotoComponent implements OnInit {
       this.api.DeletePhoto(dfi).then(() => {
       });
       if (photo.filename) {
-        Storage.remove(photo.filename).then(() => {
-        });
+        Storage.remove(photo.filename).then(() => {});
       }
     }
   }
 
   canDelete(photoUrl: PhotoUrl) {
-    return photoUrl.photo.user === this.userName || this.userName === 'admin';
+    if (this.userService.userName) {
+      return photoUrl.photo.user === this.userService.userName || this.userService.userName === 'admin';
+    }
+    return false;
   }
 }

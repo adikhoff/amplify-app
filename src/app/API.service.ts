@@ -23,7 +23,8 @@ export type __SubscriptionContainer = {
 
 export type CreateProfileInput = {
   id?: string | null;
-  name: string;
+  username: string;
+  displayname?: string | null;
   email: string;
   bio?: string | null;
   age?: string | null;
@@ -32,7 +33,8 @@ export type CreateProfileInput = {
 };
 
 export type ModelProfileConditionInput = {
-  name?: ModelStringInput | null;
+  username?: ModelStringInput | null;
+  displayname?: ModelStringInput | null;
   email?: ModelStringInput | null;
   bio?: ModelStringInput | null;
   age?: ModelStringInput | null;
@@ -113,7 +115,8 @@ export type ModelIDInput = {
 export type Profile = {
   __typename: "Profile";
   id: string;
-  name: string;
+  username: string;
+  displayname?: string | null;
   email: string;
   bio?: string | null;
   age?: string | null;
@@ -130,8 +133,7 @@ export type Photo = {
   id: string;
   user: string;
   profile?: Profile | null;
-  image?: string | null;
-  filename?: string | null;
+  filename: string;
   height?: number | null;
   width?: number | null;
   likes?: ModelLikeConnection | null;
@@ -165,7 +167,8 @@ export type ModelPhotoConnection = {
 
 export type UpdateProfileInput = {
   id: string;
-  name?: string | null;
+  username?: string | null;
+  displayname?: string | null;
   email?: string | null;
   bio?: string | null;
   age?: string | null;
@@ -180,8 +183,7 @@ export type DeleteProfileInput = {
 export type CreatePhotoInput = {
   id?: string | null;
   user: string;
-  image?: string | null;
-  filename?: string | null;
+  filename: string;
   height?: number | null;
   width?: number | null;
   profilePhotosId?: string | null;
@@ -189,7 +191,6 @@ export type CreatePhotoInput = {
 
 export type ModelPhotoConditionInput = {
   user?: ModelStringInput | null;
-  image?: ModelStringInput | null;
   filename?: ModelStringInput | null;
   height?: ModelIntInput | null;
   width?: ModelIntInput | null;
@@ -202,7 +203,6 @@ export type ModelPhotoConditionInput = {
 export type UpdatePhotoInput = {
   id: string;
   user?: string | null;
-  image?: string | null;
   filename?: string | null;
   height?: number | null;
   width?: number | null;
@@ -242,7 +242,8 @@ export type DeleteLikeInput = {
 
 export type ModelProfileFilterInput = {
   id?: ModelIDInput | null;
-  name?: ModelStringInput | null;
+  username?: ModelStringInput | null;
+  displayname?: ModelStringInput | null;
   email?: ModelStringInput | null;
   bio?: ModelStringInput | null;
   age?: ModelStringInput | null;
@@ -262,7 +263,6 @@ export type ModelProfileConnection = {
 export type ModelPhotoFilterInput = {
   id?: ModelIDInput | null;
   user?: ModelStringInput | null;
-  image?: ModelStringInput | null;
   filename?: ModelStringInput | null;
   height?: ModelIntInput | null;
   width?: ModelIntInput | null;
@@ -289,7 +289,8 @@ export enum ModelSortDirection {
 
 export type ModelSubscriptionProfileFilterInput = {
   id?: ModelSubscriptionIDInput | null;
-  name?: ModelSubscriptionStringInput | null;
+  username?: ModelSubscriptionStringInput | null;
+  displayname?: ModelSubscriptionStringInput | null;
   email?: ModelSubscriptionStringInput | null;
   bio?: ModelSubscriptionStringInput | null;
   age?: ModelSubscriptionStringInput | null;
@@ -343,7 +344,6 @@ export type ModelSubscriptionIntInput = {
 export type ModelSubscriptionPhotoFilterInput = {
   id?: ModelSubscriptionIDInput | null;
   user?: ModelSubscriptionStringInput | null;
-  image?: ModelSubscriptionStringInput | null;
   filename?: ModelSubscriptionStringInput | null;
   height?: ModelSubscriptionIntInput | null;
   width?: ModelSubscriptionIntInput | null;
@@ -362,7 +362,8 @@ export type ModelSubscriptionLikeFilterInput = {
 export type CreateProfileMutation = {
   __typename: "Profile";
   id: string;
-  name: string;
+  username: string;
+  displayname?: string | null;
   email: string;
   bio?: string | null;
   age?: string | null;
@@ -373,7 +374,8 @@ export type CreateProfileMutation = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -382,8 +384,7 @@ export type CreateProfileMutation = {
       updatedAt: string;
       profileProfilePicId?: string | null;
     } | null;
-    image?: string | null;
-    filename?: string | null;
+    filename: string;
     height?: number | null;
     width?: number | null;
     likes?: {
@@ -401,8 +402,7 @@ export type CreateProfileMutation = {
       __typename: "Photo";
       id: string;
       user: string;
-      image?: string | null;
-      filename?: string | null;
+      filename: string;
       height?: number | null;
       width?: number | null;
       createdAt: string;
@@ -419,7 +419,8 @@ export type CreateProfileMutation = {
 export type UpdateProfileMutation = {
   __typename: "Profile";
   id: string;
-  name: string;
+  username: string;
+  displayname?: string | null;
   email: string;
   bio?: string | null;
   age?: string | null;
@@ -430,7 +431,8 @@ export type UpdateProfileMutation = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -439,8 +441,7 @@ export type UpdateProfileMutation = {
       updatedAt: string;
       profileProfilePicId?: string | null;
     } | null;
-    image?: string | null;
-    filename?: string | null;
+    filename: string;
     height?: number | null;
     width?: number | null;
     likes?: {
@@ -458,8 +459,7 @@ export type UpdateProfileMutation = {
       __typename: "Photo";
       id: string;
       user: string;
-      image?: string | null;
-      filename?: string | null;
+      filename: string;
       height?: number | null;
       width?: number | null;
       createdAt: string;
@@ -476,7 +476,8 @@ export type UpdateProfileMutation = {
 export type DeleteProfileMutation = {
   __typename: "Profile";
   id: string;
-  name: string;
+  username: string;
+  displayname?: string | null;
   email: string;
   bio?: string | null;
   age?: string | null;
@@ -487,7 +488,8 @@ export type DeleteProfileMutation = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -496,8 +498,7 @@ export type DeleteProfileMutation = {
       updatedAt: string;
       profileProfilePicId?: string | null;
     } | null;
-    image?: string | null;
-    filename?: string | null;
+    filename: string;
     height?: number | null;
     width?: number | null;
     likes?: {
@@ -515,8 +516,7 @@ export type DeleteProfileMutation = {
       __typename: "Photo";
       id: string;
       user: string;
-      image?: string | null;
-      filename?: string | null;
+      filename: string;
       height?: number | null;
       width?: number | null;
       createdAt: string;
@@ -537,7 +537,8 @@ export type CreatePhotoMutation = {
   profile?: {
     __typename: "Profile";
     id: string;
-    name: string;
+    username: string;
+    displayname?: string | null;
     email: string;
     bio?: string | null;
     age?: string | null;
@@ -545,8 +546,7 @@ export type CreatePhotoMutation = {
       __typename: "Photo";
       id: string;
       user: string;
-      image?: string | null;
-      filename?: string | null;
+      filename: string;
       height?: number | null;
       width?: number | null;
       createdAt: string;
@@ -562,8 +562,7 @@ export type CreatePhotoMutation = {
     updatedAt: string;
     profileProfilePicId?: string | null;
   } | null;
-  image?: string | null;
-  filename?: string | null;
+  filename: string;
   height?: number | null;
   width?: number | null;
   likes?: {
@@ -591,7 +590,8 @@ export type UpdatePhotoMutation = {
   profile?: {
     __typename: "Profile";
     id: string;
-    name: string;
+    username: string;
+    displayname?: string | null;
     email: string;
     bio?: string | null;
     age?: string | null;
@@ -599,8 +599,7 @@ export type UpdatePhotoMutation = {
       __typename: "Photo";
       id: string;
       user: string;
-      image?: string | null;
-      filename?: string | null;
+      filename: string;
       height?: number | null;
       width?: number | null;
       createdAt: string;
@@ -616,8 +615,7 @@ export type UpdatePhotoMutation = {
     updatedAt: string;
     profileProfilePicId?: string | null;
   } | null;
-  image?: string | null;
-  filename?: string | null;
+  filename: string;
   height?: number | null;
   width?: number | null;
   likes?: {
@@ -645,7 +643,8 @@ export type DeletePhotoMutation = {
   profile?: {
     __typename: "Profile";
     id: string;
-    name: string;
+    username: string;
+    displayname?: string | null;
     email: string;
     bio?: string | null;
     age?: string | null;
@@ -653,8 +652,7 @@ export type DeletePhotoMutation = {
       __typename: "Photo";
       id: string;
       user: string;
-      image?: string | null;
-      filename?: string | null;
+      filename: string;
       height?: number | null;
       width?: number | null;
       createdAt: string;
@@ -670,8 +668,7 @@ export type DeletePhotoMutation = {
     updatedAt: string;
     profileProfilePicId?: string | null;
   } | null;
-  image?: string | null;
-  filename?: string | null;
+  filename: string;
   height?: number | null;
   width?: number | null;
   likes?: {
@@ -704,7 +701,8 @@ export type CreateLikeMutation = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -713,8 +711,7 @@ export type CreateLikeMutation = {
       updatedAt: string;
       profileProfilePicId?: string | null;
     } | null;
-    image?: string | null;
-    filename?: string | null;
+    filename: string;
     height?: number | null;
     width?: number | null;
     likes?: {
@@ -742,7 +739,8 @@ export type UpdateLikeMutation = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -751,8 +749,7 @@ export type UpdateLikeMutation = {
       updatedAt: string;
       profileProfilePicId?: string | null;
     } | null;
-    image?: string | null;
-    filename?: string | null;
+    filename: string;
     height?: number | null;
     width?: number | null;
     likes?: {
@@ -780,7 +777,8 @@ export type DeleteLikeMutation = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -789,8 +787,7 @@ export type DeleteLikeMutation = {
       updatedAt: string;
       profileProfilePicId?: string | null;
     } | null;
-    image?: string | null;
-    filename?: string | null;
+    filename: string;
     height?: number | null;
     width?: number | null;
     likes?: {
@@ -809,7 +806,8 @@ export type DeleteLikeMutation = {
 export type GetProfileQuery = {
   __typename: "Profile";
   id: string;
-  name: string;
+  username: string;
+  displayname?: string | null;
   email: string;
   bio?: string | null;
   age?: string | null;
@@ -820,7 +818,8 @@ export type GetProfileQuery = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -829,8 +828,7 @@ export type GetProfileQuery = {
       updatedAt: string;
       profileProfilePicId?: string | null;
     } | null;
-    image?: string | null;
-    filename?: string | null;
+    filename: string;
     height?: number | null;
     width?: number | null;
     likes?: {
@@ -848,8 +846,7 @@ export type GetProfileQuery = {
       __typename: "Photo";
       id: string;
       user: string;
-      image?: string | null;
-      filename?: string | null;
+      filename: string;
       height?: number | null;
       width?: number | null;
       createdAt: string;
@@ -868,7 +865,8 @@ export type ListProfilesQuery = {
   items: Array<{
     __typename: "Profile";
     id: string;
-    name: string;
+    username: string;
+    displayname?: string | null;
     email: string;
     bio?: string | null;
     age?: string | null;
@@ -876,8 +874,7 @@ export type ListProfilesQuery = {
       __typename: "Photo";
       id: string;
       user: string;
-      image?: string | null;
-      filename?: string | null;
+      filename: string;
       height?: number | null;
       width?: number | null;
       createdAt: string;
@@ -903,7 +900,8 @@ export type GetPhotoQuery = {
   profile?: {
     __typename: "Profile";
     id: string;
-    name: string;
+    username: string;
+    displayname?: string | null;
     email: string;
     bio?: string | null;
     age?: string | null;
@@ -911,8 +909,7 @@ export type GetPhotoQuery = {
       __typename: "Photo";
       id: string;
       user: string;
-      image?: string | null;
-      filename?: string | null;
+      filename: string;
       height?: number | null;
       width?: number | null;
       createdAt: string;
@@ -928,8 +925,7 @@ export type GetPhotoQuery = {
     updatedAt: string;
     profileProfilePicId?: string | null;
   } | null;
-  image?: string | null;
-  filename?: string | null;
+  filename: string;
   height?: number | null;
   width?: number | null;
   likes?: {
@@ -959,7 +955,8 @@ export type ListPhotosQuery = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -968,8 +965,7 @@ export type ListPhotosQuery = {
       updatedAt: string;
       profileProfilePicId?: string | null;
     } | null;
-    image?: string | null;
-    filename?: string | null;
+    filename: string;
     height?: number | null;
     width?: number | null;
     likes?: {
@@ -995,7 +991,8 @@ export type GetLikeQuery = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -1004,8 +1001,7 @@ export type GetLikeQuery = {
       updatedAt: string;
       profileProfilePicId?: string | null;
     } | null;
-    image?: string | null;
-    filename?: string | null;
+    filename: string;
     height?: number | null;
     width?: number | null;
     likes?: {
@@ -1032,8 +1028,7 @@ export type ListLikesQuery = {
       __typename: "Photo";
       id: string;
       user: string;
-      image?: string | null;
-      filename?: string | null;
+      filename: string;
       height?: number | null;
       width?: number | null;
       createdAt: string;
@@ -1047,12 +1042,13 @@ export type ListLikesQuery = {
   nextToken?: string | null;
 };
 
-export type ProfilesByNameQuery = {
+export type ProfilesByUsernameQuery = {
   __typename: "ModelProfileConnection";
   items: Array<{
     __typename: "Profile";
     id: string;
-    name: string;
+    username: string;
+    displayname?: string | null;
     email: string;
     bio?: string | null;
     age?: string | null;
@@ -1060,8 +1056,7 @@ export type ProfilesByNameQuery = {
       __typename: "Photo";
       id: string;
       user: string;
-      image?: string | null;
-      filename?: string | null;
+      filename: string;
       height?: number | null;
       width?: number | null;
       createdAt: string;
@@ -1083,7 +1078,8 @@ export type ProfilesByNameQuery = {
 export type OnCreateProfileSubscription = {
   __typename: "Profile";
   id: string;
-  name: string;
+  username: string;
+  displayname?: string | null;
   email: string;
   bio?: string | null;
   age?: string | null;
@@ -1094,7 +1090,8 @@ export type OnCreateProfileSubscription = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -1103,8 +1100,7 @@ export type OnCreateProfileSubscription = {
       updatedAt: string;
       profileProfilePicId?: string | null;
     } | null;
-    image?: string | null;
-    filename?: string | null;
+    filename: string;
     height?: number | null;
     width?: number | null;
     likes?: {
@@ -1122,8 +1118,7 @@ export type OnCreateProfileSubscription = {
       __typename: "Photo";
       id: string;
       user: string;
-      image?: string | null;
-      filename?: string | null;
+      filename: string;
       height?: number | null;
       width?: number | null;
       createdAt: string;
@@ -1140,7 +1135,8 @@ export type OnCreateProfileSubscription = {
 export type OnUpdateProfileSubscription = {
   __typename: "Profile";
   id: string;
-  name: string;
+  username: string;
+  displayname?: string | null;
   email: string;
   bio?: string | null;
   age?: string | null;
@@ -1151,7 +1147,8 @@ export type OnUpdateProfileSubscription = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -1160,8 +1157,7 @@ export type OnUpdateProfileSubscription = {
       updatedAt: string;
       profileProfilePicId?: string | null;
     } | null;
-    image?: string | null;
-    filename?: string | null;
+    filename: string;
     height?: number | null;
     width?: number | null;
     likes?: {
@@ -1179,8 +1175,7 @@ export type OnUpdateProfileSubscription = {
       __typename: "Photo";
       id: string;
       user: string;
-      image?: string | null;
-      filename?: string | null;
+      filename: string;
       height?: number | null;
       width?: number | null;
       createdAt: string;
@@ -1197,7 +1192,8 @@ export type OnUpdateProfileSubscription = {
 export type OnDeleteProfileSubscription = {
   __typename: "Profile";
   id: string;
-  name: string;
+  username: string;
+  displayname?: string | null;
   email: string;
   bio?: string | null;
   age?: string | null;
@@ -1208,7 +1204,8 @@ export type OnDeleteProfileSubscription = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -1217,8 +1214,7 @@ export type OnDeleteProfileSubscription = {
       updatedAt: string;
       profileProfilePicId?: string | null;
     } | null;
-    image?: string | null;
-    filename?: string | null;
+    filename: string;
     height?: number | null;
     width?: number | null;
     likes?: {
@@ -1236,8 +1232,7 @@ export type OnDeleteProfileSubscription = {
       __typename: "Photo";
       id: string;
       user: string;
-      image?: string | null;
-      filename?: string | null;
+      filename: string;
       height?: number | null;
       width?: number | null;
       createdAt: string;
@@ -1258,7 +1253,8 @@ export type OnCreatePhotoSubscription = {
   profile?: {
     __typename: "Profile";
     id: string;
-    name: string;
+    username: string;
+    displayname?: string | null;
     email: string;
     bio?: string | null;
     age?: string | null;
@@ -1266,8 +1262,7 @@ export type OnCreatePhotoSubscription = {
       __typename: "Photo";
       id: string;
       user: string;
-      image?: string | null;
-      filename?: string | null;
+      filename: string;
       height?: number | null;
       width?: number | null;
       createdAt: string;
@@ -1283,8 +1278,7 @@ export type OnCreatePhotoSubscription = {
     updatedAt: string;
     profileProfilePicId?: string | null;
   } | null;
-  image?: string | null;
-  filename?: string | null;
+  filename: string;
   height?: number | null;
   width?: number | null;
   likes?: {
@@ -1312,7 +1306,8 @@ export type OnUpdatePhotoSubscription = {
   profile?: {
     __typename: "Profile";
     id: string;
-    name: string;
+    username: string;
+    displayname?: string | null;
     email: string;
     bio?: string | null;
     age?: string | null;
@@ -1320,8 +1315,7 @@ export type OnUpdatePhotoSubscription = {
       __typename: "Photo";
       id: string;
       user: string;
-      image?: string | null;
-      filename?: string | null;
+      filename: string;
       height?: number | null;
       width?: number | null;
       createdAt: string;
@@ -1337,8 +1331,7 @@ export type OnUpdatePhotoSubscription = {
     updatedAt: string;
     profileProfilePicId?: string | null;
   } | null;
-  image?: string | null;
-  filename?: string | null;
+  filename: string;
   height?: number | null;
   width?: number | null;
   likes?: {
@@ -1366,7 +1359,8 @@ export type OnDeletePhotoSubscription = {
   profile?: {
     __typename: "Profile";
     id: string;
-    name: string;
+    username: string;
+    displayname?: string | null;
     email: string;
     bio?: string | null;
     age?: string | null;
@@ -1374,8 +1368,7 @@ export type OnDeletePhotoSubscription = {
       __typename: "Photo";
       id: string;
       user: string;
-      image?: string | null;
-      filename?: string | null;
+      filename: string;
       height?: number | null;
       width?: number | null;
       createdAt: string;
@@ -1391,8 +1384,7 @@ export type OnDeletePhotoSubscription = {
     updatedAt: string;
     profileProfilePicId?: string | null;
   } | null;
-  image?: string | null;
-  filename?: string | null;
+  filename: string;
   height?: number | null;
   width?: number | null;
   likes?: {
@@ -1425,7 +1417,8 @@ export type OnCreateLikeSubscription = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -1434,8 +1427,7 @@ export type OnCreateLikeSubscription = {
       updatedAt: string;
       profileProfilePicId?: string | null;
     } | null;
-    image?: string | null;
-    filename?: string | null;
+    filename: string;
     height?: number | null;
     width?: number | null;
     likes?: {
@@ -1463,7 +1455,8 @@ export type OnUpdateLikeSubscription = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -1472,8 +1465,7 @@ export type OnUpdateLikeSubscription = {
       updatedAt: string;
       profileProfilePicId?: string | null;
     } | null;
-    image?: string | null;
-    filename?: string | null;
+    filename: string;
     height?: number | null;
     width?: number | null;
     likes?: {
@@ -1501,7 +1493,8 @@ export type OnDeleteLikeSubscription = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -1510,8 +1503,7 @@ export type OnDeleteLikeSubscription = {
       updatedAt: string;
       profileProfilePicId?: string | null;
     } | null;
-    image?: string | null;
-    filename?: string | null;
+    filename: string;
     height?: number | null;
     width?: number | null;
     likes?: {
@@ -1539,7 +1531,8 @@ export class APIService {
         createProfile(input: $input, condition: $condition) {
           __typename
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -1550,7 +1543,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -1559,7 +1553,6 @@ export class APIService {
               updatedAt
               profileProfilePicId
             }
-            image
             filename
             height
             width
@@ -1578,7 +1571,6 @@ export class APIService {
               __typename
               id
               user
-              image
               filename
               height
               width
@@ -1612,7 +1604,8 @@ export class APIService {
         updateProfile(input: $input, condition: $condition) {
           __typename
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -1623,7 +1616,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -1632,7 +1626,6 @@ export class APIService {
               updatedAt
               profileProfilePicId
             }
-            image
             filename
             height
             width
@@ -1651,7 +1644,6 @@ export class APIService {
               __typename
               id
               user
-              image
               filename
               height
               width
@@ -1685,7 +1677,8 @@ export class APIService {
         deleteProfile(input: $input, condition: $condition) {
           __typename
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -1696,7 +1689,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -1705,7 +1699,6 @@ export class APIService {
               updatedAt
               profileProfilePicId
             }
-            image
             filename
             height
             width
@@ -1724,7 +1717,6 @@ export class APIService {
               __typename
               id
               user
-              image
               filename
               height
               width
@@ -1762,7 +1754,8 @@ export class APIService {
           profile {
             __typename
             id
-            name
+            username
+            displayname
             email
             bio
             age
@@ -1770,7 +1763,6 @@ export class APIService {
               __typename
               id
               user
-              image
               filename
               height
               width
@@ -1787,7 +1779,6 @@ export class APIService {
             updatedAt
             profileProfilePicId
           }
-          image
           filename
           height
           width
@@ -1832,7 +1823,8 @@ export class APIService {
           profile {
             __typename
             id
-            name
+            username
+            displayname
             email
             bio
             age
@@ -1840,7 +1832,6 @@ export class APIService {
               __typename
               id
               user
-              image
               filename
               height
               width
@@ -1857,7 +1848,6 @@ export class APIService {
             updatedAt
             profileProfilePicId
           }
-          image
           filename
           height
           width
@@ -1902,7 +1892,8 @@ export class APIService {
           profile {
             __typename
             id
-            name
+            username
+            displayname
             email
             bio
             age
@@ -1910,7 +1901,6 @@ export class APIService {
               __typename
               id
               user
-              image
               filename
               height
               width
@@ -1927,7 +1917,6 @@ export class APIService {
             updatedAt
             profileProfilePicId
           }
-          image
           filename
           height
           width
@@ -1977,7 +1966,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -1986,7 +1976,6 @@ export class APIService {
               updatedAt
               profileProfilePicId
             }
-            image
             filename
             height
             width
@@ -2031,7 +2020,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -2040,7 +2030,6 @@ export class APIService {
               updatedAt
               profileProfilePicId
             }
-            image
             filename
             height
             width
@@ -2085,7 +2074,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -2094,7 +2084,6 @@ export class APIService {
               updatedAt
               profileProfilePicId
             }
-            image
             filename
             height
             width
@@ -2127,7 +2116,8 @@ export class APIService {
         getProfile(id: $id) {
           __typename
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -2138,7 +2128,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -2147,7 +2138,6 @@ export class APIService {
               updatedAt
               profileProfilePicId
             }
-            image
             filename
             height
             width
@@ -2166,7 +2156,6 @@ export class APIService {
               __typename
               id
               user
-              image
               filename
               height
               width
@@ -2200,7 +2189,8 @@ export class APIService {
           items {
             __typename
             id
-            name
+            username
+            displayname
             email
             bio
             age
@@ -2208,7 +2198,6 @@ export class APIService {
               __typename
               id
               user
-              image
               filename
               height
               width
@@ -2252,7 +2241,8 @@ export class APIService {
           profile {
             __typename
             id
-            name
+            username
+            displayname
             email
             bio
             age
@@ -2260,7 +2250,6 @@ export class APIService {
               __typename
               id
               user
-              image
               filename
               height
               width
@@ -2277,7 +2266,6 @@ export class APIService {
             updatedAt
             profileProfilePicId
           }
-          image
           filename
           height
           width
@@ -2322,7 +2310,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -2331,7 +2320,6 @@ export class APIService {
               updatedAt
               profileProfilePicId
             }
-            image
             filename
             height
             width
@@ -2375,7 +2363,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -2384,7 +2373,6 @@ export class APIService {
               updatedAt
               profileProfilePicId
             }
-            image
             filename
             height
             width
@@ -2426,7 +2414,6 @@ export class APIService {
               __typename
               id
               user
-              image
               filename
               height
               width
@@ -2456,16 +2443,16 @@ export class APIService {
     )) as any;
     return <ListLikesQuery>response.data.listLikes;
   }
-  async ProfilesByName(
-    name: string,
+  async ProfilesByUsername(
+    username: string,
     sortDirection?: ModelSortDirection,
     filter?: ModelProfileFilterInput,
     limit?: number,
     nextToken?: string
-  ): Promise<ProfilesByNameQuery> {
-    const statement = `query ProfilesByName($name: String!, $sortDirection: ModelSortDirection, $filter: ModelProfileFilterInput, $limit: Int, $nextToken: String) {
-        profilesByName(
-          name: $name
+  ): Promise<ProfilesByUsernameQuery> {
+    const statement = `query ProfilesByUsername($username: String!, $sortDirection: ModelSortDirection, $filter: ModelProfileFilterInput, $limit: Int, $nextToken: String) {
+        profilesByUsername(
+          username: $username
           sortDirection: $sortDirection
           filter: $filter
           limit: $limit
@@ -2475,7 +2462,8 @@ export class APIService {
           items {
             __typename
             id
-            name
+            username
+            displayname
             email
             bio
             age
@@ -2483,7 +2471,6 @@ export class APIService {
               __typename
               id
               user
-              image
               filename
               height
               width
@@ -2504,7 +2491,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      name
+      username
     };
     if (sortDirection) {
       gqlAPIServiceArguments.sortDirection = sortDirection;
@@ -2521,7 +2508,7 @@ export class APIService {
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <ProfilesByNameQuery>response.data.profilesByName;
+    return <ProfilesByUsernameQuery>response.data.profilesByUsername;
   }
   OnCreateProfileListener(
     filter?: ModelSubscriptionProfileFilterInput
@@ -2532,7 +2519,8 @@ export class APIService {
         onCreateProfile(filter: $filter) {
           __typename
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -2543,7 +2531,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -2552,7 +2541,6 @@ export class APIService {
               updatedAt
               profileProfilePicId
             }
-            image
             filename
             height
             width
@@ -2571,7 +2559,6 @@ export class APIService {
               __typename
               id
               user
-              image
               filename
               height
               width
@@ -2606,7 +2593,8 @@ export class APIService {
         onUpdateProfile(filter: $filter) {
           __typename
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -2617,7 +2605,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -2626,7 +2615,6 @@ export class APIService {
               updatedAt
               profileProfilePicId
             }
-            image
             filename
             height
             width
@@ -2645,7 +2633,6 @@ export class APIService {
               __typename
               id
               user
-              image
               filename
               height
               width
@@ -2680,7 +2667,8 @@ export class APIService {
         onDeleteProfile(filter: $filter) {
           __typename
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -2691,7 +2679,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -2700,7 +2689,6 @@ export class APIService {
               updatedAt
               profileProfilePicId
             }
-            image
             filename
             height
             width
@@ -2719,7 +2707,6 @@ export class APIService {
               __typename
               id
               user
-              image
               filename
               height
               width
@@ -2758,7 +2745,8 @@ export class APIService {
           profile {
             __typename
             id
-            name
+            username
+            displayname
             email
             bio
             age
@@ -2766,7 +2754,6 @@ export class APIService {
               __typename
               id
               user
-              image
               filename
               height
               width
@@ -2783,7 +2770,6 @@ export class APIService {
             updatedAt
             profileProfilePicId
           }
-          image
           filename
           height
           width
@@ -2829,7 +2815,8 @@ export class APIService {
           profile {
             __typename
             id
-            name
+            username
+            displayname
             email
             bio
             age
@@ -2837,7 +2824,6 @@ export class APIService {
               __typename
               id
               user
-              image
               filename
               height
               width
@@ -2854,7 +2840,6 @@ export class APIService {
             updatedAt
             profileProfilePicId
           }
-          image
           filename
           height
           width
@@ -2900,7 +2885,8 @@ export class APIService {
           profile {
             __typename
             id
-            name
+            username
+            displayname
             email
             bio
             age
@@ -2908,7 +2894,6 @@ export class APIService {
               __typename
               id
               user
-              image
               filename
               height
               width
@@ -2925,7 +2910,6 @@ export class APIService {
             updatedAt
             profileProfilePicId
           }
-          image
           filename
           height
           width
@@ -2976,7 +2960,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -2985,7 +2970,6 @@ export class APIService {
               updatedAt
               profileProfilePicId
             }
-            image
             filename
             height
             width
@@ -3031,7 +3015,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -3040,7 +3025,6 @@ export class APIService {
               updatedAt
               profileProfilePicId
             }
-            image
             filename
             height
             width
@@ -3086,7 +3070,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -3095,7 +3080,6 @@ export class APIService {
               updatedAt
               profileProfilePicId
             }
-            image
             filename
             height
             width

@@ -1,0 +1,19 @@
+
+<input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload style="display: none" multiple accept="image/*">
+<div class="file-upload">
+  <button class="upload-btn" (click)="fileUpload.click()">
+    Foto's uploaden
+  </button>
+</div>
+
+<div class="upload-container">
+  <div *ngFor="let photoUrl of uploads; let i = index" class="upload-container-div">
+    <div class="upload-img-container">
+      <img class="upload-item upload-item-{{i}}" id="photo-{{i}}" src="{{photoUrl.url}}"/>
+      <div class="progress-container" *ngIf="photoUrl.progress">
+        <div class="progress" style="{{'width:' + this.calcPercentage(photoUrl.progress) + '%'}}"></div>
+      </div>
+    </div>
+  </div>
+</div>
+

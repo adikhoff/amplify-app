@@ -13,7 +13,7 @@
   position:relative;
 }
 
-.grid-container div p {
+.gallery-container div p {
   margin: 5px 0;
   padding: 0;
   text-align: center;
@@ -68,19 +68,6 @@
   height: 150px;
 }
 
-/* No animation on Smaller Screens */
-@media only screen and (min-width: 1024px){
-  .modal-content, #caption {
-    animation-name: zoom;
-    animation-duration: 0.6s;
-  }
-
-  @keyframes zoom {
-    from {transform:scale(0)}
-    to {transform:scale(1)}
-  }
-}
-
 /* Add Animation - Zoom in the Modal */
 
 /* The Close Button */
@@ -106,4 +93,33 @@
   .modal-content {
     width: 100%;
   }
+}
+
+/* No animation on Smaller Screens */
+@media only screen and (min-width: 1024px){
+  .modal-content, #caption {
+    animation-name: zoom;
+    animation-duration: 0.6s;
+  }
+
+  @keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+  }
+}
+
+.progress-bar {
+  width: 100%;
+  background-color: #e0e0e0;
+  padding: 1px;
+  border-radius: 1px;
+}
+
+.progress-bar-fill {
+  display: block;
+  height: 10px;
+  background-color: rgb(250, 25, 130);
+  border-radius: 3px;
+
+  transition: width 500ms ease-in-out;
 }

@@ -6,7 +6,8 @@ export const getProfile = /* GraphQL */ `
   query GetProfile($id: ID!) {
     getProfile(id: $id) {
       id
-      name
+      username
+      displayname
       email
       bio
       age
@@ -15,7 +16,8 @@ export const getProfile = /* GraphQL */ `
         user
         profile {
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -24,7 +26,6 @@ export const getProfile = /* GraphQL */ `
           updatedAt
           profileProfilePicId
         }
-        image
         filename
         height
         width
@@ -40,7 +41,6 @@ export const getProfile = /* GraphQL */ `
         items {
           id
           user
-          image
           filename
           height
           width
@@ -65,14 +65,14 @@ export const listProfiles = /* GraphQL */ `
     listProfiles(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        name
+        username
+        displayname
         email
         bio
         age
         profilePic {
           id
           user
-          image
           filename
           height
           width
@@ -99,14 +99,14 @@ export const getPhoto = /* GraphQL */ `
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
         profilePic {
           id
           user
-          image
           filename
           height
           width
@@ -122,7 +122,6 @@ export const getPhoto = /* GraphQL */ `
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -155,7 +154,8 @@ export const listPhotos = /* GraphQL */ `
         user
         profile {
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -164,7 +164,6 @@ export const listPhotos = /* GraphQL */ `
           updatedAt
           profileProfilePicId
         }
-        image
         filename
         height
         width
@@ -190,7 +189,8 @@ export const getLike = /* GraphQL */ `
         user
         profile {
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -199,7 +199,6 @@ export const getLike = /* GraphQL */ `
           updatedAt
           profileProfilePicId
         }
-        image
         filename
         height
         width
@@ -230,7 +229,6 @@ export const listLikes = /* GraphQL */ `
         photo {
           id
           user
-          image
           filename
           height
           width
@@ -246,16 +244,16 @@ export const listLikes = /* GraphQL */ `
     }
   }
 `;
-export const profilesByName = /* GraphQL */ `
-  query ProfilesByName(
-    $name: String!
+export const profilesByUsername = /* GraphQL */ `
+  query ProfilesByUsername(
+    $username: String!
     $sortDirection: ModelSortDirection
     $filter: ModelProfileFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    profilesByName(
-      name: $name
+    profilesByUsername(
+      username: $username
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -263,14 +261,14 @@ export const profilesByName = /* GraphQL */ `
     ) {
       items {
         id
-        name
+        username
+        displayname
         email
         bio
         age
         profilePic {
           id
           user
-          image
           filename
           height
           width

@@ -2,7 +2,8 @@
 query GetProfile($id: ID!) {
   getProfile(id: $id) {
     id
-    name
+    username
+    displayname
     email
     bio
     age
@@ -11,7 +12,8 @@ query GetProfile($id: ID!) {
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -20,7 +22,6 @@ query GetProfile($id: ID!) {
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -36,7 +37,6 @@ query GetProfile($id: ID!) {
       items {
         id
         user
-        image
         filename
         height
         width
@@ -59,14 +59,14 @@ query ListProfiles(
   listProfiles(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      name
+      username
+      displayname
       email
       bio
       age
       profilePic {
         id
         user
-        image
         filename
         height
         width
@@ -91,14 +91,14 @@ query GetPhoto($id: ID!) {
     user
     profile {
       id
-      name
+      username
+      displayname
       email
       bio
       age
       profilePic {
         id
         user
-        image
         filename
         height
         width
@@ -114,7 +114,6 @@ query GetPhoto($id: ID!) {
       updatedAt
       profileProfilePicId
     }
-    image
     filename
     height
     width
@@ -145,7 +144,8 @@ query ListPhotos(
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -154,7 +154,6 @@ query ListPhotos(
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -178,7 +177,8 @@ query GetLike($id: ID!) {
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -187,7 +187,6 @@ query GetLike($id: ID!) {
         updatedAt
         profileProfilePicId
       }
-      image
       filename
       height
       width
@@ -216,7 +215,6 @@ query ListLikes(
       photo {
         id
         user
-        image
         filename
         height
         width
@@ -231,15 +229,15 @@ query ListLikes(
     nextToken
   }
 }
-query ProfilesByName(
-  $name: String!
+query ProfilesByUsername(
+  $username: String!
   $sortDirection: ModelSortDirection
   $filter: ModelProfileFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  profilesByName(
-    name: $name
+  profilesByUsername(
+    username: $username
     sortDirection: $sortDirection
     filter: $filter
     limit: $limit
@@ -247,14 +245,14 @@ query ProfilesByName(
   ) {
     items {
       id
-      name
+      username
+      displayname
       email
       bio
       age
       profilePic {
         id
         user
-        image
         filename
         height
         width

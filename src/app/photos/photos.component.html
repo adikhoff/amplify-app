@@ -1,23 +1,14 @@
-<h1>Welkom!</h1>
-
-<p>Ingelogd als {{this.userName}}</p>
-
-<input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload style="display: none" multiple accept="image/*">
-
-<div class="file-upload">
-  <button class="upload-btn" (click)="fileUpload.click()">
-    Foto's uploaden
-  </button>
+<div class="body-text">
+<h1>Meedoen?</h1>
+  <p>Ga naar <a href="https://dev.dnayj1znio6mu.amplifyapp.com/ ">dev.dnayj1znio6mu.amplifyapp.com</a> op je mobiel. Log in met
+    <a href="https://www.google.com">Google</a> of <a href="https://www.facebook.com">Facebook</a>,
+  of maak een account aan. Uploaden maar!</p>
 </div>
 
-<ul *ngFor="let progressBar of progressBars">
-  <li><label for="file">{{progressBar.fileName}}:</label>
-    <progress id="file" value="{{calcPercentage(progressBar)}}" max="100"> {{calcPercentage(progressBar)}}%</progress>
-  </li>
-</ul>
+<app-upload></app-upload>
 
-<div class="grid-container">
-  <div *ngFor="let photoUrl of photos; let i = index" class="grid-container-div">
-    <app-photo [photoUrl]="photoUrl" [index]="i"></app-photo>
+<div class="gallery-container">
+  <div *ngFor="let photoUrl of photos; let i = index" class="gallery-container-div">
+    <app-photo [photoUrl]="photoUrl" [index]="i + 1"></app-photo>
   </div>
 </div>

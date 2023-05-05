@@ -6,48 +6,32 @@ body {
   font-family: sans-serif;
 }
 
-h1 {
-  color: rgb(249, 24, 128);
-}
-
-.upload-btn {
-  width: 90%;
-  background-color: rgb(249, 24, 128);
-  color: white;
-  border: solid rgb(249, 24, 128);
-  display: block;
-  margin: 5px auto;
-  height: 50px;
-  font-weight: bolder;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.grid-container {
+.gallery-container {
   columns: 5 200px;
-  column-gap: 1.5rem;
-  width: 90%;
-  margin: 0 auto;
+  column-gap: 0.5rem;
+  margin: 3px auto;
+  min-height: 1000px;
 }
 
-.grid-container-div {
+.gallery-container-div {
+  background-color: white;
   width: 100%;
-  margin: 0 1.5rem 1.5rem 0;
+  margin: 0 0.5rem 0.5rem 0;
   display: inline-block;
-  border: solid 2px gray;
+  border: solid 1px white;
   padding: 5px;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
   transition: all 0.25s ease-in-out;
 }
 
-.grid-container-sizediv {
+.gallery-container-sizediv {
   width: 100%;
 }
 
-.grid-container div:hover img {
+.gallery-container div:hover img {
 }
 
-.grid-container div:hover {
-  border-color: rgb(249, 24, 128);
+.gallery-container div:hover {
+  border: solid 1px rgb(250, 25, 130);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 1.8);
 }

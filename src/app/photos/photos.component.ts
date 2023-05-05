@@ -1,10 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
-import {APIService, CreatePhotoInput, Like, Photo} from '../API.service';
+import {APIService, Like, Photo} from '../API.service';
 import {ZenObservable} from 'zen-observable-ts';
 import {Storage} from "aws-amplify";
 import {Progress} from "../model/progress";
-import {IdService} from "../util/id-service";
 import {CustomAPIService} from "../CustomAPI.service";
 import {PhotoUrl} from "../model/photo-url";
 import {UserService} from "../util/user-service";
@@ -21,26 +19,25 @@ export class PhotosComponent implements OnInit, OnDestroy {
   public files?: File[];
   public progressBars: Array<Progress> = [];
   public modalPhoto?: PhotoUrl;
-  public userName?: string;
 
   private photoCreateSubscription: ZenObservable.Subscription | null = null;
   private photoDeleteSubscription: ZenObservable.Subscription | null = null;
-  private photoUpdateSubscription: ZenObservable.Subscription | null = null;
   private likeCreateSubscription: ZenObservable.Subscription | null = null;
   private likeDeleteSubscription: ZenObservable.Subscription | null = null;
 
-  constructor(private api: APIService, private customApi: CustomAPIService, private fb: FormBuilder, private idService: IdService, public userService: UserService) {
+  constructor(
+    private api: APIService,
+    private customApi: CustomAPIService,
+    public userService: UserService) {
   }
 
   async ngOnInit() {
+    // Todo: migrate all this to app.component, so we don't lose the data between page switches
     this.fetchPhotos();
-    this.userService.getLoggedInUsername().then(name => {
-      this.userName = name;
-    })
     this.photoCreateSubscription = this.api.OnCreatePhotoListener().subscribe(
       (event: any) => {
         const newPhoto = event.value.data.onCreatePhoto;
-        this.getPhotoUrl(newPhoto).then((url) => {
+        this.getObjectUrl(newPhoto).then((url) => {
           const pu: PhotoUrl = {
             photo: newPhoto,
             url: url
@@ -57,20 +54,12 @@ export class PhotosComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.photoUpdateSubscription = this.api.OnUpdatePhotoListener().subscribe(
-      (event: any) => {
-        const updatedPhoto = event.value.data.onUpdatePhoto as Photo;
-        console.log("Update photo event", updatedPhoto);
-        //this.photos = this.photos.filter((ph) => ph.photo.id !== removedPhoto.id);
-      }
-    );
-
     this.likeCreateSubscription = this.api.OnCreateLikeListener().subscribe(
       (event: any) => {
         const newLike = event.value.data.onCreateLike as Like;
-        console.log("Create like event", newLike);
         const photoUrl: PhotoUrl = this.photos.filter((ph) => ph.photo.id === newLike.photoId)[0];
         if (photoUrl.photo.likes) {
+          photoUrl.photo.likes.items = photoUrl.photo.likes.items.filter(like => like?.id !== "mock");
           photoUrl.photo.likes.items.push(newLike);
         }
       }
@@ -79,7 +68,6 @@ export class PhotosComponent implements OnInit, OnDestroy {
     this.likeDeleteSubscription = this.api.OnDeleteLikeListener().subscribe(
       (event: any) => {
         const removedLike = event.value.data.onDeleteLike;
-        console.log("Delete like event", removedLike);
         const photoUrl: PhotoUrl = this.photos.filter((ph) => ph.photo.id === removedLike.photoId)[0];
         if (photoUrl.photo.likes) {
           photoUrl.photo.likes.items = photoUrl.photo.likes.items.filter((like) => like?.user != removedLike.user);
@@ -88,13 +76,20 @@ export class PhotosComponent implements OnInit, OnDestroy {
     )
   }
 
+  ngOnDestroy() {
+    if (this.photoCreateSubscription) {
+      this.photoCreateSubscription.unsubscribe();
+    }
+    this.photoCreateSubscription = null;
+  }
+
   public fetchPhotos() {
-    this.customApi.ListPhotosWithLikes({}, 1000).then((event) => {
+    this.customApi.ListPhotosWithLikes({}, 50).then((event) => {
       const photos = event.items as Photo[];
       const newPhotos: PhotoUrl[] = [];
       for (let i = 0; i < photos.length; i++) {
         const photo = photos[i];
-        this.getPhotoUrl(photo as Photo).then((url) => {
+        this.getObjectUrl(photo as Photo).then(url => {
           let pu: PhotoUrl = {
             photo: photo as Photo,
             url: url,
@@ -106,79 +101,14 @@ export class PhotosComponent implements OnInit, OnDestroy {
     })
   }
 
-  ngOnDestroy() {
-    if (this.photoCreateSubscription) {
-      this.photoCreateSubscription.unsubscribe();
-    }
-    this.photoCreateSubscription = null;
+  public async getObjectUrl(photo: Photo): Promise<string> {
+    return Storage.get(photo.filename, {download: false });
   }
 
-  public onFileSelected(e: any) {
-    this.files = e?.target?.files;
-    this.onUpload();
-  }
-
-  public async getPhotoUrl(photo: Photo): Promise<string> {
-    if (photo.filename) {
-      return Storage.get(photo.filename, {download: false});
-    }
-    if (photo.image) {
-      return Storage.get(photo.image, {download: false});
-    }
-    return Storage.get("dummy", {download: false});
-  }
-
-  public onUpload() {
-    try {
-      if (this.files) {
-        for (let i = 0; i < this.files.length; i++) {
-          const file = this.files[i];
-          if (file) {
-            const fileExt = file.name.substring(file.name.lastIndexOf("."));
-            const fileName = this.userName + "-" + this.idService.generate() + fileExt;
-            const progressBar = new Progress();
-            progressBar.fileName = fileName;
-            this.progressBars?.push(progressBar);
-            Storage.put(fileName, this.files[i], {
-              level: "public",
-              progressCallback(progress) {
-                progressBar.loaded = progress.loaded;
-                progressBar.total = progress.total;
-              }
-            }).then(() => {
-              this.progressBars = this.progressBars.filter((el) => el.loaded !== el.total);
-              const reader = new FileReader();
-              reader.readAsDataURL(file);
-              reader.onload = (e) => {
-                const image = new Image();
-                if (e.target?.result) {
-                  image.src = e.target.result as string;
-                }
-                image.onload = () => {
-                    let cpi: CreatePhotoInput = {
-                      user: this.userName!,
-                      filename: fileName,
-                      width: image.width,
-                      height: image.height
-                    };
-                    this.api.CreatePhoto(cpi).then(() => {
-                  });
-                };
-              };
-            })
-          }
-        }
-      }
-    } catch (error) {
-      console.log("Error uploading file: ", error);
-    }
-  }
-
-  public calcPercentage(progress: Progress) {
-    if (progress.loaded && progress.total) {
-      return Math.round((progress.loaded / progress.total) * 100);
-    }
-    return 0;
+  public createUrl(photo: Photo, size: number): string {
+    if (size === 0) return photo.filename;
+    const parts = photo.filename.split(".");
+    return parts[0] + "_" + size + "." + parts[1];
   }
 
   public calcStyle(photo: Photo, i: number) {
