@@ -11,7 +11,7 @@ import { PhotosComponent } from './photos/photos.component';
 import { MyPhotosComponent } from './my-photos/my-photos.component';
 import { PhotoComponent } from './photos/photo/photo.component';
 import { LikeCounterComponent } from './photos/like-counter/like-counter.component';
-import { UserService } from "./util/user-service";
+import { UserService } from "./service/user-service";
 import { UploadComponent } from './upload/upload.component';
 import { AvatarComponent } from './avatar/avatar.component';
 import { NavigationComponent } from './navigation/navigation.component';
