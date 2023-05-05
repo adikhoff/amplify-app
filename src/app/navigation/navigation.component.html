@@ -1,4 +1,4 @@
-<ul *ngIf="!isFooter">
+<ul *ngIf="!isFooter" class="topmenu">
   <li><a [routerLink] = "'/'">home</a></li>
   <li><a [routerLink] = "'/gallery'">gallerij</a></li>
   <li class="last"><a (click)="signout()">uitloggen</a></li>
@@ -8,5 +8,5 @@
 <ul *ngIf="isFooter">
   <li><a [routerLink]="'legal'" fragment="privacy-statement">Privacyverklaring</a></li>
   <li><a [routerLink]="'legal'" fragment="data-deletion">Data verwijderen</a></li>
-  <li class="logo"><a href="https://www.dikhoffsoftware.com"><img src="assets/images/dikhoffsoftwarelogo_white_tiny.png"></a></li>
+  <li class="logo"><a href="https://www.dikhoffsoftware.com" target="_blank"><img src="assets/images/dikhoffsoftwarelogo_white_tiny.png"></a></li>
 </ul>

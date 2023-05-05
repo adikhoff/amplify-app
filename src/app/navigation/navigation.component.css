@@ -3,7 +3,7 @@ ul {
   padding: 0;
   overflow: hidden;
   background-color: rgb(25, 150, 230);
-  margin: 5px auto;
+  margin: 0 auto;
   line-height: 0;
 }
 
@@ -21,6 +21,12 @@ li a {
 
 li a:hover {
   background-color: rgb(250, 25, 130);
+}
+
+.topmenu {
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .last {
