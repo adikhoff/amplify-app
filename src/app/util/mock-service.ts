@@ -19,9 +19,8 @@ export class MockService implements OnInit {
     return {
       __typename: "Like",
       id: "mock",
-      user: "user",
+      username: "username",
       photoId: "id",
-      photo: this.getMockPhoto(),
       createdAt: "",
       updatedAt: "",
       photoLikesId: "id",
@@ -40,7 +39,19 @@ export class MockService implements OnInit {
       __typename: "Photo",
       id: "mock",
       filename: "name",
-      user: "user",
+      username: "username",
+      createdAt: "",
+      updatedAt: "",
+    }
+  }
+
+  public getMockProfile(): Profile {
+    return {
+      __typename: "Profile",
+      id: "mock",
+      username: "username",
+      displayname: "displayname",
+      email: "email",
       createdAt: "",
       updatedAt: ""
     }

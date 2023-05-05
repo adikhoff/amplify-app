@@ -24,12 +24,12 @@ export type __SubscriptionContainer = {
 export type CreateProfileInput = {
   id?: string | null;
   username: string;
-  displayname?: string | null;
+  displayname: string;
   email: string;
   bio?: string | null;
   age?: string | null;
+  profilePicId?: string | null;
   score?: number | null;
-  profileProfilePicId?: string | null;
 };
 
 export type ModelProfileConditionInput = {
@@ -38,11 +38,11 @@ export type ModelProfileConditionInput = {
   email?: ModelStringInput | null;
   bio?: ModelStringInput | null;
   age?: ModelStringInput | null;
+  profilePicId?: ModelIDInput | null;
   score?: ModelIntInput | null;
   and?: Array<ModelProfileConditionInput | null> | null;
   or?: Array<ModelProfileConditionInput | null> | null;
   not?: ModelProfileConditionInput | null;
-  profileProfilePicId?: ModelIDInput | null;
 };
 
 export type ModelStringInput = {
@@ -84,18 +84,6 @@ export type ModelSizeInput = {
   between?: Array<number | null> | null;
 };
 
-export type ModelIntInput = {
-  ne?: number | null;
-  eq?: number | null;
-  le?: number | null;
-  lt?: number | null;
-  ge?: number | null;
-  gt?: number | null;
-  between?: Array<number | null> | null;
-  attributeExists?: boolean | null;
-  attributeType?: ModelAttributeTypes | null;
-};
-
 export type ModelIDInput = {
   ne?: string | null;
   eq?: string | null;
@@ -112,34 +100,75 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null;
 };
 
+export type ModelIntInput = {
+  ne?: number | null;
+  eq?: number | null;
+  le?: number | null;
+  lt?: number | null;
+  ge?: number | null;
+  gt?: number | null;
+  between?: Array<number | null> | null;
+  attributeExists?: boolean | null;
+  attributeType?: ModelAttributeTypes | null;
+};
+
 export type Profile = {
   __typename: "Profile";
   id: string;
   username: string;
-  displayname?: string | null;
+  displayname: string;
   email: string;
   bio?: string | null;
   age?: string | null;
-  profilePic?: Photo | null;
+  profilePicId?: string | null;
   score?: number | null;
-  photos?: ModelPhotoConnection | null;
   createdAt: string;
   updatedAt: string;
-  profileProfilePicId?: string | null;
+};
+
+export type UpdateProfileInput = {
+  id: string;
+  username?: string | null;
+  displayname?: string | null;
+  email?: string | null;
+  bio?: string | null;
+  age?: string | null;
+  profilePicId?: string | null;
+  score?: number | null;
+};
+
+export type DeleteProfileInput = {
+  id: string;
+};
+
+export type CreatePhotoInput = {
+  id?: string | null;
+  username: string;
+  filename: string;
+  height?: number | null;
+  width?: number | null;
+};
+
+export type ModelPhotoConditionInput = {
+  username?: ModelStringInput | null;
+  filename?: ModelStringInput | null;
+  height?: ModelIntInput | null;
+  width?: ModelIntInput | null;
+  and?: Array<ModelPhotoConditionInput | null> | null;
+  or?: Array<ModelPhotoConditionInput | null> | null;
+  not?: ModelPhotoConditionInput | null;
 };
 
 export type Photo = {
   __typename: "Photo";
   id: string;
-  user: string;
-  profile?: Profile | null;
+  username: string;
   filename: string;
   height?: number | null;
   width?: number | null;
   likes?: ModelLikeConnection | null;
   createdAt: string;
   updatedAt: string;
-  profilePhotosId?: string | null;
 };
 
 export type ModelLikeConnection = {
@@ -151,62 +180,19 @@ export type ModelLikeConnection = {
 export type Like = {
   __typename: "Like";
   id: string;
-  user: string;
+  username: string;
   photoId: string;
-  photo?: Photo | null;
   createdAt: string;
   updatedAt: string;
   photoLikesId: string;
 };
 
-export type ModelPhotoConnection = {
-  __typename: "ModelPhotoConnection";
-  items: Array<Photo | null>;
-  nextToken?: string | null;
-};
-
-export type UpdateProfileInput = {
-  id: string;
-  username?: string | null;
-  displayname?: string | null;
-  email?: string | null;
-  bio?: string | null;
-  age?: string | null;
-  score?: number | null;
-  profileProfilePicId?: string | null;
-};
-
-export type DeleteProfileInput = {
-  id: string;
-};
-
-export type CreatePhotoInput = {
-  id?: string | null;
-  user: string;
-  filename: string;
-  height?: number | null;
-  width?: number | null;
-  profilePhotosId?: string | null;
-};
-
-export type ModelPhotoConditionInput = {
-  user?: ModelStringInput | null;
-  filename?: ModelStringInput | null;
-  height?: ModelIntInput | null;
-  width?: ModelIntInput | null;
-  and?: Array<ModelPhotoConditionInput | null> | null;
-  or?: Array<ModelPhotoConditionInput | null> | null;
-  not?: ModelPhotoConditionInput | null;
-  profilePhotosId?: ModelIDInput | null;
-};
-
 export type UpdatePhotoInput = {
   id: string;
-  user?: string | null;
+  username?: string | null;
   filename?: string | null;
   height?: number | null;
   width?: number | null;
-  profilePhotosId?: string | null;
 };
 
 export type DeletePhotoInput = {
@@ -215,13 +201,13 @@ export type DeletePhotoInput = {
 
 export type CreateLikeInput = {
   id?: string | null;
-  user: string;
+  username: string;
   photoId: string;
   photoLikesId: string;
 };
 
 export type ModelLikeConditionInput = {
-  user?: ModelStringInput | null;
+  username?: ModelStringInput | null;
   photoId?: ModelStringInput | null;
   and?: Array<ModelLikeConditionInput | null> | null;
   or?: Array<ModelLikeConditionInput | null> | null;
@@ -231,7 +217,7 @@ export type ModelLikeConditionInput = {
 
 export type UpdateLikeInput = {
   id: string;
-  user?: string | null;
+  username?: string | null;
   photoId?: string | null;
   photoLikesId?: string | null;
 };
@@ -247,11 +233,11 @@ export type ModelProfileFilterInput = {
   email?: ModelStringInput | null;
   bio?: ModelStringInput | null;
   age?: ModelStringInput | null;
+  profilePicId?: ModelIDInput | null;
   score?: ModelIntInput | null;
   and?: Array<ModelProfileFilterInput | null> | null;
   or?: Array<ModelProfileFilterInput | null> | null;
   not?: ModelProfileFilterInput | null;
-  profileProfilePicId?: ModelIDInput | null;
 };
 
 export type ModelProfileConnection = {
@@ -262,19 +248,24 @@ export type ModelProfileConnection = {
 
 export type ModelPhotoFilterInput = {
   id?: ModelIDInput | null;
-  user?: ModelStringInput | null;
+  username?: ModelStringInput | null;
   filename?: ModelStringInput | null;
   height?: ModelIntInput | null;
   width?: ModelIntInput | null;
   and?: Array<ModelPhotoFilterInput | null> | null;
   or?: Array<ModelPhotoFilterInput | null> | null;
   not?: ModelPhotoFilterInput | null;
-  profilePhotosId?: ModelIDInput | null;
+};
+
+export type ModelPhotoConnection = {
+  __typename: "ModelPhotoConnection";
+  items: Array<Photo | null>;
+  nextToken?: string | null;
 };
 
 export type ModelLikeFilterInput = {
   id?: ModelIDInput | null;
-  user?: ModelStringInput | null;
+  username?: ModelStringInput | null;
   photoId?: ModelStringInput | null;
   and?: Array<ModelLikeFilterInput | null> | null;
   or?: Array<ModelLikeFilterInput | null> | null;
@@ -294,6 +285,7 @@ export type ModelSubscriptionProfileFilterInput = {
   email?: ModelSubscriptionStringInput | null;
   bio?: ModelSubscriptionStringInput | null;
   age?: ModelSubscriptionStringInput | null;
+  profilePicId?: ModelSubscriptionIDInput | null;
   score?: ModelSubscriptionIntInput | null;
   and?: Array<ModelSubscriptionProfileFilterInput | null> | null;
   or?: Array<ModelSubscriptionProfileFilterInput | null> | null;
@@ -343,7 +335,7 @@ export type ModelSubscriptionIntInput = {
 
 export type ModelSubscriptionPhotoFilterInput = {
   id?: ModelSubscriptionIDInput | null;
-  user?: ModelSubscriptionStringInput | null;
+  username?: ModelSubscriptionStringInput | null;
   filename?: ModelSubscriptionStringInput | null;
   height?: ModelSubscriptionIntInput | null;
   width?: ModelSubscriptionIntInput | null;
@@ -353,7 +345,7 @@ export type ModelSubscriptionPhotoFilterInput = {
 
 export type ModelSubscriptionLikeFilterInput = {
   id?: ModelSubscriptionIDInput | null;
-  user?: ModelSubscriptionStringInput | null;
+  username?: ModelSubscriptionStringInput | null;
   photoId?: ModelSubscriptionStringInput | null;
   and?: Array<ModelSubscriptionLikeFilterInput | null> | null;
   or?: Array<ModelSubscriptionLikeFilterInput | null> | null;
@@ -363,205 +355,48 @@ export type CreateProfileMutation = {
   __typename: "Profile";
   id: string;
   username: string;
-  displayname?: string | null;
+  displayname: string;
   email: string;
   bio?: string | null;
   age?: string | null;
-  profilePic?: {
-    __typename: "Photo";
-    id: string;
-    user: string;
-    profile?: {
-      __typename: "Profile";
-      id: string;
-      username: string;
-      displayname?: string | null;
-      email: string;
-      bio?: string | null;
-      age?: string | null;
-      score?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profileProfilePicId?: string | null;
-    } | null;
-    filename: string;
-    height?: number | null;
-    width?: number | null;
-    likes?: {
-      __typename: "ModelLikeConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    profilePhotosId?: string | null;
-  } | null;
+  profilePicId?: string | null;
   score?: number | null;
-  photos?: {
-    __typename: "ModelPhotoConnection";
-    items: Array<{
-      __typename: "Photo";
-      id: string;
-      user: string;
-      filename: string;
-      height?: number | null;
-      width?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profilePhotosId?: string | null;
-    } | null>;
-    nextToken?: string | null;
-  } | null;
   createdAt: string;
   updatedAt: string;
-  profileProfilePicId?: string | null;
 };
 
 export type UpdateProfileMutation = {
   __typename: "Profile";
   id: string;
   username: string;
-  displayname?: string | null;
+  displayname: string;
   email: string;
   bio?: string | null;
   age?: string | null;
-  profilePic?: {
-    __typename: "Photo";
-    id: string;
-    user: string;
-    profile?: {
-      __typename: "Profile";
-      id: string;
-      username: string;
-      displayname?: string | null;
-      email: string;
-      bio?: string | null;
-      age?: string | null;
-      score?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profileProfilePicId?: string | null;
-    } | null;
-    filename: string;
-    height?: number | null;
-    width?: number | null;
-    likes?: {
-      __typename: "ModelLikeConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    profilePhotosId?: string | null;
-  } | null;
+  profilePicId?: string | null;
   score?: number | null;
-  photos?: {
-    __typename: "ModelPhotoConnection";
-    items: Array<{
-      __typename: "Photo";
-      id: string;
-      user: string;
-      filename: string;
-      height?: number | null;
-      width?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profilePhotosId?: string | null;
-    } | null>;
-    nextToken?: string | null;
-  } | null;
   createdAt: string;
   updatedAt: string;
-  profileProfilePicId?: string | null;
 };
 
 export type DeleteProfileMutation = {
   __typename: "Profile";
   id: string;
   username: string;
-  displayname?: string | null;
+  displayname: string;
   email: string;
   bio?: string | null;
   age?: string | null;
-  profilePic?: {
-    __typename: "Photo";
-    id: string;
-    user: string;
-    profile?: {
-      __typename: "Profile";
-      id: string;
-      username: string;
-      displayname?: string | null;
-      email: string;
-      bio?: string | null;
-      age?: string | null;
-      score?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profileProfilePicId?: string | null;
-    } | null;
-    filename: string;
-    height?: number | null;
-    width?: number | null;
-    likes?: {
-      __typename: "ModelLikeConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    profilePhotosId?: string | null;
-  } | null;
+  profilePicId?: string | null;
   score?: number | null;
-  photos?: {
-    __typename: "ModelPhotoConnection";
-    items: Array<{
-      __typename: "Photo";
-      id: string;
-      user: string;
-      filename: string;
-      height?: number | null;
-      width?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profilePhotosId?: string | null;
-    } | null>;
-    nextToken?: string | null;
-  } | null;
   createdAt: string;
   updatedAt: string;
-  profileProfilePicId?: string | null;
 };
 
 export type CreatePhotoMutation = {
   __typename: "Photo";
   id: string;
-  user: string;
-  profile?: {
-    __typename: "Profile";
-    id: string;
-    username: string;
-    displayname?: string | null;
-    email: string;
-    bio?: string | null;
-    age?: string | null;
-    profilePic?: {
-      __typename: "Photo";
-      id: string;
-      user: string;
-      filename: string;
-      height?: number | null;
-      width?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profilePhotosId?: string | null;
-    } | null;
-    score?: number | null;
-    photos?: {
-      __typename: "ModelPhotoConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    profileProfilePicId?: string | null;
-  } | null;
+  username: string;
   filename: string;
   height?: number | null;
   width?: number | null;
@@ -570,7 +405,7 @@ export type CreatePhotoMutation = {
     items: Array<{
       __typename: "Like";
       id: string;
-      user: string;
+      username: string;
       photoId: string;
       createdAt: string;
       updatedAt: string;
@@ -580,41 +415,12 @@ export type CreatePhotoMutation = {
   } | null;
   createdAt: string;
   updatedAt: string;
-  profilePhotosId?: string | null;
 };
 
 export type UpdatePhotoMutation = {
   __typename: "Photo";
   id: string;
-  user: string;
-  profile?: {
-    __typename: "Profile";
-    id: string;
-    username: string;
-    displayname?: string | null;
-    email: string;
-    bio?: string | null;
-    age?: string | null;
-    profilePic?: {
-      __typename: "Photo";
-      id: string;
-      user: string;
-      filename: string;
-      height?: number | null;
-      width?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profilePhotosId?: string | null;
-    } | null;
-    score?: number | null;
-    photos?: {
-      __typename: "ModelPhotoConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    profileProfilePicId?: string | null;
-  } | null;
+  username: string;
   filename: string;
   height?: number | null;
   width?: number | null;
@@ -623,7 +429,7 @@ export type UpdatePhotoMutation = {
     items: Array<{
       __typename: "Like";
       id: string;
-      user: string;
+      username: string;
       photoId: string;
       createdAt: string;
       updatedAt: string;
@@ -633,41 +439,12 @@ export type UpdatePhotoMutation = {
   } | null;
   createdAt: string;
   updatedAt: string;
-  profilePhotosId?: string | null;
 };
 
 export type DeletePhotoMutation = {
   __typename: "Photo";
   id: string;
-  user: string;
-  profile?: {
-    __typename: "Profile";
-    id: string;
-    username: string;
-    displayname?: string | null;
-    email: string;
-    bio?: string | null;
-    age?: string | null;
-    profilePic?: {
-      __typename: "Photo";
-      id: string;
-      user: string;
-      filename: string;
-      height?: number | null;
-      width?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profilePhotosId?: string | null;
-    } | null;
-    score?: number | null;
-    photos?: {
-      __typename: "ModelPhotoConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    profileProfilePicId?: string | null;
-  } | null;
+  username: string;
   filename: string;
   height?: number | null;
   width?: number | null;
@@ -676,7 +453,7 @@ export type DeletePhotoMutation = {
     items: Array<{
       __typename: "Like";
       id: string;
-      user: string;
+      username: string;
       photoId: string;
       createdAt: string;
       updatedAt: string;
@@ -686,42 +463,13 @@ export type DeletePhotoMutation = {
   } | null;
   createdAt: string;
   updatedAt: string;
-  profilePhotosId?: string | null;
 };
 
 export type CreateLikeMutation = {
   __typename: "Like";
   id: string;
-  user: string;
+  username: string;
   photoId: string;
-  photo?: {
-    __typename: "Photo";
-    id: string;
-    user: string;
-    profile?: {
-      __typename: "Profile";
-      id: string;
-      username: string;
-      displayname?: string | null;
-      email: string;
-      bio?: string | null;
-      age?: string | null;
-      score?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profileProfilePicId?: string | null;
-    } | null;
-    filename: string;
-    height?: number | null;
-    width?: number | null;
-    likes?: {
-      __typename: "ModelLikeConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    profilePhotosId?: string | null;
-  } | null;
   createdAt: string;
   updatedAt: string;
   photoLikesId: string;
@@ -730,36 +478,8 @@ export type CreateLikeMutation = {
 export type UpdateLikeMutation = {
   __typename: "Like";
   id: string;
-  user: string;
+  username: string;
   photoId: string;
-  photo?: {
-    __typename: "Photo";
-    id: string;
-    user: string;
-    profile?: {
-      __typename: "Profile";
-      id: string;
-      username: string;
-      displayname?: string | null;
-      email: string;
-      bio?: string | null;
-      age?: string | null;
-      score?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profileProfilePicId?: string | null;
-    } | null;
-    filename: string;
-    height?: number | null;
-    width?: number | null;
-    likes?: {
-      __typename: "ModelLikeConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    profilePhotosId?: string | null;
-  } | null;
   createdAt: string;
   updatedAt: string;
   photoLikesId: string;
@@ -768,36 +488,8 @@ export type UpdateLikeMutation = {
 export type DeleteLikeMutation = {
   __typename: "Like";
   id: string;
-  user: string;
+  username: string;
   photoId: string;
-  photo?: {
-    __typename: "Photo";
-    id: string;
-    user: string;
-    profile?: {
-      __typename: "Profile";
-      id: string;
-      username: string;
-      displayname?: string | null;
-      email: string;
-      bio?: string | null;
-      age?: string | null;
-      score?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profileProfilePicId?: string | null;
-    } | null;
-    filename: string;
-    height?: number | null;
-    width?: number | null;
-    likes?: {
-      __typename: "ModelLikeConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    profilePhotosId?: string | null;
-  } | null;
   createdAt: string;
   updatedAt: string;
   photoLikesId: string;
@@ -807,57 +499,14 @@ export type GetProfileQuery = {
   __typename: "Profile";
   id: string;
   username: string;
-  displayname?: string | null;
+  displayname: string;
   email: string;
   bio?: string | null;
   age?: string | null;
-  profilePic?: {
-    __typename: "Photo";
-    id: string;
-    user: string;
-    profile?: {
-      __typename: "Profile";
-      id: string;
-      username: string;
-      displayname?: string | null;
-      email: string;
-      bio?: string | null;
-      age?: string | null;
-      score?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profileProfilePicId?: string | null;
-    } | null;
-    filename: string;
-    height?: number | null;
-    width?: number | null;
-    likes?: {
-      __typename: "ModelLikeConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    profilePhotosId?: string | null;
-  } | null;
+  profilePicId?: string | null;
   score?: number | null;
-  photos?: {
-    __typename: "ModelPhotoConnection";
-    items: Array<{
-      __typename: "Photo";
-      id: string;
-      user: string;
-      filename: string;
-      height?: number | null;
-      width?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profilePhotosId?: string | null;
-    } | null>;
-    nextToken?: string | null;
-  } | null;
   createdAt: string;
   updatedAt: string;
-  profileProfilePicId?: string | null;
 };
 
 export type ListProfilesQuery = {
@@ -866,29 +515,14 @@ export type ListProfilesQuery = {
     __typename: "Profile";
     id: string;
     username: string;
-    displayname?: string | null;
+    displayname: string;
     email: string;
     bio?: string | null;
     age?: string | null;
-    profilePic?: {
-      __typename: "Photo";
-      id: string;
-      user: string;
-      filename: string;
-      height?: number | null;
-      width?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profilePhotosId?: string | null;
-    } | null;
+    profilePicId?: string | null;
     score?: number | null;
-    photos?: {
-      __typename: "ModelPhotoConnection";
-      nextToken?: string | null;
-    } | null;
     createdAt: string;
     updatedAt: string;
-    profileProfilePicId?: string | null;
   } | null>;
   nextToken?: string | null;
 };
@@ -896,35 +530,7 @@ export type ListProfilesQuery = {
 export type GetPhotoQuery = {
   __typename: "Photo";
   id: string;
-  user: string;
-  profile?: {
-    __typename: "Profile";
-    id: string;
-    username: string;
-    displayname?: string | null;
-    email: string;
-    bio?: string | null;
-    age?: string | null;
-    profilePic?: {
-      __typename: "Photo";
-      id: string;
-      user: string;
-      filename: string;
-      height?: number | null;
-      width?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profilePhotosId?: string | null;
-    } | null;
-    score?: number | null;
-    photos?: {
-      __typename: "ModelPhotoConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    profileProfilePicId?: string | null;
-  } | null;
+  username: string;
   filename: string;
   height?: number | null;
   width?: number | null;
@@ -933,7 +539,7 @@ export type GetPhotoQuery = {
     items: Array<{
       __typename: "Like";
       id: string;
-      user: string;
+      username: string;
       photoId: string;
       createdAt: string;
       updatedAt: string;
@@ -943,7 +549,6 @@ export type GetPhotoQuery = {
   } | null;
   createdAt: string;
   updatedAt: string;
-  profilePhotosId?: string | null;
 };
 
 export type ListPhotosQuery = {
@@ -951,20 +556,7 @@ export type ListPhotosQuery = {
   items: Array<{
     __typename: "Photo";
     id: string;
-    user: string;
-    profile?: {
-      __typename: "Profile";
-      id: string;
-      username: string;
-      displayname?: string | null;
-      email: string;
-      bio?: string | null;
-      age?: string | null;
-      score?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profileProfilePicId?: string | null;
-    } | null;
+    username: string;
     filename: string;
     height?: number | null;
     width?: number | null;
@@ -974,7 +566,6 @@ export type ListPhotosQuery = {
     } | null;
     createdAt: string;
     updatedAt: string;
-    profilePhotosId?: string | null;
   } | null>;
   nextToken?: string | null;
 };
@@ -982,36 +573,8 @@ export type ListPhotosQuery = {
 export type GetLikeQuery = {
   __typename: "Like";
   id: string;
-  user: string;
+  username: string;
   photoId: string;
-  photo?: {
-    __typename: "Photo";
-    id: string;
-    user: string;
-    profile?: {
-      __typename: "Profile";
-      id: string;
-      username: string;
-      displayname?: string | null;
-      email: string;
-      bio?: string | null;
-      age?: string | null;
-      score?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profileProfilePicId?: string | null;
-    } | null;
-    filename: string;
-    height?: number | null;
-    width?: number | null;
-    likes?: {
-      __typename: "ModelLikeConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    profilePhotosId?: string | null;
-  } | null;
   createdAt: string;
   updatedAt: string;
   photoLikesId: string;
@@ -1022,19 +585,8 @@ export type ListLikesQuery = {
   items: Array<{
     __typename: "Like";
     id: string;
-    user: string;
+    username: string;
     photoId: string;
-    photo?: {
-      __typename: "Photo";
-      id: string;
-      user: string;
-      filename: string;
-      height?: number | null;
-      width?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profilePhotosId?: string | null;
-    } | null;
     createdAt: string;
     updatedAt: string;
     photoLikesId: string;
@@ -1048,29 +600,14 @@ export type ProfilesByUsernameQuery = {
     __typename: "Profile";
     id: string;
     username: string;
-    displayname?: string | null;
+    displayname: string;
     email: string;
     bio?: string | null;
     age?: string | null;
-    profilePic?: {
-      __typename: "Photo";
-      id: string;
-      user: string;
-      filename: string;
-      height?: number | null;
-      width?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profilePhotosId?: string | null;
-    } | null;
+    profilePicId?: string | null;
     score?: number | null;
-    photos?: {
-      __typename: "ModelPhotoConnection";
-      nextToken?: string | null;
-    } | null;
     createdAt: string;
     updatedAt: string;
-    profileProfilePicId?: string | null;
   } | null>;
   nextToken?: string | null;
 };
@@ -1079,205 +616,48 @@ export type OnCreateProfileSubscription = {
   __typename: "Profile";
   id: string;
   username: string;
-  displayname?: string | null;
+  displayname: string;
   email: string;
   bio?: string | null;
   age?: string | null;
-  profilePic?: {
-    __typename: "Photo";
-    id: string;
-    user: string;
-    profile?: {
-      __typename: "Profile";
-      id: string;
-      username: string;
-      displayname?: string | null;
-      email: string;
-      bio?: string | null;
-      age?: string | null;
-      score?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profileProfilePicId?: string | null;
-    } | null;
-    filename: string;
-    height?: number | null;
-    width?: number | null;
-    likes?: {
-      __typename: "ModelLikeConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    profilePhotosId?: string | null;
-  } | null;
+  profilePicId?: string | null;
   score?: number | null;
-  photos?: {
-    __typename: "ModelPhotoConnection";
-    items: Array<{
-      __typename: "Photo";
-      id: string;
-      user: string;
-      filename: string;
-      height?: number | null;
-      width?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profilePhotosId?: string | null;
-    } | null>;
-    nextToken?: string | null;
-  } | null;
   createdAt: string;
   updatedAt: string;
-  profileProfilePicId?: string | null;
 };
 
 export type OnUpdateProfileSubscription = {
   __typename: "Profile";
   id: string;
   username: string;
-  displayname?: string | null;
+  displayname: string;
   email: string;
   bio?: string | null;
   age?: string | null;
-  profilePic?: {
-    __typename: "Photo";
-    id: string;
-    user: string;
-    profile?: {
-      __typename: "Profile";
-      id: string;
-      username: string;
-      displayname?: string | null;
-      email: string;
-      bio?: string | null;
-      age?: string | null;
-      score?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profileProfilePicId?: string | null;
-    } | null;
-    filename: string;
-    height?: number | null;
-    width?: number | null;
-    likes?: {
-      __typename: "ModelLikeConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    profilePhotosId?: string | null;
-  } | null;
+  profilePicId?: string | null;
   score?: number | null;
-  photos?: {
-    __typename: "ModelPhotoConnection";
-    items: Array<{
-      __typename: "Photo";
-      id: string;
-      user: string;
-      filename: string;
-      height?: number | null;
-      width?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profilePhotosId?: string | null;
-    } | null>;
-    nextToken?: string | null;
-  } | null;
   createdAt: string;
   updatedAt: string;
-  profileProfilePicId?: string | null;
 };
 
 export type OnDeleteProfileSubscription = {
   __typename: "Profile";
   id: string;
   username: string;
-  displayname?: string | null;
+  displayname: string;
   email: string;
   bio?: string | null;
   age?: string | null;
-  profilePic?: {
-    __typename: "Photo";
-    id: string;
-    user: string;
-    profile?: {
-      __typename: "Profile";
-      id: string;
-      username: string;
-      displayname?: string | null;
-      email: string;
-      bio?: string | null;
-      age?: string | null;
-      score?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profileProfilePicId?: string | null;
-    } | null;
-    filename: string;
-    height?: number | null;
-    width?: number | null;
-    likes?: {
-      __typename: "ModelLikeConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    profilePhotosId?: string | null;
-  } | null;
+  profilePicId?: string | null;
   score?: number | null;
-  photos?: {
-    __typename: "ModelPhotoConnection";
-    items: Array<{
-      __typename: "Photo";
-      id: string;
-      user: string;
-      filename: string;
-      height?: number | null;
-      width?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profilePhotosId?: string | null;
-    } | null>;
-    nextToken?: string | null;
-  } | null;
   createdAt: string;
   updatedAt: string;
-  profileProfilePicId?: string | null;
 };
 
 export type OnCreatePhotoSubscription = {
   __typename: "Photo";
   id: string;
-  user: string;
-  profile?: {
-    __typename: "Profile";
-    id: string;
-    username: string;
-    displayname?: string | null;
-    email: string;
-    bio?: string | null;
-    age?: string | null;
-    profilePic?: {
-      __typename: "Photo";
-      id: string;
-      user: string;
-      filename: string;
-      height?: number | null;
-      width?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profilePhotosId?: string | null;
-    } | null;
-    score?: number | null;
-    photos?: {
-      __typename: "ModelPhotoConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    profileProfilePicId?: string | null;
-  } | null;
+  username: string;
   filename: string;
   height?: number | null;
   width?: number | null;
@@ -1286,7 +666,7 @@ export type OnCreatePhotoSubscription = {
     items: Array<{
       __typename: "Like";
       id: string;
-      user: string;
+      username: string;
       photoId: string;
       createdAt: string;
       updatedAt: string;
@@ -1296,41 +676,12 @@ export type OnCreatePhotoSubscription = {
   } | null;
   createdAt: string;
   updatedAt: string;
-  profilePhotosId?: string | null;
 };
 
 export type OnUpdatePhotoSubscription = {
   __typename: "Photo";
   id: string;
-  user: string;
-  profile?: {
-    __typename: "Profile";
-    id: string;
-    username: string;
-    displayname?: string | null;
-    email: string;
-    bio?: string | null;
-    age?: string | null;
-    profilePic?: {
-      __typename: "Photo";
-      id: string;
-      user: string;
-      filename: string;
-      height?: number | null;
-      width?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profilePhotosId?: string | null;
-    } | null;
-    score?: number | null;
-    photos?: {
-      __typename: "ModelPhotoConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    profileProfilePicId?: string | null;
-  } | null;
+  username: string;
   filename: string;
   height?: number | null;
   width?: number | null;
@@ -1339,7 +690,7 @@ export type OnUpdatePhotoSubscription = {
     items: Array<{
       __typename: "Like";
       id: string;
-      user: string;
+      username: string;
       photoId: string;
       createdAt: string;
       updatedAt: string;
@@ -1349,41 +700,12 @@ export type OnUpdatePhotoSubscription = {
   } | null;
   createdAt: string;
   updatedAt: string;
-  profilePhotosId?: string | null;
 };
 
 export type OnDeletePhotoSubscription = {
   __typename: "Photo";
   id: string;
-  user: string;
-  profile?: {
-    __typename: "Profile";
-    id: string;
-    username: string;
-    displayname?: string | null;
-    email: string;
-    bio?: string | null;
-    age?: string | null;
-    profilePic?: {
-      __typename: "Photo";
-      id: string;
-      user: string;
-      filename: string;
-      height?: number | null;
-      width?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profilePhotosId?: string | null;
-    } | null;
-    score?: number | null;
-    photos?: {
-      __typename: "ModelPhotoConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    profileProfilePicId?: string | null;
-  } | null;
+  username: string;
   filename: string;
   height?: number | null;
   width?: number | null;
@@ -1392,7 +714,7 @@ export type OnDeletePhotoSubscription = {
     items: Array<{
       __typename: "Like";
       id: string;
-      user: string;
+      username: string;
       photoId: string;
       createdAt: string;
       updatedAt: string;
@@ -1402,42 +724,13 @@ export type OnDeletePhotoSubscription = {
   } | null;
   createdAt: string;
   updatedAt: string;
-  profilePhotosId?: string | null;
 };
 
 export type OnCreateLikeSubscription = {
   __typename: "Like";
   id: string;
-  user: string;
+  username: string;
   photoId: string;
-  photo?: {
-    __typename: "Photo";
-    id: string;
-    user: string;
-    profile?: {
-      __typename: "Profile";
-      id: string;
-      username: string;
-      displayname?: string | null;
-      email: string;
-      bio?: string | null;
-      age?: string | null;
-      score?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profileProfilePicId?: string | null;
-    } | null;
-    filename: string;
-    height?: number | null;
-    width?: number | null;
-    likes?: {
-      __typename: "ModelLikeConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    profilePhotosId?: string | null;
-  } | null;
   createdAt: string;
   updatedAt: string;
   photoLikesId: string;
@@ -1446,36 +739,8 @@ export type OnCreateLikeSubscription = {
 export type OnUpdateLikeSubscription = {
   __typename: "Like";
   id: string;
-  user: string;
+  username: string;
   photoId: string;
-  photo?: {
-    __typename: "Photo";
-    id: string;
-    user: string;
-    profile?: {
-      __typename: "Profile";
-      id: string;
-      username: string;
-      displayname?: string | null;
-      email: string;
-      bio?: string | null;
-      age?: string | null;
-      score?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profileProfilePicId?: string | null;
-    } | null;
-    filename: string;
-    height?: number | null;
-    width?: number | null;
-    likes?: {
-      __typename: "ModelLikeConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    profilePhotosId?: string | null;
-  } | null;
   createdAt: string;
   updatedAt: string;
   photoLikesId: string;
@@ -1484,36 +749,8 @@ export type OnUpdateLikeSubscription = {
 export type OnDeleteLikeSubscription = {
   __typename: "Like";
   id: string;
-  user: string;
+  username: string;
   photoId: string;
-  photo?: {
-    __typename: "Photo";
-    id: string;
-    user: string;
-    profile?: {
-      __typename: "Profile";
-      id: string;
-      username: string;
-      displayname?: string | null;
-      email: string;
-      bio?: string | null;
-      age?: string | null;
-      score?: number | null;
-      createdAt: string;
-      updatedAt: string;
-      profileProfilePicId?: string | null;
-    } | null;
-    filename: string;
-    height?: number | null;
-    width?: number | null;
-    likes?: {
-      __typename: "ModelLikeConnection";
-      nextToken?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    profilePhotosId?: string | null;
-  } | null;
   createdAt: string;
   updatedAt: string;
   photoLikesId: string;
@@ -1536,53 +773,10 @@ export class APIService {
           email
           bio
           age
-          profilePic {
-            __typename
-            id
-            user
-            profile {
-              __typename
-              id
-              username
-              displayname
-              email
-              bio
-              age
-              score
-              createdAt
-              updatedAt
-              profileProfilePicId
-            }
-            filename
-            height
-            width
-            likes {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
-            profilePhotosId
-          }
+          profilePicId
           score
-          photos {
-            __typename
-            items {
-              __typename
-              id
-              user
-              filename
-              height
-              width
-              createdAt
-              updatedAt
-              profilePhotosId
-            }
-            nextToken
-          }
           createdAt
           updatedAt
-          profileProfilePicId
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1609,53 +803,10 @@ export class APIService {
           email
           bio
           age
-          profilePic {
-            __typename
-            id
-            user
-            profile {
-              __typename
-              id
-              username
-              displayname
-              email
-              bio
-              age
-              score
-              createdAt
-              updatedAt
-              profileProfilePicId
-            }
-            filename
-            height
-            width
-            likes {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
-            profilePhotosId
-          }
+          profilePicId
           score
-          photos {
-            __typename
-            items {
-              __typename
-              id
-              user
-              filename
-              height
-              width
-              createdAt
-              updatedAt
-              profilePhotosId
-            }
-            nextToken
-          }
           createdAt
           updatedAt
-          profileProfilePicId
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1682,53 +833,10 @@ export class APIService {
           email
           bio
           age
-          profilePic {
-            __typename
-            id
-            user
-            profile {
-              __typename
-              id
-              username
-              displayname
-              email
-              bio
-              age
-              score
-              createdAt
-              updatedAt
-              profileProfilePicId
-            }
-            filename
-            height
-            width
-            likes {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
-            profilePhotosId
-          }
+          profilePicId
           score
-          photos {
-            __typename
-            items {
-              __typename
-              id
-              user
-              filename
-              height
-              width
-              createdAt
-              updatedAt
-              profilePhotosId
-            }
-            nextToken
-          }
           createdAt
           updatedAt
-          profileProfilePicId
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1750,35 +858,7 @@ export class APIService {
         createPhoto(input: $input, condition: $condition) {
           __typename
           id
-          user
-          profile {
-            __typename
-            id
-            username
-            displayname
-            email
-            bio
-            age
-            profilePic {
-              __typename
-              id
-              user
-              filename
-              height
-              width
-              createdAt
-              updatedAt
-              profilePhotosId
-            }
-            score
-            photos {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
-            profileProfilePicId
-          }
+          username
           filename
           height
           width
@@ -1787,7 +867,7 @@ export class APIService {
             items {
               __typename
               id
-              user
+              username
               photoId
               createdAt
               updatedAt
@@ -1797,7 +877,6 @@ export class APIService {
           }
           createdAt
           updatedAt
-          profilePhotosId
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1819,35 +898,7 @@ export class APIService {
         updatePhoto(input: $input, condition: $condition) {
           __typename
           id
-          user
-          profile {
-            __typename
-            id
-            username
-            displayname
-            email
-            bio
-            age
-            profilePic {
-              __typename
-              id
-              user
-              filename
-              height
-              width
-              createdAt
-              updatedAt
-              profilePhotosId
-            }
-            score
-            photos {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
-            profileProfilePicId
-          }
+          username
           filename
           height
           width
@@ -1856,7 +907,7 @@ export class APIService {
             items {
               __typename
               id
-              user
+              username
               photoId
               createdAt
               updatedAt
@@ -1866,7 +917,6 @@ export class APIService {
           }
           createdAt
           updatedAt
-          profilePhotosId
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1888,35 +938,7 @@ export class APIService {
         deletePhoto(input: $input, condition: $condition) {
           __typename
           id
-          user
-          profile {
-            __typename
-            id
-            username
-            displayname
-            email
-            bio
-            age
-            profilePic {
-              __typename
-              id
-              user
-              filename
-              height
-              width
-              createdAt
-              updatedAt
-              profilePhotosId
-            }
-            score
-            photos {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
-            profileProfilePicId
-          }
+          username
           filename
           height
           width
@@ -1925,7 +947,7 @@ export class APIService {
             items {
               __typename
               id
-              user
+              username
               photoId
               createdAt
               updatedAt
@@ -1935,7 +957,6 @@ export class APIService {
           }
           createdAt
           updatedAt
-          profilePhotosId
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1957,36 +978,8 @@ export class APIService {
         createLike(input: $input, condition: $condition) {
           __typename
           id
-          user
+          username
           photoId
-          photo {
-            __typename
-            id
-            user
-            profile {
-              __typename
-              id
-              username
-              displayname
-              email
-              bio
-              age
-              score
-              createdAt
-              updatedAt
-              profileProfilePicId
-            }
-            filename
-            height
-            width
-            likes {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
-            profilePhotosId
-          }
           createdAt
           updatedAt
           photoLikesId
@@ -2011,36 +1004,8 @@ export class APIService {
         updateLike(input: $input, condition: $condition) {
           __typename
           id
-          user
+          username
           photoId
-          photo {
-            __typename
-            id
-            user
-            profile {
-              __typename
-              id
-              username
-              displayname
-              email
-              bio
-              age
-              score
-              createdAt
-              updatedAt
-              profileProfilePicId
-            }
-            filename
-            height
-            width
-            likes {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
-            profilePhotosId
-          }
           createdAt
           updatedAt
           photoLikesId
@@ -2065,36 +1030,8 @@ export class APIService {
         deleteLike(input: $input, condition: $condition) {
           __typename
           id
-          user
+          username
           photoId
-          photo {
-            __typename
-            id
-            user
-            profile {
-              __typename
-              id
-              username
-              displayname
-              email
-              bio
-              age
-              score
-              createdAt
-              updatedAt
-              profileProfilePicId
-            }
-            filename
-            height
-            width
-            likes {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
-            profilePhotosId
-          }
           createdAt
           updatedAt
           photoLikesId
@@ -2121,53 +1058,10 @@ export class APIService {
           email
           bio
           age
-          profilePic {
-            __typename
-            id
-            user
-            profile {
-              __typename
-              id
-              username
-              displayname
-              email
-              bio
-              age
-              score
-              createdAt
-              updatedAt
-              profileProfilePicId
-            }
-            filename
-            height
-            width
-            likes {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
-            profilePhotosId
-          }
+          profilePicId
           score
-          photos {
-            __typename
-            items {
-              __typename
-              id
-              user
-              filename
-              height
-              width
-              createdAt
-              updatedAt
-              profilePhotosId
-            }
-            nextToken
-          }
           createdAt
           updatedAt
-          profileProfilePicId
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -2194,25 +1088,10 @@ export class APIService {
             email
             bio
             age
-            profilePic {
-              __typename
-              id
-              user
-              filename
-              height
-              width
-              createdAt
-              updatedAt
-              profilePhotosId
-            }
+            profilePicId
             score
-            photos {
-              __typename
-              nextToken
-            }
             createdAt
             updatedAt
-            profileProfilePicId
           }
           nextToken
         }
@@ -2237,35 +1116,7 @@ export class APIService {
         getPhoto(id: $id) {
           __typename
           id
-          user
-          profile {
-            __typename
-            id
-            username
-            displayname
-            email
-            bio
-            age
-            profilePic {
-              __typename
-              id
-              user
-              filename
-              height
-              width
-              createdAt
-              updatedAt
-              profilePhotosId
-            }
-            score
-            photos {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
-            profileProfilePicId
-          }
+          username
           filename
           height
           width
@@ -2274,7 +1125,7 @@ export class APIService {
             items {
               __typename
               id
-              user
+              username
               photoId
               createdAt
               updatedAt
@@ -2284,7 +1135,6 @@ export class APIService {
           }
           createdAt
           updatedAt
-          profilePhotosId
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -2306,20 +1156,7 @@ export class APIService {
           items {
             __typename
             id
-            user
-            profile {
-              __typename
-              id
-              username
-              displayname
-              email
-              bio
-              age
-              score
-              createdAt
-              updatedAt
-              profileProfilePicId
-            }
+            username
             filename
             height
             width
@@ -2329,7 +1166,6 @@ export class APIService {
             }
             createdAt
             updatedAt
-            profilePhotosId
           }
           nextToken
         }
@@ -2354,36 +1190,8 @@ export class APIService {
         getLike(id: $id) {
           __typename
           id
-          user
+          username
           photoId
-          photo {
-            __typename
-            id
-            user
-            profile {
-              __typename
-              id
-              username
-              displayname
-              email
-              bio
-              age
-              score
-              createdAt
-              updatedAt
-              profileProfilePicId
-            }
-            filename
-            height
-            width
-            likes {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
-            profilePhotosId
-          }
           createdAt
           updatedAt
           photoLikesId
@@ -2408,19 +1216,8 @@ export class APIService {
           items {
             __typename
             id
-            user
+            username
             photoId
-            photo {
-              __typename
-              id
-              user
-              filename
-              height
-              width
-              createdAt
-              updatedAt
-              profilePhotosId
-            }
             createdAt
             updatedAt
             photoLikesId
@@ -2467,25 +1264,10 @@ export class APIService {
             email
             bio
             age
-            profilePic {
-              __typename
-              id
-              user
-              filename
-              height
-              width
-              createdAt
-              updatedAt
-              profilePhotosId
-            }
+            profilePicId
             score
-            photos {
-              __typename
-              nextToken
-            }
             createdAt
             updatedAt
-            profileProfilePicId
           }
           nextToken
         }
@@ -2524,53 +1306,10 @@ export class APIService {
           email
           bio
           age
-          profilePic {
-            __typename
-            id
-            user
-            profile {
-              __typename
-              id
-              username
-              displayname
-              email
-              bio
-              age
-              score
-              createdAt
-              updatedAt
-              profileProfilePicId
-            }
-            filename
-            height
-            width
-            likes {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
-            profilePhotosId
-          }
+          profilePicId
           score
-          photos {
-            __typename
-            items {
-              __typename
-              id
-              user
-              filename
-              height
-              width
-              createdAt
-              updatedAt
-              profilePhotosId
-            }
-            nextToken
-          }
           createdAt
           updatedAt
-          profileProfilePicId
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -2598,53 +1337,10 @@ export class APIService {
           email
           bio
           age
-          profilePic {
-            __typename
-            id
-            user
-            profile {
-              __typename
-              id
-              username
-              displayname
-              email
-              bio
-              age
-              score
-              createdAt
-              updatedAt
-              profileProfilePicId
-            }
-            filename
-            height
-            width
-            likes {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
-            profilePhotosId
-          }
+          profilePicId
           score
-          photos {
-            __typename
-            items {
-              __typename
-              id
-              user
-              filename
-              height
-              width
-              createdAt
-              updatedAt
-              profilePhotosId
-            }
-            nextToken
-          }
           createdAt
           updatedAt
-          profileProfilePicId
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -2672,53 +1368,10 @@ export class APIService {
           email
           bio
           age
-          profilePic {
-            __typename
-            id
-            user
-            profile {
-              __typename
-              id
-              username
-              displayname
-              email
-              bio
-              age
-              score
-              createdAt
-              updatedAt
-              profileProfilePicId
-            }
-            filename
-            height
-            width
-            likes {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
-            profilePhotosId
-          }
+          profilePicId
           score
-          photos {
-            __typename
-            items {
-              __typename
-              id
-              user
-              filename
-              height
-              width
-              createdAt
-              updatedAt
-              profilePhotosId
-            }
-            nextToken
-          }
           createdAt
           updatedAt
-          profileProfilePicId
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -2741,35 +1394,7 @@ export class APIService {
         onCreatePhoto(filter: $filter) {
           __typename
           id
-          user
-          profile {
-            __typename
-            id
-            username
-            displayname
-            email
-            bio
-            age
-            profilePic {
-              __typename
-              id
-              user
-              filename
-              height
-              width
-              createdAt
-              updatedAt
-              profilePhotosId
-            }
-            score
-            photos {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
-            profileProfilePicId
-          }
+          username
           filename
           height
           width
@@ -2778,7 +1403,7 @@ export class APIService {
             items {
               __typename
               id
-              user
+              username
               photoId
               createdAt
               updatedAt
@@ -2788,7 +1413,6 @@ export class APIService {
           }
           createdAt
           updatedAt
-          profilePhotosId
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -2811,35 +1435,7 @@ export class APIService {
         onUpdatePhoto(filter: $filter) {
           __typename
           id
-          user
-          profile {
-            __typename
-            id
-            username
-            displayname
-            email
-            bio
-            age
-            profilePic {
-              __typename
-              id
-              user
-              filename
-              height
-              width
-              createdAt
-              updatedAt
-              profilePhotosId
-            }
-            score
-            photos {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
-            profileProfilePicId
-          }
+          username
           filename
           height
           width
@@ -2848,7 +1444,7 @@ export class APIService {
             items {
               __typename
               id
-              user
+              username
               photoId
               createdAt
               updatedAt
@@ -2858,7 +1454,6 @@ export class APIService {
           }
           createdAt
           updatedAt
-          profilePhotosId
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -2881,35 +1476,7 @@ export class APIService {
         onDeletePhoto(filter: $filter) {
           __typename
           id
-          user
-          profile {
-            __typename
-            id
-            username
-            displayname
-            email
-            bio
-            age
-            profilePic {
-              __typename
-              id
-              user
-              filename
-              height
-              width
-              createdAt
-              updatedAt
-              profilePhotosId
-            }
-            score
-            photos {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
-            profileProfilePicId
-          }
+          username
           filename
           height
           width
@@ -2918,7 +1485,7 @@ export class APIService {
             items {
               __typename
               id
-              user
+              username
               photoId
               createdAt
               updatedAt
@@ -2928,7 +1495,6 @@ export class APIService {
           }
           createdAt
           updatedAt
-          profilePhotosId
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -2951,36 +1517,8 @@ export class APIService {
         onCreateLike(filter: $filter) {
           __typename
           id
-          user
+          username
           photoId
-          photo {
-            __typename
-            id
-            user
-            profile {
-              __typename
-              id
-              username
-              displayname
-              email
-              bio
-              age
-              score
-              createdAt
-              updatedAt
-              profileProfilePicId
-            }
-            filename
-            height
-            width
-            likes {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
-            profilePhotosId
-          }
           createdAt
           updatedAt
           photoLikesId
@@ -3006,36 +1544,8 @@ export class APIService {
         onUpdateLike(filter: $filter) {
           __typename
           id
-          user
+          username
           photoId
-          photo {
-            __typename
-            id
-            user
-            profile {
-              __typename
-              id
-              username
-              displayname
-              email
-              bio
-              age
-              score
-              createdAt
-              updatedAt
-              profileProfilePicId
-            }
-            filename
-            height
-            width
-            likes {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
-            profilePhotosId
-          }
           createdAt
           updatedAt
           photoLikesId
@@ -3061,36 +1571,8 @@ export class APIService {
         onDeleteLike(filter: $filter) {
           __typename
           id
-          user
+          username
           photoId
-          photo {
-            __typename
-            id
-            user
-            profile {
-              __typename
-              id
-              username
-              displayname
-              email
-              bio
-              age
-              score
-              createdAt
-              updatedAt
-              profileProfilePicId
-            }
-            filename
-            height
-            width
-            likes {
-              __typename
-              nextToken
-            }
-            createdAt
-            updatedAt
-            profilePhotosId
-          }
           createdAt
           updatedAt
           photoLikesId

@@ -2,19 +2,17 @@
 type Profile @model @auth(rules: [{ allow: public }]) {
   id: ID!
   username: String! @index
-  displayname: String
+  displayname: String!
   email: String!
   bio: String
   age: String
-  profilePic: Photo @hasOne
+  profilePicId: ID
   score: Int
-  photos: [Photo] @hasMany
 }
 
 type Photo @model @auth(rules: [{ allow: public }]) {
   id: ID!
-  user: String!
-  profile: Profile
+  username: String!
   filename: String!
   height: Int
   width: Int
@@ -23,7 +21,6 @@ type Photo @model @auth(rules: [{ allow: public }]) {
 
 type Like @model @auth(rules: [{ allow: public }]) {
   id: ID!
-  user: String!
+  username: String!
   photoId: String!
-  photo: Photo @belongsTo
 }

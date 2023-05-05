@@ -14,48 +14,10 @@ export const createProfile = /* GraphQL */ `
       email
       bio
       age
-      profilePic {
-        id
-        user
-        profile {
-          id
-          username
-          displayname
-          email
-          bio
-          age
-          score
-          createdAt
-          updatedAt
-          profileProfilePicId
-        }
-        filename
-        height
-        width
-        likes {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        profilePhotosId
-      }
+      profilePicId
       score
-      photos {
-        items {
-          id
-          user
-          filename
-          height
-          width
-          createdAt
-          updatedAt
-          profilePhotosId
-        }
-        nextToken
-      }
       createdAt
       updatedAt
-      profileProfilePicId
     }
   }
 `;
@@ -71,48 +33,10 @@ export const updateProfile = /* GraphQL */ `
       email
       bio
       age
-      profilePic {
-        id
-        user
-        profile {
-          id
-          username
-          displayname
-          email
-          bio
-          age
-          score
-          createdAt
-          updatedAt
-          profileProfilePicId
-        }
-        filename
-        height
-        width
-        likes {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        profilePhotosId
-      }
+      profilePicId
       score
-      photos {
-        items {
-          id
-          user
-          filename
-          height
-          width
-          createdAt
-          updatedAt
-          profilePhotosId
-        }
-        nextToken
-      }
       createdAt
       updatedAt
-      profileProfilePicId
     }
   }
 `;
@@ -128,48 +52,10 @@ export const deleteProfile = /* GraphQL */ `
       email
       bio
       age
-      profilePic {
-        id
-        user
-        profile {
-          id
-          username
-          displayname
-          email
-          bio
-          age
-          score
-          createdAt
-          updatedAt
-          profileProfilePicId
-        }
-        filename
-        height
-        width
-        likes {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        profilePhotosId
-      }
+      profilePicId
       score
-      photos {
-        items {
-          id
-          user
-          filename
-          height
-          width
-          createdAt
-          updatedAt
-          profilePhotosId
-        }
-        nextToken
-      }
       createdAt
       updatedAt
-      profileProfilePicId
     }
   }
 `;
@@ -180,39 +66,14 @@ export const createPhoto = /* GraphQL */ `
   ) {
     createPhoto(input: $input, condition: $condition) {
       id
-      user
-      profile {
-        id
-        username
-        displayname
-        email
-        bio
-        age
-        profilePic {
-          id
-          user
-          filename
-          height
-          width
-          createdAt
-          updatedAt
-          profilePhotosId
-        }
-        score
-        photos {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        profileProfilePicId
-      }
+      username
       filename
       height
       width
       likes {
         items {
           id
-          user
+          username
           photoId
           createdAt
           updatedAt
@@ -222,7 +83,6 @@ export const createPhoto = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      profilePhotosId
     }
   }
 `;
@@ -233,39 +93,14 @@ export const updatePhoto = /* GraphQL */ `
   ) {
     updatePhoto(input: $input, condition: $condition) {
       id
-      user
-      profile {
-        id
-        username
-        displayname
-        email
-        bio
-        age
-        profilePic {
-          id
-          user
-          filename
-          height
-          width
-          createdAt
-          updatedAt
-          profilePhotosId
-        }
-        score
-        photos {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        profileProfilePicId
-      }
+      username
       filename
       height
       width
       likes {
         items {
           id
-          user
+          username
           photoId
           createdAt
           updatedAt
@@ -275,7 +110,6 @@ export const updatePhoto = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      profilePhotosId
     }
   }
 `;
@@ -286,39 +120,14 @@ export const deletePhoto = /* GraphQL */ `
   ) {
     deletePhoto(input: $input, condition: $condition) {
       id
-      user
-      profile {
-        id
-        username
-        displayname
-        email
-        bio
-        age
-        profilePic {
-          id
-          user
-          filename
-          height
-          width
-          createdAt
-          updatedAt
-          profilePhotosId
-        }
-        score
-        photos {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        profileProfilePicId
-      }
+      username
       filename
       height
       width
       likes {
         items {
           id
-          user
+          username
           photoId
           createdAt
           updatedAt
@@ -328,7 +137,6 @@ export const deletePhoto = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      profilePhotosId
     }
   }
 `;
@@ -339,33 +147,8 @@ export const createLike = /* GraphQL */ `
   ) {
     createLike(input: $input, condition: $condition) {
       id
-      user
+      username
       photoId
-      photo {
-        id
-        user
-        profile {
-          id
-          username
-          displayname
-          email
-          bio
-          age
-          score
-          createdAt
-          updatedAt
-          profileProfilePicId
-        }
-        filename
-        height
-        width
-        likes {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        profilePhotosId
-      }
       createdAt
       updatedAt
       photoLikesId
@@ -379,33 +162,8 @@ export const updateLike = /* GraphQL */ `
   ) {
     updateLike(input: $input, condition: $condition) {
       id
-      user
+      username
       photoId
-      photo {
-        id
-        user
-        profile {
-          id
-          username
-          displayname
-          email
-          bio
-          age
-          score
-          createdAt
-          updatedAt
-          profileProfilePicId
-        }
-        filename
-        height
-        width
-        likes {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        profilePhotosId
-      }
       createdAt
       updatedAt
       photoLikesId
@@ -419,33 +177,8 @@ export const deleteLike = /* GraphQL */ `
   ) {
     deleteLike(input: $input, condition: $condition) {
       id
-      user
+      username
       photoId
-      photo {
-        id
-        user
-        profile {
-          id
-          username
-          displayname
-          email
-          bio
-          age
-          score
-          createdAt
-          updatedAt
-          profileProfilePicId
-        }
-        filename
-        height
-        width
-        likes {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        profilePhotosId
-      }
       createdAt
       updatedAt
       photoLikesId

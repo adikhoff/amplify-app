@@ -1,4 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Profile} from "../API.service";
+import {MockService} from "../util/mock-service";
 
 @Component({
   selector: 'app-avatar',
@@ -6,5 +8,6 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./avatar.component.css']
 })
 export class AvatarComponent {
-  @Input() forUser: string = ""
+  constructor(private mockService: MockService) {}
+  @Input() forUser: Profile = this.mockService.getMockProfile();
 }

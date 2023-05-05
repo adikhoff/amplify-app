@@ -7,48 +7,10 @@ query GetProfile($id: ID!) {
     email
     bio
     age
-    profilePic {
-      id
-      user
-      profile {
-        id
-        username
-        displayname
-        email
-        bio
-        age
-        score
-        createdAt
-        updatedAt
-        profileProfilePicId
-      }
-      filename
-      height
-      width
-      likes {
-        nextToken
-      }
-      createdAt
-      updatedAt
-      profilePhotosId
-    }
+    profilePicId
     score
-    photos {
-      items {
-        id
-        user
-        filename
-        height
-        width
-        createdAt
-        updatedAt
-        profilePhotosId
-      }
-      nextToken
-    }
     createdAt
     updatedAt
-    profileProfilePicId
   }
 }
 query ListProfiles(
@@ -64,23 +26,10 @@ query ListProfiles(
       email
       bio
       age
-      profilePic {
-        id
-        user
-        filename
-        height
-        width
-        createdAt
-        updatedAt
-        profilePhotosId
-      }
+      profilePicId
       score
-      photos {
-        nextToken
-      }
       createdAt
       updatedAt
-      profileProfilePicId
     }
     nextToken
   }
@@ -88,39 +37,14 @@ query ListProfiles(
 query GetPhoto($id: ID!) {
   getPhoto(id: $id) {
     id
-    user
-    profile {
-      id
-      username
-      displayname
-      email
-      bio
-      age
-      profilePic {
-        id
-        user
-        filename
-        height
-        width
-        createdAt
-        updatedAt
-        profilePhotosId
-      }
-      score
-      photos {
-        nextToken
-      }
-      createdAt
-      updatedAt
-      profileProfilePicId
-    }
+    username
     filename
     height
     width
     likes {
       items {
         id
-        user
+        username
         photoId
         createdAt
         updatedAt
@@ -130,7 +54,6 @@ query GetPhoto($id: ID!) {
     }
     createdAt
     updatedAt
-    profilePhotosId
   }
 }
 query ListPhotos(
@@ -141,19 +64,7 @@ query ListPhotos(
   listPhotos(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      user
-      profile {
-        id
-        username
-        displayname
-        email
-        bio
-        age
-        score
-        createdAt
-        updatedAt
-        profileProfilePicId
-      }
+      username
       filename
       height
       width
@@ -162,7 +73,6 @@ query ListPhotos(
       }
       createdAt
       updatedAt
-      profilePhotosId
     }
     nextToken
   }
@@ -170,33 +80,8 @@ query ListPhotos(
 query GetLike($id: ID!) {
   getLike(id: $id) {
     id
-    user
+    username
     photoId
-    photo {
-      id
-      user
-      profile {
-        id
-        username
-        displayname
-        email
-        bio
-        age
-        score
-        createdAt
-        updatedAt
-        profileProfilePicId
-      }
-      filename
-      height
-      width
-      likes {
-        nextToken
-      }
-      createdAt
-      updatedAt
-      profilePhotosId
-    }
     createdAt
     updatedAt
     photoLikesId
@@ -210,18 +95,8 @@ query ListLikes(
   listLikes(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      user
+      username
       photoId
-      photo {
-        id
-        user
-        filename
-        height
-        width
-        createdAt
-        updatedAt
-        profilePhotosId
-      }
       createdAt
       updatedAt
       photoLikesId
@@ -250,23 +125,10 @@ query ProfilesByUsername(
       email
       bio
       age
-      profilePic {
-        id
-        user
-        filename
-        height
-        width
-        createdAt
-        updatedAt
-        profilePhotosId
-      }
+      profilePicId
       score
-      photos {
-        nextToken
-      }
       createdAt
       updatedAt
-      profileProfilePicId
     }
     nextToken
   }
