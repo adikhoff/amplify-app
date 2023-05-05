@@ -1,7 +1,8 @@
 
 type Profile @model @auth(rules: [{ allow: public }]) {
   id: ID!
-  name: String! @index
+  username: String! @index
+  displayname: String
   email: String!
   bio: String
   age: String

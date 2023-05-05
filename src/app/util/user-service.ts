@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Auth, Hub} from "aws-amplify";
-import {APIService, CreateProfileInput, Profile} from "../API.service";
+import {APIService, CreateProfileInput, Profile, UpdateProfileInput} from "../API.service";
 
 @Injectable()
 export class UserService {
@@ -47,13 +47,25 @@ export class UserService {
 
   public async getProfileForUser(user: any): Promise<Profile> {
     return new Promise((resolve, reject) => {
-      this.api.ListProfiles({name: {eq: user.username}}).then(profiles => {
+      this.api.ListProfiles({username: {eq: user.username}}).then(profiles => {
         let profile = profiles.items[0] as Profile;
+        const displayname = user.attributes.name ? user.attributes.name : user.username;
         if (profile) {
-          resolve(profile);
+          // if (profile.displayname) {
+          //   resolve(profile);
+          // } else {
+            const upi: UpdateProfileInput = {
+              id: profile.id,
+              displayname: displayname
+            }
+            this.api.UpdateProfile(upi);
+            profile.displayname = displayname;
+            resolve(profile);
+          // }
         } else {
           const cpi: CreateProfileInput = {
-            name: user.username,
+            username: user.username,
+            displayname: displayname,
             email: user.attributes.email
           }
           this.api.CreateProfile(cpi).then(profile => {

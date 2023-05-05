@@ -5,7 +5,8 @@ mutation CreateProfile(
 ) {
   createProfile(input: $input, condition: $condition) {
     id
-    name
+    username
+    displayname
     email
     bio
     age
@@ -14,7 +15,8 @@ mutation CreateProfile(
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -58,7 +60,8 @@ mutation UpdateProfile(
 ) {
   updateProfile(input: $input, condition: $condition) {
     id
-    name
+    username
+    displayname
     email
     bio
     age
@@ -67,7 +70,8 @@ mutation UpdateProfile(
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -111,7 +115,8 @@ mutation DeleteProfile(
 ) {
   deleteProfile(input: $input, condition: $condition) {
     id
-    name
+    username
+    displayname
     email
     bio
     age
@@ -120,7 +125,8 @@ mutation DeleteProfile(
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -167,7 +173,8 @@ mutation CreatePhoto(
     user
     profile {
       id
-      name
+      username
+      displayname
       email
       bio
       age
@@ -217,7 +224,8 @@ mutation UpdatePhoto(
     user
     profile {
       id
-      name
+      username
+      displayname
       email
       bio
       age
@@ -267,7 +275,8 @@ mutation DeletePhoto(
     user
     profile {
       id
-      name
+      username
+      displayname
       email
       bio
       age
@@ -321,7 +330,8 @@ mutation CreateLike(
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -358,7 +368,8 @@ mutation UpdateLike(
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -395,7 +406,8 @@ mutation DeleteLike(
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age

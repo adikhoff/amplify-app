@@ -6,7 +6,8 @@ export const onCreateProfile = /* GraphQL */ `
   subscription OnCreateProfile($filter: ModelSubscriptionProfileFilterInput) {
     onCreateProfile(filter: $filter) {
       id
-      name
+      username
+      displayname
       email
       bio
       age
@@ -15,7 +16,8 @@ export const onCreateProfile = /* GraphQL */ `
         user
         profile {
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -58,7 +60,8 @@ export const onUpdateProfile = /* GraphQL */ `
   subscription OnUpdateProfile($filter: ModelSubscriptionProfileFilterInput) {
     onUpdateProfile(filter: $filter) {
       id
-      name
+      username
+      displayname
       email
       bio
       age
@@ -67,7 +70,8 @@ export const onUpdateProfile = /* GraphQL */ `
         user
         profile {
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -110,7 +114,8 @@ export const onDeleteProfile = /* GraphQL */ `
   subscription OnDeleteProfile($filter: ModelSubscriptionProfileFilterInput) {
     onDeleteProfile(filter: $filter) {
       id
-      name
+      username
+      displayname
       email
       bio
       age
@@ -119,7 +124,8 @@ export const onDeleteProfile = /* GraphQL */ `
         user
         profile {
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -165,7 +171,8 @@ export const onCreatePhoto = /* GraphQL */ `
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -214,7 +221,8 @@ export const onUpdatePhoto = /* GraphQL */ `
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -263,7 +271,8 @@ export const onDeletePhoto = /* GraphQL */ `
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -316,7 +325,8 @@ export const onCreateLike = /* GraphQL */ `
         user
         profile {
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -352,7 +362,8 @@ export const onUpdateLike = /* GraphQL */ `
         user
         profile {
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -388,7 +399,8 @@ export const onDeleteLike = /* GraphQL */ `
         user
         profile {
           id
-          name
+          username
+          displayname
           email
           bio
           age

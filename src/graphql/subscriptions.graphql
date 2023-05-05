@@ -2,7 +2,8 @@
 subscription OnCreateProfile($filter: ModelSubscriptionProfileFilterInput) {
   onCreateProfile(filter: $filter) {
     id
-    name
+    username
+    displayname
     email
     bio
     age
@@ -11,7 +12,8 @@ subscription OnCreateProfile($filter: ModelSubscriptionProfileFilterInput) {
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -52,7 +54,8 @@ subscription OnCreateProfile($filter: ModelSubscriptionProfileFilterInput) {
 subscription OnUpdateProfile($filter: ModelSubscriptionProfileFilterInput) {
   onUpdateProfile(filter: $filter) {
     id
-    name
+    username
+    displayname
     email
     bio
     age
@@ -61,7 +64,8 @@ subscription OnUpdateProfile($filter: ModelSubscriptionProfileFilterInput) {
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -102,7 +106,8 @@ subscription OnUpdateProfile($filter: ModelSubscriptionProfileFilterInput) {
 subscription OnDeleteProfile($filter: ModelSubscriptionProfileFilterInput) {
   onDeleteProfile(filter: $filter) {
     id
-    name
+    username
+    displayname
     email
     bio
     age
@@ -111,7 +116,8 @@ subscription OnDeleteProfile($filter: ModelSubscriptionProfileFilterInput) {
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -155,7 +161,8 @@ subscription OnCreatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
     user
     profile {
       id
-      name
+      username
+      displayname
       email
       bio
       age
@@ -202,7 +209,8 @@ subscription OnUpdatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
     user
     profile {
       id
-      name
+      username
+      displayname
       email
       bio
       age
@@ -249,7 +257,8 @@ subscription OnDeletePhoto($filter: ModelSubscriptionPhotoFilterInput) {
     user
     profile {
       id
-      name
+      username
+      displayname
       email
       bio
       age
@@ -300,7 +309,8 @@ subscription OnCreateLike($filter: ModelSubscriptionLikeFilterInput) {
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -334,7 +344,8 @@ subscription OnUpdateLike($filter: ModelSubscriptionLikeFilterInput) {
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -368,7 +379,8 @@ subscription OnDeleteLike($filter: ModelSubscriptionLikeFilterInput) {
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age

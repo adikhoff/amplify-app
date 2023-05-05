@@ -2,7 +2,8 @@
 query GetProfile($id: ID!) {
   getProfile(id: $id) {
     id
-    name
+    username
+    displayname
     email
     bio
     age
@@ -11,7 +12,8 @@ query GetProfile($id: ID!) {
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -57,7 +59,8 @@ query ListProfiles(
   listProfiles(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      name
+      username
+      displayname
       email
       bio
       age
@@ -88,7 +91,8 @@ query GetPhoto($id: ID!) {
     user
     profile {
       id
-      name
+      username
+      displayname
       email
       bio
       age
@@ -140,7 +144,8 @@ query ListPhotos(
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -172,7 +177,8 @@ query GetLike($id: ID!) {
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -223,15 +229,15 @@ query ListLikes(
     nextToken
   }
 }
-query ProfilesByName(
-  $name: String!
+query ProfilesByUsername(
+  $username: String!
   $sortDirection: ModelSortDirection
   $filter: ModelProfileFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  profilesByName(
-    name: $name
+  profilesByUsername(
+    username: $username
     sortDirection: $sortDirection
     filter: $filter
     limit: $limit
@@ -239,7 +245,8 @@ query ProfilesByName(
   ) {
     items {
       id
-      name
+      username
+      displayname
       email
       bio
       age

@@ -4,7 +4,8 @@
 
 export type CreateProfileInput = {
   id?: string | null,
-  name: string,
+  username: string,
+  displayname?: string | null,
   email: string,
   bio?: string | null,
   age?: string | null,
@@ -13,7 +14,8 @@ export type CreateProfileInput = {
 };
 
 export type ModelProfileConditionInput = {
-  name?: ModelStringInput | null,
+  username?: ModelStringInput | null,
+  displayname?: ModelStringInput | null,
   email?: ModelStringInput | null,
   bio?: ModelStringInput | null,
   age?: ModelStringInput | null,
@@ -95,7 +97,8 @@ export type ModelIDInput = {
 export type Profile = {
   __typename: "Profile",
   id: string,
-  name: string,
+  username: string,
+  displayname?: string | null,
   email: string,
   bio?: string | null,
   age?: string | null,
@@ -146,7 +149,8 @@ export type ModelPhotoConnection = {
 
 export type UpdateProfileInput = {
   id: string,
-  name?: string | null,
+  username?: string | null,
+  displayname?: string | null,
   email?: string | null,
   bio?: string | null,
   age?: string | null,
@@ -220,7 +224,8 @@ export type DeleteLikeInput = {
 
 export type ModelProfileFilterInput = {
   id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
+  username?: ModelStringInput | null,
+  displayname?: ModelStringInput | null,
   email?: ModelStringInput | null,
   bio?: ModelStringInput | null,
   age?: ModelStringInput | null,
@@ -267,7 +272,8 @@ export enum ModelSortDirection {
 
 export type ModelSubscriptionProfileFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  name?: ModelSubscriptionStringInput | null,
+  username?: ModelSubscriptionStringInput | null,
+  displayname?: ModelSubscriptionStringInput | null,
   email?: ModelSubscriptionStringInput | null,
   bio?: ModelSubscriptionStringInput | null,
   age?: ModelSubscriptionStringInput | null,
@@ -345,7 +351,8 @@ export type CreateProfileMutation = {
   createProfile?:  {
     __typename: "Profile",
     id: string,
-    name: string,
+    username: string,
+    displayname?: string | null,
     email: string,
     bio?: string | null,
     age?: string | null,
@@ -356,7 +363,8 @@ export type CreateProfileMutation = {
       profile?:  {
         __typename: "Profile",
         id: string,
-        name: string,
+        username: string,
+        displayname?: string | null,
         email: string,
         bio?: string | null,
         age?: string | null,
@@ -407,7 +415,8 @@ export type UpdateProfileMutation = {
   updateProfile?:  {
     __typename: "Profile",
     id: string,
-    name: string,
+    username: string,
+    displayname?: string | null,
     email: string,
     bio?: string | null,
     age?: string | null,
@@ -418,7 +427,8 @@ export type UpdateProfileMutation = {
       profile?:  {
         __typename: "Profile",
         id: string,
-        name: string,
+        username: string,
+        displayname?: string | null,
         email: string,
         bio?: string | null,
         age?: string | null,
@@ -469,7 +479,8 @@ export type DeleteProfileMutation = {
   deleteProfile?:  {
     __typename: "Profile",
     id: string,
-    name: string,
+    username: string,
+    displayname?: string | null,
     email: string,
     bio?: string | null,
     age?: string | null,
@@ -480,7 +491,8 @@ export type DeleteProfileMutation = {
       profile?:  {
         __typename: "Profile",
         id: string,
-        name: string,
+        username: string,
+        displayname?: string | null,
         email: string,
         bio?: string | null,
         age?: string | null,
@@ -535,7 +547,8 @@ export type CreatePhotoMutation = {
     profile?:  {
       __typename: "Profile",
       id: string,
-      name: string,
+      username: string,
+      displayname?: string | null,
       email: string,
       bio?: string | null,
       age?: string | null,
@@ -594,7 +607,8 @@ export type UpdatePhotoMutation = {
     profile?:  {
       __typename: "Profile",
       id: string,
-      name: string,
+      username: string,
+      displayname?: string | null,
       email: string,
       bio?: string | null,
       age?: string | null,
@@ -653,7 +667,8 @@ export type DeletePhotoMutation = {
     profile?:  {
       __typename: "Profile",
       id: string,
-      name: string,
+      username: string,
+      displayname?: string | null,
       email: string,
       bio?: string | null,
       age?: string | null,
@@ -717,7 +732,8 @@ export type CreateLikeMutation = {
       profile?:  {
         __typename: "Profile",
         id: string,
-        name: string,
+        username: string,
+        displayname?: string | null,
         email: string,
         bio?: string | null,
         age?: string | null,
@@ -761,7 +777,8 @@ export type UpdateLikeMutation = {
       profile?:  {
         __typename: "Profile",
         id: string,
-        name: string,
+        username: string,
+        displayname?: string | null,
         email: string,
         bio?: string | null,
         age?: string | null,
@@ -805,7 +822,8 @@ export type DeleteLikeMutation = {
       profile?:  {
         __typename: "Profile",
         id: string,
-        name: string,
+        username: string,
+        displayname?: string | null,
         email: string,
         bio?: string | null,
         age?: string | null,
@@ -839,7 +857,8 @@ export type GetProfileQuery = {
   getProfile?:  {
     __typename: "Profile",
     id: string,
-    name: string,
+    username: string,
+    displayname?: string | null,
     email: string,
     bio?: string | null,
     age?: string | null,
@@ -850,7 +869,8 @@ export type GetProfileQuery = {
       profile?:  {
         __typename: "Profile",
         id: string,
-        name: string,
+        username: string,
+        displayname?: string | null,
         email: string,
         bio?: string | null,
         age?: string | null,
@@ -904,7 +924,8 @@ export type ListProfilesQuery = {
     items:  Array< {
       __typename: "Profile",
       id: string,
-      name: string,
+      username: string,
+      displayname?: string | null,
       email: string,
       bio?: string | null,
       age?: string | null,
@@ -944,7 +965,8 @@ export type GetPhotoQuery = {
     profile?:  {
       __typename: "Profile",
       id: string,
-      name: string,
+      username: string,
+      displayname?: string | null,
       email: string,
       bio?: string | null,
       age?: string | null,
@@ -1006,7 +1028,8 @@ export type ListPhotosQuery = {
       profile?:  {
         __typename: "Profile",
         id: string,
-        name: string,
+        username: string,
+        displayname?: string | null,
         email: string,
         bio?: string | null,
         age?: string | null,
@@ -1047,7 +1070,8 @@ export type GetLikeQuery = {
       profile?:  {
         __typename: "Profile",
         id: string,
-        name: string,
+        username: string,
+        displayname?: string | null,
         email: string,
         bio?: string | null,
         age?: string | null,
@@ -1106,21 +1130,22 @@ export type ListLikesQuery = {
   } | null,
 };
 
-export type ProfilesByNameQueryVariables = {
-  name: string,
+export type ProfilesByUsernameQueryVariables = {
+  username: string,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelProfileFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ProfilesByNameQuery = {
-  profilesByName?:  {
+export type ProfilesByUsernameQuery = {
+  profilesByUsername?:  {
     __typename: "ModelProfileConnection",
     items:  Array< {
       __typename: "Profile",
       id: string,
-      name: string,
+      username: string,
+      displayname?: string | null,
       email: string,
       bio?: string | null,
       age?: string | null,
@@ -1156,7 +1181,8 @@ export type OnCreateProfileSubscription = {
   onCreateProfile?:  {
     __typename: "Profile",
     id: string,
-    name: string,
+    username: string,
+    displayname?: string | null,
     email: string,
     bio?: string | null,
     age?: string | null,
@@ -1167,7 +1193,8 @@ export type OnCreateProfileSubscription = {
       profile?:  {
         __typename: "Profile",
         id: string,
-        name: string,
+        username: string,
+        displayname?: string | null,
         email: string,
         bio?: string | null,
         age?: string | null,
@@ -1217,7 +1244,8 @@ export type OnUpdateProfileSubscription = {
   onUpdateProfile?:  {
     __typename: "Profile",
     id: string,
-    name: string,
+    username: string,
+    displayname?: string | null,
     email: string,
     bio?: string | null,
     age?: string | null,
@@ -1228,7 +1256,8 @@ export type OnUpdateProfileSubscription = {
       profile?:  {
         __typename: "Profile",
         id: string,
-        name: string,
+        username: string,
+        displayname?: string | null,
         email: string,
         bio?: string | null,
         age?: string | null,
@@ -1278,7 +1307,8 @@ export type OnDeleteProfileSubscription = {
   onDeleteProfile?:  {
     __typename: "Profile",
     id: string,
-    name: string,
+    username: string,
+    displayname?: string | null,
     email: string,
     bio?: string | null,
     age?: string | null,
@@ -1289,7 +1319,8 @@ export type OnDeleteProfileSubscription = {
       profile?:  {
         __typename: "Profile",
         id: string,
-        name: string,
+        username: string,
+        displayname?: string | null,
         email: string,
         bio?: string | null,
         age?: string | null,
@@ -1343,7 +1374,8 @@ export type OnCreatePhotoSubscription = {
     profile?:  {
       __typename: "Profile",
       id: string,
-      name: string,
+      username: string,
+      displayname?: string | null,
       email: string,
       bio?: string | null,
       age?: string | null,
@@ -1401,7 +1433,8 @@ export type OnUpdatePhotoSubscription = {
     profile?:  {
       __typename: "Profile",
       id: string,
-      name: string,
+      username: string,
+      displayname?: string | null,
       email: string,
       bio?: string | null,
       age?: string | null,
@@ -1459,7 +1492,8 @@ export type OnDeletePhotoSubscription = {
     profile?:  {
       __typename: "Profile",
       id: string,
-      name: string,
+      username: string,
+      displayname?: string | null,
       email: string,
       bio?: string | null,
       age?: string | null,
@@ -1522,7 +1556,8 @@ export type OnCreateLikeSubscription = {
       profile?:  {
         __typename: "Profile",
         id: string,
-        name: string,
+        username: string,
+        displayname?: string | null,
         email: string,
         bio?: string | null,
         age?: string | null,
@@ -1565,7 +1600,8 @@ export type OnUpdateLikeSubscription = {
       profile?:  {
         __typename: "Profile",
         id: string,
-        name: string,
+        username: string,
+        displayname?: string | null,
         email: string,
         bio?: string | null,
         age?: string | null,
@@ -1608,7 +1644,8 @@ export type OnDeleteLikeSubscription = {
       profile?:  {
         __typename: "Profile",
         id: string,
-        name: string,
+        username: string,
+        displayname?: string | null,
         email: string,
         bio?: string | null,
         age?: string | null,

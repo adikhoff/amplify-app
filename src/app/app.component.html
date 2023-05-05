@@ -4,10 +4,14 @@
     let-user="user"
     let-signOut="signOut"
   >
-    <div class="application-container">
+    <div *ngIf="this.userService.currentProfile" class="application-container">
       <app-navigation [signout]="signOut"></app-navigation>
       <router-outlet></router-outlet>
       <app-navigation [isFooter]="true"></app-navigation>
+    </div>
+
+    <div *ngIf="!this.userService.currentProfile">
+      Inloggen...
     </div>
 
   </ng-template>

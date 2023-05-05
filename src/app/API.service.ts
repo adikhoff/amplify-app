@@ -23,7 +23,8 @@ export type __SubscriptionContainer = {
 
 export type CreateProfileInput = {
   id?: string | null;
-  name: string;
+  username: string;
+  displayname?: string | null;
   email: string;
   bio?: string | null;
   age?: string | null;
@@ -32,7 +33,8 @@ export type CreateProfileInput = {
 };
 
 export type ModelProfileConditionInput = {
-  name?: ModelStringInput | null;
+  username?: ModelStringInput | null;
+  displayname?: ModelStringInput | null;
   email?: ModelStringInput | null;
   bio?: ModelStringInput | null;
   age?: ModelStringInput | null;
@@ -113,7 +115,8 @@ export type ModelIDInput = {
 export type Profile = {
   __typename: "Profile";
   id: string;
-  name: string;
+  username: string;
+  displayname?: string | null;
   email: string;
   bio?: string | null;
   age?: string | null;
@@ -164,7 +167,8 @@ export type ModelPhotoConnection = {
 
 export type UpdateProfileInput = {
   id: string;
-  name?: string | null;
+  username?: string | null;
+  displayname?: string | null;
   email?: string | null;
   bio?: string | null;
   age?: string | null;
@@ -238,7 +242,8 @@ export type DeleteLikeInput = {
 
 export type ModelProfileFilterInput = {
   id?: ModelIDInput | null;
-  name?: ModelStringInput | null;
+  username?: ModelStringInput | null;
+  displayname?: ModelStringInput | null;
   email?: ModelStringInput | null;
   bio?: ModelStringInput | null;
   age?: ModelStringInput | null;
@@ -284,7 +289,8 @@ export enum ModelSortDirection {
 
 export type ModelSubscriptionProfileFilterInput = {
   id?: ModelSubscriptionIDInput | null;
-  name?: ModelSubscriptionStringInput | null;
+  username?: ModelSubscriptionStringInput | null;
+  displayname?: ModelSubscriptionStringInput | null;
   email?: ModelSubscriptionStringInput | null;
   bio?: ModelSubscriptionStringInput | null;
   age?: ModelSubscriptionStringInput | null;
@@ -356,7 +362,8 @@ export type ModelSubscriptionLikeFilterInput = {
 export type CreateProfileMutation = {
   __typename: "Profile";
   id: string;
-  name: string;
+  username: string;
+  displayname?: string | null;
   email: string;
   bio?: string | null;
   age?: string | null;
@@ -367,7 +374,8 @@ export type CreateProfileMutation = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -411,7 +419,8 @@ export type CreateProfileMutation = {
 export type UpdateProfileMutation = {
   __typename: "Profile";
   id: string;
-  name: string;
+  username: string;
+  displayname?: string | null;
   email: string;
   bio?: string | null;
   age?: string | null;
@@ -422,7 +431,8 @@ export type UpdateProfileMutation = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -466,7 +476,8 @@ export type UpdateProfileMutation = {
 export type DeleteProfileMutation = {
   __typename: "Profile";
   id: string;
-  name: string;
+  username: string;
+  displayname?: string | null;
   email: string;
   bio?: string | null;
   age?: string | null;
@@ -477,7 +488,8 @@ export type DeleteProfileMutation = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -525,7 +537,8 @@ export type CreatePhotoMutation = {
   profile?: {
     __typename: "Profile";
     id: string;
-    name: string;
+    username: string;
+    displayname?: string | null;
     email: string;
     bio?: string | null;
     age?: string | null;
@@ -577,7 +590,8 @@ export type UpdatePhotoMutation = {
   profile?: {
     __typename: "Profile";
     id: string;
-    name: string;
+    username: string;
+    displayname?: string | null;
     email: string;
     bio?: string | null;
     age?: string | null;
@@ -629,7 +643,8 @@ export type DeletePhotoMutation = {
   profile?: {
     __typename: "Profile";
     id: string;
-    name: string;
+    username: string;
+    displayname?: string | null;
     email: string;
     bio?: string | null;
     age?: string | null;
@@ -686,7 +701,8 @@ export type CreateLikeMutation = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -723,7 +739,8 @@ export type UpdateLikeMutation = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -760,7 +777,8 @@ export type DeleteLikeMutation = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -788,7 +806,8 @@ export type DeleteLikeMutation = {
 export type GetProfileQuery = {
   __typename: "Profile";
   id: string;
-  name: string;
+  username: string;
+  displayname?: string | null;
   email: string;
   bio?: string | null;
   age?: string | null;
@@ -799,7 +818,8 @@ export type GetProfileQuery = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -845,7 +865,8 @@ export type ListProfilesQuery = {
   items: Array<{
     __typename: "Profile";
     id: string;
-    name: string;
+    username: string;
+    displayname?: string | null;
     email: string;
     bio?: string | null;
     age?: string | null;
@@ -879,7 +900,8 @@ export type GetPhotoQuery = {
   profile?: {
     __typename: "Profile";
     id: string;
-    name: string;
+    username: string;
+    displayname?: string | null;
     email: string;
     bio?: string | null;
     age?: string | null;
@@ -933,7 +955,8 @@ export type ListPhotosQuery = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -968,7 +991,8 @@ export type GetLikeQuery = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -1018,12 +1042,13 @@ export type ListLikesQuery = {
   nextToken?: string | null;
 };
 
-export type ProfilesByNameQuery = {
+export type ProfilesByUsernameQuery = {
   __typename: "ModelProfileConnection";
   items: Array<{
     __typename: "Profile";
     id: string;
-    name: string;
+    username: string;
+    displayname?: string | null;
     email: string;
     bio?: string | null;
     age?: string | null;
@@ -1053,7 +1078,8 @@ export type ProfilesByNameQuery = {
 export type OnCreateProfileSubscription = {
   __typename: "Profile";
   id: string;
-  name: string;
+  username: string;
+  displayname?: string | null;
   email: string;
   bio?: string | null;
   age?: string | null;
@@ -1064,7 +1090,8 @@ export type OnCreateProfileSubscription = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -1108,7 +1135,8 @@ export type OnCreateProfileSubscription = {
 export type OnUpdateProfileSubscription = {
   __typename: "Profile";
   id: string;
-  name: string;
+  username: string;
+  displayname?: string | null;
   email: string;
   bio?: string | null;
   age?: string | null;
@@ -1119,7 +1147,8 @@ export type OnUpdateProfileSubscription = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -1163,7 +1192,8 @@ export type OnUpdateProfileSubscription = {
 export type OnDeleteProfileSubscription = {
   __typename: "Profile";
   id: string;
-  name: string;
+  username: string;
+  displayname?: string | null;
   email: string;
   bio?: string | null;
   age?: string | null;
@@ -1174,7 +1204,8 @@ export type OnDeleteProfileSubscription = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -1222,7 +1253,8 @@ export type OnCreatePhotoSubscription = {
   profile?: {
     __typename: "Profile";
     id: string;
-    name: string;
+    username: string;
+    displayname?: string | null;
     email: string;
     bio?: string | null;
     age?: string | null;
@@ -1274,7 +1306,8 @@ export type OnUpdatePhotoSubscription = {
   profile?: {
     __typename: "Profile";
     id: string;
-    name: string;
+    username: string;
+    displayname?: string | null;
     email: string;
     bio?: string | null;
     age?: string | null;
@@ -1326,7 +1359,8 @@ export type OnDeletePhotoSubscription = {
   profile?: {
     __typename: "Profile";
     id: string;
-    name: string;
+    username: string;
+    displayname?: string | null;
     email: string;
     bio?: string | null;
     age?: string | null;
@@ -1383,7 +1417,8 @@ export type OnCreateLikeSubscription = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -1420,7 +1455,8 @@ export type OnUpdateLikeSubscription = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -1457,7 +1493,8 @@ export type OnDeleteLikeSubscription = {
     profile?: {
       __typename: "Profile";
       id: string;
-      name: string;
+      username: string;
+      displayname?: string | null;
       email: string;
       bio?: string | null;
       age?: string | null;
@@ -1494,7 +1531,8 @@ export class APIService {
         createProfile(input: $input, condition: $condition) {
           __typename
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -1505,7 +1543,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -1565,7 +1604,8 @@ export class APIService {
         updateProfile(input: $input, condition: $condition) {
           __typename
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -1576,7 +1616,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -1636,7 +1677,8 @@ export class APIService {
         deleteProfile(input: $input, condition: $condition) {
           __typename
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -1647,7 +1689,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -1711,7 +1754,8 @@ export class APIService {
           profile {
             __typename
             id
-            name
+            username
+            displayname
             email
             bio
             age
@@ -1779,7 +1823,8 @@ export class APIService {
           profile {
             __typename
             id
-            name
+            username
+            displayname
             email
             bio
             age
@@ -1847,7 +1892,8 @@ export class APIService {
           profile {
             __typename
             id
-            name
+            username
+            displayname
             email
             bio
             age
@@ -1920,7 +1966,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -1973,7 +2020,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -2026,7 +2074,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -2067,7 +2116,8 @@ export class APIService {
         getProfile(id: $id) {
           __typename
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -2078,7 +2128,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -2138,7 +2189,8 @@ export class APIService {
           items {
             __typename
             id
-            name
+            username
+            displayname
             email
             bio
             age
@@ -2189,7 +2241,8 @@ export class APIService {
           profile {
             __typename
             id
-            name
+            username
+            displayname
             email
             bio
             age
@@ -2257,7 +2310,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -2309,7 +2363,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -2388,16 +2443,16 @@ export class APIService {
     )) as any;
     return <ListLikesQuery>response.data.listLikes;
   }
-  async ProfilesByName(
-    name: string,
+  async ProfilesByUsername(
+    username: string,
     sortDirection?: ModelSortDirection,
     filter?: ModelProfileFilterInput,
     limit?: number,
     nextToken?: string
-  ): Promise<ProfilesByNameQuery> {
-    const statement = `query ProfilesByName($name: String!, $sortDirection: ModelSortDirection, $filter: ModelProfileFilterInput, $limit: Int, $nextToken: String) {
-        profilesByName(
-          name: $name
+  ): Promise<ProfilesByUsernameQuery> {
+    const statement = `query ProfilesByUsername($username: String!, $sortDirection: ModelSortDirection, $filter: ModelProfileFilterInput, $limit: Int, $nextToken: String) {
+        profilesByUsername(
+          username: $username
           sortDirection: $sortDirection
           filter: $filter
           limit: $limit
@@ -2407,7 +2462,8 @@ export class APIService {
           items {
             __typename
             id
-            name
+            username
+            displayname
             email
             bio
             age
@@ -2435,7 +2491,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      name
+      username
     };
     if (sortDirection) {
       gqlAPIServiceArguments.sortDirection = sortDirection;
@@ -2452,7 +2508,7 @@ export class APIService {
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <ProfilesByNameQuery>response.data.profilesByName;
+    return <ProfilesByUsernameQuery>response.data.profilesByUsername;
   }
   OnCreateProfileListener(
     filter?: ModelSubscriptionProfileFilterInput
@@ -2463,7 +2519,8 @@ export class APIService {
         onCreateProfile(filter: $filter) {
           __typename
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -2474,7 +2531,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -2535,7 +2593,8 @@ export class APIService {
         onUpdateProfile(filter: $filter) {
           __typename
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -2546,7 +2605,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -2607,7 +2667,8 @@ export class APIService {
         onDeleteProfile(filter: $filter) {
           __typename
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -2618,7 +2679,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -2683,7 +2745,8 @@ export class APIService {
           profile {
             __typename
             id
-            name
+            username
+            displayname
             email
             bio
             age
@@ -2752,7 +2815,8 @@ export class APIService {
           profile {
             __typename
             id
-            name
+            username
+            displayname
             email
             bio
             age
@@ -2821,7 +2885,8 @@ export class APIService {
           profile {
             __typename
             id
-            name
+            username
+            displayname
             email
             bio
             age
@@ -2895,7 +2960,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -2949,7 +3015,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age
@@ -3003,7 +3070,8 @@ export class APIService {
             profile {
               __typename
               id
-              name
+              username
+              displayname
               email
               bio
               age

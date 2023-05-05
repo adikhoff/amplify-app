@@ -9,7 +9,8 @@ export const createProfile = /* GraphQL */ `
   ) {
     createProfile(input: $input, condition: $condition) {
       id
-      name
+      username
+      displayname
       email
       bio
       age
@@ -18,7 +19,8 @@ export const createProfile = /* GraphQL */ `
         user
         profile {
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -64,7 +66,8 @@ export const updateProfile = /* GraphQL */ `
   ) {
     updateProfile(input: $input, condition: $condition) {
       id
-      name
+      username
+      displayname
       email
       bio
       age
@@ -73,7 +76,8 @@ export const updateProfile = /* GraphQL */ `
         user
         profile {
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -119,7 +123,8 @@ export const deleteProfile = /* GraphQL */ `
   ) {
     deleteProfile(input: $input, condition: $condition) {
       id
-      name
+      username
+      displayname
       email
       bio
       age
@@ -128,7 +133,8 @@ export const deleteProfile = /* GraphQL */ `
         user
         profile {
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -177,7 +183,8 @@ export const createPhoto = /* GraphQL */ `
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -229,7 +236,8 @@ export const updatePhoto = /* GraphQL */ `
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -281,7 +289,8 @@ export const deletePhoto = /* GraphQL */ `
       user
       profile {
         id
-        name
+        username
+        displayname
         email
         bio
         age
@@ -337,7 +346,8 @@ export const createLike = /* GraphQL */ `
         user
         profile {
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -376,7 +386,8 @@ export const updateLike = /* GraphQL */ `
         user
         profile {
           id
-          name
+          username
+          displayname
           email
           bio
           age
@@ -415,7 +426,8 @@ export const deleteLike = /* GraphQL */ `
         user
         profile {
           id
-          name
+          username
+          displayname
           email
           bio
           age
