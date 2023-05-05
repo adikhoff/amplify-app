@@ -8,7 +8,7 @@ import {ListPhotosQuery, ModelPhotoFilterInput} from "./API.service";
   providedIn: "root"
 })
 export class CustomAPIService {
-  async ListPhotosWithLikes(
+  async ListPhotosWithData(
     filter?: ModelPhotoFilterInput,
     limit?: number,
     nextToken?: string
@@ -19,7 +19,7 @@ export class CustomAPIService {
           items {
             __typename
             id
-            user
+            username
             filename
             height
             width
@@ -30,7 +30,7 @@ export class CustomAPIService {
                 id
                 photoId
                 photoLikesId
-                user
+                username
               }
             }
             createdAt

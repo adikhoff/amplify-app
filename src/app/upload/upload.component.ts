@@ -72,9 +72,9 @@ export class UploadComponent implements OnInit {
   private uploadToStorage(photoUrl: PhotoUrl) {
     const file = photoUrl.file;
     if (file) {
-      if (this.userService.userName) {
+      if (this.userService.username) {
         const fileExt = file.name.substring(file.name.lastIndexOf("."));
-        const fileName = this.userService.userName + "/" + this.idService.generate() + fileExt;
+        const fileName = this.userService.username + "/" + this.idService.generate() + fileExt;
 
         Storage.put(fileName, file, {
           level: "public",
@@ -97,12 +97,12 @@ export class UploadComponent implements OnInit {
 // Todo: this should be done in a Lambda
   private addToDatabase(photoUrl: PhotoUrl, fileName: string) {
     const image = photoUrl.image!;
-    if (this.userService.userName) {
+    if (this.userService.username && this.userService.currentProfile) {
       let cpi: CreatePhotoInput = {
-        user: this.userService.userName,
+        username: this.userService.username,
         filename: fileName,
         width: image.width,
-        height: image.height
+        height: image.height,
       };
       this.api.CreatePhoto(cpi).then(() => {
       });

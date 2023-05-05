@@ -11,48 +11,10 @@ export const getProfile = /* GraphQL */ `
       email
       bio
       age
-      profilePic {
-        id
-        user
-        profile {
-          id
-          username
-          displayname
-          email
-          bio
-          age
-          score
-          createdAt
-          updatedAt
-          profileProfilePicId
-        }
-        filename
-        height
-        width
-        likes {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        profilePhotosId
-      }
+      profilePicId
       score
-      photos {
-        items {
-          id
-          user
-          filename
-          height
-          width
-          createdAt
-          updatedAt
-          profilePhotosId
-        }
-        nextToken
-      }
       createdAt
       updatedAt
-      profileProfilePicId
     }
   }
 `;
@@ -70,23 +32,10 @@ export const listProfiles = /* GraphQL */ `
         email
         bio
         age
-        profilePic {
-          id
-          user
-          filename
-          height
-          width
-          createdAt
-          updatedAt
-          profilePhotosId
-        }
+        profilePicId
         score
-        photos {
-          nextToken
-        }
         createdAt
         updatedAt
-        profileProfilePicId
       }
       nextToken
     }
@@ -96,39 +45,14 @@ export const getPhoto = /* GraphQL */ `
   query GetPhoto($id: ID!) {
     getPhoto(id: $id) {
       id
-      user
-      profile {
-        id
-        username
-        displayname
-        email
-        bio
-        age
-        profilePic {
-          id
-          user
-          filename
-          height
-          width
-          createdAt
-          updatedAt
-          profilePhotosId
-        }
-        score
-        photos {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        profileProfilePicId
-      }
+      username
       filename
       height
       width
       likes {
         items {
           id
-          user
+          username
           photoId
           createdAt
           updatedAt
@@ -138,7 +62,6 @@ export const getPhoto = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      profilePhotosId
     }
   }
 `;
@@ -151,19 +74,7 @@ export const listPhotos = /* GraphQL */ `
     listPhotos(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        user
-        profile {
-          id
-          username
-          displayname
-          email
-          bio
-          age
-          score
-          createdAt
-          updatedAt
-          profileProfilePicId
-        }
+        username
         filename
         height
         width
@@ -172,7 +83,6 @@ export const listPhotos = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        profilePhotosId
       }
       nextToken
     }
@@ -182,33 +92,8 @@ export const getLike = /* GraphQL */ `
   query GetLike($id: ID!) {
     getLike(id: $id) {
       id
-      user
+      username
       photoId
-      photo {
-        id
-        user
-        profile {
-          id
-          username
-          displayname
-          email
-          bio
-          age
-          score
-          createdAt
-          updatedAt
-          profileProfilePicId
-        }
-        filename
-        height
-        width
-        likes {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        profilePhotosId
-      }
       createdAt
       updatedAt
       photoLikesId
@@ -224,18 +109,8 @@ export const listLikes = /* GraphQL */ `
     listLikes(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        user
+        username
         photoId
-        photo {
-          id
-          user
-          filename
-          height
-          width
-          createdAt
-          updatedAt
-          profilePhotosId
-        }
         createdAt
         updatedAt
         photoLikesId
@@ -266,23 +141,10 @@ export const profilesByUsername = /* GraphQL */ `
         email
         bio
         age
-        profilePic {
-          id
-          user
-          filename
-          height
-          width
-          createdAt
-          updatedAt
-          profilePhotosId
-        }
+        profilePicId
         score
-        photos {
-          nextToken
-        }
         createdAt
         updatedAt
-        profileProfilePicId
       }
       nextToken
     }

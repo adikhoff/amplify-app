@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PhotoUrl} from "../../model/photo-url";
 import {UserService} from "../../util/user-service";
-import {APIService, DeletePhotoInput, Photo} from "../../API.service";
+import {APIService, DeletePhotoInput, Photo, Profile} from "../../API.service";
 import {Storage} from "aws-amplify";
 import {MockService} from "../../util/mock-service";
 
@@ -14,12 +14,14 @@ export class PhotoComponent implements OnInit {
   @Input() photoUrl: PhotoUrl = this.mockService.getMockPhotoUrl();
   @Input() index: any;
 
+  public photoUserProfile?: Profile;
   public modalPhoto: PhotoUrl | undefined;
 
   constructor(private api: APIService, private userService: UserService, private mockService: MockService) {
   }
 
   ngOnInit() {
+    this.photoUserProfile = this.userService.getProfileByUsername(this.photoUrl.photo.username);
   }
 
   public onModal(photoUrl: PhotoUrl) {
@@ -45,8 +47,8 @@ export class PhotoComponent implements OnInit {
   }
 
   canDelete(photoUrl: PhotoUrl) {
-    if (this.userService.userName) {
-      return photoUrl.photo.user === this.userService.userName || this.userService.userName === 'admin';
+    if (this.userService.username) {
+      return photoUrl.photo.username === this.userService.username || this.userService.username === 'admin';
     }
     return false;
   }

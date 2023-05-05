@@ -22,12 +22,12 @@ export class LikeCounterComponent implements OnInit {
   }
 
   public alreadyLiked(): boolean {
-    if (this.userService.userName) {
+    if (this.userService.username) {
       if (this.photoUrl?.photo === this.likeClicked) {
         return true;
       }
       if (!this.photoUrl?.photo.likes?.items) return false;
-      const search = this.photoUrl.photo.likes?.items.filter((item) => item?.user === this.userService.userName);
+      const search = this.photoUrl.photo.likes?.items.filter((item) => item?.username === this.userService.username);
       return search?.length !== 0;
     }
     return false;
@@ -43,8 +43,8 @@ export class LikeCounterComponent implements OnInit {
 
   private decreaseLikes(photo: Photo) {
     this.likeClicked = undefined;
-    if (this.userService.userName) {
-      const currentLike: Like | null | undefined = photo.likes?.items.filter((item) => item?.user === this.userService.userName)[0];
+    if (this.userService.username) {
+      const currentLike: Like | null | undefined = photo.likes?.items.filter((item) => item?.username === this.userService.username)[0];
       if (currentLike) {
         const dli: DeleteLikeInput = {
           id: currentLike.id
@@ -56,11 +56,11 @@ export class LikeCounterComponent implements OnInit {
   }
 
   private increaseLikes(photo: Photo) {
-    if (this.userService.userName) {
+    if (this.userService.username) {
       this.simulateScoreIncrease(photo);
-      if (photo.likes?.items === undefined || photo.likes?.items.filter((item) => item?.user === this.userService.userName).length == 0) {
+      if (photo.likes?.items === undefined || photo.likes?.items.filter((item) => item?.username === this.userService.username).length == 0) {
         const cli: CreateLikeInput = {
-          user: this.userService.userName,
+          username: this.userService.username,
           photoId: photo.id,
           photoLikesId: photo.id
         }

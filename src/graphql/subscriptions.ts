@@ -11,48 +11,10 @@ export const onCreateProfile = /* GraphQL */ `
       email
       bio
       age
-      profilePic {
-        id
-        user
-        profile {
-          id
-          username
-          displayname
-          email
-          bio
-          age
-          score
-          createdAt
-          updatedAt
-          profileProfilePicId
-        }
-        filename
-        height
-        width
-        likes {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        profilePhotosId
-      }
+      profilePicId
       score
-      photos {
-        items {
-          id
-          user
-          filename
-          height
-          width
-          createdAt
-          updatedAt
-          profilePhotosId
-        }
-        nextToken
-      }
       createdAt
       updatedAt
-      profileProfilePicId
     }
   }
 `;
@@ -65,48 +27,10 @@ export const onUpdateProfile = /* GraphQL */ `
       email
       bio
       age
-      profilePic {
-        id
-        user
-        profile {
-          id
-          username
-          displayname
-          email
-          bio
-          age
-          score
-          createdAt
-          updatedAt
-          profileProfilePicId
-        }
-        filename
-        height
-        width
-        likes {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        profilePhotosId
-      }
+      profilePicId
       score
-      photos {
-        items {
-          id
-          user
-          filename
-          height
-          width
-          createdAt
-          updatedAt
-          profilePhotosId
-        }
-        nextToken
-      }
       createdAt
       updatedAt
-      profileProfilePicId
     }
   }
 `;
@@ -119,48 +43,10 @@ export const onDeleteProfile = /* GraphQL */ `
       email
       bio
       age
-      profilePic {
-        id
-        user
-        profile {
-          id
-          username
-          displayname
-          email
-          bio
-          age
-          score
-          createdAt
-          updatedAt
-          profileProfilePicId
-        }
-        filename
-        height
-        width
-        likes {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        profilePhotosId
-      }
+      profilePicId
       score
-      photos {
-        items {
-          id
-          user
-          filename
-          height
-          width
-          createdAt
-          updatedAt
-          profilePhotosId
-        }
-        nextToken
-      }
       createdAt
       updatedAt
-      profileProfilePicId
     }
   }
 `;
@@ -168,39 +54,14 @@ export const onCreatePhoto = /* GraphQL */ `
   subscription OnCreatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
     onCreatePhoto(filter: $filter) {
       id
-      user
-      profile {
-        id
-        username
-        displayname
-        email
-        bio
-        age
-        profilePic {
-          id
-          user
-          filename
-          height
-          width
-          createdAt
-          updatedAt
-          profilePhotosId
-        }
-        score
-        photos {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        profileProfilePicId
-      }
+      username
       filename
       height
       width
       likes {
         items {
           id
-          user
+          username
           photoId
           createdAt
           updatedAt
@@ -210,7 +71,6 @@ export const onCreatePhoto = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      profilePhotosId
     }
   }
 `;
@@ -218,39 +78,14 @@ export const onUpdatePhoto = /* GraphQL */ `
   subscription OnUpdatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
     onUpdatePhoto(filter: $filter) {
       id
-      user
-      profile {
-        id
-        username
-        displayname
-        email
-        bio
-        age
-        profilePic {
-          id
-          user
-          filename
-          height
-          width
-          createdAt
-          updatedAt
-          profilePhotosId
-        }
-        score
-        photos {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        profileProfilePicId
-      }
+      username
       filename
       height
       width
       likes {
         items {
           id
-          user
+          username
           photoId
           createdAt
           updatedAt
@@ -260,7 +95,6 @@ export const onUpdatePhoto = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      profilePhotosId
     }
   }
 `;
@@ -268,39 +102,14 @@ export const onDeletePhoto = /* GraphQL */ `
   subscription OnDeletePhoto($filter: ModelSubscriptionPhotoFilterInput) {
     onDeletePhoto(filter: $filter) {
       id
-      user
-      profile {
-        id
-        username
-        displayname
-        email
-        bio
-        age
-        profilePic {
-          id
-          user
-          filename
-          height
-          width
-          createdAt
-          updatedAt
-          profilePhotosId
-        }
-        score
-        photos {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        profileProfilePicId
-      }
+      username
       filename
       height
       width
       likes {
         items {
           id
-          user
+          username
           photoId
           createdAt
           updatedAt
@@ -310,7 +119,6 @@ export const onDeletePhoto = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      profilePhotosId
     }
   }
 `;
@@ -318,33 +126,8 @@ export const onCreateLike = /* GraphQL */ `
   subscription OnCreateLike($filter: ModelSubscriptionLikeFilterInput) {
     onCreateLike(filter: $filter) {
       id
-      user
+      username
       photoId
-      photo {
-        id
-        user
-        profile {
-          id
-          username
-          displayname
-          email
-          bio
-          age
-          score
-          createdAt
-          updatedAt
-          profileProfilePicId
-        }
-        filename
-        height
-        width
-        likes {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        profilePhotosId
-      }
       createdAt
       updatedAt
       photoLikesId
@@ -355,33 +138,8 @@ export const onUpdateLike = /* GraphQL */ `
   subscription OnUpdateLike($filter: ModelSubscriptionLikeFilterInput) {
     onUpdateLike(filter: $filter) {
       id
-      user
+      username
       photoId
-      photo {
-        id
-        user
-        profile {
-          id
-          username
-          displayname
-          email
-          bio
-          age
-          score
-          createdAt
-          updatedAt
-          profileProfilePicId
-        }
-        filename
-        height
-        width
-        likes {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        profilePhotosId
-      }
       createdAt
       updatedAt
       photoLikesId
@@ -392,33 +150,8 @@ export const onDeleteLike = /* GraphQL */ `
   subscription OnDeleteLike($filter: ModelSubscriptionLikeFilterInput) {
     onDeleteLike(filter: $filter) {
       id
-      user
+      username
       photoId
-      photo {
-        id
-        user
-        profile {
-          id
-          username
-          displayname
-          email
-          bio
-          age
-          score
-          createdAt
-          updatedAt
-          profileProfilePicId
-        }
-        filename
-        height
-        width
-        likes {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        profilePhotosId
-      }
       createdAt
       updatedAt
       photoLikesId

@@ -5,8 +5,9 @@ import {APIService, CreateProfileInput, Profile, UpdateProfileInput} from "../AP
 @Injectable()
 export class UserService {
   public user: any;
-  public userName?: string;
+  public username?: string;
   public currentProfile?: Profile;
+  public allProfiles?: Profile[];
 
   constructor(private api: APIService) {
     Hub.listen('auth', (data) => {
@@ -22,11 +23,14 @@ export class UserService {
     this.getCurrentLoggedinUser().then(user => {
       this.user = user;
       console.log("user found", this.user);
-      this.userName = user.username;
-      console.log("userName found", this.userName);
+      this.username = user.username;
+      console.log("userName found", this.username);
       this.getProfileForUser(user).then(profile => {
         console.log("profile found", profile);
         this.currentProfile = profile;
+      });
+      this.getAllProfiles().then(profiles => {
+        this.allProfiles = profiles;
       });
     })
   }
@@ -36,7 +40,7 @@ export class UserService {
     if (payload.event === 'signOut') {
       console.log("Removing credentials from this device");
       this.user = undefined;
-      this.userName = undefined;
+      this.username = undefined;
       this.currentProfile = undefined;
     }
 
@@ -45,7 +49,24 @@ export class UserService {
     }
   }
 
-  public async getProfileForUser(user: any): Promise<Profile> {
+  public getProfileByUsername(username: string) {
+    const results = this.allProfiles?.filter(p => p.username === username);
+    if (results?.length === 1) {
+      return results[0];
+    } else {
+      throw Error("Unexpected number of results from getProfileByUsername(" + username + "): " + results?.length);
+    }
+  }
+
+  private async getAllProfiles(): Promise<Profile[]> {
+    return new Promise((resolve, reject) => {
+      this.api.ListProfiles({}, 1000).then(profiles => {
+        resolve(profiles.items as Profile[]);
+      });
+    });
+  }
+
+  private async getProfileForUser(user: any): Promise<Profile> {
     return new Promise((resolve, reject) => {
       this.api.ListProfiles({username: {eq: user.username}}).then(profiles => {
         let profile = profiles.items[0] as Profile;
