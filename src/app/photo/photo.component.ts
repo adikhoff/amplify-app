@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {PhotoUrl} from "../../model/photo-url";
-import {UserService} from "../../service/user-service";
-import {APIService, DeletePhotoInput, Photo, Profile} from "../../API.service";
+import {PhotoUrl} from "../model/photo-url";
+import {UserService} from "../service/user-service";
+import {APIService, DeletePhotoInput, Photo, Profile} from "../API.service";
 import {Storage} from "aws-amplify";
-import {MockService} from "../../service/mock-service";
+import {MockService} from "../service/mock-service";
 
 @Component({
   selector: 'app-photo',

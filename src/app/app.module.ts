@@ -9,7 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PhotosComponent } from './photos/photos.component';
 import { MyPhotosComponent } from './my-photos/my-photos.component';
-import { PhotoComponent } from './photos/photo/photo.component';
+import { PhotoComponent } from './photo/photo.component';
 import { LikeCounterComponent } from './photos/like-counter/like-counter.component';
 import { UserService } from "./service/user-service";
 import { UploadComponent } from './upload/upload.component';
