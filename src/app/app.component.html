@@ -12,9 +12,7 @@
       <app-navigation [isFooter]="true"></app-navigation>
     </div>
 
-    <div *ngIf="!this.userService.currentProfile">
-      <app-waiting></app-waiting>
-    </div>
+    <app-waiting *ngIf="!this.userService.currentProfile"></app-waiting>
 
   </ng-template>
 </amplify-authenticator>

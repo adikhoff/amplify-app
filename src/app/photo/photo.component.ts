@@ -52,4 +52,14 @@ export class PhotoComponent implements OnInit {
     }
     return false;
   }
+
+  public finished: number[] = [];
+
+  isFinished(index: number) {
+    return this.finished.filter(id => id === index).length > 0;
+  }
+
+  onLoadPhoto(index: number) {
+    this.finished.push(index);
+  }
 }
