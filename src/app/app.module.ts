@@ -17,9 +17,10 @@ import { AvatarComponent } from './avatar/avatar.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LegalComponent } from './legal/legal.component';
+import { WaitingComponent } from './waiting/waiting.component';
 
 @NgModule({
-  declarations: [AppComponent, PhotosComponent, MyPhotosComponent, PhotoComponent, LikeCounterComponent, UploadComponent, AvatarComponent, NavigationComponent, ProfileComponent, LegalComponent],
+  declarations: [AppComponent, PhotosComponent, MyPhotosComponent, PhotoComponent, LikeCounterComponent, UploadComponent, AvatarComponent, NavigationComponent, ProfileComponent, LegalComponent, WaitingComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
