@@ -5,7 +5,7 @@ import {Storage} from "aws-amplify";
 import {Progress} from "../model/progress";
 import {CustomAPIService} from "../CustomAPI.service";
 import {PhotoUrl} from "../model/photo-url";
-import {UserService} from "../util/user-service";
+import {UserService} from "../service/user-service";
 
 @Component({
   selector: 'app-photos',

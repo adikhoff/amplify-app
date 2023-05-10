@@ -1,12 +1,31 @@
-<ul *ngIf="!isFooter">
-  <li><a [routerLink] = "'/'">home</a></li>
-  <li><a [routerLink] = "'/gallery'">gallerij</a></li>
-  <li class="last"><a (click)="signout()">uitloggen</a></li>
-  <li *ngIf="userService.currentProfile" class="last"><a [routerLink] = "'/profile'">{{userService.currentProfile.displayname}}</a></li>
+<ul *ngIf="!isFooter" class="topmenu">
+  <li><a [routerLink]="'/'" [ngClass]="this.router.url === '/' ? 'red' : ''">Home</a></li>
+  <li><a [routerLink]="'/gallery'" [ngClass]="this.router.url === '/gallery' ? 'red' : ''">gallerij</a></li>
+  <li class="last" *ngIf="userService.currentProfile">
+    <a class="dropbtn {{this.router.url === 'profile' ? 'red' : ''}}"
+       (click)="showUserDropdown = !showUserDropdown">{{userService.currentProfile.displayname}}</a>
+    <div *ngIf="showUserDropdown" class="dropdown-content">
+      <a [routerLink]="'/profile'" [ngClass]="this.router.url === '/profile' ? 'red' : ''">profiel</a>
+      <a (click)="signout()">uitloggen</a>
+    </div>
+  </li>
+  <li class="last" *ngIf="!userService.currentProfile">
+    <a>Login</a>
+  </li>
 </ul>
 
 <ul *ngIf="isFooter">
-  <li><a [routerLink]="'legal'" fragment="privacy-statement">Privacyverklaring</a></li>
-  <li><a [routerLink]="'legal'" fragment="data-deletion">Data verwijderen</a></li>
-  <li class="logo"><a href="https://www.dikhoffsoftware.com"><img src="assets/images/dikhoffsoftwarelogo_white_tiny.png"></a></li>
+  <li>
+    <a class="dropbtn {{this.router.url === 'profile' ? 'red' : ''}}" (click)="showUserDropdown = !showUserDropdown">Legal</a>
+    <div *ngIf="showUserDropdown" class="dropup-content">
+      <a [routerLink]="'legal'" fragment="privacy-statement"
+         [ngClass]="this.router.url === '/legal#privacy-statement' ? 'red' : ''">Privacyverklaring</a>
+      <a [routerLink]="'legal'" fragment="data-deletion"
+         [ngClass]="this.router.url === '/legal#data-deletion' ? 'red' : ''">Data verwijderen</a>
+    </div>
+
+  </li>
+
+  <li class="logo"><a href="https://www.dikhoffsoftware.com" target="_blank"><img
+    src="assets/images/dikhoffsoftwarelogo_white_tiny.png"></a></li>
 </ul>

@@ -14,8 +14,8 @@
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Your verification code",
-    "emailVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "Je Dekker Reunie code",
+    "emailVerificationMessage": "Je code is {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
@@ -32,7 +32,7 @@
     "sharedId": "e387ba55",
     "resourceName": "dekkerreuniee387ba55",
     "authSelections": "identityPoolAndUserPool",
-    "useDefault": "defaultSocial",
+    "useDefault": "manual",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
@@ -51,20 +51,21 @@
     },
     "breakCircularDependency": true,
     "dependsOn": [],
+    "thirdPartyAuth": false,
     "userPoolGroups": false,
     "adminQueries": false,
     "triggers": {},
     "hostedUI": true,
+    "authProviders": [],
     "parentStack": {
       "Ref": "AWS::StackId"
     },
     "permissions": [],
-    "hostedUIDomainName": "f1ml0oa6koai",
+    "hostedUIDomainName": "b9o3mxbsajzs",
     "authProvidersUserPool": [
       "Facebook"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"id\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://www.dekkerreunie.nl/\"],\"LogoutURLs\":[\"https://www.dekkerreunie.nl/\"]}",
-    "authProviders": []
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:4200/\"],\"LogoutURLs\":[\"http://localhost:4200/\"]}"
   }
 }

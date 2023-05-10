@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Profile} from "../API.service";
-import {MockService} from "../util/mock-service";
+import {MockService} from "../service/mock-service";
 
 @Component({
   selector: 'app-avatar',

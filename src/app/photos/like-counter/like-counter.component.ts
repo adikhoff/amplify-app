@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PhotoUrl} from "../../model/photo-url";
 import {APIService, CreateLikeInput, DeleteLikeInput, Like, Photo} from "../../API.service";
-import {UserService} from "../../util/user-service";
-import {MockService} from "../../util/mock-service";
+import {UserService} from "../../service/user-service";
+import {MockService} from "../../service/mock-service";
 
 @Component({
   selector: 'app-like-counter',

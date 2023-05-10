@@ -3,9 +3,9 @@ import {Progress} from "../model/progress";
 import {Storage} from "aws-amplify";
 import {APIService, CreatePhotoInput} from "../API.service";
 import {PhotoUrl} from "../model/photo-url";
-import {UserService} from "../util/user-service";
-import {IdService} from "../util/id-service";
-import {MockService} from "../util/mock-service";
+import {UserService} from "../service/user-service";
+import {IdService} from "../service/id-service";
+import {MockService} from "../service/mock-service";
 
 @Component({
   selector: 'app-upload',

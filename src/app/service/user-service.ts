@@ -13,7 +13,7 @@ export class UserService {
     Hub.listen('auth', (data) => {
       const {payload} = data;
       this.onAuthEvent(payload);
-      console.log('A new auth event has happened: ', data.payload.data.username + ' has ' + data.payload.event);
+      console.log('A new auth event has happened: ', data);
     });
     this.setupCredentials();
   }
