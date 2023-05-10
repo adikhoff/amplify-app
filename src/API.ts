@@ -129,6 +129,7 @@ export type CreatePhotoInput = {
   filename: string,
   height?: number | null,
   width?: number | null,
+  createdAt?: string | null,
 };
 
 export type ModelPhotoConditionInput = {
@@ -136,6 +137,7 @@ export type ModelPhotoConditionInput = {
   filename?: ModelStringInput | null,
   height?: ModelIntInput | null,
   width?: ModelIntInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelPhotoConditionInput | null > | null,
   or?: Array< ModelPhotoConditionInput | null > | null,
   not?: ModelPhotoConditionInput | null,
@@ -175,6 +177,7 @@ export type UpdatePhotoInput = {
   filename?: string | null,
   height?: number | null,
   width?: number | null,
+  createdAt?: string | null,
 };
 
 export type DeletePhotoInput = {
@@ -234,6 +237,7 @@ export type ModelPhotoFilterInput = {
   filename?: ModelStringInput | null,
   height?: ModelIntInput | null,
   width?: ModelIntInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelPhotoFilterInput | null > | null,
   or?: Array< ModelPhotoFilterInput | null > | null,
   not?: ModelPhotoFilterInput | null,
@@ -322,6 +326,7 @@ export type ModelSubscriptionPhotoFilterInput = {
   filename?: ModelSubscriptionStringInput | null,
   height?: ModelSubscriptionIntInput | null,
   width?: ModelSubscriptionIntInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionPhotoFilterInput | null > | null,
   or?: Array< ModelSubscriptionPhotoFilterInput | null > | null,
 };
