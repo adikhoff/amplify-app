@@ -103,6 +103,7 @@ export class UploadComponent implements OnInit {
         filename: fileName,
         width: image.width,
         height: image.height,
+        dateIndex: "myIndex",
       };
       this.api.CreatePhoto(cpi).then(() => {
       });

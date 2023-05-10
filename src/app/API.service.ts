@@ -147,6 +147,7 @@ export type CreatePhotoInput = {
   filename: string;
   height?: number | null;
   width?: number | null;
+  dateIndex: string;
   createdAt?: string | null;
 };
 
@@ -155,6 +156,7 @@ export type ModelPhotoConditionInput = {
   filename?: ModelStringInput | null;
   height?: ModelIntInput | null;
   width?: ModelIntInput | null;
+  dateIndex?: ModelStringInput | null;
   createdAt?: ModelStringInput | null;
   and?: Array<ModelPhotoConditionInput | null> | null;
   or?: Array<ModelPhotoConditionInput | null> | null;
@@ -169,6 +171,7 @@ export type Photo = {
   height?: number | null;
   width?: number | null;
   likes?: ModelLikeConnection | null;
+  dateIndex: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -195,6 +198,7 @@ export type UpdatePhotoInput = {
   filename?: string | null;
   height?: number | null;
   width?: number | null;
+  dateIndex?: string | null;
   createdAt?: string | null;
 };
 
@@ -255,6 +259,7 @@ export type ModelPhotoFilterInput = {
   filename?: ModelStringInput | null;
   height?: ModelIntInput | null;
   width?: ModelIntInput | null;
+  dateIndex?: ModelStringInput | null;
   createdAt?: ModelStringInput | null;
   and?: Array<ModelPhotoFilterInput | null> | null;
   or?: Array<ModelPhotoFilterInput | null> | null;
@@ -281,6 +286,16 @@ export enum ModelSortDirection {
   ASC = "ASC",
   DESC = "DESC"
 }
+
+export type ModelStringKeyConditionInput = {
+  eq?: string | null;
+  le?: string | null;
+  lt?: string | null;
+  ge?: string | null;
+  gt?: string | null;
+  between?: Array<string | null> | null;
+  beginsWith?: string | null;
+};
 
 export type ModelSubscriptionProfileFilterInput = {
   id?: ModelSubscriptionIDInput | null;
@@ -343,6 +358,7 @@ export type ModelSubscriptionPhotoFilterInput = {
   filename?: ModelSubscriptionStringInput | null;
   height?: ModelSubscriptionIntInput | null;
   width?: ModelSubscriptionIntInput | null;
+  dateIndex?: ModelSubscriptionStringInput | null;
   createdAt?: ModelSubscriptionStringInput | null;
   and?: Array<ModelSubscriptionPhotoFilterInput | null> | null;
   or?: Array<ModelSubscriptionPhotoFilterInput | null> | null;
@@ -418,6 +434,7 @@ export type CreatePhotoMutation = {
     } | null>;
     nextToken?: string | null;
   } | null;
+  dateIndex: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -442,6 +459,7 @@ export type UpdatePhotoMutation = {
     } | null>;
     nextToken?: string | null;
   } | null;
+  dateIndex: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -466,6 +484,7 @@ export type DeletePhotoMutation = {
     } | null>;
     nextToken?: string | null;
   } | null;
+  dateIndex: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -552,6 +571,7 @@ export type GetPhotoQuery = {
     } | null>;
     nextToken?: string | null;
   } | null;
+  dateIndex: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -569,6 +589,7 @@ export type ListPhotosQuery = {
       __typename: "ModelLikeConnection";
       nextToken?: string | null;
     } | null;
+    dateIndex: string;
     createdAt: string;
     updatedAt: string;
   } | null>;
@@ -611,6 +632,26 @@ export type ProfilesByUsernameQuery = {
     age?: string | null;
     profilePicId?: string | null;
     score?: number | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null>;
+  nextToken?: string | null;
+};
+
+export type PhotosByDateQuery = {
+  __typename: "ModelPhotoConnection";
+  items: Array<{
+    __typename: "Photo";
+    id: string;
+    username: string;
+    filename: string;
+    height?: number | null;
+    width?: number | null;
+    likes?: {
+      __typename: "ModelLikeConnection";
+      nextToken?: string | null;
+    } | null;
+    dateIndex: string;
     createdAt: string;
     updatedAt: string;
   } | null>;
@@ -679,6 +720,7 @@ export type OnCreatePhotoSubscription = {
     } | null>;
     nextToken?: string | null;
   } | null;
+  dateIndex: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -703,6 +745,7 @@ export type OnUpdatePhotoSubscription = {
     } | null>;
     nextToken?: string | null;
   } | null;
+  dateIndex: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -727,6 +770,7 @@ export type OnDeletePhotoSubscription = {
     } | null>;
     nextToken?: string | null;
   } | null;
+  dateIndex: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -880,6 +924,7 @@ export class APIService {
             }
             nextToken
           }
+          dateIndex
           createdAt
           updatedAt
         }
@@ -920,6 +965,7 @@ export class APIService {
             }
             nextToken
           }
+          dateIndex
           createdAt
           updatedAt
         }
@@ -960,6 +1006,7 @@ export class APIService {
             }
             nextToken
           }
+          dateIndex
           createdAt
           updatedAt
         }
@@ -1138,6 +1185,7 @@ export class APIService {
             }
             nextToken
           }
+          dateIndex
           createdAt
           updatedAt
         }
@@ -1169,6 +1217,7 @@ export class APIService {
               __typename
               nextToken
             }
+            dateIndex
             createdAt
             updatedAt
           }
@@ -1297,6 +1346,65 @@ export class APIService {
     )) as any;
     return <ProfilesByUsernameQuery>response.data.profilesByUsername;
   }
+  async PhotosByDate(
+    dateIndex: string,
+    createdAt?: ModelStringKeyConditionInput,
+    sortDirection?: ModelSortDirection,
+    filter?: ModelPhotoFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<PhotosByDateQuery> {
+    const statement = `query PhotosByDate($dateIndex: String!, $createdAt: ModelStringKeyConditionInput, $sortDirection: ModelSortDirection, $filter: ModelPhotoFilterInput, $limit: Int, $nextToken: String) {
+        photosByDate(
+          dateIndex: $dateIndex
+          createdAt: $createdAt
+          sortDirection: $sortDirection
+          filter: $filter
+          limit: $limit
+          nextToken: $nextToken
+        ) {
+          __typename
+          items {
+            __typename
+            id
+            username
+            filename
+            height
+            width
+            likes {
+              __typename
+              nextToken
+            }
+            dateIndex
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      dateIndex
+    };
+    if (createdAt) {
+      gqlAPIServiceArguments.createdAt = createdAt;
+    }
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <PhotosByDateQuery>response.data.photosByDate;
+  }
   OnCreateProfileListener(
     filter?: ModelSubscriptionProfileFilterInput
   ): Observable<
@@ -1416,6 +1524,7 @@ export class APIService {
             }
             nextToken
           }
+          dateIndex
           createdAt
           updatedAt
         }
@@ -1457,6 +1566,7 @@ export class APIService {
             }
             nextToken
           }
+          dateIndex
           createdAt
           updatedAt
         }
@@ -1498,6 +1608,7 @@ export class APIService {
             }
             nextToken
           }
+          dateIndex
           createdAt
           updatedAt
         }

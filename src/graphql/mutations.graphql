@@ -71,6 +71,7 @@ mutation CreatePhoto(
       }
       nextToken
     }
+    dateIndex
     createdAt
     updatedAt
   }
@@ -96,6 +97,7 @@ mutation UpdatePhoto(
       }
       nextToken
     }
+    dateIndex
     createdAt
     updatedAt
   }
@@ -121,6 +123,7 @@ mutation DeletePhoto(
       }
       nextToken
     }
+    dateIndex
     createdAt
     updatedAt
   }

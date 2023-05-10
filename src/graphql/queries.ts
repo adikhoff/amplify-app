@@ -60,6 +60,7 @@ export const getPhoto = /* GraphQL */ `
         }
         nextToken
       }
+      dateIndex
       createdAt
       updatedAt
     }
@@ -81,6 +82,7 @@ export const listPhotos = /* GraphQL */ `
         likes {
           nextToken
         }
+        dateIndex
         createdAt
         updatedAt
       }
@@ -143,6 +145,40 @@ export const profilesByUsername = /* GraphQL */ `
         age
         profilePicId
         score
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const photosByDate = /* GraphQL */ `
+  query PhotosByDate(
+    $dateIndex: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelPhotoFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    photosByDate(
+      dateIndex: $dateIndex
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        username
+        filename
+        height
+        width
+        likes {
+          nextToken
+        }
+        dateIndex
         createdAt
         updatedAt
       }
