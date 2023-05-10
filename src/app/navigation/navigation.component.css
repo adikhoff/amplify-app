@@ -1,7 +1,10 @@
+a.red {
+  background-color: rgb(250, 25, 130);
+}
+
 ul {
   list-style-type: none;
   padding: 0;
-  /*overflow: hidden;*/
   height: 56px;
   background-color: rgb(25, 150, 230);
   margin: 0 auto;
@@ -56,6 +59,19 @@ li.dropdown {
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 2;
   right: 0;
+  float: none;
+}
+
+/* Dropup Content (Hidden by Default) */
+.dropup-content {
+  display: block;
+  position: relative;
+  background-color: rgb(25, 150, 230);
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 2;
+  left: 0;
+  bottom: 168px;
   float: none;
 }
 

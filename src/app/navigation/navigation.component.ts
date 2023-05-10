@@ -1,13 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from "../service/user-service";
-import {Router} from "@angular/router";
+import {NavigationEnd, NavigationStart, Router, RouterEvent} from "@angular/router";
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css']
 })
-export class NavigationComponent {
+export class NavigationComponent implements OnInit {
   @Input() isFooter: boolean = false;
   @Input() signout: Function = () => {
   };
@@ -15,10 +15,20 @@ export class NavigationComponent {
   public showUserDropdown = false;
 
   constructor(
-    public userService: UserService) {
+    public userService: UserService,
+    public router: Router
+  ) {
+    router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        console.log("event", event);
+        if (event.url != "/profile") {
+          this.showUserDropdown = false;
+        }
+      }
+    });
   }
 
-  menuClick() {
-    this.showUserDropdown = false;
+  ngOnInit() {
   }
+
 }
