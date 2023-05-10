@@ -1,5 +1,6 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from "../service/user-service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-navigation',
@@ -8,10 +9,16 @@ import {UserService} from "../service/user-service";
 })
 export class NavigationComponent {
   @Input() isFooter: boolean = false;
-  @Input() signout: Function = () => {};
+  @Input() signout: Function = () => {
+  };
+
+  public showUserDropdown = false;
 
   constructor(
-    public userService: UserService
-  ) {}
+    public userService: UserService) {
+  }
 
+  menuClick() {
+    this.showUserDropdown = false;
+  }
 }
