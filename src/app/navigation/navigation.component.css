@@ -1,14 +1,11 @@
-a.red {
-  background-color: rgb(250, 25, 130);
-}
-
 ul {
   list-style-type: none;
   padding: 0;
   height: 56px;
-  background-color: rgb(25, 150, 230);
+  background-color: rgba(25, 150, 230);
   margin: 0 auto;
   line-height: 0;
+  transition: all 0.25s ease-in-out;
 }
 
 li {
@@ -25,6 +22,16 @@ li a {
 
 li a:hover {
   background-color: rgb(250, 25, 130);
+}
+
+a.red {
+  background-color: rgb(250, 25, 130);
+}
+
+.scrolling {
+  background-color: rgba(25, 150, 230, 0.5);
+  backdrop-filter: blur(16px);
+  transition: all 0.25s ease-in-out;
 }
 
 .topmenu {
@@ -95,6 +102,9 @@ li.dropdown {
 }
 
 .last {
+  position: absolute;
+  right: 0;
+  top: 0;
   float: right;
   font-weight: bolder;
 }

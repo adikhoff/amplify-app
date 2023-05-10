@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {UserService} from "../service/user-service";
 import {NavigationEnd, NavigationStart, Router, RouterEvent} from "@angular/router";
 
@@ -13,6 +13,7 @@ export class NavigationComponent implements OnInit {
   };
 
   public showUserDropdown = false;
+  public showLegalDropdown = false;
 
   constructor(
     public userService: UserService,
@@ -20,15 +21,28 @@ export class NavigationComponent implements OnInit {
   ) {
     router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
-        console.log("event", event);
-        if (event.url != "/profile") {
-          this.showUserDropdown = false;
-        }
+        this.showUserDropdown = false;
+        this.showLegalDropdown = false;
       }
     });
   }
 
   ngOnInit() {
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const scrollOffset = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+
+    if (scrollOffset >= 100) {
+      document.querySelectorAll('.topmenu').forEach((c) => {
+        c.classList.add('scrolling');
+      });
+    } else {
+      document.querySelectorAll('.topmenu').forEach((c) => {
+        c.classList.remove('scrolling');
+      });
+    }
   }
 
 }
