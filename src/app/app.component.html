@@ -6,7 +6,9 @@
   >
     <div *ngIf="this.userService.currentProfile" class="application-container">
       <app-navigation [signout]="signOut"></app-navigation>
-      <router-outlet></router-outlet>
+      <div class="page-container">
+        <router-outlet></router-outlet>
+      </div>
       <app-navigation [isFooter]="true"></app-navigation>
     </div>
 

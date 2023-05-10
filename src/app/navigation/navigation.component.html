@@ -16,8 +16,8 @@
 
 <ul *ngIf="isFooter">
   <li>
-    <a class="dropbtn {{this.router.url === 'profile' ? 'red' : ''}}" (click)="showUserDropdown = !showUserDropdown">Legal</a>
-    <div *ngIf="showUserDropdown" class="dropup-content">
+    <a class="dropbtn {{this.router.url === 'profile' ? 'red' : ''}}" (click)="showLegalDropdown = !showLegalDropdown">Legal</a>
+    <div *ngIf="showLegalDropdown" class="dropup-content">
       <a [routerLink]="'legal'" fragment="privacy-statement"
          [ngClass]="this.router.url === '/legal#privacy-statement' ? 'red' : ''">Privacyverklaring</a>
       <a [routerLink]="'legal'" fragment="data-deletion"
