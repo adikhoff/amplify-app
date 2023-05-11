@@ -19,7 +19,6 @@ export class UserService {
   }
 
   private setupCredentials() {
-    console.log("constructor");
     this.getCurrentLoggedinUser().then(user => {
       this.user = user;
       console.log("user found", this.user);

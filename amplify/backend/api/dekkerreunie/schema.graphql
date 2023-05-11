@@ -17,6 +17,8 @@ type Photo @model @auth(rules: [{ allow: public }]) {
   height: Int
   width: Int
   likes: [Like]! @hasMany
+  dateIndex: String! @index(name: "photosByDate", queryField: "photosByDate", sortKeyFields: ["createdAt"])
+  createdAt: String!
 }
 
 type Like @model @auth(rules: [{ allow: public }]) {

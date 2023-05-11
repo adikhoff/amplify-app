@@ -59,6 +59,7 @@ subscription OnCreatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
       }
       nextToken
     }
+    dateIndex
     createdAt
     updatedAt
   }
@@ -81,6 +82,7 @@ subscription OnUpdatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
       }
       nextToken
     }
+    dateIndex
     createdAt
     updatedAt
   }
@@ -103,6 +105,7 @@ subscription OnDeletePhoto($filter: ModelSubscriptionPhotoFilterInput) {
       }
       nextToken
     }
+    dateIndex
     createdAt
     updatedAt
   }

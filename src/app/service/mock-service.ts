@@ -40,8 +40,9 @@ export class MockService implements OnInit {
       id: "mock",
       filename: "name",
       username: "username",
+      dateIndex: "",
       createdAt: "",
-      updatedAt: "",
+      updatedAt: ""
     }
   }
 

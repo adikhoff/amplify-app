@@ -35,3 +35,10 @@ body {
   border: solid 1px rgb(250, 25, 130);
   box-shadow: 0px 0px 20px rgba(250, 25, 130, 1.8);
 }
+
+/* No welcome message on small screens */
+@media only screen and (max-width: 700px){
+  .welcome-message {
+    display: none;
+  }
+}

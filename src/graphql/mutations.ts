@@ -81,6 +81,7 @@ export const createPhoto = /* GraphQL */ `
         }
         nextToken
       }
+      dateIndex
       createdAt
       updatedAt
     }
@@ -108,6 +109,7 @@ export const updatePhoto = /* GraphQL */ `
         }
         nextToken
       }
+      dateIndex
       createdAt
       updatedAt
     }
@@ -135,6 +137,7 @@ export const deletePhoto = /* GraphQL */ `
         }
         nextToken
       }
+      dateIndex
       createdAt
       updatedAt
     }

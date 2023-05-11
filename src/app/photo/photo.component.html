@@ -1,7 +1,8 @@
 <div class="img-container" *ngIf="photoUrl.photo.width && photoUrl.photo.height"
      style="{{'padding-top:' + (100 * photoUrl.photo.height / photoUrl.photo.width) + '%;'}}">
   <img loading="lazy" class='grid-item grid-item-{{index}}' id="photo-{{index}}" src='{{photoUrl.url}}' alt=''
-       (click)="onModal(photoUrl)" style="">
+       (click)="onModal(photoUrl)" (load)="this.onLoadPhoto(index)">
+  <app-waiting *ngIf="!isFinished(index)"></app-waiting>
 </div>
 
 <app-like-counter [photoUrl]="photoUrl"></app-like-counter>

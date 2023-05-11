@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {APIService, Like, Photo} from '../API.service';
+import {APIService, Like, ModelSortDirection, Photo} from '../API.service';
 import {ZenObservable} from 'zen-observable-ts';
 import {Storage} from "aws-amplify";
 import {Progress} from "../model/progress";
@@ -84,7 +84,7 @@ export class PhotosComponent implements OnInit, OnDestroy {
   }
 
   public fetchPhotos() {
-    this.customApi.ListPhotosWithData({}, 50).then((event) => {
+    this.customApi.PhotosByDate("byDate", undefined, ModelSortDirection.DESC).then((event) => {
       const photos = event.items as Photo[];
       const newPhotos: PhotoUrl[] = [];
       for (let i = 0; i < photos.length; i++) {

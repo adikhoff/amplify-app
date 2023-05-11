@@ -129,6 +129,8 @@ export type CreatePhotoInput = {
   filename: string,
   height?: number | null,
   width?: number | null,
+  dateIndex: string,
+  createdAt?: string | null,
 };
 
 export type ModelPhotoConditionInput = {
@@ -136,6 +138,8 @@ export type ModelPhotoConditionInput = {
   filename?: ModelStringInput | null,
   height?: ModelIntInput | null,
   width?: ModelIntInput | null,
+  dateIndex?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelPhotoConditionInput | null > | null,
   or?: Array< ModelPhotoConditionInput | null > | null,
   not?: ModelPhotoConditionInput | null,
@@ -149,6 +153,7 @@ export type Photo = {
   height?: number | null,
   width?: number | null,
   likes?: ModelLikeConnection | null,
+  dateIndex: string,
   createdAt: string,
   updatedAt: string,
 };
@@ -175,6 +180,8 @@ export type UpdatePhotoInput = {
   filename?: string | null,
   height?: number | null,
   width?: number | null,
+  dateIndex?: string | null,
+  createdAt?: string | null,
 };
 
 export type DeletePhotoInput = {
@@ -234,6 +241,8 @@ export type ModelPhotoFilterInput = {
   filename?: ModelStringInput | null,
   height?: ModelIntInput | null,
   width?: ModelIntInput | null,
+  dateIndex?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
   and?: Array< ModelPhotoFilterInput | null > | null,
   or?: Array< ModelPhotoFilterInput | null > | null,
   not?: ModelPhotoFilterInput | null,
@@ -260,6 +269,16 @@ export enum ModelSortDirection {
   DESC = "DESC",
 }
 
+
+export type ModelStringKeyConditionInput = {
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+};
 
 export type ModelSubscriptionProfileFilterInput = {
   id?: ModelSubscriptionIDInput | null,
@@ -322,6 +341,8 @@ export type ModelSubscriptionPhotoFilterInput = {
   filename?: ModelSubscriptionStringInput | null,
   height?: ModelSubscriptionIntInput | null,
   width?: ModelSubscriptionIntInput | null,
+  dateIndex?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionPhotoFilterInput | null > | null,
   or?: Array< ModelSubscriptionPhotoFilterInput | null > | null,
 };
@@ -423,6 +444,7 @@ export type CreatePhotoMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    dateIndex: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -454,6 +476,7 @@ export type UpdatePhotoMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    dateIndex: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -485,6 +508,7 @@ export type DeletePhotoMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    dateIndex: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -612,6 +636,7 @@ export type GetPhotoQuery = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    dateIndex: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -637,6 +662,7 @@ export type ListPhotosQuery = {
         __typename: "ModelLikeConnection",
         nextToken?: string | null,
       } | null,
+      dateIndex: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -703,6 +729,37 @@ export type ProfilesByUsernameQuery = {
       age?: string | null,
       profilePicId?: string | null,
       score?: number | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type PhotosByDateQueryVariables = {
+  dateIndex: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelPhotoFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type PhotosByDateQuery = {
+  photosByDate?:  {
+    __typename: "ModelPhotoConnection",
+    items:  Array< {
+      __typename: "Photo",
+      id: string,
+      username: string,
+      filename: string,
+      height?: number | null,
+      width?: number | null,
+      likes?:  {
+        __typename: "ModelLikeConnection",
+        nextToken?: string | null,
+      } | null,
+      dateIndex: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -795,6 +852,7 @@ export type OnCreatePhotoSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    dateIndex: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -825,6 +883,7 @@ export type OnUpdatePhotoSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    dateIndex: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -855,6 +914,7 @@ export type OnDeletePhotoSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    dateIndex: string,
     createdAt: string,
     updatedAt: string,
   } | null,
