@@ -84,7 +84,7 @@ export class PhotosComponent implements OnInit, OnDestroy {
   }
 
   public fetchPhotos() {
-    this.customApi.PhotosByDate("myIndex", undefined, ModelSortDirection.DESC).then((event) => {
+    this.customApi.PhotosByDate("byDate", undefined, ModelSortDirection.DESC).then((event) => {
       const photos = event.items as Photo[];
       const newPhotos: PhotoUrl[] = [];
       for (let i = 0; i < photos.length; i++) {
