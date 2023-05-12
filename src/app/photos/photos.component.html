@@ -8,7 +8,7 @@
 <app-upload></app-upload>
 
 <div class="gallery-container">
-  <div *ngFor="let photoUrl of photos; let i = index" class="gallery-container-div">
+  <div *ngFor="let photoUrl of photoService.photos; let i = index" class="gallery-container-div">
     <app-photo [photoUrl]="photoUrl" [index]="i + 1"></app-photo>
   </div>
 </div>

@@ -19,6 +19,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { LegalComponent } from './legal/legal.component';
 import { WaitingComponent } from './waiting/waiting.component';
 import { LoggedInContainerComponent } from './logged-in-container/logged-in-container.component';
+import {PhotoService} from "./service/photo-service";
 
 @NgModule({
   declarations: [AppComponent, PhotosComponent, MyPhotosComponent, PhotoComponent, LikeCounterComponent, UploadComponent, AvatarComponent, NavigationComponent, ProfileComponent, LegalComponent, WaitingComponent, LoggedInContainerComponent],
@@ -30,7 +31,7 @@ import { LoggedInContainerComponent } from './logged-in-container/logged-in-cont
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [UserService],
+  providers: [UserService, PhotoService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
