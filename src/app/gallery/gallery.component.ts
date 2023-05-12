@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Photo} from '../API.service';
 import {Progress} from "../model/progress";
 import {PhotoUrl} from "../model/photo-url";
@@ -12,7 +12,8 @@ import {Observable} from "rxjs";
   styleUrls: ['./gallery.component.css']
 })
 export class GalleryComponent implements OnInit {
-  private SLEEP_THRESHOLD = 5000;
+  @Input() galleryType: string = "";
+  @Input() username?: string = "";
 
   public fileName?: string;
   public files?: File[];
@@ -26,14 +27,16 @@ export class GalleryComponent implements OnInit {
   }
 
   async ngOnInit() {
-    let now = new Date().getTime();
-    setInterval (() => {
-      if ((new Date().getTime() - now) > this.SLEEP_THRESHOLD) {
-        console.log ('wake-up from sleep detected');
-        this.photoService.refresh();
-      }
-      now = new Date().getTime();
-    }, 1000);
+  }
+
+  public whichPhotos(): PhotoUrl[] {
+    switch (this.galleryType) {
+      // case "user": //TODO: investigate why this produces an endless loop
+      //   this.photoService.fetchUserPhotos(this.username!);
+      //   return this.photoService.userPhotos;
+      default:
+        return this.photoService.newPhotos;
+    }
   }
 
   public createUrl(photo: Photo, size: number): string {

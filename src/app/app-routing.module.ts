@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {GalleryComponent} from "./photos/gallery.component";
+import {GalleryComponent} from "./gallery/gallery.component";
 import {ProfileComponent} from "./profile/profile.component";
 import {LegalComponent} from "./legal/legal.component";
 

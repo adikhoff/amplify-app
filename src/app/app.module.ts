@@ -7,10 +7,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {GalleryComponent} from './photos/gallery.component';
+import {GalleryComponent} from './gallery/gallery.component';
 import {MyPhotosComponent} from './my-photos/my-photos.component';
 import {PhotoComponent} from './photo/photo.component';
-import {LikeCounterComponent} from './photos/like-counter/like-counter.component';
+import {LikeCounterComponent} from './like-counter/like-counter.component';
 import {UserService} from "./service/user-service";
 import {UploadComponent} from './upload/upload.component';
 import {AvatarComponent} from './avatar/avatar.component';
