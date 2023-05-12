@@ -6,11 +6,11 @@ import {UserService} from "../service/user-service";
 import {PhotoService} from "../service/photo-service";
 
 @Component({
-  selector: 'app-photos',
-  templateUrl: './photos.component.html',
-  styleUrls: ['./photos.component.css']
+  selector: 'app-gallery',
+  templateUrl: './gallery.component.html',
+  styleUrls: ['./gallery.component.css']
 })
-export class PhotosComponent implements OnInit {
+export class GalleryComponent implements OnInit {
   public fileName?: string;
   public files?: File[];
   public progressBars: Progress[] = [];

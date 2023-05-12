@@ -7,7 +7,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {PhotosComponent} from './photos/photos.component';
+import {GalleryComponent} from './photos/gallery.component';
 import {MyPhotosComponent} from './my-photos/my-photos.component';
 import {PhotoComponent} from './photo/photo.component';
 import {LikeCounterComponent} from './photos/like-counter/like-counter.component';
@@ -22,7 +22,7 @@ import {LoggedInContainerComponent} from './logged-in-container/logged-in-contai
 import {PhotoService} from "./service/photo-service";
 
 @NgModule({
-  declarations: [AppComponent, PhotosComponent, MyPhotosComponent, PhotoComponent, LikeCounterComponent, UploadComponent, AvatarComponent, NavigationComponent, ProfileComponent, LegalComponent, WaitingComponent, LoggedInContainerComponent],
+  declarations: [AppComponent, GalleryComponent, MyPhotosComponent, PhotoComponent, LikeCounterComponent, UploadComponent, AvatarComponent, NavigationComponent, ProfileComponent, LegalComponent, WaitingComponent, LoggedInContainerComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
