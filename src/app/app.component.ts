@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import {UserService} from "./service/user-service";
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +8,6 @@ import {UserService} from "./service/user-service";
 export class AppComponent {
   title = 'amplify-app';
 
-  constructor(
-    public userService: UserService
-  ){}
+  constructor(){}
 
 }
