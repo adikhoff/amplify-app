@@ -30,6 +30,7 @@ export class GalleryComponent implements OnInit {
     setInterval (() => {
       if ((new Date().getTime() - now) > this.SLEEP_THRESHOLD) {
         console.log ('wake-up from sleep detected');
+        alert("wakey wakey");
       }
       now = new Date().getTime();
     }, 1000);
