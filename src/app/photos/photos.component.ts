@@ -40,7 +40,8 @@ export class PhotosComponent implements OnInit, OnDestroy {
         this.getObjectUrl(newPhoto).then((url) => {
           const pu: PhotoUrl = {
             photo: newPhoto,
-            url: url
+            url: url,
+            loading: true,
           }
           this.photos = [pu, ...this.photos];
         });
@@ -93,6 +94,7 @@ export class PhotosComponent implements OnInit, OnDestroy {
           let pu: PhotoUrl = {
             photo: photo as Photo,
             url: url,
+            loading: true,
           }
           newPhotos.push(pu);
         });

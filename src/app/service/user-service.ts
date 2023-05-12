@@ -18,7 +18,11 @@ export class UserService {
     this.setupCredentials();
   }
 
+  private settingUp = false;
+
   private setupCredentials() {
+    if (this.settingUp) return; // TODO: This semaphore is faulty in edge cases. Refactor to something else ASAP.
+    this.settingUp = true;
     this.getCurrentLoggedinUser().then(user => {
       this.user = user;
       console.log("user found", this.user);
@@ -27,9 +31,10 @@ export class UserService {
       this.getProfileForUser(user).then(profile => {
         console.log("profile found", profile);
         this.currentProfile = profile;
-      });
-      this.getAllProfiles().then(profiles => {
-        this.allProfiles = profiles;
+        this.getAllProfiles().then(profiles => {
+          this.allProfiles = profiles;
+          this.settingUp = false;
+        });
       });
     })
   }
