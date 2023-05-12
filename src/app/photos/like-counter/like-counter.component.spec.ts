@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LikeCounterComponent } from './like-counter.component';
+import {LikeCounterComponent} from './like-counter.component';
 
 describe('LikeCounterComponent', () => {
   let component: LikeCounterComponent;
@@ -8,9 +8,9 @@ describe('LikeCounterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LikeCounterComponent ]
+      declarations: [LikeCounterComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(LikeCounterComponent);
     component = fixture.componentInstance;

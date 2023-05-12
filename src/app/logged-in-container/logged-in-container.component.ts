@@ -8,15 +8,15 @@ import {Auth} from "aws-amplify";
   styleUrls: ['./logged-in-container.component.css']
 })
 export class LoggedInContainerComponent implements OnInit {
-  @Input() signout: Function = () => {
-  };
-
   public user: any;
 
   constructor(
     public userService: UserService
   ) {
   }
+
+  @Input() signout: Function = () => {
+  };
 
   async ngOnInit() {
     console.log("Waiting for user...");

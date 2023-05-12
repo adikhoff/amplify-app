@@ -41,7 +41,8 @@ export class PhotoComponent implements OnInit {
       this.api.DeletePhoto(dfi).then(() => {
       });
       if (photo.filename) {
-        Storage.remove(photo.filename).then(() => {});
+        Storage.remove(photo.filename).then(() => {
+        });
       }
     }
   }

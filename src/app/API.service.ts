@@ -1,9 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
-import { Injectable } from "@angular/core";
-import API, { graphqlOperation, GraphQLResult } from "@aws-amplify/api-graphql";
-import { Observable } from "zen-observable-ts";
+import {Injectable} from "@angular/core";
+import API, {graphqlOperation, GraphQLResult} from "@aws-amplify/api-graphql";
+import {Observable} from "zen-observable-ts";
 
 export interface SubscriptionResponse<T> {
   value: GraphQLResult<T>;
@@ -839,6 +839,7 @@ export class APIService {
     )) as any;
     return <CreateProfileMutation>response.data.createProfile;
   }
+
   async UpdateProfile(
     input: UpdateProfileInput,
     condition?: ModelProfileConditionInput
@@ -869,6 +870,7 @@ export class APIService {
     )) as any;
     return <UpdateProfileMutation>response.data.updateProfile;
   }
+
   async DeleteProfile(
     input: DeleteProfileInput,
     condition?: ModelProfileConditionInput
@@ -899,6 +901,7 @@ export class APIService {
     )) as any;
     return <DeleteProfileMutation>response.data.deleteProfile;
   }
+
   async CreatePhoto(
     input: CreatePhotoInput,
     condition?: ModelPhotoConditionInput
@@ -940,6 +943,7 @@ export class APIService {
     )) as any;
     return <CreatePhotoMutation>response.data.createPhoto;
   }
+
   async UpdatePhoto(
     input: UpdatePhotoInput,
     condition?: ModelPhotoConditionInput
@@ -981,6 +985,7 @@ export class APIService {
     )) as any;
     return <UpdatePhotoMutation>response.data.updatePhoto;
   }
+
   async DeletePhoto(
     input: DeletePhotoInput,
     condition?: ModelPhotoConditionInput
@@ -1022,6 +1027,7 @@ export class APIService {
     )) as any;
     return <DeletePhotoMutation>response.data.deletePhoto;
   }
+
   async CreateLike(
     input: CreateLikeInput,
     condition?: ModelLikeConditionInput
@@ -1048,6 +1054,7 @@ export class APIService {
     )) as any;
     return <CreateLikeMutation>response.data.createLike;
   }
+
   async UpdateLike(
     input: UpdateLikeInput,
     condition?: ModelLikeConditionInput
@@ -1074,6 +1081,7 @@ export class APIService {
     )) as any;
     return <UpdateLikeMutation>response.data.updateLike;
   }
+
   async DeleteLike(
     input: DeleteLikeInput,
     condition?: ModelLikeConditionInput
@@ -1100,6 +1108,7 @@ export class APIService {
     )) as any;
     return <DeleteLikeMutation>response.data.deleteLike;
   }
+
   async GetProfile(id: string): Promise<GetProfileQuery> {
     const statement = `query GetProfile($id: ID!) {
         getProfile(id: $id) {
@@ -1124,6 +1133,7 @@ export class APIService {
     )) as any;
     return <GetProfileQuery>response.data.getProfile;
   }
+
   async ListProfiles(
     filter?: ModelProfileFilterInput,
     limit?: number,
@@ -1163,6 +1173,7 @@ export class APIService {
     )) as any;
     return <ListProfilesQuery>response.data.listProfiles;
   }
+
   async GetPhoto(id: string): Promise<GetPhotoQuery> {
     const statement = `query GetPhoto($id: ID!) {
         getPhoto(id: $id) {
@@ -1198,6 +1209,7 @@ export class APIService {
     )) as any;
     return <GetPhotoQuery>response.data.getPhoto;
   }
+
   async ListPhotos(
     filter?: ModelPhotoFilterInput,
     limit?: number,
@@ -1239,6 +1251,7 @@ export class APIService {
     )) as any;
     return <ListPhotosQuery>response.data.listPhotos;
   }
+
   async GetLike(id: string): Promise<GetLikeQuery> {
     const statement = `query GetLike($id: ID!) {
         getLike(id: $id) {
@@ -1259,6 +1272,7 @@ export class APIService {
     )) as any;
     return <GetLikeQuery>response.data.getLike;
   }
+
   async ListLikes(
     filter?: ModelLikeFilterInput,
     limit?: number,
@@ -1294,6 +1308,7 @@ export class APIService {
     )) as any;
     return <ListLikesQuery>response.data.listLikes;
   }
+
   async ProfilesByUsername(
     username: string,
     sortDirection?: ModelSortDirection,
@@ -1346,6 +1361,7 @@ export class APIService {
     )) as any;
     return <ProfilesByUsernameQuery>response.data.profilesByUsername;
   }
+
   async PhotosByDate(
     dateIndex: string,
     createdAt?: ModelStringKeyConditionInput,
@@ -1405,11 +1421,10 @@ export class APIService {
     )) as any;
     return <PhotosByDateQuery>response.data.photosByDate;
   }
+
   OnCreateProfileListener(
     filter?: ModelSubscriptionProfileFilterInput
-  ): Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateProfile">>
-  > {
+  ): Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateProfile">>> {
     const statement = `subscription OnCreateProfile($filter: ModelSubscriptionProfileFilterInput) {
         onCreateProfile(filter: $filter) {
           __typename
@@ -1431,16 +1446,12 @@ export class APIService {
     }
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateProfile">>
-    >;
+    ) as Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateProfile">>>;
   }
 
   OnUpdateProfileListener(
     filter?: ModelSubscriptionProfileFilterInput
-  ): Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateProfile">>
-  > {
+  ): Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateProfile">>> {
     const statement = `subscription OnUpdateProfile($filter: ModelSubscriptionProfileFilterInput) {
         onUpdateProfile(filter: $filter) {
           __typename
@@ -1462,16 +1473,12 @@ export class APIService {
     }
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateProfile">>
-    >;
+    ) as Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateProfile">>>;
   }
 
   OnDeleteProfileListener(
     filter?: ModelSubscriptionProfileFilterInput
-  ): Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteProfile">>
-  > {
+  ): Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteProfile">>> {
     const statement = `subscription OnDeleteProfile($filter: ModelSubscriptionProfileFilterInput) {
         onDeleteProfile(filter: $filter) {
           __typename
@@ -1493,16 +1500,12 @@ export class APIService {
     }
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteProfile">>
-    >;
+    ) as Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteProfile">>>;
   }
 
   OnCreatePhotoListener(
     filter?: ModelSubscriptionPhotoFilterInput
-  ): Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreatePhoto">>
-  > {
+  ): Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onCreatePhoto">>> {
     const statement = `subscription OnCreatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
         onCreatePhoto(filter: $filter) {
           __typename
@@ -1535,16 +1538,12 @@ export class APIService {
     }
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onCreatePhoto">>
-    >;
+    ) as Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onCreatePhoto">>>;
   }
 
   OnUpdatePhotoListener(
     filter?: ModelSubscriptionPhotoFilterInput
-  ): Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdatePhoto">>
-  > {
+  ): Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdatePhoto">>> {
     const statement = `subscription OnUpdatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
         onUpdatePhoto(filter: $filter) {
           __typename
@@ -1577,16 +1576,12 @@ export class APIService {
     }
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdatePhoto">>
-    >;
+    ) as Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdatePhoto">>>;
   }
 
   OnDeletePhotoListener(
     filter?: ModelSubscriptionPhotoFilterInput
-  ): Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeletePhoto">>
-  > {
+  ): Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onDeletePhoto">>> {
     const statement = `subscription OnDeletePhoto($filter: ModelSubscriptionPhotoFilterInput) {
         onDeletePhoto(filter: $filter) {
           __typename
@@ -1619,16 +1614,12 @@ export class APIService {
     }
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onDeletePhoto">>
-    >;
+    ) as Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onDeletePhoto">>>;
   }
 
   OnCreateLikeListener(
     filter?: ModelSubscriptionLikeFilterInput
-  ): Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateLike">>
-  > {
+  ): Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateLike">>> {
     const statement = `subscription OnCreateLike($filter: ModelSubscriptionLikeFilterInput) {
         onCreateLike(filter: $filter) {
           __typename
@@ -1646,16 +1637,12 @@ export class APIService {
     }
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateLike">>
-    >;
+    ) as Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateLike">>>;
   }
 
   OnUpdateLikeListener(
     filter?: ModelSubscriptionLikeFilterInput
-  ): Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateLike">>
-  > {
+  ): Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateLike">>> {
     const statement = `subscription OnUpdateLike($filter: ModelSubscriptionLikeFilterInput) {
         onUpdateLike(filter: $filter) {
           __typename
@@ -1673,16 +1660,12 @@ export class APIService {
     }
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateLike">>
-    >;
+    ) as Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateLike">>>;
   }
 
   OnDeleteLikeListener(
     filter?: ModelSubscriptionLikeFilterInput
-  ): Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteLike">>
-  > {
+  ): Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteLike">>> {
     const statement = `subscription OnDeleteLike($filter: ModelSubscriptionLikeFilterInput) {
         onDeleteLike(filter: $filter) {
           __typename
@@ -1700,8 +1683,6 @@ export class APIService {
     }
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteLike">>
-    >;
+    ) as Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteLike">>>;
   }
 }

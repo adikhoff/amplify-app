@@ -7,18 +7,16 @@ import {CustomAPIService} from "../CustomAPI.service";
 
 @Injectable()
 export class PhotoService {
+  public photos: PhotoUrl[] = [];
   private photoCreateSubscription: ZenObservable.Subscription | null = null;
   private photoDeleteSubscription: ZenObservable.Subscription | null = null;
   private likeCreateSubscription: ZenObservable.Subscription | null = null;
   private likeDeleteSubscription: ZenObservable.Subscription | null = null;
 
-  public photos: PhotoUrl[] = [];
-
   constructor(
     private api: APIService,
     private customApi: CustomAPIService,
   ) {
-    // Todo: migrate all this to app.component, so we don't lose the data between page switches
     this.fetchPhotos();
     this.photoCreateSubscription = this.api.OnCreatePhotoListener().subscribe(
       (event: any) => {

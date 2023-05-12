@@ -14,8 +14,8 @@ import {MockService} from "../service/mock-service";
 })
 export class UploadComponent implements OnInit {
 
-  private files: File[] = [];
   uploads: PhotoUrl[] = [];
+  private files: File[] = [];
 
   constructor(
     private api: APIService,
@@ -39,6 +39,24 @@ export class UploadComponent implements OnInit {
     this.uploadFiles();
   }
 
+  public uploadFiles() {
+    try {
+      for (let i = 0; i < this.uploads.length; i++) {
+        const photoUrl = this.uploads[i];
+        this.uploadToStorage(photoUrl);
+      }
+    } catch (error) {
+      console.log("Error uploading file: ", error);
+    }
+  }
+
+  public calcPercentage(progress: Progress) {
+    if (progress.loaded && progress.total) {
+      return Math.round((progress.loaded / progress.total) * 100);
+    }
+    return 0;
+  }
+
   private createUIElementsForUpload() {
     for (let i = 0; i < this.files.length; i++) {
       const file = this.files[i];
@@ -55,17 +73,6 @@ export class UploadComponent implements OnInit {
       let image: HTMLImageElement | null = document.getElementById("photo-" + i) as HTMLImageElement;
       image.src = URL.createObjectURL(photoUrl.file!);
       photoUrl.image = image;
-    }
-  }
-
-  public uploadFiles() {
-    try {
-      for (let i = 0; i < this.uploads.length; i++) {
-        const photoUrl = this.uploads[i];
-        this.uploadToStorage(photoUrl);
-      }
-    } catch (error) {
-      console.log("Error uploading file: ", error);
     }
   }
 
@@ -108,13 +115,6 @@ export class UploadComponent implements OnInit {
       this.api.CreatePhoto(cpi).then(() => {
       });
     }
-  }
-
-  public calcPercentage(progress: Progress) {
-    if (progress.loaded && progress.total) {
-      return Math.round((progress.loaded / progress.total) * 100);
-    }
-    return 0;
   }
 
 

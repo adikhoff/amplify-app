@@ -1,7 +1,7 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 
-import { AppModule } from './app/app.module';
-import { Amplify, Auth, Storage } from 'aws-amplify';
+import {AppModule} from './app/app.module';
+import {Amplify, Auth, Storage} from 'aws-amplify';
 import awsmobile from './aws-exports';
 
 Amplify.configure(awsmobile);

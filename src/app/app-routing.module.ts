@@ -1,17 +1,17 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {PhotosComponent} from "./photos/photos.component";
 import {ProfileComponent} from "./profile/profile.component";
 import {LegalComponent} from "./legal/legal.component";
 
 const routes: Routes = [
-  { path: 'gallery', component: PhotosComponent },
-  { path: 'profile/:id', component: ProfileComponent },
-  { path: 'profile', component: ProfileComponent },
+  {path: 'gallery', component: PhotosComponent},
+  {path: 'profile/:id', component: ProfileComponent},
+  {path: 'profile', component: ProfileComponent},
 
-  { path: 'legal', component: LegalComponent },
+  {path: 'legal', component: LegalComponent},
 
-  { path: '', pathMatch: "full", component: PhotosComponent },
+  {path: '', pathMatch: "full", component: PhotosComponent},
 ];
 
 @NgModule({
@@ -20,4 +20,5 @@ const routes: Routes = [
   })],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LoggedInContainerComponent } from './logged-in-container.component';
+import {LoggedInContainerComponent} from './logged-in-container.component';
 
 describe('LoggedInContainerComponent', () => {
   let component: LoggedInContainerComponent;
@@ -8,9 +8,9 @@ describe('LoggedInContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoggedInContainerComponent ]
+      declarations: [LoggedInContainerComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(LoggedInContainerComponent);
     component = fixture.componentInstance;

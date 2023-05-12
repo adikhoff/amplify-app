@@ -1,8 +1,4 @@
-import {Component, Input} from '@angular/core';
-import {APIService} from "../API.service";
-import {CustomAPIService} from "../CustomAPI.service";
-import {FormBuilder} from "@angular/forms";
-import {IdService} from "../service/id-service";
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-my-photos',

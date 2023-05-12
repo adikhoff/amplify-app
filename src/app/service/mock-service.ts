@@ -1,7 +1,5 @@
 import {Injectable, OnInit} from '@angular/core';
-import {Auth} from "aws-amplify";
-import {APIService, CreateProfileInput, Like, Photo, Profile} from "../API.service";
-import {getPhoto} from "../../graphql/queries";
+import {Like, Photo, Profile} from "../API.service";
 import {PhotoUrl} from "../model/photo-url";
 
 @Injectable({

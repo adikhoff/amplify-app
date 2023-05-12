@@ -10,7 +10,8 @@ export class LegalComponent implements OnInit {
 
   private fragment: string | null = null;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     this.route.fragment.subscribe(fragment => {
@@ -23,7 +24,8 @@ export class LegalComponent implements OnInit {
       if (this.fragment) {
         document.querySelector('#' + this.fragment)?.scrollIntoView();
       }
-    } catch (e) { }
+    } catch (e) {
+    }
   }
 
 }

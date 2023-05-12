@@ -1,27 +1,27 @@
 <ul *ngIf="!isFooter" class="topmenu">
-  <li><a [routerLink]="'/'" [ngClass]="this.router.url === '/' ? 'red' : ''">Home</a></li>
-  <li><a [routerLink]="'/gallery'" [ngClass]="this.router.url === '/gallery' ? 'red' : ''">gallerij</a></li>
-  <li class="last" *ngIf="userService.currentProfile">
-    <a class="dropbtn {{this.router.url === 'profile' ? 'red' : ''}}"
-       (click)="showUserDropdown = !showUserDropdown">{{userService.currentProfile.displayname}}</a>
+  <li><a [ngClass]="this.router.url === '/' ? 'red' : ''" [routerLink]="'/'">Home</a></li>
+  <li><a [ngClass]="this.router.url === '/gallery' ? 'red' : ''" [routerLink]="'/gallery'">gallerij</a></li>
+  <li *ngIf="userService.currentProfile" class="last">
+    <a (click)="showUserDropdown = !showUserDropdown"
+       class="dropbtn {{this.router.url === 'profile' ? 'red' : ''}}">{{userService.currentProfile.displayname}}</a>
     <div *ngIf="showUserDropdown" class="dropdown-content">
-      <a [routerLink]="'/profile'" [ngClass]="this.router.url === '/profile' ? 'red' : ''">profiel</a>
+      <a [ngClass]="this.router.url === '/profile' ? 'red' : ''" [routerLink]="'/profile'">profiel</a>
       <a (click)="signout()">uitloggen</a>
     </div>
   </li>
-  <li class="last" *ngIf="!userService.currentProfile">
+  <li *ngIf="!userService.currentProfile" class="last">
     <a>Login</a>
   </li>
 </ul>
 
 <ul *ngIf="isFooter">
   <li>
-    <a class="dropbtn {{this.router.url === 'profile' ? 'red' : ''}}" (click)="showLegalDropdown = !showLegalDropdown">Legal</a>
+    <a (click)="showLegalDropdown = !showLegalDropdown" class="dropbtn {{this.router.url === 'profile' ? 'red' : ''}}">Legal</a>
     <div *ngIf="showLegalDropdown" class="dropup-content">
-      <a [routerLink]="'legal'" fragment="privacy-statement"
-         [ngClass]="this.router.url === '/legal#privacy-statement' ? 'red' : ''">Privacyverklaring</a>
-      <a [routerLink]="'legal'" fragment="data-deletion"
-         [ngClass]="this.router.url === '/legal#data-deletion' ? 'red' : ''">Data verwijderen</a>
+      <a [ngClass]="this.router.url === '/legal#privacy-statement' ? 'red' : ''" [routerLink]="'legal'"
+         fragment="privacy-statement">Privacyverklaring</a>
+      <a [ngClass]="this.router.url === '/legal#data-deletion' ? 'red' : ''" [routerLink]="'legal'"
+         fragment="data-deletion">Data verwijderen</a>
     </div>
 
   </li>
