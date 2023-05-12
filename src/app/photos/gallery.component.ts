@@ -4,6 +4,7 @@ import {Progress} from "../model/progress";
 import {PhotoUrl} from "../model/photo-url";
 import {UserService} from "../service/user-service";
 import {PhotoService} from "../service/photo-service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-gallery',
@@ -11,6 +12,8 @@ import {PhotoService} from "../service/photo-service";
   styleUrls: ['./gallery.component.css']
 })
 export class GalleryComponent implements OnInit {
+  private SLEEP_THRESHOLD = 5000;
+
   public fileName?: string;
   public files?: File[];
   public progressBars: Progress[] = [];
@@ -23,6 +26,13 @@ export class GalleryComponent implements OnInit {
   }
 
   async ngOnInit() {
+    let now = new Date().getTime();
+    setInterval (() => {
+      if ((new Date().getTime() - now) > this.SLEEP_THRESHOLD) {
+        console.log ('wake-up from sleep detected');
+      }
+      now = new Date().getTime();
+    }, 1000);
   }
 
   public createUrl(photo: Photo, size: number): string {

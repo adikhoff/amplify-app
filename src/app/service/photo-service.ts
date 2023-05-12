@@ -65,7 +65,11 @@ export class PhotoService {
     )
   }
 
-  public fetchNewPhotos() {
+  public refresh() {
+    this.fetchNewPhotos();
+  }
+
+  private fetchNewPhotos() {
     this.customApi.PhotosByDate(
       "byDate",
       undefined,
