@@ -1,19 +1,19 @@
-<div class="img-container" *ngIf="photoUrl.photo.width && photoUrl.photo.height"
+<div *ngIf="photoUrl.photo.width && photoUrl.photo.height" class="img-container"
      style="{{'padding-top:' + (100 * photoUrl.photo.height / photoUrl.photo.width) + '%;'}}">
-  <img loading="lazy" class='grid-item grid-item-{{index}}' id="photo-{{index}}" src='{{photoUrl.url}}' alt=''
-       (click)="onModal(photoUrl)" (load)="this.onLoadPhoto(index)">
-  <app-waiting *ngIf="!isFinished(index)"></app-waiting>
+  <img (click)="onModal(photoUrl)" (load)="this.onLoadPhoto(photoUrl)" alt='' class='grid-item grid-item-{{index}}' id="photo-{{index}}"
+       loading="lazy" src='{{photoUrl.url}}'>
+  <app-waiting *ngIf="!isFinished(photoUrl)"></app-waiting>
 </div>
 
 <app-like-counter [photoUrl]="photoUrl"></app-like-counter>
 
 <app-avatar *ngIf="photoUserProfile" [forUser]="photoUserProfile"></app-avatar>
 
-<a *ngIf="this.canDelete(photoUrl)" class="delete" (click)="this.onDelete(photoUrl.photo)">x</a>
+<a (click)="this.onDelete(photoUrl.photo)" *ngIf="this.canDelete(photoUrl)" class="delete">x</a>
 
-<div id="myModal" class="modal" *ngIf="modalPhoto">
-  <span class="close" (click)="stopModal()">&times;</span>
-  <img class="modal-content" id="img01" src="{{modalPhoto.url}}" (click)="stopModal()">
+<div *ngIf="modalPhoto" class="modal" id="myModal">
+  <span (click)="stopModal()" class="close">&times;</span>
+  <img (click)="stopModal()" class="modal-content" id="img01" src="{{modalPhoto.url}}">
 
   <div class="caption">
     <app-like-counter [photoUrl]="modalPhoto"></app-like-counter>

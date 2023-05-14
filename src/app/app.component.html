@@ -1,18 +1,9 @@
 <amplify-authenticator>
   <ng-template
     amplifySlot="authenticated"
-    let-user="user"
     let-signOut="signOut"
+    let-user="user"
   >
-    <div *ngIf="this.userService.currentProfile" class="application-container">
-      <app-navigation [signout]="signOut"></app-navigation>
-      <div class="page-container">
-        <router-outlet></router-outlet>
-      </div>
-      <app-navigation [isFooter]="true"></app-navigation>
-    </div>
-
-    <app-waiting *ngIf="!this.userService.currentProfile"></app-waiting>
-
+    <app-logged-in-container [signout]="signOut"></app-logged-in-container>
   </ng-template>
 </amplify-authenticator>

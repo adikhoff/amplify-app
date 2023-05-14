@@ -41,7 +41,8 @@ export class PhotoComponent implements OnInit {
       this.api.DeletePhoto(dfi).then(() => {
       });
       if (photo.filename) {
-        Storage.remove(photo.filename).then(() => {});
+        Storage.remove(photo.filename).then(() => {
+        });
       }
     }
   }
@@ -53,13 +54,11 @@ export class PhotoComponent implements OnInit {
     return false;
   }
 
-  public finished: number[] = [];
-
-  isFinished(index: number) {
-    return this.finished.filter(id => id === index).length > 0;
+  isFinished(photoUrl: PhotoUrl) {
+    return !photoUrl.loading;
   }
 
-  onLoadPhoto(index: number) {
-    this.finished.push(index);
+  onLoadPhoto(photoUrl: PhotoUrl) {
+    photoUrl.loading = false;
   }
 }

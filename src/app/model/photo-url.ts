@@ -7,4 +7,5 @@ export type PhotoUrl = {
   progress?: Progress
   file?: File
   image?: HTMLImageElement
+  loading?: boolean
 }

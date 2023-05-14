@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Profile} from "../API.service";
 import {MockService} from "../service/mock-service";
 
@@ -8,6 +8,8 @@ import {MockService} from "../service/mock-service";
   styleUrls: ['./avatar.component.css']
 })
 export class AvatarComponent {
-  constructor(private mockService: MockService) {}
   @Input() forUser: Profile = this.mockService.getMockProfile();
+
+  constructor(private mockService: MockService) {
+  }
 }

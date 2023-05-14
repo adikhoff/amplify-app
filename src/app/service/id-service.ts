@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -6,7 +6,8 @@ import { Injectable } from '@angular/core';
 export class IdService {
   public ids: string[] = [];
 
-  constructor() {}
+  constructor() {
+  }
 
   public generate(): string {
     let isUnique = false;

@@ -1,6 +1,6 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {UserService} from "../service/user-service";
-import {NavigationEnd, NavigationStart, Router, RouterEvent} from "@angular/router";
+import {NavigationStart, Router} from "@angular/router";
 
 @Component({
   selector: 'app-navigation',
@@ -9,9 +9,6 @@ import {NavigationEnd, NavigationStart, Router, RouterEvent} from "@angular/rout
 })
 export class NavigationComponent implements OnInit {
   @Input() isFooter: boolean = false;
-  @Input() signout: Function = () => {
-  };
-
   public showUserDropdown = false;
   public showLegalDropdown = false;
 
@@ -26,6 +23,9 @@ export class NavigationComponent implements OnInit {
       }
     });
   }
+
+  @Input() signout: Function = () => {
+  };
 
   ngOnInit() {
   }

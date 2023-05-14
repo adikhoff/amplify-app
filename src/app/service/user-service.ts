@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Auth, Hub} from "aws-amplify";
+import {Auth} from "aws-amplify";
 import {APIService, CreateProfileInput, Profile, UpdateProfileInput} from "../API.service";
 
 @Injectable()
@@ -10,42 +10,15 @@ export class UserService {
   public allProfiles?: Profile[];
 
   constructor(private api: APIService) {
-    Hub.listen('auth', (data) => {
-      const {payload} = data;
-      this.onAuthEvent(payload);
-      console.log('A new auth event has happened: ', data);
-    });
-    this.setupCredentials();
   }
 
-  private setupCredentials() {
-    this.getCurrentLoggedinUser().then(user => {
-      this.user = user;
-      console.log("user found", this.user);
-      this.username = user.username;
-      console.log("userName found", this.username);
-      this.getProfileForUser(user).then(profile => {
-        console.log("profile found", profile);
-        this.currentProfile = profile;
-      });
-      this.getAllProfiles().then(profiles => {
-        this.allProfiles = profiles;
-      });
-    })
-  }
-
-  private onAuthEvent(payload: any) {
-    console.log("payload", payload);
-    if (payload.event === 'signOut') {
-      console.log("Removing credentials from this device");
-      this.user = undefined;
-      this.username = undefined;
-      this.currentProfile = undefined;
-    }
-
-    if (payload.event === 'signIn') {
-      this.setupCredentials();
-    }
+  public async setupCredentials() { //TODO: change all this to a subscribe model
+    this.user = await Auth.currentAuthenticatedUser();
+    console.log("user found", this.user);
+    this.username = this.user.username;
+    console.log("userName found", this.username);
+    this.currentProfile = await this.getProfileForUser(this.user);
+    this.allProfiles = await this.getAllProfiles();
   }
 
   public getProfileByUsername(username: string) {
@@ -68,20 +41,16 @@ export class UserService {
   private async getProfileForUser(user: any): Promise<Profile> {
     return new Promise((resolve, reject) => {
       this.api.ListProfiles({username: {eq: user.username}}).then(profiles => {
-        let profile = profiles.items[0] as Profile;
+        let existingProfile = profiles.items[0] as Profile;
         const displayname = user.attributes.name ? user.attributes.name : user.username;
-        if (profile) {
-          // if (profile.displayname) {
-          //   resolve(profile);
-          // } else {
-            const upi: UpdateProfileInput = {
-              id: profile.id,
-              displayname: displayname
-            }
-            this.api.UpdateProfile(upi);
-            profile.displayname = displayname;
-            resolve(profile);
-          // }
+        if (existingProfile) {
+          const upi: UpdateProfileInput = {
+            id: existingProfile.id,
+            displayname: displayname
+          }
+          this.api.UpdateProfile(upi);
+          existingProfile.displayname = displayname;
+          resolve(existingProfile);
         } else {
           const cpi: CreateProfileInput = {
             username: user.username,
@@ -94,14 +63,6 @@ export class UserService {
           }).catch(err => reject(err));
         }
       });
-    });
-  }
-
-  private async getCurrentLoggedinUser(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      Auth.currentAuthenticatedUser().then(user => {
-        resolve(user);
-      }).catch(err => reject(err));
     });
   }
 

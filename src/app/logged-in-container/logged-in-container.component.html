@@ -1,0 +1,9 @@
+<div *ngIf="this.userService.currentProfile" class="application-container">
+  <app-navigation [signout]="signout"></app-navigation>
+  <div class="page-container">
+    <router-outlet></router-outlet>
+  </div>
+  <app-navigation [isFooter]="true"></app-navigation>
+</div>
+
+<app-waiting *ngIf="!this.userService.currentProfile"></app-waiting>
