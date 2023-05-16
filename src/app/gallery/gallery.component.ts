@@ -1,17 +1,18 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Photo} from '../API.service';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Photo, Profile} from '../API.service';
 import {Progress} from "../model/progress";
 import {PhotoUrl} from "../model/photo-url";
 import {UserService} from "../service/user-service";
 import {PhotoService} from "../service/photo-service";
-import {Observable} from "rxjs";
+import {map, Subject} from "rxjs";
+import {MockService} from "../service/mock-service";
 
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.css']
 })
-export class GalleryComponent implements OnInit {
+export class GalleryComponent implements OnInit, OnDestroy {
   @Input() galleryType: string = "";
   @Input() username?: string = "";
 
@@ -20,13 +21,39 @@ export class GalleryComponent implements OnInit {
   public progressBars: Progress[] = [];
   public modalPhoto?: PhotoUrl;
 
+  public allProfiles?: Profile[];
+  public allProfiles$: Subject<Profile[]> = this.userService.allProfiles;
+
+
   constructor(
     public userService: UserService,
-    public photoService: PhotoService
+    public photoService: PhotoService,
+    public mockService: MockService
   ) {
   }
 
   async ngOnInit() {
+    this.allProfiles$.subscribe((evt: Profile[]) => {
+      console.log("setting all profiles");
+      this.allProfiles = evt;
+      console.log("all profiles: ", this.allProfiles);
+    });
+  }
+
+  ngOnDestroy() {
+    this.allProfiles$.unsubscribe();
+  }
+
+  public getProfileForUser(username: string): Profile {
+    if (this.allProfiles) {
+      return this.allProfiles.filter(p => p.username === username)[0];
+    } else {
+      return this.mockService.getMockProfile();
+    }
+  }
+
+  public getTrackBy(index: number, photoUrl: PhotoUrl): string {
+    return photoUrl.photo.filename;
   }
 
   public whichPhotos(): PhotoUrl[] {

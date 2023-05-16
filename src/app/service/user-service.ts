@@ -1,15 +1,25 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {Auth} from "aws-amplify";
 import {APIService, CreateProfileInput, Profile, UpdateProfileInput} from "../API.service";
+import {Subject, filter, map, Observable, BehaviorSubject} from "rxjs";
 
 @Injectable()
 export class UserService {
   public user: any;
   public username?: string;
   public currentProfile?: Profile;
-  public allProfiles?: Profile[];
+  private allProfiles$: BehaviorSubject<Profile[]> = new BehaviorSubject<Profile[]>([]);
 
   constructor(private api: APIService) {
+    this.loadAllProfiles();
+    this.setupCredentials();
+  }
+
+  public loadAllProfiles() {
+    this.api.ListProfiles().then(result => {
+      console.log("Loading allprofiles observable ", result.items);
+      this.allProfiles$.next(result.items as Profile[]);
+    })
   }
 
   public async setupCredentials() { //TODO: change all this to a subscribe model
@@ -18,24 +28,6 @@ export class UserService {
     this.username = this.user.username;
     console.log("userName found", this.username);
     this.currentProfile = await this.getProfileForUser(this.user);
-    this.allProfiles = await this.getAllProfiles();
-  }
-
-  public getProfileByUsername(username: string) {
-    const results = this.allProfiles?.filter(p => p.username === username);
-    if (results?.length === 1) {
-      return results[0];
-    } else {
-      throw Error("Unexpected number of results from getProfileByUsername(" + username + "): " + results?.length);
-    }
-  }
-
-  private async getAllProfiles(): Promise<Profile[]> {
-    return new Promise((resolve, reject) => {
-      this.api.ListProfiles({}, 1000).then(profiles => {
-        resolve(profiles.items as Profile[]);
-      });
-    });
   }
 
   private async getProfileForUser(user: any): Promise<Profile> {
@@ -64,6 +56,10 @@ export class UserService {
         }
       });
     });
+  }
+
+  get allProfiles(): Subject<Profile[]> {
+    return this.allProfiles$;
   }
 
 }

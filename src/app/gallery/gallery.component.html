@@ -8,7 +8,7 @@
 <app-upload></app-upload>
 
 <div class="gallery-container">
-  <div *ngFor="let photoUrl of whichPhotos(); let i = index" class="gallery-container-div">
-    <app-photo [index]="i + 1" [photoUrl]="photoUrl"></app-photo>
+  <div *ngFor="let photoUrl of whichPhotos(); let i = index; trackBy: getTrackBy" class="gallery-container-div">
+    <app-photo [index]="i + 1" [photoUrl]="photoUrl" [profile]="getProfileForUser(photoUrl.photo.username)"></app-photo>
   </div>
 </div>

@@ -4,6 +4,7 @@ import {UserService} from "../service/user-service";
 import {APIService, DeletePhotoInput, Photo, Profile} from "../API.service";
 import {Storage} from "aws-amplify";
 import {MockService} from "../service/mock-service";
+import {Observable, Subject, of, BehaviorSubject} from "rxjs";
 
 @Component({
   selector: 'app-photo',
@@ -13,15 +14,14 @@ import {MockService} from "../service/mock-service";
 export class PhotoComponent implements OnInit {
   @Input() photoUrl: PhotoUrl = this.mockService.getMockPhotoUrl();
   @Input() index: any;
+  @Input() profile: Profile = this.mockService.getMockProfile();
 
-  public photoUserProfile?: Profile;
   public modalPhoto: PhotoUrl | undefined;
 
   constructor(private api: APIService, private userService: UserService, private mockService: MockService) {
   }
 
   ngOnInit() {
-    this.photoUserProfile = this.userService.getProfileByUsername(this.photoUrl.photo.username);
   }
 
   public onModal(photoUrl: PhotoUrl) {
