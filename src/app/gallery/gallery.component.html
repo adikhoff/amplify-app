@@ -1,12 +1,3 @@
-<div class="body-text welcome-message">
-  <h1>Meedoen?</h1>
-  <p>Ga naar <a href="https://www.dekkerreunie.nl/ ">dekkerreunie.nl</a> op je mobiel. Log in met
-    <a href="https://www.google.com">Google</a> of <a href="https://www.facebook.com">Facebook</a>,
-    of maak een account aan. Uploaden maar!</p>
-</div>
-
-<app-upload></app-upload>
-
 <div class="gallery-container">
   <div *ngFor="let photoUrl of whichPhotos(); let i = index; trackBy: getTrackBy" class="gallery-container-div">
     <app-photo [index]="i + 1" [photoUrl]="photoUrl" [profile]="getProfileForUser(photoUrl.photo.username)"></app-photo>

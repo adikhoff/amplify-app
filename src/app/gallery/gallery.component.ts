@@ -39,8 +39,13 @@ export class GalleryComponent implements OnInit, OnDestroy {
     });
 
     if (this.galleryType === "user") {
-      this.photoService.fetchNewUserPhotos(this.username!);
+      this.photoService.fetchOlderUserPhotos(this.username!);
     }
+
+    if (this.galleryType === "likes") {
+      this.photoService.fetchPhotosByLikes();
+    }
+
   }
 
   ngOnDestroy() {
@@ -61,8 +66,10 @@ export class GalleryComponent implements OnInit, OnDestroy {
 
   public whichPhotos(): PhotoUrl[] {
     switch (this.galleryType) {
-      case "user": //TODO: investigate why this produces an endless loop
+      case "user":
         return this.photoService.userPhotos.get(this.username!)!;
+      case "likes":
+        return this.photoService.likedPhotos;
       default:
         return this.photoService.newPhotos;
     }

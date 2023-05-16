@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Storage} from "aws-amplify";
-import {APIService, Like, ModelSortDirection, Photo} from "../API.service";
+import {APIService, Like, ListLikesQuery, ListPhotosQuery, ModelSortDirection, Photo} from "../API.service";
 import {PhotoUrl} from "../model/photo-url";
 import {ZenObservable} from "zen-observable-ts";
 import {CustomAPIService} from "../CustomAPI.service";
@@ -14,9 +14,12 @@ export class PhotoService {
 
   private MAX_NEW_PHOTOS = 100;
   private MAX_USER_PHOTOS = 1000;
+  private MAX_PHOTOS_WITH_LIKES = 50;
 
   private _newPhotos: PhotoUrl[] = [];
   private _userPhotos: Map<string, PhotoUrl[]> = new Map();
+  private _likedPhotos: PhotoUrl[] = [];
+  private _likedCutoff: number = 1;
 
   constructor(
     private api: APIService,
@@ -26,7 +29,7 @@ export class PhotoService {
     this.photoCreateSubscription = this.api.OnCreatePhotoListener().subscribe(
       (event: any) => {
         const newPhoto = event.value.data.onCreatePhoto;
-        this.processPhoto(newPhoto, -1);
+        this.__processPhoto(newPhoto, -1);
       }
     );
 
@@ -60,6 +63,8 @@ export class PhotoService {
   }
 
   public refresh() {
+    this._newPhotos = [];
+    this._userPhotos = new Map<string, PhotoUrl[]>();
     this.fetchNewPhotos();
   }
 
@@ -73,12 +78,12 @@ export class PhotoService {
     ).then((event) => {
       const photos = event.items as Photo[];
       for (let i = 0; i < photos.length; i++) {
-        this.processPhoto(photos[i], 1);
+        this.__processPhoto(photos[i], 1);
       }
     })
   }
 
-  public fetchNewUserPhotos(username: string) {
+  public fetchOlderUserPhotos(username: string) {
     const current = this.safeGet(this._userPhotos, username);
     const oldest = current[current.length - 1];
     this.customApi.PhotosByDate(
@@ -93,18 +98,63 @@ export class PhotoService {
     ).then((event) => {
       const photos = event.items as Photo[];
       for (let i = 0; i < photos.length; i++) {
-        this.processPhoto(photos[i], 1);
+        this.__processPhoto(photos[i], 1);
       }
     })
   }
 
-  private processPhoto(photo: Photo, dir: number) {
+  public async fetchPhotosByLikes() {
+    let highScores: Photo[] = [];
+    let nextToken: string | null | undefined = "";
+    do {
+      const queryResult: ListPhotosQuery = await this.customApi.ListPhotosWithData({}, 1000, nextToken);
+      console.log("queryResult", queryResult);
+      highScores = [...highScores, ...queryResult.items as Photo[]];
+      nextToken = queryResult.nextToken;
+    } while (nextToken);
+    console.log("allPhotos", highScores);
+    let cutoff = 0;
+    while (highScores.length > this.MAX_PHOTOS_WITH_LIKES) {
+      highScores = highScores.filter(p => p.likes!.items.length > cutoff);
+      cutoff++;
+    }
+    this._likedCutoff = cutoff;
+    console.log("Filtered", highScores);
+    this._likedPhotos = [];
+    this.processPhotos(highScores, this._likedPhotos);
+  }
+
+  private processPhotos(photos: Photo[], toCollection: PhotoUrl[]) {
+    let proms: Promise<PhotoUrl>[] = [];
+    photos.forEach(p => {
+      const prom = this.processPhoto(p);
+      proms.push(prom);
+    })
+    Promise.all(proms).then((proms) => {
+      proms.forEach(pu => {
+        toCollection.push(pu);
+      })
+    });
+  }
+
+  private async processPhoto(photo: Photo): Promise<PhotoUrl> {
+    const url = await this.getObjectUrl(photo as Photo)
+    let pu: PhotoUrl = {
+      photo: photo as Photo,
+      url: url,
+      loading: true,
+    }
+    return pu;
+  }
+
+  private __processPhoto(photo: Photo, dir: number) {
     this.getObjectUrl(photo as Photo).then(url => {
       let pu: PhotoUrl = {
         photo: photo as Photo,
         url: url,
         loading: true,
       }
+      //TODO: get rid of the globals here
       this._newPhotos = this.insert(this._newPhotos, pu, dir);
       this._userPhotos.set(photo.username, this.insert(this.safeGet(this._userPhotos, photo.username), pu, dir));
     });
@@ -135,6 +185,14 @@ export class PhotoService {
 
   get userPhotos(): Map<string, PhotoUrl[]> {
     return this._userPhotos;
+  }
+
+  get likedPhotos(): PhotoUrl[] {
+    return this._likedPhotos;
+  }
+
+  get likedCutoff(): number {
+    return this._likedCutoff;
   }
 
   private safeGet(map: Map<string, PhotoUrl[]>, name: string): PhotoUrl[] {
