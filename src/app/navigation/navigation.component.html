@@ -1,6 +1,6 @@
 <ul *ngIf="!isFooter" class="topmenu">
-  <li><a [ngClass]="this.router.url === '/' ? 'red' : ''" [routerLink]="'/'">Home</a></li>
-  <li><a [ngClass]="this.router.url === '/gallery' ? 'red' : ''" [routerLink]="'/gallery'">gallerij</a></li>
+  <li><a [ngClass]="this.router.url === '/' ? 'red' : ''" [routerLink]="'/'">Nieuw</a></li>
+  <li><a [ngClass]="this.router.url === '/gallery' ? 'red' : ''" [routerLink]="'/gallery'">Likes</a></li>
   <li *ngIf="userService.currentProfile" class="last">
     <a (click)="showUserDropdown = !showUserDropdown"
        class="dropbtn {{this.router.url === 'profile' ? 'red' : ''}}">{{userService.currentProfile.displayname}}</a>

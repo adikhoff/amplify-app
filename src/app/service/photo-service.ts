@@ -4,7 +4,6 @@ import {APIService, Like, ModelSortDirection, Photo} from "../API.service";
 import {PhotoUrl} from "../model/photo-url";
 import {ZenObservable} from "zen-observable-ts";
 import {CustomAPIService} from "../CustomAPI.service";
-import {UserService} from "./user-service";
 
 @Injectable()
 export class PhotoService {
@@ -17,33 +16,24 @@ export class PhotoService {
   private MAX_USER_PHOTOS = 1000;
 
   private _newPhotos: PhotoUrl[] = [];
-  private _userPhotos: PhotoUrl[] = [];
+  private _userPhotos: Map<string, PhotoUrl[]> = new Map();
 
   constructor(
     private api: APIService,
-    private customApi: CustomAPIService,
-    private userService: UserService,
+    private customApi: CustomAPIService
   ) {
     this.refresh();
     this.photoCreateSubscription = this.api.OnCreatePhotoListener().subscribe(
       (event: any) => {
         const newPhoto = event.value.data.onCreatePhoto;
-        this.getObjectUrl(newPhoto).then((url) => {
-          const pu: PhotoUrl = {
-            photo: newPhoto,
-            url: url,
-            loading: true,
-          }
-          this._newPhotos = [pu, ...this._newPhotos];
-          while (this._newPhotos.length > this.MAX_NEW_PHOTOS) { this._newPhotos.pop(); }
-        });
+        this.processPhoto(newPhoto, -1);
       }
     );
 
     this.photoDeleteSubscription = this.api.OnDeletePhotoListener().subscribe(
       (event: any) => {
         const removedPhoto = event.value.data.onDeletePhoto;
-        this._newPhotos = this._newPhotos.filter((ph) => ph.photo.id !== removedPhoto.id);
+        this.deletePhoto(removedPhoto);
       }
     );
 
@@ -81,37 +71,58 @@ export class PhotoService {
       {},
       this.MAX_NEW_PHOTOS
     ).then((event) => {
-      this._newPhotos = this.processPhotos(event);
+      const photos = event.items as Photo[];
+      for (let i = 0; i < photos.length; i++) {
+        this.processPhoto(photos[i], 1);
+      }
     })
   }
 
-  public fetchUserPhotos(username: string) {
+  public fetchNewUserPhotos(username: string) {
+    const current = this.safeGet(this._userPhotos, username);
+    const oldest = current[current.length - 1];
     this.customApi.PhotosByDate(
       "byDate",
       undefined,
       ModelSortDirection.DESC,
-      { username: {eq: username }},
+      {
+        username: {eq: username},
+        createdAt: {lt: oldest.photo.createdAt}
+      },
       this.MAX_USER_PHOTOS
     ).then((event) => {
-      this._userPhotos = this.processPhotos(event);
+      const photos = event.items as Photo[];
+      for (let i = 0; i < photos.length; i++) {
+        this.processPhoto(photos[i], 1);
+      }
     })
   }
 
-  private processPhotos(event: any) {
-    const photos = event.items as Photo[];
-    const newPhotos: PhotoUrl[] = [];
-    for (let i = 0; i < photos.length; i++) {
-      const photo = photos[i];
-      this.getObjectUrl(photo as Photo).then(url => {
-        let pu: PhotoUrl = {
-          photo: photo as Photo,
-          url: url,
-          loading: true,
-        }
-        newPhotos.push(pu);
-      });
+  private processPhoto(photo: Photo, dir: number) {
+    this.getObjectUrl(photo as Photo).then(url => {
+      let pu: PhotoUrl = {
+        photo: photo as Photo,
+        url: url,
+        loading: true,
+      }
+      this._newPhotos = this.insert(this._newPhotos, pu, dir);
+      this._userPhotos.set(photo.username, this.insert(this.safeGet(this._userPhotos, photo.username), pu, dir));
+    });
+  }
+
+  private insert(arr: PhotoUrl[], ins: PhotoUrl, dir: number): PhotoUrl[] {
+    let newArr: PhotoUrl[] = arr;
+    if (dir > 0) {
+      newArr.push(ins);
+    } else {
+      newArr = [ins, ...newArr];
     }
-    return newPhotos;
+    return newArr;
+  }
+
+  private deletePhoto(photo: Photo) {
+    this._newPhotos = this._newPhotos.filter(ph => ph.photo.id !== photo.id);
+    this._userPhotos.set(photo.username, this.safeGet(this._userPhotos, photo.username).filter(ph => ph.photo.id !== photo.id));
   }
 
   public async getObjectUrl(photo: Photo): Promise<string> {
@@ -122,7 +133,17 @@ export class PhotoService {
     return this._newPhotos;
   }
 
-  get userPhotos(): PhotoUrl[] {
+  get userPhotos(): Map<string, PhotoUrl[]> {
     return this._userPhotos;
   }
+
+  private safeGet(map: Map<string, PhotoUrl[]>, name: string): PhotoUrl[] {
+    let res = map.get(name);
+    if (!res) {
+      res = [];
+      map.set(name, res);
+    }
+    return res;
+  }
+
 }

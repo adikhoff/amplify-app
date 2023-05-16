@@ -24,7 +24,6 @@ export class GalleryComponent implements OnInit, OnDestroy {
   public allProfiles?: Profile[];
   public allProfiles$: Subject<Profile[]> = this.userService.allProfiles;
 
-
   constructor(
     public userService: UserService,
     public photoService: PhotoService,
@@ -32,16 +31,20 @@ export class GalleryComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.allProfiles$.subscribe((evt: Profile[]) => {
       console.log("setting all profiles");
       this.allProfiles = evt;
       console.log("all profiles: ", this.allProfiles);
     });
+
+    if (this.galleryType === "user") {
+      this.photoService.fetchNewUserPhotos(this.username!);
+    }
   }
 
   ngOnDestroy() {
-    this.allProfiles$.unsubscribe();
+    // this.allProfiles$.unsubscribe();
   }
 
   public getProfileForUser(username: string): Profile {
@@ -58,9 +61,8 @@ export class GalleryComponent implements OnInit, OnDestroy {
 
   public whichPhotos(): PhotoUrl[] {
     switch (this.galleryType) {
-      // case "user": //TODO: investigate why this produces an endless loop
-      //   this.photoService.fetchUserPhotos(this.username!);
-      //   return this.photoService.userPhotos;
+      case "user": //TODO: investigate why this produces an endless loop
+        return this.photoService.userPhotos.get(this.username!)!;
       default:
         return this.photoService.newPhotos;
     }
