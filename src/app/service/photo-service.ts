@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Storage} from "aws-amplify";
-import {APIService, Like, ListLikesQuery, ListPhotosQuery, ModelSortDirection, Photo} from "../API.service";
+import {APIService, Like, ListPhotosQuery, ModelSortDirection, Photo} from "../API.service";
 import {PhotoUrl} from "../model/photo-url";
 import {ZenObservable} from "zen-observable-ts";
 import {CustomAPIService} from "../CustomAPI.service";
@@ -14,7 +14,7 @@ export class PhotoService {
 
   private MAX_NEW_PHOTOS = 100;
   private MAX_USER_PHOTOS = 1000;
-  private MAX_PHOTOS_WITH_LIKES = 50;
+  private MAX_PHOTOS_WITH_LIKES = 100;
 
   private _newPhotos: PhotoUrl[] = [];
   private _userPhotos: Map<string, PhotoUrl[]> = new Map();
@@ -29,7 +29,10 @@ export class PhotoService {
     this.photoCreateSubscription = this.api.OnCreatePhotoListener().subscribe(
       (event: any) => {
         const newPhoto = event.value.data.onCreatePhoto;
-        this.processPhotos([newPhoto], this._newPhotos, (arr, ph) => { arr.unshift(ph); });
+        this.processPhoto(newPhoto).then(pu => {
+          this._newPhotos.unshift(pu);
+          this._newPhotos.slice(0, this.MAX_NEW_PHOTOS);
+        });
       }
     );
 
@@ -117,29 +120,26 @@ export class PhotoService {
     this.processPhotos(highScores, this._likedPhotos);
   }
 
-  private processPhotos(photos: Photo[], toCollection: PhotoUrl[],
-                        insertMethod: (arr: PhotoUrl[], ph: PhotoUrl) => void =
-                          (arr, ph) => arr.push(ph)) {
+  private processPhotos(photos: Photo[], toCollection: PhotoUrl[]) {
     let proms: Promise<PhotoUrl>[] = [];
     photos.forEach(p => {
       const prom = this.processPhoto(p);
       proms.push(prom);
     })
-    Promise.all(proms).then((proms) => {
-      proms.forEach(pu => {
-        insertMethod(toCollection, pu);
+    Promise.all(proms).then((awaited) => {
+      awaited.forEach(pu => {
+        toCollection.push(pu);
       })
     });
   }
 
   private async processPhoto(photo: Photo): Promise<PhotoUrl> {
     const url = await this.getObjectUrl(photo as Photo)
-    let pu: PhotoUrl = {
+    return {
       photo: photo as Photo,
       url: url,
       loading: true,
-    }
-    return pu;
+    };
   }
 
   private deletePhoto(photo: Photo) {
