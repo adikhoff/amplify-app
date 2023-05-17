@@ -39,7 +39,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
     });
 
     if (this.galleryType === "user") {
-      this.photoService.fetchOlderUserPhotos(this.username!);
+      this.photoService.fetchUserPhotos(this.username!);
     }
 
     if (this.galleryType === "likes") {

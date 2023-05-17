@@ -81,16 +81,13 @@ export class PhotoService {
     })
   }
 
-  public fetchOlderUserPhotos(username: string) {
-    const current = this.safeGet(this._userPhotos, username);
-    const oldest = current[current.length - 1];
+  public fetchUserPhotos(username: string) {
     this.customApi.PhotosByDate(
       "byDate",
       undefined,
       ModelSortDirection.DESC,
       {
         username: {eq: username},
-        createdAt: {lt: oldest.photo.createdAt}
       },
       this.MAX_USER_PHOTOS
     ).then((event) => {
