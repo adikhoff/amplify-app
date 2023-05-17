@@ -29,7 +29,7 @@ export class PhotoService {
     this.photoCreateSubscription = this.api.OnCreatePhotoListener().subscribe(
       (event: any) => {
         const newPhoto = event.value.data.onCreatePhoto;
-        this.__processPhoto(newPhoto, -1);
+        this.processPhotos([newPhoto], this._newPhotos, (arr, ph) => { arr.unshift(ph); });
       }
     );
 
@@ -77,9 +77,7 @@ export class PhotoService {
       this.MAX_NEW_PHOTOS
     ).then((event) => {
       const photos = event.items as Photo[];
-      for (let i = 0; i < photos.length; i++) {
-        this.__processPhoto(photos[i], 1);
-      }
+      this.processPhotos(photos, this._newPhotos);
     })
   }
 
@@ -97,10 +95,8 @@ export class PhotoService {
       this.MAX_USER_PHOTOS
     ).then((event) => {
       const photos = event.items as Photo[];
-      for (let i = 0; i < photos.length; i++) {
-        this.__processPhoto(photos[i], 1);
-      }
-    })
+      this.processPhotos(photos, this.safeGet(this._userPhotos, username));
+    });
   }
 
   public async fetchPhotosByLikes() {
@@ -124,7 +120,9 @@ export class PhotoService {
     this.processPhotos(highScores, this._likedPhotos);
   }
 
-  private processPhotos(photos: Photo[], toCollection: PhotoUrl[]) {
+  private processPhotos(photos: Photo[], toCollection: PhotoUrl[],
+                        insertMethod: (arr: PhotoUrl[], ph: PhotoUrl) => void =
+                          (arr, ph) => arr.push(ph)) {
     let proms: Promise<PhotoUrl>[] = [];
     photos.forEach(p => {
       const prom = this.processPhoto(p);
@@ -132,7 +130,7 @@ export class PhotoService {
     })
     Promise.all(proms).then((proms) => {
       proms.forEach(pu => {
-        toCollection.push(pu);
+        insertMethod(toCollection, pu);
       })
     });
   }
@@ -145,29 +143,6 @@ export class PhotoService {
       loading: true,
     }
     return pu;
-  }
-
-  private __processPhoto(photo: Photo, dir: number) {
-    this.getObjectUrl(photo as Photo).then(url => {
-      let pu: PhotoUrl = {
-        photo: photo as Photo,
-        url: url,
-        loading: true,
-      }
-      //TODO: get rid of the globals here
-      this._newPhotos = this.insert(this._newPhotos, pu, dir);
-      this._userPhotos.set(photo.username, this.insert(this.safeGet(this._userPhotos, photo.username), pu, dir));
-    });
-  }
-
-  private insert(arr: PhotoUrl[], ins: PhotoUrl, dir: number): PhotoUrl[] {
-    let newArr: PhotoUrl[] = arr;
-    if (dir > 0) {
-      newArr.push(ins);
-    } else {
-      newArr = [ins, ...newArr];
-    }
-    return newArr;
   }
 
   private deletePhoto(photo: Photo) {
