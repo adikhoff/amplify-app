@@ -14,7 +14,8 @@ export class PhotoService {
 
   private MAX_NEW_PHOTOS = 100;
   private MAX_USER_PHOTOS = 1000;
-  private MAX_PHOTOS_WITH_LIKES = 100;
+  private MAX_PHOTOS_WITH_LIKES = 50;
+  private MIN_PHOTOS_WITH_LIKES = 25;
 
   private _newPhotos: PhotoUrl[] = [];
   private _userPhotos: Map<string, PhotoUrl[]> = new Map();
@@ -67,7 +68,6 @@ export class PhotoService {
 
   public refresh() {
     this._newPhotos = [];
-    this._userPhotos = new Map<string, PhotoUrl[]>();
     this.fetchNewPhotos();
   }
 
@@ -109,8 +109,13 @@ export class PhotoService {
     } while (nextToken);
     let cutoff = 0;
     do {
-      highScores = highScores.filter(p => p.likes!.items.length > cutoff);
-      cutoff++;
+      const newHighScores = highScores.filter(p => p.likes!.items.length > cutoff);
+      if (newHighScores.length < this.MIN_PHOTOS_WITH_LIKES) {
+        break;
+      } else {
+        highScores = newHighScores;
+        cutoff++;
+      }
     } while (highScores.length > this.MAX_PHOTOS_WITH_LIKES);
     this._likedCutoff = cutoff;
 
