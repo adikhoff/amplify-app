@@ -104,18 +104,16 @@ export class PhotoService {
     let nextToken: string | null | undefined = "";
     do {
       const queryResult: ListPhotosQuery = await this.customApi.ListPhotosWithData({}, 1000, nextToken);
-      console.log("queryResult", queryResult);
-      highScores = [...highScores, ...queryResult.items as Photo[]];
+      highScores = highScores.concat(queryResult.items as Photo[]);
       nextToken = queryResult.nextToken;
     } while (nextToken);
-    console.log("allPhotos", highScores);
     let cutoff = 0;
-    while (highScores.length > this.MAX_PHOTOS_WITH_LIKES) {
+    do {
       highScores = highScores.filter(p => p.likes!.items.length > cutoff);
       cutoff++;
-    }
+    } while (highScores.length > this.MAX_PHOTOS_WITH_LIKES);
     this._likedCutoff = cutoff;
-    console.log("Filtered", highScores);
+
     this._likedPhotos = [];
     this.processPhotos(highScores, this._likedPhotos);
   }
