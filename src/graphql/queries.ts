@@ -138,6 +138,7 @@ export const getLikesCount = /* GraphQL */ `
     getLikesCount(id: $id) {
       id
       photoId
+      countIndex
       count
       createdAt
       updatedAt
@@ -155,6 +156,7 @@ export const listLikesCounts = /* GraphQL */ `
       items {
         id
         photoId
+        countIndex
         count
         createdAt
         updatedAt
@@ -226,6 +228,37 @@ export const photosByDate = /* GraphQL */ `
           __typename
         }
         dateIndex
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const photosByLikes = /* GraphQL */ `
+  query PhotosByLikes(
+    $countIndex: String!
+    $count: ModelIntKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelLikesCountFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    photosByLikes(
+      countIndex: $countIndex
+      count: $count
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        photoId
+        countIndex
+        count
         createdAt
         updatedAt
         __typename

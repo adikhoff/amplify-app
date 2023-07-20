@@ -171,6 +171,7 @@ subscription OnCreateLikesCount(
   onCreateLikesCount(filter: $filter) {
     id
     photoId
+    countIndex
     count
     createdAt
     updatedAt
@@ -184,6 +185,7 @@ subscription OnUpdateLikesCount(
   onUpdateLikesCount(filter: $filter) {
     id
     photoId
+    countIndex
     count
     createdAt
     updatedAt
@@ -197,6 +199,7 @@ subscription OnDeleteLikesCount(
   onDeleteLikesCount(filter: $filter) {
     id
     photoId
+    countIndex
     count
     createdAt
     updatedAt

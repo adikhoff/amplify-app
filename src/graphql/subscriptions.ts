@@ -183,6 +183,7 @@ export const onCreateLikesCount = /* GraphQL */ `
     onCreateLikesCount(filter: $filter) {
       id
       photoId
+      countIndex
       count
       createdAt
       updatedAt
@@ -197,6 +198,7 @@ export const onUpdateLikesCount = /* GraphQL */ `
     onUpdateLikesCount(filter: $filter) {
       id
       photoId
+      countIndex
       count
       createdAt
       updatedAt
@@ -211,6 +213,7 @@ export const onDeleteLikesCount = /* GraphQL */ `
     onDeleteLikesCount(filter: $filter) {
       id
       photoId
+      countIndex
       count
       createdAt
       updatedAt

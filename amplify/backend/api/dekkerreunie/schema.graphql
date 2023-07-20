@@ -30,5 +30,6 @@ type Like @model @auth(rules: [{ allow: public }]) {
 type LikesCount @model @auth(rules: [{ allow: public }]) {
   id: ID!
   photoId: String!
+  countIndex: String! @index(name: "photosByLikes", queryField: "photosByLikes", sortKeyFields: ["count"])
   count: Int
 }

@@ -199,6 +199,7 @@ mutation CreateLikesCount(
   createLikesCount(input: $input, condition: $condition) {
     id
     photoId
+    countIndex
     count
     createdAt
     updatedAt
@@ -213,6 +214,7 @@ mutation UpdateLikesCount(
   updateLikesCount(input: $input, condition: $condition) {
     id
     photoId
+    countIndex
     count
     createdAt
     updatedAt
@@ -227,6 +229,7 @@ mutation DeleteLikesCount(
   deleteLikesCount(input: $input, condition: $condition) {
     id
     photoId
+    countIndex
     count
     createdAt
     updatedAt

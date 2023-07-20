@@ -129,6 +129,7 @@ query GetLikesCount($id: ID!) {
   getLikesCount(id: $id) {
     id
     photoId
+    countIndex
     count
     createdAt
     updatedAt
@@ -145,6 +146,7 @@ query ListLikesCounts(
     items {
       id
       photoId
+      countIndex
       count
       createdAt
       updatedAt
@@ -214,6 +216,36 @@ query PhotosByDate(
         __typename
       }
       dateIndex
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+
+query PhotosByLikes(
+  $countIndex: String!
+  $count: ModelIntKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelLikesCountFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  photosByLikes(
+    countIndex: $countIndex
+    count: $count
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      photoId
+      countIndex
+      count
       createdAt
       updatedAt
       __typename
