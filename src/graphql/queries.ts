@@ -15,6 +15,7 @@ export const getProfile = /* GraphQL */ `
       score
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -36,8 +37,10 @@ export const listProfiles = /* GraphQL */ `
         score
         createdAt
         updatedAt
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
@@ -57,12 +60,15 @@ export const getPhoto = /* GraphQL */ `
           createdAt
           updatedAt
           photoLikesId
+          __typename
         }
         nextToken
+        __typename
       }
       dateIndex
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -81,12 +87,15 @@ export const listPhotos = /* GraphQL */ `
         width
         likes {
           nextToken
+          __typename
         }
         dateIndex
         createdAt
         updatedAt
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
@@ -99,6 +108,7 @@ export const getLike = /* GraphQL */ `
       createdAt
       updatedAt
       photoLikesId
+      __typename
     }
   }
 `;
@@ -116,8 +126,42 @@ export const listLikes = /* GraphQL */ `
         createdAt
         updatedAt
         photoLikesId
+        __typename
       }
       nextToken
+      __typename
+    }
+  }
+`;
+export const getLikesCount = /* GraphQL */ `
+  query GetLikesCount($id: ID!) {
+    getLikesCount(id: $id) {
+      id
+      photoId
+      count
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listLikesCounts = /* GraphQL */ `
+  query ListLikesCounts(
+    $filter: ModelLikesCountFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listLikesCounts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        photoId
+        count
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
     }
   }
 `;
@@ -147,8 +191,10 @@ export const profilesByUsername = /* GraphQL */ `
         score
         createdAt
         updatedAt
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
@@ -177,12 +223,15 @@ export const photosByDate = /* GraphQL */ `
         width
         likes {
           nextToken
+          __typename
         }
         dateIndex
         createdAt
         updatedAt
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;

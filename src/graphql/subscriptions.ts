@@ -15,6 +15,7 @@ export const onCreateProfile = /* GraphQL */ `
       score
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -31,6 +32,7 @@ export const onUpdateProfile = /* GraphQL */ `
       score
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -47,6 +49,7 @@ export const onDeleteProfile = /* GraphQL */ `
       score
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -66,12 +69,15 @@ export const onCreatePhoto = /* GraphQL */ `
           createdAt
           updatedAt
           photoLikesId
+          __typename
         }
         nextToken
+        __typename
       }
       dateIndex
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -91,12 +97,15 @@ export const onUpdatePhoto = /* GraphQL */ `
           createdAt
           updatedAt
           photoLikesId
+          __typename
         }
         nextToken
+        __typename
       }
       dateIndex
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -116,12 +125,15 @@ export const onDeletePhoto = /* GraphQL */ `
           createdAt
           updatedAt
           photoLikesId
+          __typename
         }
         nextToken
+        __typename
       }
       dateIndex
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -134,6 +146,7 @@ export const onCreateLike = /* GraphQL */ `
       createdAt
       updatedAt
       photoLikesId
+      __typename
     }
   }
 `;
@@ -146,6 +159,7 @@ export const onUpdateLike = /* GraphQL */ `
       createdAt
       updatedAt
       photoLikesId
+      __typename
     }
   }
 `;
@@ -158,6 +172,49 @@ export const onDeleteLike = /* GraphQL */ `
       createdAt
       updatedAt
       photoLikesId
+      __typename
+    }
+  }
+`;
+export const onCreateLikesCount = /* GraphQL */ `
+  subscription OnCreateLikesCount(
+    $filter: ModelSubscriptionLikesCountFilterInput
+  ) {
+    onCreateLikesCount(filter: $filter) {
+      id
+      photoId
+      count
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateLikesCount = /* GraphQL */ `
+  subscription OnUpdateLikesCount(
+    $filter: ModelSubscriptionLikesCountFilterInput
+  ) {
+    onUpdateLikesCount(filter: $filter) {
+      id
+      photoId
+      count
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteLikesCount = /* GraphQL */ `
+  subscription OnDeleteLikesCount(
+    $filter: ModelSubscriptionLikesCountFilterInput
+  ) {
+    onDeleteLikesCount(filter: $filter) {
+      id
+      photoId
+      count
+      createdAt
+      updatedAt
+      __typename
     }
   }
 `;

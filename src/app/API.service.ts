@@ -1,9 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
-import {Injectable} from "@angular/core";
-import API, {graphqlOperation, GraphQLResult} from "@aws-amplify/api-graphql";
-import {Observable} from "zen-observable-ts";
+import { Injectable } from "@angular/core";
+import API, { graphqlOperation, GraphQLResult } from "@aws-amplify/api-graphql";
+import { Observable } from "zen-observable-ts";
 
 export interface SubscriptionResponse<T> {
   value: GraphQLResult<T>;
@@ -19,6 +19,9 @@ export type __SubscriptionContainer = {
   onCreateLike: OnCreateLikeSubscription;
   onUpdateLike: OnUpdateLikeSubscription;
   onDeleteLike: OnDeleteLikeSubscription;
+  onCreateLikesCount: OnCreateLikesCountSubscription;
+  onUpdateLikesCount: OnUpdateLikesCountSubscription;
+  onDeleteLikesCount: OnDeleteLikesCountSubscription;
 };
 
 export type CreateProfileInput = {
@@ -233,6 +236,39 @@ export type DeleteLikeInput = {
   id: string;
 };
 
+export type CreateLikesCountInput = {
+  id?: string | null;
+  photoId: string;
+  count?: number | null;
+};
+
+export type ModelLikesCountConditionInput = {
+  photoId?: ModelStringInput | null;
+  count?: ModelIntInput | null;
+  and?: Array<ModelLikesCountConditionInput | null> | null;
+  or?: Array<ModelLikesCountConditionInput | null> | null;
+  not?: ModelLikesCountConditionInput | null;
+};
+
+export type LikesCount = {
+  __typename: "LikesCount";
+  id: string;
+  photoId: string;
+  count?: number | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type UpdateLikesCountInput = {
+  id: string;
+  photoId?: string | null;
+  count?: number | null;
+};
+
+export type DeleteLikesCountInput = {
+  id: string;
+};
+
 export type ModelProfileFilterInput = {
   id?: ModelIDInput | null;
   username?: ModelStringInput | null;
@@ -280,6 +316,21 @@ export type ModelLikeFilterInput = {
   or?: Array<ModelLikeFilterInput | null> | null;
   not?: ModelLikeFilterInput | null;
   photoLikesId?: ModelIDInput | null;
+};
+
+export type ModelLikesCountFilterInput = {
+  id?: ModelIDInput | null;
+  photoId?: ModelStringInput | null;
+  count?: ModelIntInput | null;
+  and?: Array<ModelLikesCountFilterInput | null> | null;
+  or?: Array<ModelLikesCountFilterInput | null> | null;
+  not?: ModelLikesCountFilterInput | null;
+};
+
+export type ModelLikesCountConnection = {
+  __typename: "ModelLikesCountConnection";
+  items: Array<LikesCount | null>;
+  nextToken?: string | null;
 };
 
 export enum ModelSortDirection {
@@ -370,6 +421,14 @@ export type ModelSubscriptionLikeFilterInput = {
   photoId?: ModelSubscriptionStringInput | null;
   and?: Array<ModelSubscriptionLikeFilterInput | null> | null;
   or?: Array<ModelSubscriptionLikeFilterInput | null> | null;
+};
+
+export type ModelSubscriptionLikesCountFilterInput = {
+  id?: ModelSubscriptionIDInput | null;
+  photoId?: ModelSubscriptionStringInput | null;
+  count?: ModelSubscriptionIntInput | null;
+  and?: Array<ModelSubscriptionLikesCountFilterInput | null> | null;
+  or?: Array<ModelSubscriptionLikesCountFilterInput | null> | null;
 };
 
 export type CreateProfileMutation = {
@@ -519,6 +578,33 @@ export type DeleteLikeMutation = {
   photoLikesId: string;
 };
 
+export type CreateLikesCountMutation = {
+  __typename: "LikesCount";
+  id: string;
+  photoId: string;
+  count?: number | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type UpdateLikesCountMutation = {
+  __typename: "LikesCount";
+  id: string;
+  photoId: string;
+  count?: number | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type DeleteLikesCountMutation = {
+  __typename: "LikesCount";
+  id: string;
+  photoId: string;
+  count?: number | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type GetProfileQuery = {
   __typename: "Profile";
   id: string;
@@ -616,6 +702,28 @@ export type ListLikesQuery = {
     createdAt: string;
     updatedAt: string;
     photoLikesId: string;
+  } | null>;
+  nextToken?: string | null;
+};
+
+export type GetLikesCountQuery = {
+  __typename: "LikesCount";
+  id: string;
+  photoId: string;
+  count?: number | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ListLikesCountsQuery = {
+  __typename: "ModelLikesCountConnection";
+  items: Array<{
+    __typename: "LikesCount";
+    id: string;
+    photoId: string;
+    count?: number | null;
+    createdAt: string;
+    updatedAt: string;
   } | null>;
   nextToken?: string | null;
 };
@@ -805,6 +913,33 @@ export type OnDeleteLikeSubscription = {
   photoLikesId: string;
 };
 
+export type OnCreateLikesCountSubscription = {
+  __typename: "LikesCount";
+  id: string;
+  photoId: string;
+  count?: number | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnUpdateLikesCountSubscription = {
+  __typename: "LikesCount";
+  id: string;
+  photoId: string;
+  count?: number | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnDeleteLikesCountSubscription = {
+  __typename: "LikesCount";
+  id: string;
+  photoId: string;
+  count?: number | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
 @Injectable({
   providedIn: "root"
 })
@@ -839,7 +974,6 @@ export class APIService {
     )) as any;
     return <CreateProfileMutation>response.data.createProfile;
   }
-
   async UpdateProfile(
     input: UpdateProfileInput,
     condition?: ModelProfileConditionInput
@@ -870,7 +1004,6 @@ export class APIService {
     )) as any;
     return <UpdateProfileMutation>response.data.updateProfile;
   }
-
   async DeleteProfile(
     input: DeleteProfileInput,
     condition?: ModelProfileConditionInput
@@ -901,7 +1034,6 @@ export class APIService {
     )) as any;
     return <DeleteProfileMutation>response.data.deleteProfile;
   }
-
   async CreatePhoto(
     input: CreatePhotoInput,
     condition?: ModelPhotoConditionInput
@@ -943,7 +1075,6 @@ export class APIService {
     )) as any;
     return <CreatePhotoMutation>response.data.createPhoto;
   }
-
   async UpdatePhoto(
     input: UpdatePhotoInput,
     condition?: ModelPhotoConditionInput
@@ -985,7 +1116,6 @@ export class APIService {
     )) as any;
     return <UpdatePhotoMutation>response.data.updatePhoto;
   }
-
   async DeletePhoto(
     input: DeletePhotoInput,
     condition?: ModelPhotoConditionInput
@@ -1027,7 +1157,6 @@ export class APIService {
     )) as any;
     return <DeletePhotoMutation>response.data.deletePhoto;
   }
-
   async CreateLike(
     input: CreateLikeInput,
     condition?: ModelLikeConditionInput
@@ -1054,7 +1183,6 @@ export class APIService {
     )) as any;
     return <CreateLikeMutation>response.data.createLike;
   }
-
   async UpdateLike(
     input: UpdateLikeInput,
     condition?: ModelLikeConditionInput
@@ -1081,7 +1209,6 @@ export class APIService {
     )) as any;
     return <UpdateLikeMutation>response.data.updateLike;
   }
-
   async DeleteLike(
     input: DeleteLikeInput,
     condition?: ModelLikeConditionInput
@@ -1108,7 +1235,81 @@ export class APIService {
     )) as any;
     return <DeleteLikeMutation>response.data.deleteLike;
   }
-
+  async CreateLikesCount(
+    input: CreateLikesCountInput,
+    condition?: ModelLikesCountConditionInput
+  ): Promise<CreateLikesCountMutation> {
+    const statement = `mutation CreateLikesCount($input: CreateLikesCountInput!, $condition: ModelLikesCountConditionInput) {
+        createLikesCount(input: $input, condition: $condition) {
+          __typename
+          id
+          photoId
+          count
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreateLikesCountMutation>response.data.createLikesCount;
+  }
+  async UpdateLikesCount(
+    input: UpdateLikesCountInput,
+    condition?: ModelLikesCountConditionInput
+  ): Promise<UpdateLikesCountMutation> {
+    const statement = `mutation UpdateLikesCount($input: UpdateLikesCountInput!, $condition: ModelLikesCountConditionInput) {
+        updateLikesCount(input: $input, condition: $condition) {
+          __typename
+          id
+          photoId
+          count
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdateLikesCountMutation>response.data.updateLikesCount;
+  }
+  async DeleteLikesCount(
+    input: DeleteLikesCountInput,
+    condition?: ModelLikesCountConditionInput
+  ): Promise<DeleteLikesCountMutation> {
+    const statement = `mutation DeleteLikesCount($input: DeleteLikesCountInput!, $condition: ModelLikesCountConditionInput) {
+        deleteLikesCount(input: $input, condition: $condition) {
+          __typename
+          id
+          photoId
+          count
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeleteLikesCountMutation>response.data.deleteLikesCount;
+  }
   async GetProfile(id: string): Promise<GetProfileQuery> {
     const statement = `query GetProfile($id: ID!) {
         getProfile(id: $id) {
@@ -1133,7 +1334,6 @@ export class APIService {
     )) as any;
     return <GetProfileQuery>response.data.getProfile;
   }
-
   async ListProfiles(
     filter?: ModelProfileFilterInput,
     limit?: number,
@@ -1173,7 +1373,6 @@ export class APIService {
     )) as any;
     return <ListProfilesQuery>response.data.listProfiles;
   }
-
   async GetPhoto(id: string): Promise<GetPhotoQuery> {
     const statement = `query GetPhoto($id: ID!) {
         getPhoto(id: $id) {
@@ -1209,7 +1408,6 @@ export class APIService {
     )) as any;
     return <GetPhotoQuery>response.data.getPhoto;
   }
-
   async ListPhotos(
     filter?: ModelPhotoFilterInput,
     limit?: number,
@@ -1251,7 +1449,6 @@ export class APIService {
     )) as any;
     return <ListPhotosQuery>response.data.listPhotos;
   }
-
   async GetLike(id: string): Promise<GetLikeQuery> {
     const statement = `query GetLike($id: ID!) {
         getLike(id: $id) {
@@ -1272,7 +1469,6 @@ export class APIService {
     )) as any;
     return <GetLikeQuery>response.data.getLike;
   }
-
   async ListLikes(
     filter?: ModelLikeFilterInput,
     limit?: number,
@@ -1308,7 +1504,59 @@ export class APIService {
     )) as any;
     return <ListLikesQuery>response.data.listLikes;
   }
-
+  async GetLikesCount(id: string): Promise<GetLikesCountQuery> {
+    const statement = `query GetLikesCount($id: ID!) {
+        getLikesCount(id: $id) {
+          __typename
+          id
+          photoId
+          count
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      id
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetLikesCountQuery>response.data.getLikesCount;
+  }
+  async ListLikesCounts(
+    filter?: ModelLikesCountFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ListLikesCountsQuery> {
+    const statement = `query ListLikesCounts($filter: ModelLikesCountFilterInput, $limit: Int, $nextToken: String) {
+        listLikesCounts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            id
+            photoId
+            count
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListLikesCountsQuery>response.data.listLikesCounts;
+  }
   async ProfilesByUsername(
     username: string,
     sortDirection?: ModelSortDirection,
@@ -1361,7 +1609,6 @@ export class APIService {
     )) as any;
     return <ProfilesByUsernameQuery>response.data.profilesByUsername;
   }
-
   async PhotosByDate(
     dateIndex: string,
     createdAt?: ModelStringKeyConditionInput,
@@ -1421,10 +1668,11 @@ export class APIService {
     )) as any;
     return <PhotosByDateQuery>response.data.photosByDate;
   }
-
   OnCreateProfileListener(
     filter?: ModelSubscriptionProfileFilterInput
-  ): Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateProfile">>> {
+  ): Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateProfile">>
+  > {
     const statement = `subscription OnCreateProfile($filter: ModelSubscriptionProfileFilterInput) {
         onCreateProfile(filter: $filter) {
           __typename
@@ -1446,12 +1694,16 @@ export class APIService {
     }
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateProfile">>>;
+    ) as Observable<
+      SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateProfile">>
+    >;
   }
 
   OnUpdateProfileListener(
     filter?: ModelSubscriptionProfileFilterInput
-  ): Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateProfile">>> {
+  ): Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateProfile">>
+  > {
     const statement = `subscription OnUpdateProfile($filter: ModelSubscriptionProfileFilterInput) {
         onUpdateProfile(filter: $filter) {
           __typename
@@ -1473,12 +1725,16 @@ export class APIService {
     }
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateProfile">>>;
+    ) as Observable<
+      SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateProfile">>
+    >;
   }
 
   OnDeleteProfileListener(
     filter?: ModelSubscriptionProfileFilterInput
-  ): Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteProfile">>> {
+  ): Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteProfile">>
+  > {
     const statement = `subscription OnDeleteProfile($filter: ModelSubscriptionProfileFilterInput) {
         onDeleteProfile(filter: $filter) {
           __typename
@@ -1500,12 +1756,16 @@ export class APIService {
     }
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteProfile">>>;
+    ) as Observable<
+      SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteProfile">>
+    >;
   }
 
   OnCreatePhotoListener(
     filter?: ModelSubscriptionPhotoFilterInput
-  ): Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onCreatePhoto">>> {
+  ): Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreatePhoto">>
+  > {
     const statement = `subscription OnCreatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
         onCreatePhoto(filter: $filter) {
           __typename
@@ -1538,12 +1798,16 @@ export class APIService {
     }
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onCreatePhoto">>>;
+    ) as Observable<
+      SubscriptionResponse<Pick<__SubscriptionContainer, "onCreatePhoto">>
+    >;
   }
 
   OnUpdatePhotoListener(
     filter?: ModelSubscriptionPhotoFilterInput
-  ): Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdatePhoto">>> {
+  ): Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdatePhoto">>
+  > {
     const statement = `subscription OnUpdatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
         onUpdatePhoto(filter: $filter) {
           __typename
@@ -1576,12 +1840,16 @@ export class APIService {
     }
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdatePhoto">>>;
+    ) as Observable<
+      SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdatePhoto">>
+    >;
   }
 
   OnDeletePhotoListener(
     filter?: ModelSubscriptionPhotoFilterInput
-  ): Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onDeletePhoto">>> {
+  ): Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeletePhoto">>
+  > {
     const statement = `subscription OnDeletePhoto($filter: ModelSubscriptionPhotoFilterInput) {
         onDeletePhoto(filter: $filter) {
           __typename
@@ -1614,12 +1882,16 @@ export class APIService {
     }
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onDeletePhoto">>>;
+    ) as Observable<
+      SubscriptionResponse<Pick<__SubscriptionContainer, "onDeletePhoto">>
+    >;
   }
 
   OnCreateLikeListener(
     filter?: ModelSubscriptionLikeFilterInput
-  ): Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateLike">>> {
+  ): Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateLike">>
+  > {
     const statement = `subscription OnCreateLike($filter: ModelSubscriptionLikeFilterInput) {
         onCreateLike(filter: $filter) {
           __typename
@@ -1637,12 +1909,16 @@ export class APIService {
     }
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateLike">>>;
+    ) as Observable<
+      SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateLike">>
+    >;
   }
 
   OnUpdateLikeListener(
     filter?: ModelSubscriptionLikeFilterInput
-  ): Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateLike">>> {
+  ): Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateLike">>
+  > {
     const statement = `subscription OnUpdateLike($filter: ModelSubscriptionLikeFilterInput) {
         onUpdateLike(filter: $filter) {
           __typename
@@ -1660,12 +1936,16 @@ export class APIService {
     }
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateLike">>>;
+    ) as Observable<
+      SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateLike">>
+    >;
   }
 
   OnDeleteLikeListener(
     filter?: ModelSubscriptionLikeFilterInput
-  ): Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteLike">>> {
+  ): Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteLike">>
+  > {
     const statement = `subscription OnDeleteLike($filter: ModelSubscriptionLikeFilterInput) {
         onDeleteLike(filter: $filter) {
           __typename
@@ -1683,6 +1963,86 @@ export class APIService {
     }
     return API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteLike">>>;
+    ) as Observable<
+      SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteLike">>
+    >;
+  }
+
+  OnCreateLikesCountListener(
+    filter?: ModelSubscriptionLikesCountFilterInput
+  ): Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateLikesCount">>
+  > {
+    const statement = `subscription OnCreateLikesCount($filter: ModelSubscriptionLikesCountFilterInput) {
+        onCreateLikesCount(filter: $filter) {
+          __typename
+          id
+          photoId
+          count
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    return API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    ) as Observable<
+      SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateLikesCount">>
+    >;
+  }
+
+  OnUpdateLikesCountListener(
+    filter?: ModelSubscriptionLikesCountFilterInput
+  ): Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateLikesCount">>
+  > {
+    const statement = `subscription OnUpdateLikesCount($filter: ModelSubscriptionLikesCountFilterInput) {
+        onUpdateLikesCount(filter: $filter) {
+          __typename
+          id
+          photoId
+          count
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    return API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    ) as Observable<
+      SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateLikesCount">>
+    >;
+  }
+
+  OnDeleteLikesCountListener(
+    filter?: ModelSubscriptionLikesCountFilterInput
+  ): Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteLikesCount">>
+  > {
+    const statement = `subscription OnDeleteLikesCount($filter: ModelSubscriptionLikesCountFilterInput) {
+        onDeleteLikesCount(filter: $filter) {
+          __typename
+          id
+          photoId
+          count
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    return API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    ) as Observable<
+      SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteLikesCount">>
+    >;
   }
 }

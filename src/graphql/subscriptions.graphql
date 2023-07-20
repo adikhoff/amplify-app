@@ -1,4 +1,5 @@
 # this is an auto generated file. This will be overwritten
+
 subscription OnCreateProfile($filter: ModelSubscriptionProfileFilterInput) {
   onCreateProfile(filter: $filter) {
     id
@@ -11,8 +12,10 @@ subscription OnCreateProfile($filter: ModelSubscriptionProfileFilterInput) {
     score
     createdAt
     updatedAt
+    __typename
   }
 }
+
 subscription OnUpdateProfile($filter: ModelSubscriptionProfileFilterInput) {
   onUpdateProfile(filter: $filter) {
     id
@@ -25,8 +28,10 @@ subscription OnUpdateProfile($filter: ModelSubscriptionProfileFilterInput) {
     score
     createdAt
     updatedAt
+    __typename
   }
 }
+
 subscription OnDeleteProfile($filter: ModelSubscriptionProfileFilterInput) {
   onDeleteProfile(filter: $filter) {
     id
@@ -39,8 +44,10 @@ subscription OnDeleteProfile($filter: ModelSubscriptionProfileFilterInput) {
     score
     createdAt
     updatedAt
+    __typename
   }
 }
+
 subscription OnCreatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
   onCreatePhoto(filter: $filter) {
     id
@@ -56,14 +63,18 @@ subscription OnCreatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
         createdAt
         updatedAt
         photoLikesId
+        __typename
       }
       nextToken
+      __typename
     }
     dateIndex
     createdAt
     updatedAt
+    __typename
   }
 }
+
 subscription OnUpdatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
   onUpdatePhoto(filter: $filter) {
     id
@@ -79,14 +90,18 @@ subscription OnUpdatePhoto($filter: ModelSubscriptionPhotoFilterInput) {
         createdAt
         updatedAt
         photoLikesId
+        __typename
       }
       nextToken
+      __typename
     }
     dateIndex
     createdAt
     updatedAt
+    __typename
   }
 }
+
 subscription OnDeletePhoto($filter: ModelSubscriptionPhotoFilterInput) {
   onDeletePhoto(filter: $filter) {
     id
@@ -102,14 +117,18 @@ subscription OnDeletePhoto($filter: ModelSubscriptionPhotoFilterInput) {
         createdAt
         updatedAt
         photoLikesId
+        __typename
       }
       nextToken
+      __typename
     }
     dateIndex
     createdAt
     updatedAt
+    __typename
   }
 }
+
 subscription OnCreateLike($filter: ModelSubscriptionLikeFilterInput) {
   onCreateLike(filter: $filter) {
     id
@@ -118,8 +137,10 @@ subscription OnCreateLike($filter: ModelSubscriptionLikeFilterInput) {
     createdAt
     updatedAt
     photoLikesId
+    __typename
   }
 }
+
 subscription OnUpdateLike($filter: ModelSubscriptionLikeFilterInput) {
   onUpdateLike(filter: $filter) {
     id
@@ -128,8 +149,10 @@ subscription OnUpdateLike($filter: ModelSubscriptionLikeFilterInput) {
     createdAt
     updatedAt
     photoLikesId
+    __typename
   }
 }
+
 subscription OnDeleteLike($filter: ModelSubscriptionLikeFilterInput) {
   onDeleteLike(filter: $filter) {
     id
@@ -138,5 +161,45 @@ subscription OnDeleteLike($filter: ModelSubscriptionLikeFilterInput) {
     createdAt
     updatedAt
     photoLikesId
+    __typename
+  }
+}
+
+subscription OnCreateLikesCount(
+  $filter: ModelSubscriptionLikesCountFilterInput
+) {
+  onCreateLikesCount(filter: $filter) {
+    id
+    photoId
+    count
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnUpdateLikesCount(
+  $filter: ModelSubscriptionLikesCountFilterInput
+) {
+  onUpdateLikesCount(filter: $filter) {
+    id
+    photoId
+    count
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+subscription OnDeleteLikesCount(
+  $filter: ModelSubscriptionLikesCountFilterInput
+) {
+  onDeleteLikesCount(filter: $filter) {
+    id
+    photoId
+    count
+    createdAt
+    updatedAt
+    __typename
   }
 }

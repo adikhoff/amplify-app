@@ -18,6 +18,7 @@ export const createProfile = /* GraphQL */ `
       score
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -37,6 +38,7 @@ export const updateProfile = /* GraphQL */ `
       score
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -56,6 +58,7 @@ export const deleteProfile = /* GraphQL */ `
       score
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -78,12 +81,15 @@ export const createPhoto = /* GraphQL */ `
           createdAt
           updatedAt
           photoLikesId
+          __typename
         }
         nextToken
+        __typename
       }
       dateIndex
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -106,12 +112,15 @@ export const updatePhoto = /* GraphQL */ `
           createdAt
           updatedAt
           photoLikesId
+          __typename
         }
         nextToken
+        __typename
       }
       dateIndex
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -134,12 +143,15 @@ export const deletePhoto = /* GraphQL */ `
           createdAt
           updatedAt
           photoLikesId
+          __typename
         }
         nextToken
+        __typename
       }
       dateIndex
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -155,6 +167,7 @@ export const createLike = /* GraphQL */ `
       createdAt
       updatedAt
       photoLikesId
+      __typename
     }
   }
 `;
@@ -170,6 +183,7 @@ export const updateLike = /* GraphQL */ `
       createdAt
       updatedAt
       photoLikesId
+      __typename
     }
   }
 `;
@@ -185,6 +199,52 @@ export const deleteLike = /* GraphQL */ `
       createdAt
       updatedAt
       photoLikesId
+      __typename
+    }
+  }
+`;
+export const createLikesCount = /* GraphQL */ `
+  mutation CreateLikesCount(
+    $input: CreateLikesCountInput!
+    $condition: ModelLikesCountConditionInput
+  ) {
+    createLikesCount(input: $input, condition: $condition) {
+      id
+      photoId
+      count
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateLikesCount = /* GraphQL */ `
+  mutation UpdateLikesCount(
+    $input: UpdateLikesCountInput!
+    $condition: ModelLikesCountConditionInput
+  ) {
+    updateLikesCount(input: $input, condition: $condition) {
+      id
+      photoId
+      count
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteLikesCount = /* GraphQL */ `
+  mutation DeleteLikesCount(
+    $input: DeleteLikesCountInput!
+    $condition: ModelLikesCountConditionInput
+  ) {
+    deleteLikesCount(input: $input, condition: $condition) {
+      id
+      photoId
+      count
+      createdAt
+      updatedAt
+      __typename
     }
   }
 `;

@@ -26,3 +26,9 @@ type Like @model @auth(rules: [{ allow: public }]) {
   username: String!
   photoId: String!
 }
+
+type LikesCount @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  photoId: String!
+  count: Int
+}

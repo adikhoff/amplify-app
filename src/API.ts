@@ -21,8 +21,8 @@ export type ModelProfileConditionInput = {
   age?: ModelStringInput | null,
   profilePicId?: ModelIDInput | null,
   score?: ModelIntInput | null,
-  and?: Array<ModelProfileConditionInput | null> | null,
-  or?: Array<ModelProfileConditionInput | null> | null,
+  and?: Array< ModelProfileConditionInput | null > | null,
+  or?: Array< ModelProfileConditionInput | null > | null,
   not?: ModelProfileConditionInput | null,
 };
 
@@ -35,7 +35,7 @@ export type ModelStringInput = {
   gt?: string | null,
   contains?: string | null,
   notContains?: string | null,
-  between?: Array<string | null> | null,
+  between?: Array< string | null > | null,
   beginsWith?: string | null,
   attributeExists?: boolean | null,
   attributeType?: ModelAttributeTypes | null,
@@ -63,7 +63,7 @@ export type ModelSizeInput = {
   lt?: number | null,
   ge?: number | null,
   gt?: number | null,
-  between?: Array<number | null> | null,
+  between?: Array< number | null > | null,
 };
 
 export type ModelIDInput = {
@@ -75,7 +75,7 @@ export type ModelIDInput = {
   gt?: string | null,
   contains?: string | null,
   notContains?: string | null,
-  between?: Array<string | null> | null,
+  between?: Array< string | null > | null,
   beginsWith?: string | null,
   attributeExists?: boolean | null,
   attributeType?: ModelAttributeTypes | null,
@@ -89,7 +89,7 @@ export type ModelIntInput = {
   lt?: number | null,
   ge?: number | null,
   gt?: number | null,
-  between?: Array<number | null> | null,
+  between?: Array< number | null > | null,
   attributeExists?: boolean | null,
   attributeType?: ModelAttributeTypes | null,
 };
@@ -140,8 +140,8 @@ export type ModelPhotoConditionInput = {
   width?: ModelIntInput | null,
   dateIndex?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
-  and?: Array<ModelPhotoConditionInput | null> | null,
-  or?: Array<ModelPhotoConditionInput | null> | null,
+  and?: Array< ModelPhotoConditionInput | null > | null,
+  or?: Array< ModelPhotoConditionInput | null > | null,
   not?: ModelPhotoConditionInput | null,
 };
 
@@ -160,7 +160,7 @@ export type Photo = {
 
 export type ModelLikeConnection = {
   __typename: "ModelLikeConnection",
-  items: Array<Like | null>,
+  items:  Array<Like | null >,
   nextToken?: string | null,
 };
 
@@ -198,8 +198,8 @@ export type CreateLikeInput = {
 export type ModelLikeConditionInput = {
   username?: ModelStringInput | null,
   photoId?: ModelStringInput | null,
-  and?: Array<ModelLikeConditionInput | null> | null,
-  or?: Array<ModelLikeConditionInput | null> | null,
+  and?: Array< ModelLikeConditionInput | null > | null,
+  or?: Array< ModelLikeConditionInput | null > | null,
   not?: ModelLikeConditionInput | null,
   photoLikesId?: ModelIDInput | null,
 };
@@ -215,6 +215,39 @@ export type DeleteLikeInput = {
   id: string,
 };
 
+export type CreateLikesCountInput = {
+  id?: string | null,
+  photoId: string,
+  count?: number | null,
+};
+
+export type ModelLikesCountConditionInput = {
+  photoId?: ModelStringInput | null,
+  count?: ModelIntInput | null,
+  and?: Array< ModelLikesCountConditionInput | null > | null,
+  or?: Array< ModelLikesCountConditionInput | null > | null,
+  not?: ModelLikesCountConditionInput | null,
+};
+
+export type LikesCount = {
+  __typename: "LikesCount",
+  id: string,
+  photoId: string,
+  count?: number | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateLikesCountInput = {
+  id: string,
+  photoId?: string | null,
+  count?: number | null,
+};
+
+export type DeleteLikesCountInput = {
+  id: string,
+};
+
 export type ModelProfileFilterInput = {
   id?: ModelIDInput | null,
   username?: ModelStringInput | null,
@@ -224,14 +257,14 @@ export type ModelProfileFilterInput = {
   age?: ModelStringInput | null,
   profilePicId?: ModelIDInput | null,
   score?: ModelIntInput | null,
-  and?: Array<ModelProfileFilterInput | null> | null,
-  or?: Array<ModelProfileFilterInput | null> | null,
+  and?: Array< ModelProfileFilterInput | null > | null,
+  or?: Array< ModelProfileFilterInput | null > | null,
   not?: ModelProfileFilterInput | null,
 };
 
 export type ModelProfileConnection = {
   __typename: "ModelProfileConnection",
-  items: Array<Profile | null>,
+  items:  Array<Profile | null >,
   nextToken?: string | null,
 };
 
@@ -243,14 +276,14 @@ export type ModelPhotoFilterInput = {
   width?: ModelIntInput | null,
   dateIndex?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
-  and?: Array<ModelPhotoFilterInput | null> | null,
-  or?: Array<ModelPhotoFilterInput | null> | null,
+  and?: Array< ModelPhotoFilterInput | null > | null,
+  or?: Array< ModelPhotoFilterInput | null > | null,
   not?: ModelPhotoFilterInput | null,
 };
 
 export type ModelPhotoConnection = {
   __typename: "ModelPhotoConnection",
-  items: Array<Photo | null>,
+  items:  Array<Photo | null >,
   nextToken?: string | null,
 };
 
@@ -258,10 +291,25 @@ export type ModelLikeFilterInput = {
   id?: ModelIDInput | null,
   username?: ModelStringInput | null,
   photoId?: ModelStringInput | null,
-  and?: Array<ModelLikeFilterInput | null> | null,
-  or?: Array<ModelLikeFilterInput | null> | null,
+  and?: Array< ModelLikeFilterInput | null > | null,
+  or?: Array< ModelLikeFilterInput | null > | null,
   not?: ModelLikeFilterInput | null,
   photoLikesId?: ModelIDInput | null,
+};
+
+export type ModelLikesCountFilterInput = {
+  id?: ModelIDInput | null,
+  photoId?: ModelStringInput | null,
+  count?: ModelIntInput | null,
+  and?: Array< ModelLikesCountFilterInput | null > | null,
+  or?: Array< ModelLikesCountFilterInput | null > | null,
+  not?: ModelLikesCountFilterInput | null,
+};
+
+export type ModelLikesCountConnection = {
+  __typename: "ModelLikesCountConnection",
+  items:  Array<LikesCount | null >,
+  nextToken?: string | null,
 };
 
 export enum ModelSortDirection {
@@ -276,7 +324,7 @@ export type ModelStringKeyConditionInput = {
   lt?: string | null,
   ge?: string | null,
   gt?: string | null,
-  between?: Array<string | null> | null,
+  between?: Array< string | null > | null,
   beginsWith?: string | null,
 };
 
@@ -289,8 +337,8 @@ export type ModelSubscriptionProfileFilterInput = {
   age?: ModelSubscriptionStringInput | null,
   profilePicId?: ModelSubscriptionIDInput | null,
   score?: ModelSubscriptionIntInput | null,
-  and?: Array<ModelSubscriptionProfileFilterInput | null> | null,
-  or?: Array<ModelSubscriptionProfileFilterInput | null> | null,
+  and?: Array< ModelSubscriptionProfileFilterInput | null > | null,
+  or?: Array< ModelSubscriptionProfileFilterInput | null > | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -302,10 +350,10 @@ export type ModelSubscriptionIDInput = {
   gt?: string | null,
   contains?: string | null,
   notContains?: string | null,
-  between?: Array<string | null> | null,
+  between?: Array< string | null > | null,
   beginsWith?: string | null,
-  in?: Array<string | null> | null,
-  notIn?: Array<string | null> | null,
+  in?: Array< string | null > | null,
+  notIn?: Array< string | null > | null,
 };
 
 export type ModelSubscriptionStringInput = {
@@ -317,10 +365,10 @@ export type ModelSubscriptionStringInput = {
   gt?: string | null,
   contains?: string | null,
   notContains?: string | null,
-  between?: Array<string | null> | null,
+  between?: Array< string | null > | null,
   beginsWith?: string | null,
-  in?: Array<string | null> | null,
-  notIn?: Array<string | null> | null,
+  in?: Array< string | null > | null,
+  notIn?: Array< string | null > | null,
 };
 
 export type ModelSubscriptionIntInput = {
@@ -330,9 +378,9 @@ export type ModelSubscriptionIntInput = {
   lt?: number | null,
   ge?: number | null,
   gt?: number | null,
-  between?: Array<number | null> | null,
-  in?: Array<number | null> | null,
-  notIn?: Array<number | null> | null,
+  between?: Array< number | null > | null,
+  in?: Array< number | null > | null,
+  notIn?: Array< number | null > | null,
 };
 
 export type ModelSubscriptionPhotoFilterInput = {
@@ -343,16 +391,24 @@ export type ModelSubscriptionPhotoFilterInput = {
   width?: ModelSubscriptionIntInput | null,
   dateIndex?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array<ModelSubscriptionPhotoFilterInput | null> | null,
-  or?: Array<ModelSubscriptionPhotoFilterInput | null> | null,
+  and?: Array< ModelSubscriptionPhotoFilterInput | null > | null,
+  or?: Array< ModelSubscriptionPhotoFilterInput | null > | null,
 };
 
 export type ModelSubscriptionLikeFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   username?: ModelSubscriptionStringInput | null,
   photoId?: ModelSubscriptionStringInput | null,
-  and?: Array<ModelSubscriptionLikeFilterInput | null> | null,
-  or?: Array<ModelSubscriptionLikeFilterInput | null> | null,
+  and?: Array< ModelSubscriptionLikeFilterInput | null > | null,
+  or?: Array< ModelSubscriptionLikeFilterInput | null > | null,
+};
+
+export type ModelSubscriptionLikesCountFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  photoId?: ModelSubscriptionStringInput | null,
+  count?: ModelSubscriptionIntInput | null,
+  and?: Array< ModelSubscriptionLikesCountFilterInput | null > | null,
+  or?: Array< ModelSubscriptionLikesCountFilterInput | null > | null,
 };
 
 export type CreateProfileMutationVariables = {
@@ -361,7 +417,7 @@ export type CreateProfileMutationVariables = {
 };
 
 export type CreateProfileMutation = {
-  createProfile?: {
+  createProfile?:  {
     __typename: "Profile",
     id: string,
     username: string,
@@ -382,7 +438,7 @@ export type UpdateProfileMutationVariables = {
 };
 
 export type UpdateProfileMutation = {
-  updateProfile?: {
+  updateProfile?:  {
     __typename: "Profile",
     id: string,
     username: string,
@@ -403,7 +459,7 @@ export type DeleteProfileMutationVariables = {
 };
 
 export type DeleteProfileMutation = {
-  deleteProfile?: {
+  deleteProfile?:  {
     __typename: "Profile",
     id: string,
     username: string,
@@ -424,16 +480,16 @@ export type CreatePhotoMutationVariables = {
 };
 
 export type CreatePhotoMutation = {
-  createPhoto?: {
+  createPhoto?:  {
     __typename: "Photo",
     id: string,
     username: string,
     filename: string,
     height?: number | null,
     width?: number | null,
-    likes?: {
+    likes?:  {
       __typename: "ModelLikeConnection",
-      items: Array<{
+      items:  Array< {
         __typename: "Like",
         id: string,
         username: string,
@@ -441,7 +497,7 @@ export type CreatePhotoMutation = {
         createdAt: string,
         updatedAt: string,
         photoLikesId: string,
-      } | null>,
+      } | null >,
       nextToken?: string | null,
     } | null,
     dateIndex: string,
@@ -456,16 +512,16 @@ export type UpdatePhotoMutationVariables = {
 };
 
 export type UpdatePhotoMutation = {
-  updatePhoto?: {
+  updatePhoto?:  {
     __typename: "Photo",
     id: string,
     username: string,
     filename: string,
     height?: number | null,
     width?: number | null,
-    likes?: {
+    likes?:  {
       __typename: "ModelLikeConnection",
-      items: Array<{
+      items:  Array< {
         __typename: "Like",
         id: string,
         username: string,
@@ -473,7 +529,7 @@ export type UpdatePhotoMutation = {
         createdAt: string,
         updatedAt: string,
         photoLikesId: string,
-      } | null>,
+      } | null >,
       nextToken?: string | null,
     } | null,
     dateIndex: string,
@@ -488,16 +544,16 @@ export type DeletePhotoMutationVariables = {
 };
 
 export type DeletePhotoMutation = {
-  deletePhoto?: {
+  deletePhoto?:  {
     __typename: "Photo",
     id: string,
     username: string,
     filename: string,
     height?: number | null,
     width?: number | null,
-    likes?: {
+    likes?:  {
       __typename: "ModelLikeConnection",
-      items: Array<{
+      items:  Array< {
         __typename: "Like",
         id: string,
         username: string,
@@ -505,7 +561,7 @@ export type DeletePhotoMutation = {
         createdAt: string,
         updatedAt: string,
         photoLikesId: string,
-      } | null>,
+      } | null >,
       nextToken?: string | null,
     } | null,
     dateIndex: string,
@@ -520,7 +576,7 @@ export type CreateLikeMutationVariables = {
 };
 
 export type CreateLikeMutation = {
-  createLike?: {
+  createLike?:  {
     __typename: "Like",
     id: string,
     username: string,
@@ -537,7 +593,7 @@ export type UpdateLikeMutationVariables = {
 };
 
 export type UpdateLikeMutation = {
-  updateLike?: {
+  updateLike?:  {
     __typename: "Like",
     id: string,
     username: string,
@@ -554,7 +610,7 @@ export type DeleteLikeMutationVariables = {
 };
 
 export type DeleteLikeMutation = {
-  deleteLike?: {
+  deleteLike?:  {
     __typename: "Like",
     id: string,
     username: string,
@@ -565,12 +621,60 @@ export type DeleteLikeMutation = {
   } | null,
 };
 
+export type CreateLikesCountMutationVariables = {
+  input: CreateLikesCountInput,
+  condition?: ModelLikesCountConditionInput | null,
+};
+
+export type CreateLikesCountMutation = {
+  createLikesCount?:  {
+    __typename: "LikesCount",
+    id: string,
+    photoId: string,
+    count?: number | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateLikesCountMutationVariables = {
+  input: UpdateLikesCountInput,
+  condition?: ModelLikesCountConditionInput | null,
+};
+
+export type UpdateLikesCountMutation = {
+  updateLikesCount?:  {
+    __typename: "LikesCount",
+    id: string,
+    photoId: string,
+    count?: number | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteLikesCountMutationVariables = {
+  input: DeleteLikesCountInput,
+  condition?: ModelLikesCountConditionInput | null,
+};
+
+export type DeleteLikesCountMutation = {
+  deleteLikesCount?:  {
+    __typename: "LikesCount",
+    id: string,
+    photoId: string,
+    count?: number | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type GetProfileQueryVariables = {
   id: string,
 };
 
 export type GetProfileQuery = {
-  getProfile?: {
+  getProfile?:  {
     __typename: "Profile",
     id: string,
     username: string,
@@ -592,9 +696,9 @@ export type ListProfilesQueryVariables = {
 };
 
 export type ListProfilesQuery = {
-  listProfiles?: {
+  listProfiles?:  {
     __typename: "ModelProfileConnection",
-    items: Array<{
+    items:  Array< {
       __typename: "Profile",
       id: string,
       username: string,
@@ -606,7 +710,7 @@ export type ListProfilesQuery = {
       score?: number | null,
       createdAt: string,
       updatedAt: string,
-    } | null>,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -616,16 +720,16 @@ export type GetPhotoQueryVariables = {
 };
 
 export type GetPhotoQuery = {
-  getPhoto?: {
+  getPhoto?:  {
     __typename: "Photo",
     id: string,
     username: string,
     filename: string,
     height?: number | null,
     width?: number | null,
-    likes?: {
+    likes?:  {
       __typename: "ModelLikeConnection",
-      items: Array<{
+      items:  Array< {
         __typename: "Like",
         id: string,
         username: string,
@@ -633,7 +737,7 @@ export type GetPhotoQuery = {
         createdAt: string,
         updatedAt: string,
         photoLikesId: string,
-      } | null>,
+      } | null >,
       nextToken?: string | null,
     } | null,
     dateIndex: string,
@@ -649,23 +753,23 @@ export type ListPhotosQueryVariables = {
 };
 
 export type ListPhotosQuery = {
-  listPhotos?: {
+  listPhotos?:  {
     __typename: "ModelPhotoConnection",
-    items: Array<{
+    items:  Array< {
       __typename: "Photo",
       id: string,
       username: string,
       filename: string,
       height?: number | null,
       width?: number | null,
-      likes?: {
+      likes?:  {
         __typename: "ModelLikeConnection",
         nextToken?: string | null,
       } | null,
       dateIndex: string,
       createdAt: string,
       updatedAt: string,
-    } | null>,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -675,7 +779,7 @@ export type GetLikeQueryVariables = {
 };
 
 export type GetLikeQuery = {
-  getLike?: {
+  getLike?:  {
     __typename: "Like",
     id: string,
     username: string,
@@ -693,9 +797,9 @@ export type ListLikesQueryVariables = {
 };
 
 export type ListLikesQuery = {
-  listLikes?: {
+  listLikes?:  {
     __typename: "ModelLikeConnection",
-    items: Array<{
+    items:  Array< {
       __typename: "Like",
       id: string,
       username: string,
@@ -703,7 +807,43 @@ export type ListLikesQuery = {
       createdAt: string,
       updatedAt: string,
       photoLikesId: string,
-    } | null>,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetLikesCountQueryVariables = {
+  id: string,
+};
+
+export type GetLikesCountQuery = {
+  getLikesCount?:  {
+    __typename: "LikesCount",
+    id: string,
+    photoId: string,
+    count?: number | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListLikesCountsQueryVariables = {
+  filter?: ModelLikesCountFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListLikesCountsQuery = {
+  listLikesCounts?:  {
+    __typename: "ModelLikesCountConnection",
+    items:  Array< {
+      __typename: "LikesCount",
+      id: string,
+      photoId: string,
+      count?: number | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -717,9 +857,9 @@ export type ProfilesByUsernameQueryVariables = {
 };
 
 export type ProfilesByUsernameQuery = {
-  profilesByUsername?: {
+  profilesByUsername?:  {
     __typename: "ModelProfileConnection",
-    items: Array<{
+    items:  Array< {
       __typename: "Profile",
       id: string,
       username: string,
@@ -731,7 +871,7 @@ export type ProfilesByUsernameQuery = {
       score?: number | null,
       createdAt: string,
       updatedAt: string,
-    } | null>,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -746,23 +886,23 @@ export type PhotosByDateQueryVariables = {
 };
 
 export type PhotosByDateQuery = {
-  photosByDate?: {
+  photosByDate?:  {
     __typename: "ModelPhotoConnection",
-    items: Array<{
+    items:  Array< {
       __typename: "Photo",
       id: string,
       username: string,
       filename: string,
       height?: number | null,
       width?: number | null,
-      likes?: {
+      likes?:  {
         __typename: "ModelLikeConnection",
         nextToken?: string | null,
       } | null,
       dateIndex: string,
       createdAt: string,
       updatedAt: string,
-    } | null>,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -772,7 +912,7 @@ export type OnCreateProfileSubscriptionVariables = {
 };
 
 export type OnCreateProfileSubscription = {
-  onCreateProfile?: {
+  onCreateProfile?:  {
     __typename: "Profile",
     id: string,
     username: string,
@@ -792,7 +932,7 @@ export type OnUpdateProfileSubscriptionVariables = {
 };
 
 export type OnUpdateProfileSubscription = {
-  onUpdateProfile?: {
+  onUpdateProfile?:  {
     __typename: "Profile",
     id: string,
     username: string,
@@ -812,7 +952,7 @@ export type OnDeleteProfileSubscriptionVariables = {
 };
 
 export type OnDeleteProfileSubscription = {
-  onDeleteProfile?: {
+  onDeleteProfile?:  {
     __typename: "Profile",
     id: string,
     username: string,
@@ -832,16 +972,16 @@ export type OnCreatePhotoSubscriptionVariables = {
 };
 
 export type OnCreatePhotoSubscription = {
-  onCreatePhoto?: {
+  onCreatePhoto?:  {
     __typename: "Photo",
     id: string,
     username: string,
     filename: string,
     height?: number | null,
     width?: number | null,
-    likes?: {
+    likes?:  {
       __typename: "ModelLikeConnection",
-      items: Array<{
+      items:  Array< {
         __typename: "Like",
         id: string,
         username: string,
@@ -849,7 +989,7 @@ export type OnCreatePhotoSubscription = {
         createdAt: string,
         updatedAt: string,
         photoLikesId: string,
-      } | null>,
+      } | null >,
       nextToken?: string | null,
     } | null,
     dateIndex: string,
@@ -863,16 +1003,16 @@ export type OnUpdatePhotoSubscriptionVariables = {
 };
 
 export type OnUpdatePhotoSubscription = {
-  onUpdatePhoto?: {
+  onUpdatePhoto?:  {
     __typename: "Photo",
     id: string,
     username: string,
     filename: string,
     height?: number | null,
     width?: number | null,
-    likes?: {
+    likes?:  {
       __typename: "ModelLikeConnection",
-      items: Array<{
+      items:  Array< {
         __typename: "Like",
         id: string,
         username: string,
@@ -880,7 +1020,7 @@ export type OnUpdatePhotoSubscription = {
         createdAt: string,
         updatedAt: string,
         photoLikesId: string,
-      } | null>,
+      } | null >,
       nextToken?: string | null,
     } | null,
     dateIndex: string,
@@ -894,16 +1034,16 @@ export type OnDeletePhotoSubscriptionVariables = {
 };
 
 export type OnDeletePhotoSubscription = {
-  onDeletePhoto?: {
+  onDeletePhoto?:  {
     __typename: "Photo",
     id: string,
     username: string,
     filename: string,
     height?: number | null,
     width?: number | null,
-    likes?: {
+    likes?:  {
       __typename: "ModelLikeConnection",
-      items: Array<{
+      items:  Array< {
         __typename: "Like",
         id: string,
         username: string,
@@ -911,7 +1051,7 @@ export type OnDeletePhotoSubscription = {
         createdAt: string,
         updatedAt: string,
         photoLikesId: string,
-      } | null>,
+      } | null >,
       nextToken?: string | null,
     } | null,
     dateIndex: string,
@@ -925,7 +1065,7 @@ export type OnCreateLikeSubscriptionVariables = {
 };
 
 export type OnCreateLikeSubscription = {
-  onCreateLike?: {
+  onCreateLike?:  {
     __typename: "Like",
     id: string,
     username: string,
@@ -941,7 +1081,7 @@ export type OnUpdateLikeSubscriptionVariables = {
 };
 
 export type OnUpdateLikeSubscription = {
-  onUpdateLike?: {
+  onUpdateLike?:  {
     __typename: "Like",
     id: string,
     username: string,
@@ -957,7 +1097,7 @@ export type OnDeleteLikeSubscriptionVariables = {
 };
 
 export type OnDeleteLikeSubscription = {
-  onDeleteLike?: {
+  onDeleteLike?:  {
     __typename: "Like",
     id: string,
     username: string,
@@ -965,5 +1105,50 @@ export type OnDeleteLikeSubscription = {
     createdAt: string,
     updatedAt: string,
     photoLikesId: string,
+  } | null,
+};
+
+export type OnCreateLikesCountSubscriptionVariables = {
+  filter?: ModelSubscriptionLikesCountFilterInput | null,
+};
+
+export type OnCreateLikesCountSubscription = {
+  onCreateLikesCount?:  {
+    __typename: "LikesCount",
+    id: string,
+    photoId: string,
+    count?: number | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateLikesCountSubscriptionVariables = {
+  filter?: ModelSubscriptionLikesCountFilterInput | null,
+};
+
+export type OnUpdateLikesCountSubscription = {
+  onUpdateLikesCount?:  {
+    __typename: "LikesCount",
+    id: string,
+    photoId: string,
+    count?: number | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteLikesCountSubscriptionVariables = {
+  filter?: ModelSubscriptionLikesCountFilterInput | null,
+};
+
+export type OnDeleteLikesCountSubscription = {
+  onDeleteLikesCount?:  {
+    __typename: "LikesCount",
+    id: string,
+    photoId: string,
+    count?: number | null,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
