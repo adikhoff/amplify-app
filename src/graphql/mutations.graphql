@@ -1,4 +1,5 @@
 # this is an auto generated file. This will be overwritten
+
 mutation CreateProfile(
   $input: CreateProfileInput!
   $condition: ModelProfileConditionInput
@@ -14,8 +15,10 @@ mutation CreateProfile(
     score
     createdAt
     updatedAt
+    __typename
   }
 }
+
 mutation UpdateProfile(
   $input: UpdateProfileInput!
   $condition: ModelProfileConditionInput
@@ -31,8 +34,10 @@ mutation UpdateProfile(
     score
     createdAt
     updatedAt
+    __typename
   }
 }
+
 mutation DeleteProfile(
   $input: DeleteProfileInput!
   $condition: ModelProfileConditionInput
@@ -48,8 +53,10 @@ mutation DeleteProfile(
     score
     createdAt
     updatedAt
+    __typename
   }
 }
+
 mutation CreatePhoto(
   $input: CreatePhotoInput!
   $condition: ModelPhotoConditionInput
@@ -68,14 +75,18 @@ mutation CreatePhoto(
         createdAt
         updatedAt
         photoLikesId
+        __typename
       }
       nextToken
+      __typename
     }
     dateIndex
     createdAt
     updatedAt
+    __typename
   }
 }
+
 mutation UpdatePhoto(
   $input: UpdatePhotoInput!
   $condition: ModelPhotoConditionInput
@@ -94,14 +105,18 @@ mutation UpdatePhoto(
         createdAt
         updatedAt
         photoLikesId
+        __typename
       }
       nextToken
+      __typename
     }
     dateIndex
     createdAt
     updatedAt
+    __typename
   }
 }
+
 mutation DeletePhoto(
   $input: DeletePhotoInput!
   $condition: ModelPhotoConditionInput
@@ -120,14 +135,18 @@ mutation DeletePhoto(
         createdAt
         updatedAt
         photoLikesId
+        __typename
       }
       nextToken
+      __typename
     }
     dateIndex
     createdAt
     updatedAt
+    __typename
   }
 }
+
 mutation CreateLike(
   $input: CreateLikeInput!
   $condition: ModelLikeConditionInput
@@ -139,8 +158,10 @@ mutation CreateLike(
     createdAt
     updatedAt
     photoLikesId
+    __typename
   }
 }
+
 mutation UpdateLike(
   $input: UpdateLikeInput!
   $condition: ModelLikeConditionInput
@@ -152,8 +173,10 @@ mutation UpdateLike(
     createdAt
     updatedAt
     photoLikesId
+    __typename
   }
 }
+
 mutation DeleteLike(
   $input: DeleteLikeInput!
   $condition: ModelLikeConditionInput
@@ -165,5 +188,51 @@ mutation DeleteLike(
     createdAt
     updatedAt
     photoLikesId
+    __typename
+  }
+}
+
+mutation CreateLikesCount(
+  $input: CreateLikesCountInput!
+  $condition: ModelLikesCountConditionInput
+) {
+  createLikesCount(input: $input, condition: $condition) {
+    photoId
+    countIndex
+    count
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+mutation UpdateLikesCount(
+  $input: UpdateLikesCountInput!
+  $condition: ModelLikesCountConditionInput
+) {
+  updateLikesCount(input: $input, condition: $condition) {
+    photoId
+    countIndex
+    count
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+mutation DeleteLikesCount(
+  $input: DeleteLikesCountInput!
+  $condition: ModelLikesCountConditionInput
+) {
+  deleteLikesCount(input: $input, condition: $condition) {
+    photoId
+    countIndex
+    count
+    id
+    createdAt
+    updatedAt
+    __typename
   }
 }

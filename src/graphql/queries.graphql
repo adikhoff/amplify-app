@@ -1,4 +1,5 @@
 # this is an auto generated file. This will be overwritten
+
 query GetProfile($id: ID!) {
   getProfile(id: $id) {
     id
@@ -11,8 +12,10 @@ query GetProfile($id: ID!) {
     score
     createdAt
     updatedAt
+    __typename
   }
 }
+
 query ListProfiles(
   $filter: ModelProfileFilterInput
   $limit: Int
@@ -30,10 +33,13 @@ query ListProfiles(
       score
       createdAt
       updatedAt
+      __typename
     }
     nextToken
+    __typename
   }
 }
+
 query GetPhoto($id: ID!) {
   getPhoto(id: $id) {
     id
@@ -49,14 +55,18 @@ query GetPhoto($id: ID!) {
         createdAt
         updatedAt
         photoLikesId
+        __typename
       }
       nextToken
+      __typename
     }
     dateIndex
     createdAt
     updatedAt
+    __typename
   }
 }
+
 query ListPhotos(
   $filter: ModelPhotoFilterInput
   $limit: Int
@@ -71,14 +81,18 @@ query ListPhotos(
       width
       likes {
         nextToken
+        __typename
       }
       dateIndex
       createdAt
       updatedAt
+      __typename
     }
     nextToken
+    __typename
   }
 }
+
 query GetLike($id: ID!) {
   getLike(id: $id) {
     id
@@ -87,8 +101,10 @@ query GetLike($id: ID!) {
     createdAt
     updatedAt
     photoLikesId
+    __typename
   }
 }
+
 query ListLikes(
   $filter: ModelLikeFilterInput
   $limit: Int
@@ -102,10 +118,45 @@ query ListLikes(
       createdAt
       updatedAt
       photoLikesId
+      __typename
     }
     nextToken
+    __typename
   }
 }
+
+query GetLikesCount($id: ID!) {
+  getLikesCount(id: $id) {
+    photoId
+    countIndex
+    count
+    id
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+
+query ListLikesCounts(
+  $filter: ModelLikesCountFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listLikesCounts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      photoId
+      countIndex
+      count
+      id
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+
 query ProfilesByUsername(
   $username: String!
   $sortDirection: ModelSortDirection
@@ -131,10 +182,13 @@ query ProfilesByUsername(
       score
       createdAt
       updatedAt
+      __typename
     }
     nextToken
+    __typename
   }
 }
+
 query PhotosByDate(
   $dateIndex: String!
   $createdAt: ModelStringKeyConditionInput
@@ -159,11 +213,44 @@ query PhotosByDate(
       width
       likes {
         nextToken
+        __typename
       }
       dateIndex
       createdAt
       updatedAt
+      __typename
     }
     nextToken
+    __typename
+  }
+}
+
+query PhotosByLikes(
+  $countIndex: String!
+  $count: ModelIntKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelLikesCountFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  photosByLikes(
+    countIndex: $countIndex
+    count: $count
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      photoId
+      countIndex
+      count
+      id
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
   }
 }
