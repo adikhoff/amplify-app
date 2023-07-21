@@ -216,10 +216,10 @@ export type DeleteLikeInput = {
 };
 
 export type CreateLikesCountInput = {
-  id?: string | null,
   photoId: string,
-  countIndex: string,
+  countIndex?: string | null,
   count?: number | null,
+  id?: string | null,
 };
 
 export type ModelLikesCountConditionInput = {
@@ -233,19 +233,19 @@ export type ModelLikesCountConditionInput = {
 
 export type LikesCount = {
   __typename: "LikesCount",
-  id: string,
   photoId: string,
-  countIndex: string,
+  countIndex?: string | null,
   count?: number | null,
+  id: string,
   createdAt: string,
   updatedAt: string,
 };
 
 export type UpdateLikesCountInput = {
-  id: string,
   photoId?: string | null,
   countIndex?: string | null,
   count?: number | null,
+  id: string,
 };
 
 export type DeleteLikesCountInput = {
@@ -302,7 +302,6 @@ export type ModelLikeFilterInput = {
 };
 
 export type ModelLikesCountFilterInput = {
-  id?: ModelIDInput | null,
   photoId?: ModelStringInput | null,
   countIndex?: ModelStringInput | null,
   count?: ModelIntInput | null,
@@ -418,7 +417,6 @@ export type ModelSubscriptionLikeFilterInput = {
 };
 
 export type ModelSubscriptionLikesCountFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
   photoId?: ModelSubscriptionStringInput | null,
   countIndex?: ModelSubscriptionStringInput | null,
   count?: ModelSubscriptionIntInput | null,
@@ -644,10 +642,10 @@ export type CreateLikesCountMutationVariables = {
 export type CreateLikesCountMutation = {
   createLikesCount?:  {
     __typename: "LikesCount",
-    id: string,
     photoId: string,
-    countIndex: string,
+    countIndex?: string | null,
     count?: number | null,
+    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -661,10 +659,10 @@ export type UpdateLikesCountMutationVariables = {
 export type UpdateLikesCountMutation = {
   updateLikesCount?:  {
     __typename: "LikesCount",
-    id: string,
     photoId: string,
-    countIndex: string,
+    countIndex?: string | null,
     count?: number | null,
+    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -678,10 +676,10 @@ export type DeleteLikesCountMutationVariables = {
 export type DeleteLikesCountMutation = {
   deleteLikesCount?:  {
     __typename: "LikesCount",
-    id: string,
     photoId: string,
-    countIndex: string,
+    countIndex?: string | null,
     count?: number | null,
+    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -837,10 +835,10 @@ export type GetLikesCountQueryVariables = {
 export type GetLikesCountQuery = {
   getLikesCount?:  {
     __typename: "LikesCount",
-    id: string,
     photoId: string,
-    countIndex: string,
+    countIndex?: string | null,
     count?: number | null,
+    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -857,10 +855,10 @@ export type ListLikesCountsQuery = {
     __typename: "ModelLikesCountConnection",
     items:  Array< {
       __typename: "LikesCount",
-      id: string,
       photoId: string,
-      countIndex: string,
+      countIndex?: string | null,
       count?: number | null,
+      id: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -941,10 +939,10 @@ export type PhotosByLikesQuery = {
     __typename: "ModelLikesCountConnection",
     items:  Array< {
       __typename: "LikesCount",
-      id: string,
       photoId: string,
-      countIndex: string,
+      countIndex?: string | null,
       count?: number | null,
+      id: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -1160,10 +1158,10 @@ export type OnCreateLikesCountSubscriptionVariables = {
 export type OnCreateLikesCountSubscription = {
   onCreateLikesCount?:  {
     __typename: "LikesCount",
-    id: string,
     photoId: string,
-    countIndex: string,
+    countIndex?: string | null,
     count?: number | null,
+    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1176,10 +1174,10 @@ export type OnUpdateLikesCountSubscriptionVariables = {
 export type OnUpdateLikesCountSubscription = {
   onUpdateLikesCount?:  {
     __typename: "LikesCount",
-    id: string,
     photoId: string,
-    countIndex: string,
+    countIndex?: string | null,
     count?: number | null,
+    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1192,10 +1190,10 @@ export type OnDeleteLikesCountSubscriptionVariables = {
 export type OnDeleteLikesCountSubscription = {
   onDeleteLikesCount?:  {
     __typename: "LikesCount",
-    id: string,
     photoId: string,
-    countIndex: string,
+    countIndex?: string | null,
     count?: number | null,
+    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,

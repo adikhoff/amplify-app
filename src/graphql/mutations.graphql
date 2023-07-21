@@ -197,10 +197,10 @@ mutation CreateLikesCount(
   $condition: ModelLikesCountConditionInput
 ) {
   createLikesCount(input: $input, condition: $condition) {
-    id
     photoId
     countIndex
     count
+    id
     createdAt
     updatedAt
     __typename
@@ -212,10 +212,10 @@ mutation UpdateLikesCount(
   $condition: ModelLikesCountConditionInput
 ) {
   updateLikesCount(input: $input, condition: $condition) {
-    id
     photoId
     countIndex
     count
+    id
     createdAt
     updatedAt
     __typename
@@ -227,10 +227,10 @@ mutation DeleteLikesCount(
   $condition: ModelLikesCountConditionInput
 ) {
   deleteLikesCount(input: $input, condition: $condition) {
-    id
     photoId
     countIndex
     count
+    id
     createdAt
     updatedAt
     __typename

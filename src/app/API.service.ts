@@ -237,10 +237,10 @@ export type DeleteLikeInput = {
 };
 
 export type CreateLikesCountInput = {
-  id?: string | null;
   photoId: string;
-  countIndex: string;
+  countIndex?: string | null;
   count?: number | null;
+  id?: string | null;
 };
 
 export type ModelLikesCountConditionInput = {
@@ -254,19 +254,19 @@ export type ModelLikesCountConditionInput = {
 
 export type LikesCount = {
   __typename: "LikesCount";
-  id: string;
   photoId: string;
-  countIndex: string;
+  countIndex?: string | null;
   count?: number | null;
+  id: string;
   createdAt: string;
   updatedAt: string;
 };
 
 export type UpdateLikesCountInput = {
-  id: string;
   photoId?: string | null;
   countIndex?: string | null;
   count?: number | null;
+  id: string;
 };
 
 export type DeleteLikesCountInput = {
@@ -323,7 +323,6 @@ export type ModelLikeFilterInput = {
 };
 
 export type ModelLikesCountFilterInput = {
-  id?: ModelIDInput | null;
   photoId?: ModelStringInput | null;
   countIndex?: ModelStringInput | null;
   count?: ModelIntInput | null;
@@ -438,7 +437,6 @@ export type ModelSubscriptionLikeFilterInput = {
 };
 
 export type ModelSubscriptionLikesCountFilterInput = {
-  id?: ModelSubscriptionIDInput | null;
   photoId?: ModelSubscriptionStringInput | null;
   countIndex?: ModelSubscriptionStringInput | null;
   count?: ModelSubscriptionIntInput | null;
@@ -595,30 +593,30 @@ export type DeleteLikeMutation = {
 
 export type CreateLikesCountMutation = {
   __typename: "LikesCount";
-  id: string;
   photoId: string;
-  countIndex: string;
+  countIndex?: string | null;
   count?: number | null;
+  id: string;
   createdAt: string;
   updatedAt: string;
 };
 
 export type UpdateLikesCountMutation = {
   __typename: "LikesCount";
-  id: string;
   photoId: string;
-  countIndex: string;
+  countIndex?: string | null;
   count?: number | null;
+  id: string;
   createdAt: string;
   updatedAt: string;
 };
 
 export type DeleteLikesCountMutation = {
   __typename: "LikesCount";
-  id: string;
   photoId: string;
-  countIndex: string;
+  countIndex?: string | null;
   count?: number | null;
+  id: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -726,10 +724,10 @@ export type ListLikesQuery = {
 
 export type GetLikesCountQuery = {
   __typename: "LikesCount";
-  id: string;
   photoId: string;
-  countIndex: string;
+  countIndex?: string | null;
   count?: number | null;
+  id: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -738,10 +736,10 @@ export type ListLikesCountsQuery = {
   __typename: "ModelLikesCountConnection";
   items: Array<{
     __typename: "LikesCount";
-    id: string;
     photoId: string;
-    countIndex: string;
+    countIndex?: string | null;
     count?: number | null;
+    id: string;
     createdAt: string;
     updatedAt: string;
   } | null>;
@@ -790,10 +788,10 @@ export type PhotosByLikesQuery = {
   __typename: "ModelLikesCountConnection";
   items: Array<{
     __typename: "LikesCount";
-    id: string;
     photoId: string;
-    countIndex: string;
+    countIndex?: string | null;
     count?: number | null;
+    id: string;
     createdAt: string;
     updatedAt: string;
   } | null>;
@@ -949,30 +947,30 @@ export type OnDeleteLikeSubscription = {
 
 export type OnCreateLikesCountSubscription = {
   __typename: "LikesCount";
-  id: string;
   photoId: string;
-  countIndex: string;
+  countIndex?: string | null;
   count?: number | null;
+  id: string;
   createdAt: string;
   updatedAt: string;
 };
 
 export type OnUpdateLikesCountSubscription = {
   __typename: "LikesCount";
-  id: string;
   photoId: string;
-  countIndex: string;
+  countIndex?: string | null;
   count?: number | null;
+  id: string;
   createdAt: string;
   updatedAt: string;
 };
 
 export type OnDeleteLikesCountSubscription = {
   __typename: "LikesCount";
-  id: string;
   photoId: string;
-  countIndex: string;
+  countIndex?: string | null;
   count?: number | null;
+  id: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -1279,10 +1277,10 @@ export class APIService {
     const statement = `mutation CreateLikesCount($input: CreateLikesCountInput!, $condition: ModelLikesCountConditionInput) {
         createLikesCount(input: $input, condition: $condition) {
           __typename
-          id
           photoId
           countIndex
           count
+          id
           createdAt
           updatedAt
         }
@@ -1305,10 +1303,10 @@ export class APIService {
     const statement = `mutation UpdateLikesCount($input: UpdateLikesCountInput!, $condition: ModelLikesCountConditionInput) {
         updateLikesCount(input: $input, condition: $condition) {
           __typename
-          id
           photoId
           countIndex
           count
+          id
           createdAt
           updatedAt
         }
@@ -1331,10 +1329,10 @@ export class APIService {
     const statement = `mutation DeleteLikesCount($input: DeleteLikesCountInput!, $condition: ModelLikesCountConditionInput) {
         deleteLikesCount(input: $input, condition: $condition) {
           __typename
-          id
           photoId
           countIndex
           count
+          id
           createdAt
           updatedAt
         }
@@ -1548,10 +1546,10 @@ export class APIService {
     const statement = `query GetLikesCount($id: ID!) {
         getLikesCount(id: $id) {
           __typename
-          id
           photoId
           countIndex
           count
+          id
           createdAt
           updatedAt
         }
@@ -1574,10 +1572,10 @@ export class APIService {
           __typename
           items {
             __typename
-            id
             photoId
             countIndex
             count
+            id
             createdAt
             updatedAt
           }
@@ -1730,10 +1728,10 @@ export class APIService {
           __typename
           items {
             __typename
-            id
             photoId
             countIndex
             count
+            id
             createdAt
             updatedAt
           }
@@ -2071,10 +2069,10 @@ export class APIService {
     const statement = `subscription OnCreateLikesCount($filter: ModelSubscriptionLikesCountFilterInput) {
         onCreateLikesCount(filter: $filter) {
           __typename
-          id
           photoId
           countIndex
           count
+          id
           createdAt
           updatedAt
         }
@@ -2098,10 +2096,10 @@ export class APIService {
     const statement = `subscription OnUpdateLikesCount($filter: ModelSubscriptionLikesCountFilterInput) {
         onUpdateLikesCount(filter: $filter) {
           __typename
-          id
           photoId
           countIndex
           count
+          id
           createdAt
           updatedAt
         }
@@ -2125,10 +2123,10 @@ export class APIService {
     const statement = `subscription OnDeleteLikesCount($filter: ModelSubscriptionLikesCountFilterInput) {
         onDeleteLikesCount(filter: $filter) {
           __typename
-          id
           photoId
           countIndex
           count
+          id
           createdAt
           updatedAt
         }

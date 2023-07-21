@@ -169,10 +169,10 @@ subscription OnCreateLikesCount(
   $filter: ModelSubscriptionLikesCountFilterInput
 ) {
   onCreateLikesCount(filter: $filter) {
-    id
     photoId
     countIndex
     count
+    id
     createdAt
     updatedAt
     __typename
@@ -183,10 +183,10 @@ subscription OnUpdateLikesCount(
   $filter: ModelSubscriptionLikesCountFilterInput
 ) {
   onUpdateLikesCount(filter: $filter) {
-    id
     photoId
     countIndex
     count
+    id
     createdAt
     updatedAt
     __typename
@@ -197,10 +197,10 @@ subscription OnDeleteLikesCount(
   $filter: ModelSubscriptionLikesCountFilterInput
 ) {
   onDeleteLikesCount(filter: $filter) {
-    id
     photoId
     countIndex
     count
+    id
     createdAt
     updatedAt
     __typename

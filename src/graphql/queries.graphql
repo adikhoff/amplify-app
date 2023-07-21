@@ -127,10 +127,10 @@ query ListLikes(
 
 query GetLikesCount($id: ID!) {
   getLikesCount(id: $id) {
-    id
     photoId
     countIndex
     count
+    id
     createdAt
     updatedAt
     __typename
@@ -144,10 +144,10 @@ query ListLikesCounts(
 ) {
   listLikesCounts(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
-      id
       photoId
       countIndex
       count
+      id
       createdAt
       updatedAt
       __typename
@@ -242,10 +242,10 @@ query PhotosByLikes(
     nextToken: $nextToken
   ) {
     items {
-      id
       photoId
       countIndex
       count
+      id
       createdAt
       updatedAt
       __typename

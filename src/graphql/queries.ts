@@ -136,10 +136,10 @@ export const listLikes = /* GraphQL */ `
 export const getLikesCount = /* GraphQL */ `
   query GetLikesCount($id: ID!) {
     getLikesCount(id: $id) {
-      id
       photoId
       countIndex
       count
+      id
       createdAt
       updatedAt
       __typename
@@ -154,10 +154,10 @@ export const listLikesCounts = /* GraphQL */ `
   ) {
     listLikesCounts(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        id
         photoId
         countIndex
         count
+        id
         createdAt
         updatedAt
         __typename
@@ -255,10 +255,10 @@ export const photosByLikes = /* GraphQL */ `
       nextToken: $nextToken
     ) {
       items {
-        id
         photoId
         countIndex
         count
+        id
         createdAt
         updatedAt
         __typename
