@@ -12,7 +12,7 @@ export class PhotoService {
   private likeCreateSubscription: ZenObservable.Subscription | null = null;
   private likeDeleteSubscription: ZenObservable.Subscription | null = null;
 
-  private MAX_NEW_PHOTOS = 100;
+  private MAX_NEW_PHOTOS = 1000;
   private MAX_USER_PHOTOS = 1000;
   private MAX_PHOTOS_WITH_LIKES = 50;
   private MIN_PHOTOS_WITH_LIKES = 25;
@@ -118,6 +118,14 @@ export class PhotoService {
       }
     } while (highScores.length > this.MAX_PHOTOS_WITH_LIKES);
     this._likedCutoff = cutoff;
+
+    highScores = highScores.sort((a, b) => {
+      if (a.likes?.items.length && b.likes?.items.length) {
+        return a.likes?.items.length - b.likes?.items.length;
+      } else {
+        return 0;
+      }
+    });
 
     this._likedPhotos = [];
     this.processPhotos(highScores, this._likedPhotos);
