@@ -121,7 +121,7 @@ export class PhotoService {
 
     highScores = highScores.sort((a, b) => {
       if (a.likes?.items.length && b.likes?.items.length) {
-        return a.likes?.items.length - b.likes?.items.length;
+        return b.likes?.items.length - a.likes?.items.length;
       } else {
         return 0;
       }
