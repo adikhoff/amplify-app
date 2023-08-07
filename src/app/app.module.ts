@@ -21,9 +21,10 @@ import {LoggedInContainerComponent} from './logged-in-container/logged-in-contai
 import {PhotoService} from "./service/photo-service";
 import { LikedPhotosComponent } from './liked-photos/liked-photos.component';
 import { NewPhotosComponent } from './new-photos/new-photos.component';
+import { DownloadComponent } from './download/download.component';
 
 @NgModule({
-  declarations: [AppComponent, GalleryComponent, PhotoComponent, LikeCounterComponent, UploadComponent, AvatarComponent, NavigationComponent, ProfileComponent, LegalComponent, WaitingComponent, LoggedInContainerComponent, LikedPhotosComponent, NewPhotosComponent],
+  declarations: [AppComponent, GalleryComponent, PhotoComponent, LikeCounterComponent, UploadComponent, AvatarComponent, NavigationComponent, ProfileComponent, LegalComponent, WaitingComponent, LoggedInContainerComponent, LikedPhotosComponent, NewPhotosComponent, DownloadComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -4,6 +4,7 @@ import {ProfileComponent} from "./profile/profile.component";
 import {LegalComponent} from "./legal/legal.component";
 import {LikedPhotosComponent} from "./liked-photos/liked-photos.component";
 import {NewPhotosComponent} from "./new-photos/new-photos.component";
+import {DownloadComponent} from "./download/download.component";
 
 const routes: Routes = [
   {path: 'likes', component: LikedPhotosComponent},
@@ -11,6 +12,8 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent},
 
   {path: 'legal', component: LegalComponent},
+
+  {path: 'download', component: DownloadComponent},
 
   {path: '', pathMatch: "full", component: NewPhotosComponent},
 ];
