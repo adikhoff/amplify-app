@@ -16,8 +16,6 @@ dependencies {
     )
 }
 
-jar.baseName = 'latest_build'
-
 task buildZip(type: Zip) {
     from compileJava
     from processResources
