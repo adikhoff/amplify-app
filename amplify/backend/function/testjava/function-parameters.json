@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "storage": {
+      "photos": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ],
+      "Profile:@model(appsync)": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ],
+      "Photo:@model(appsync)": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}
